@@ -1,0 +1,23 @@
+吧业务放在action，把实例化的echarts对象传入action再传入reducer。否则每次都是重新渲染。
+ 
+
+ x轴两边距离，之前用双引号无效。。。 
+  boundaryGap: false
+
+搭建脚手架，加载font-awesome.min.css一直报错，就是因为很多依赖没装
+
+把路由和redux整合，弄了挺久，没有把子路由放入{this.props.children}.
+写canvas定位时，发现calc用不了变量，因为括号内都当做字符串，要用#{} 包起来。
+
+lineChart路由可以了，但切换到别的路由再切回来，报错，发现每次state都不变，willUnmount时清除了定时器也会。但是一开始路由在别的地方，切到lineChart，正常。
+
+
+增加调试功能，依赖:redux-devtools redux-devtools-log-monitor redux-devtools-dock-monitor
+分别在多了一个devTool.js文件，在store.js多了enhancer和更改createStore和general.js的render中插入此组件，后期要去掉。用devTool改store，中间件要转移到enhancer里面
+
+
+
+
+
+
+

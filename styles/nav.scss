@@ -1,0 +1,175 @@
+@import url(reset.scss);
+/*主导航字体大小*/
+$navFontSize:16px;
+/*侧边栏字体大小*/
+$sidebarNavFontSize:15px;
+/*侧边栏宽度*/
+$sidebarWidth:230px;
+
+
+body{
+	padding:0;
+	margin:0;
+	background-color:#eee;
+    // font-family: "Microsoft Yahei";
+	font-family: 微软雅黑, 黑体, "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+    // font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    // font-size: 14px;
+    height: 100%;
+    a{
+    	text-decoration: none;
+    }
+}
+#app{
+	height:100%;
+}
+nav{
+	height:60px;
+	width:100%;
+	background:linear-gradient(to bottom, #2c3742 0%,#28303a 100%);
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	z-index:100;
+	position:fixed;
+	.brand{
+		float: left;
+		padding-left: 17px;
+
+		display: inline-block;
+	}
+	a{
+		font-size: $navFontSize;
+		color:#cccccc;
+		line-height: 60px; 
+	    // font: 12px/1.62 "Microsoft Yahei";
+        font-family: "Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;
+		i{
+			margin-right: 3px;
+		}
+	}
+	
+}
+/*主导航开始*/
+.navMenu{
+	list-style: none;
+	padding-left:35px;
+	display: inline-block;
+	li{
+		float:left;
+		a{
+			padding: 0 30px;
+			display: block;
+			transition: .2s all;
+		}
+		.active{
+			color:#ffffff;
+			background-color:rgb(30,38,48);
+		}
+		.active:hover{
+			color:#ffffff;
+			background-color:rgb(30,38,48);
+		}
+		a:hover{
+			color:#ffffff;
+			background-color:rgb(40,48,58);
+		}
+	}
+}
+/*主导航结束*/
+
+/*侧边栏开始*/
+#sidebar_nav{
+	height:calc(100% - 60px);
+	// height:200px;
+	width:$sidebarWidth;
+	top:60px;
+	background-color:#333333;
+	position:fixed;
+	min-height:70%;
+	font-size:$sidebarNavFontSize;
+	overflow-x:hidden;
+	// overflow-y:scroll;
+	li{
+		// padding:10px;
+		box-shadow: 0 0px 1px rgba(0, 0, 0, 0.3);
+		// height: 60px;
+			/*方向图标*/
+		.fa-angle-double-right{
+			position: absolute;
+			// float: right;
+			right:-20px;
+			text-align: center;
+			line-height: 60px;
+			transition: .1s all;
+		}
+		a{
+			padding-left:20px;
+			line-height:60px;
+			color:#adadad;
+			display: block;
+			transition: .3s all;
+			i{
+				margin-right:5px;
+			}
+		}
+
+		a:hover{
+			background-color:#1b1717;
+			color:#fff;
+		}
+	}
+
+	//当前活动菜单项
+
+	.active{
+		background-color:#080808;
+		.fa-angle-double-right{
+			font-size: 16px;
+			right:60px;
+		}
+		&>a{
+			color:#fff;
+		}
+		&>a:hover{
+			background-color:#080808;
+		}
+	}
+	.sidebar_subNav{
+		display: none;
+	}
+
+	/*侧边栏二级菜单*/
+	.sidebar_subNav>li{
+		height:40px;
+		background-color: #333333;
+		a{
+			line-height: 40px;
+			text-indent: 15px;
+		}
+		&.active{
+			color:#fff;
+			background-color:#080808;
+		}
+	}
+
+}
+/*侧边栏结束*/
+
+/*container开始*/
+#container{
+	position:absolute;
+	width:calc(100% - #{$sidebarWidth});
+	top:60px;
+	left:$sidebarWidth;
+	height:calc(100% - 60px);
+	// height:600px;
+	//图表warpper
+	.chartWapper{
+		height: 100%;
+		width: 100%;
+	}
+}
+
+/*container结束*/
+
+
+
