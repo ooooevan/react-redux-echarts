@@ -17,9 +17,9 @@ class Nav extends React.Component {
 		return <nav className='nav'>
 		<div className='brand'><a href='#'><i className="fa fa-reddit-alien fa-x" aria-hidden="true"></i>Old Pie</a></div>
 		<ul className='navMenu'>
-			<li><Link to='/' className='active' draggable="false">概况</Link></li>
+			<li><Link to='/' draggable="false">概况</Link></li>
 			<li><Link to='/test' draggable="false">商家</Link></li>
-			<li><Link to='/statistics' draggable="false">统计分析</Link></li>
+			<li><Link to='/statistics' className='active' draggable="false">统计分析</Link></li>
 		</ul>
 		</nav>
 	}
@@ -44,7 +44,6 @@ class SidebarNav extends React.Component {
 				<li><Link href='javascript:' draggable="false"><i className='fa fa-bar-chart' aria-hidden="true"></i>商场排名<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
 				<li><Link href='javascript:' draggable="false"><i className='fa fa-adjust' aria-hidden="true"></i>新老顾客<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
 				<li><Link href='javascript:' draggable="false"><i className='fa fa-adjust' aria-hidden="true"></i>顾客活跃度<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-
 			</ul>
 		</div>
 	}
@@ -59,6 +58,7 @@ class General extends React.Component {
 		return <div style={{height:'100%',position:'relative'}}>
 		<Nav />
 		<SidebarNav />
+
 		<div id="container">{this.props.children}</div>
 		
 		</div>

@@ -1,14 +1,20 @@
 
 var dataX,dataY;
   var options={
+    "line":{
         title: { 
             text: 'xx商场客流量',
-            textAlign:'center',
-            left:'50%',
-            top:'5%',
-            textStyle:{
-                fontSize:'23'
-            }
+            show:false
+            // textAlign:'center',
+            // left:'50%',
+            // top:'5%',
+            // textStyle:{
+                // fontSize:'23'
+            // }
+        },
+        grid:{
+            left:'3%',
+            right:'5%'
         },
         // legend:{
         //     left:'10%'
@@ -31,25 +37,15 @@ var dataX,dataY;
             }
 
         },
-        // toolbox: {
-        //     left: 'center',
-        //     feature: {
-        //         dataZoom: {
-        //             yAxisIndex: 'none'
-        //         },
-        //         restore: {},
-        //         saveAsImage: {}
-        //     }
-        // },
         yAxis: {
             splitLine: {
                 show: false
             }
         },
         dataZoom: [{
-            startValue: '16:32:024'
+            // startValue: '16:32:024'
         }, {
-            type: 'inside'
+            type: 'inside'          //这个可以设置滚轮放大
         }
         ],
         series: {
@@ -79,7 +75,158 @@ var dataX,dataY;
                 }]
             }
         }
+        },
+
+
+    "pie":{
+    tooltip : {
+        formatter: "{a} <br/>{c} {b}"
+    },
+    // toolbox: {
+    //     show: true,
+    //     feature: {
+    //         restore: {show: true},
+    //         saveAsImage: {show: true}
+    //     }
+    // },
+    series : [
+        {
+            name: '拥挤度',
+            type: 'gauge',
+            z: 3,
+            min: 0,
+            max: 100,
+            // splitNumber: 11,
+            radius: '80%',
+            splitNumber:10,
+            center: ['50%', '50%'],
+            axisLine: {            // 坐标轴线
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    width: 10
+                }
+            },
+            axisTick: {            // 坐标轴小标记
+                length: 5,        // 属性length控制线长
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    color: 'auto'
+                }
+            },
+            splitLine: {           // 分隔线
+                length: 10,         // 属性length控制线长
+                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                    color: 'auto'
+                }
+            },
+            pointer: {
+                width:5
+            },
+            title : {
+                offsetCenter: [0, '100%'],
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontWeight: 'bolder',
+                    fontSize: 25,
+                    fontStyle: 'normal'
+                }
+            },
+            detail : {
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                }
+            },
+            data:[{value: 40, name: '拥挤度'}]
+        },
+        {
+            name: '活跃度',
+            type: 'gauge',
+            center: ['20%', '50%'],    // 默认全局居中
+            radius: '80%',
+            min:0,
+            max:100,
+            // endAngle:45,
+            // radius: '80%',
+            splitNumber:10,
+            axisLine: {            // 坐标轴线
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    width: 10
+                }
+            },
+            axisTick: {            // 坐标轴小标记
+                length:0,        // 属性length控制线长
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    color: 'auto'
+                }
+            },
+            splitLine: {           // 分隔线
+                length:10,         // 属性length控制线长
+                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                    color: 'auto'
+                }
+            },
+            pointer: {
+                width:5
+            },
+            title: {
+                offsetCenter: [0, '100%'],       // x, y，单位px
+                textStyle:{
+                    fontWeight: 'bolder',
+                    fontSize:30,
+                    fontWeight: 'bolder'
+
+                }
+            },
+            detail: {
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                }
+            },
+            data:[{value: 60, name: '活跃度'}]
+        },
+        {
+            name: 'xx度',
+            type: 'gauge',
+            center: ['83%', '50%'],    // 默认全局居中
+            radius: '80%',
+            min:0,
+            max:100,
+            // endAngle:45,
+            // radius: '80%',
+            splitNumber:10,
+            axisLine: {            // 坐标轴线
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    width: 10
+                }
+            },
+            axisTick: {            // 坐标轴小标记
+                length:0,        // 属性length控制线长
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    color: 'auto'
+                }
+            },
+            splitLine: {           // 分隔线
+                length:10,         // 属性length控制线长
+                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                    color: 'auto'
+                }
+            },
+            pointer: {
+                width:5
+            },
+            title: {
+                offsetCenter: [0, '100%'],       // x, y，单位px
+                textStyle:{
+                    fontSize:30,
+                    fontWeight: 'bolder'
+
+                }
+            },
+            detail: {
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontWeight: 'bolder',
+                }
+            },
+            data:[{value: 90, name: 'xx度'}]
         }
+    ]
+}
+  }
 
 
 export default options;

@@ -18,15 +18,6 @@ class Test extends React.Component {
 	}
 }
 
-// <Provider store={store} > 
-// 	<Router history={hashHistory}>
-// 			<Route path='/' component={General} >
-// 				<Route path='line' component={Line} />
-
-// 			</Route>
-// 		</Router>
-// 		</Provider>
-
 
 ReactDOM.render(
 	<Provider store={store} > 

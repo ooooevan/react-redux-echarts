@@ -1,5 +1,5 @@
 const actions={
-    init(myChart,param){
+    init(param){
 
         /*
         *   param是时间段参数，用于获取不同范围数据.可以是hour、day、week、month
@@ -10,8 +10,7 @@ const actions={
                     // myChart.showLoading()   //显示遮罩
                     dispatch({
                         type:'init',
-                        payload:data,
-                        chart:myChart
+                        payload:data
                     })
                 })
             })

@@ -15,6 +15,8 @@ lineChart路由可以了，但切换到别的路由再切回来，报错，发�
 增加调试功能，依赖:redux-devtools redux-devtools-log-monitor redux-devtools-dock-monitor
 分别在多了一个devTool.js文件，在store.js多了enhancer和更改createStore和general.js的render中插入此组件，后期要去掉。用devTool改store，中间件要转移到enhancer里面
 
+更改：之前是echarts对象从class传到action再传到reducer，调用charts.setOption(option)不符合纯函数的理念，有副作用。正确的是，先在class里面一步请求，回来后再触发。之前是因为不知道reducer会不会触发componentWillReceiveProps、componentDidUpdate这些更新，所以写到reducer。
+过程中也发现，option传入方式要改，不然option的属性值和props其他属性值混合一起了。
 
 
 

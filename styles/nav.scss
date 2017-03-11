@@ -12,7 +12,7 @@ body{
 	margin:0;
 	background-color:#eee;
     // font-family: "Microsoft Yahei";
-	font-family: 微软雅黑, 黑体, "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+	font-family: 'Microsoft Yahei', 微软雅黑, "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
     // font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
     // font-size: 14px;
     height: 100%;
@@ -164,14 +164,42 @@ nav{
 	// height:600px;
 	//图表warpper
 	.chartWapper{
-		height: 100%;
-		width: 100%;
+		// height: 100%;
+		// width: 100%;
 		position:relative;
+		// border:7px solid red;
+		margin:30px;
+		/*
+		包装chartCanvas的panel，看情况可放到common中
+		*/
+		.panel{
+			background-color:#fff;
+			height:100%;
+			width:100%;
+			border:1px solid #5eaacc;
+			border-radius:1px;
+			margin-bottom: 20px;
+			.panelHead{
+				height:35px;
+				font-size: 17px;
+				text-align: center;
+				line-height: 35px;
+				background-color:#5eaacc;
+
+			}
+			.panelBody{
+				height:450px;
+			}
+		}
+
+
 
 	}
 }
-	/*toolBar,看情况可放到一个common的文件中
 
+
+	/*
+	* 时间参数条,看情况可放到一个common的文件中
 	*/
 .adjustingBar{
 	position:absolute;
@@ -180,6 +208,11 @@ nav{
 	// background-color:grey;
 	right:30px;
 	top:40px;
+	font-size: 13px;
+	line-height: 32px;
+	.active{
+		color:#5eaacc;
+	}
 	span{
 		float:left;
 	}
@@ -187,8 +220,21 @@ nav{
 		float: left;
 		height:30px;
 		width:30px;
+		border:1px solid #eee;
+		border-radius:50%;
+		text-align: center;
+		margin-right:5px;
+		cursor: pointer;
+	}
+	/*
+	* 图标旁边的文字样式
+	*/
+	.chartMessage{
+		text-indent: 6em;
+		font-size: 13px;
 	}
 }
+
 
 
 /*container结束*/

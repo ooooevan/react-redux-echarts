@@ -14,120 +14,75 @@ import lineReducer from '../reducers/lineReducer';
 // require('echarts/lib/chart/pie'); //图表类型
 // require('echarts/lib/component/title'); //标题插件
 
-// var dataX,dataY;
-//   var options={
-//         title: { 
-//             text: 'xx商场客流量',
-//             textAlign:'center',
-//             left:'50%',
-//             top:'5%',
-//             textStyle:{
-//                 fontSize:'23'
-//             }
-//         },
-//         // legend:{
-//         //     left:'10%'
-//         // },
-//         // gird:{
-//         //     right:'10%',
-//         //     padding:'0'
-//         // },
-//         tooltip: {
-//             trigger: 'axis'
-//         },
-//         xAxis: {
-//             data: dataX,
-//             type: 'category',
-//             name:'时间',
-//             boundaryGap: false,
-//             onZero:'true',
-//             axisTick:{
-//                 alignWithLabel:'true'
-//             }
 
-//         },
-//         // toolbox: {
-//         //     left: 'center',
-//         //     feature: {
-//         //         dataZoom: {
-//         //             yAxisIndex: 'none'
-//         //         },
-//         //         restore: {},
-//         //         saveAsImage: {}
-//         //     }
-//         // },
-//         yAxis: {
-//             splitLine: {
-//                 show: false
-//             }
-//         },
-//         dataZoom: [{
-//             startValue: '16:32:024'
-//         }, {
-//             type: 'inside'
-//         }
-//         ],
-//         series: {
-//             name: '人流量',
-//             type: 'line',
-//             data: dataY,
-//             smooth:true,
-//             color:['rgba(150,187,223,1)'],
-//             // backgroundColor:'rgb(228, 228, 228)',
-//             // backgroundColor: new echarts.graphic.RadialGradient(0.5, 0.5, 0.5,false),
-//             // symbol: 'none',
-//             // stack: 'a',
-//             areaStyle: {
-//                 normal: {}
-//             },
-//             markLine: {
-//                 silent: true,
-//                 data: [{
-//                     yAxis: 100
-//                 }, {
-//                     yAxis: 200
-//                 }, {
-//                     yAxis: 300
-//                 }, {
-//                     yAxis: 400
-//                 }]
-//             }
-//         }
-//         }
 
 // const store=redux.createStore(lineReducer,options,redux.applyMiddleware(thunk));
 
 let _Chart = React.createClass({
     getInitialState(){
         return{
-            myChart:"",
-            timer:"",
-            param:'hour'
+            myChartLine:"",       //chart实例对象line
+            myChartPie:"",       //chart实例对象pie
+            timer:"",           //定时器
+            param:'hour',       //不同时间阀值参数
+            optionLine:'',          //得到的chart实例的option参数
+            chartNum:'',     //显示当前人数
+            chartTime:'',     //显示当前时间
+            chartTitle:''    //显示当前标题
         }
     },
     componentWillMount(){
+        console.log('componentWillMount')
+
     },
     componentDidMount(){
-        const data =this.props;
-        console.log(data);
-        var dom = ReactDOM.findDOMNode(this.refs.chart);
-        this.state.myChart = echarts.init(dom);
-        this.props.init(this.state.myChart,this.state.param);
-        this.state.timer = setInterval(this.start,2000);
+        console.log('componentDidMount')
+        this.props.init(this.state.param);
+        let domLine = ReactDOM.findDOMNode(this.refs.chartLine);
+        let domPie = ReactDOM.findDOMNode(this.refs.chartPie);
+        // this.state.myChart = echarts.init(dom);
+        // this.props.init(this.state.myChart,this.state.param);
+        // this.state.timer = setInterval(this.start,2000);
+        this.state.myChartLine = echarts.init(domLine);
+        this.state.myChartPie = echarts.init(domPie);
+
+        // console.log(this.state.myChart)
+
 
     },
     componentWillUnmount(){
-        clearInterval(this.state.timer);
+        console.log('componentWillUnmount')
+        this.state.myChartLine.dispose()   //销毁实例
+        this.state.myChartPie.dispose()   //销毁实例
+        // clearInterval(this.state.timer);
     },
     componentDidUpdate(){
+        // debugger;
+        console.log('componentDidUpdate')
+        // console.log(this.props)
+
+
     },
     componentWillReceiveProps(){
+        console.log('componentWillReceiveProps')
+        // let Props =this.props;
+        // let option=Props.data;
+        // console.log(this.props)
+        this.state.optionLine=this.props.line;
+        this.state.optionPie=this.props.pie;
+        // console.log(this.state.option)
+        console.log(this.props.pie);
+        this.state.myChartLine.setOption(this.state.optionLine);
+        this.state.myChartPie.setOption(this.state.optionPie);
+        this.state.chartNum = this.state.optionLine.series.data[this.state.optionLine.series.data.length - 1];
+        this.state.chartTime = this.state.optionLine.xAxis.data[this.state.optionLine.xAxis.data.length - 1];
+        this.state.chartTitle = this.state.optionLine.title.text;
+
     },
-    start(){
-        this.props.change(this.state.myChart)
-    },
+    // start(){
+    //     this.props.change(this.state.myChart)
+    // },
     adjusting(e){
-        console.log(this.props.series.data)
         //点击当前项返回
         if(e.target.className == 'active'){
             return;
@@ -135,37 +90,48 @@ let _Chart = React.createClass({
         switch(e.target.innerText){
             case "时":
                 this.state.param='hour';
-                this.props.init(this.state.myChart,this.state.param);
+                this.props.init(this.state.param);
                 break;
             case "日":
                 this.state.param='day';
-                this.props.init(this.state.myChart,this.state.param);
+                this.props.init(this.state.param);
                 break;
             case "周":
                 this.state.param='week';
-                this.props.init(this.state.myChart,this.state.param);
+                this.props.init(this.state.param);
                 break;
             case "月":
                 this.state.param='month';
-                this.props.init(this.state.myChart,this.state.param);
+                this.props.init(this.state.param);
                 break;
         
         }
     },
     
     render(){
+        // let msg=this.state.option.series.data;
+        // let length=this.state.option.series.data.length;
         return <div className='chartWapper'>
-            <div ref="chart" style={{height:"100%",width:"100%"}}></div>
+            <div className='panel'>
+                <div className='panelHead'>{this.state.chartTitle}</div>
+                <div className='panelBody'>
+                    <div ref="chartLine" style={{height:"100%",width:"100%"}}></div>
+                </div>
+            </div>
             <ul ref="adjustingBar" className="adjustingBar">
                 <span>时间参数&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <li ref="adjustingBar1" className='active' onClick={this.adjusting}>时</li>
-                <li ref="adjustingBar2" onClick={this.adjusting}>日</li>
-                <li ref="adjustingBar3" onClick={this.adjusting}>周</li>
-                <li ref="adjustingBar4" onClick={this.adjusting}>月</li>
+                <li className={this.state.param=='hour'?'active':''} onClick={this.adjusting}>时</li>
+                <li className={this.state.param=='day'?'active':''} onClick={this.adjusting}>日</li>
+                <li className={this.state.param=='week'?'active':''} onClick={this.adjusting}>周</li>
+                <li className={this.state.param=='month'?'active':''} onClick={this.adjusting}>月</li>
                 <div className='chartMessage'>
+                    <p>最近人数：{this.state.chartNum}</p>
+                    <p>最近时间：{this.state.chartTime}</p>
                 </div>
             </ul>
-
+            <div className="panel">
+                <div ref="chartPie" style={{height:"300%",width:"100%"}}></div>
+            </div>
         </div>
     }
 
