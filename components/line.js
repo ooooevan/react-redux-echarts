@@ -101,29 +101,71 @@ let _Chart = React.createClass({
     getInitialState(){
         return{
             myChart:"",
-            timer:""
+            timer:"",
+            param:'hour'
         }
     },
     componentWillMount(){
     },
     componentDidMount(){
-        var dom = ReactDOM.findDOMNode(this.refs.mm);
+        const data =this.props;
+        console.log(data);
+        var dom = ReactDOM.findDOMNode(this.refs.chart);
         this.state.myChart = echarts.init(dom);
-        this.props.init(this.state.myChart);
-        this.state.timer = setInterval(this.start,3000)
+        this.props.init(this.state.myChart,this.state.param);
+        this.state.timer = setInterval(this.start,2000);
 
     },
     componentWillUnmount(){
         clearInterval(this.state.timer);
     },
+    componentDidUpdate(){
+    },
+    componentWillReceiveProps(){
+    },
     start(){
         this.props.change(this.state.myChart)
     },
-    componentDidUpdate(){
+    adjusting(e){
+        console.log(this.props.series.data)
+        //点击当前项返回
+        if(e.target.className == 'active'){
+            return;
+        }
+        switch(e.target.innerText){
+            case "时":
+                this.state.param='hour';
+                this.props.init(this.state.myChart,this.state.param);
+                break;
+            case "日":
+                this.state.param='day';
+                this.props.init(this.state.myChart,this.state.param);
+                break;
+            case "周":
+                this.state.param='week';
+                this.props.init(this.state.myChart,this.state.param);
+                break;
+            case "月":
+                this.state.param='month';
+                this.props.init(this.state.myChart,this.state.param);
+                break;
+        
+        }
     },
+    
     render(){
         return <div className='chartWapper'>
-            <div ref="mm" style={{height:"100%",width:"100%"}}></div>
+            <div ref="chart" style={{height:"100%",width:"100%"}}></div>
+            <ul ref="adjustingBar" className="adjustingBar">
+                <span>时间参数&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <li ref="adjustingBar1" className='active' onClick={this.adjusting}>时</li>
+                <li ref="adjustingBar2" onClick={this.adjusting}>日</li>
+                <li ref="adjustingBar3" onClick={this.adjusting}>周</li>
+                <li ref="adjustingBar4" onClick={this.adjusting}>月</li>
+                <div className='chartMessage'>
+                </div>
+            </ul>
+
         </div>
     }
 

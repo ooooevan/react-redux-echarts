@@ -166,8 +166,30 @@ nav{
 	.chartWapper{
 		height: 100%;
 		width: 100%;
+		position:relative;
+
 	}
 }
+	/*toolBar,看情况可放到一个common的文件中
+
+	*/
+.adjustingBar{
+	position:absolute;
+	// height: 32px;
+	// width:190px;
+	// background-color:grey;
+	right:30px;
+	top:40px;
+	span{
+		float:left;
+	}
+	li{
+		float: left;
+		height:30px;
+		width:30px;
+	}
+}
+
 
 /*container结束*/
 

@@ -16,7 +16,7 @@ const actions={
                 })
             })
         }
-    },
+    }/*,
     change(myChart){
         return function(dispatch){
             fetch('http://localhost:3000/hour/change').then(data=>{
@@ -29,7 +29,7 @@ const actions={
                 })
             })
         }
-    }
+    }*/
 }
 
 

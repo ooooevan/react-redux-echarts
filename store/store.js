@@ -8,8 +8,15 @@ import thunk from 'redux-thunk';
 
 import DevTool from '../components/devTool';
 
+const logger = store=>nextDispatch=>action=>{
+    // console.log('start..',action.type);
+    let result = nextDispatch(action);
+    // console.log('end..',action.type);
+    return result;
+};
+
 const enhancer = compose(
-	applyMiddleware(thunk),
+	applyMiddleware(logger,thunk),
   	DevTool.instrument()
 );
  const store=createStore(lineReducer,lineOption,enhancer);

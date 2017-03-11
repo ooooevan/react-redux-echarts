@@ -35,12 +35,12 @@ class SidebarNav extends React.Component {
 			<ul>
 				<li ><Link to='/line ' activeClassName="active" draggable="false"><i className='fa fa-area-chart' aria-hidden="true"></i>当前客流 <i className='fa fa-angle-double-right' aria-hidden='true'></i></Link>
 					<ul className='sidebar_subNav'>
-						<li><Link to='/a' className='subNav_li' draggable="false">次级菜单1</Link></li>
-						<li><Link to='/b' className='subNav_li' draggable="false">次级菜单2</Link></li>
-						<li><Link to='/c' className='subNav_li' draggable="false">次级菜单3</Link></li>
+						<li><Link to='/a' className='subNav_li' draggable="false">一层客流量</Link></li>
+						<li><Link to='/b' className='subNav_li' draggable="false">二层客流量</Link></li>
+						<li><Link to='/c' className='subNav_li' draggable="false">三层客流量</Link></li>
 					</ul>
 				</li>
-				<li><Link href='javascript:' draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>流量预警<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
+				<li><Link href='javascript:' draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>客量预警<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
 				<li><Link href='javascript:' draggable="false"><i className='fa fa-bar-chart' aria-hidden="true"></i>商场排名<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
 				<li><Link href='javascript:' draggable="false"><i className='fa fa-adjust' aria-hidden="true"></i>新老顾客<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
 				<li><Link href='javascript:' draggable="false"><i className='fa fa-adjust' aria-hidden="true"></i>顾客活跃度<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>

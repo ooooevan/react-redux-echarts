@@ -2,16 +2,16 @@
 export default function reducer(state,action){
     if(typeof state === 'undefined') return {list:[],name:'evan'};
     switch(action.type){
-        case 'add':
-            let list=state.list.concat(action.payload);   //title不是value了
-            // console.log(list);
-            return Object.assign({},state,{list});
-        case 'logined':
-            if(action.error){
-                return Object.assign({},state,{loginError:action.payload ,logined:false});
-            }else{
-                return Object.assign({},state,{loginError:null ,logined:true});
-            }
+        // case 'add':
+        //     let list=state.list.concat(action.payload);   //title不是value了
+        //     // console.log(list);
+        //     return Object.assign({},state,{list});
+        // case 'logined':
+        //     if(action.error){
+        //         return Object.assign({},state,{loginError:action.payload ,logined:false});
+        //     }else{
+        //         return Object.assign({},state,{loginError:null ,logined:true});
+        //     }
         case 'init':
             const time=new Array();
             const value=new Array();
@@ -35,8 +35,8 @@ export default function reducer(state,action){
             // console.log(aa);
 
             return aa;
-        case 'logout':
-            return Object.assign({},state,{loginError:null ,logined:false});
+        // case 'logout':
+        //     return Object.assign({},state,{loginError:null ,logined:false});
         case 'change':
             // var aa = Object.assign({},state,{});
             // var aa = state;
@@ -58,7 +58,6 @@ export default function reducer(state,action){
 
             action.chart.setOption(aa);
             // console.log(action)
-
             return aa;
         default:return state;
     }
