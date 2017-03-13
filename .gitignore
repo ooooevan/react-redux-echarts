@@ -36,3 +36,6 @@ dist/
 
 # IDE/Editor data
 .idea/
+
+#build file
+build.js

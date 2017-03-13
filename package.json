@@ -7,13 +7,14 @@
     "build": "browserify ./app.js -o build.js -t [ babelify --presets [ es2015 react ] ]",
     "dev": "webpack-dev-server ",
     "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",
-    "test": "mocha --compilers js:babel-core/register --require ./test/setup.js",
+    "test": " mocha --compilers js:babel-core/register ",
     "deploy1": "set NODE_ENV=production && webpack -p --config webpack.production.config.js",
-    "eslint":"eslint actions/"
+    "eslint": "eslint actions/"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "echarts": "^3.4.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -21,9 +22,11 @@
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.4.0",
-    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "babelify": "^7.3.0",
     "browserify": "^14.1.0",
