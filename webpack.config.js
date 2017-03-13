@@ -1,6 +1,7 @@
 /**
  * Created by HH on 2017/3/3.
  */
+ var debug=process.env.NODE_ENV !=="production";
 var path = require('path');
 var webpack = require('webpack');
 module.exports = {
@@ -34,31 +35,31 @@ module.exports = {
     //        'window.jQuery': 'jquery'
     //    })],
 
-    // plugins:[
+    plugins: debug ? [] : [
 
-    //   new webpack.optimize.CommonsChunkPlugin({
-    //     name:['react'],
-    //     minChunks:Infinity
-    //   }),
-    //   new webpack.optimize.UglifyJsPlugin({
-    //     output:{
-    //       comments:false,        //去掉所以注释
-    //     },
-    //     compress:{
-    //       warnings:false
-    //     }
-    //   }),
-    //   new webpack.DefinePlugin({
-    //     'process.env': {
-    //         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-    //     },
-    //   }),
+      new webpack.optimize.CommonsChunkPlugin({
+        name:['react'],
+        minChunks:Infinity
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        output:{
+          comments:false,        //去掉所以注释
+        },
+        compress:{
+          warnings:false
+        }
+      }),
+      // new webpack.DefinePlugin({
+      //   'process.env': {
+      //       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      //   },
+      // }),
+    ],
       
 
 
 
 
-    // ],
 
     module: {
         loaders: [{
