@@ -5,12 +5,15 @@ var path = require('path');
 var webpack = require('webpack');
 module.exports = {
     entry: {
-        app: './components/app.js'
+        app: './src/components/app.js'
+        // react:['react']
+
     },
     output: {
         path: path.join(__dirname, 'dist'),
         publicPath: '/dev/',
         filename: 'dev.js'
+        // filename: '[name].bundle.js'
     },
     //plugins: [
     //    //new webpack.HotModuleReplacementPlugin()
@@ -30,13 +33,41 @@ module.exports = {
     //        jQuery: 'jquery',
     //        'window.jQuery': 'jquery'
     //    })],
+
+    // plugins:[
+
+    //   new webpack.optimize.CommonsChunkPlugin({
+    //     name:['react'],
+    //     minChunks:Infinity
+    //   }),
+    //   new webpack.optimize.UglifyJsPlugin({
+    //     output:{
+    //       comments:false,        //去掉所以注释
+    //     },
+    //     compress:{
+    //       warnings:false
+    //     }
+    //   }),
+    //   new webpack.DefinePlugin({
+    //     'process.env': {
+    //         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+    //     },
+    //   }),
+      
+
+
+
+
+    // ],
+
     module: {
         loaders: [{
             test: /\.css$/,
             loaders: ['style-loader', 'css-loader']
         }, {
-            test: /\.jsx?$/,
+            test: /\.(js|jsx)$/,
             loader: 'babel-loader',
+            // loader: ['babel-loader','eslint-loader'],
             exclude: /node_modules/,
             query: {
                 presets: ['es2015', 'react']
