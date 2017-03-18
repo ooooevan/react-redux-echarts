@@ -1,5 +1,5 @@
 const actions = {
-  init(param) {
+  firstPageChartInit(param) {
 
     /*
      *   param是时间段参数，用于获取不同范围数据.可以是hour、day、week、month
@@ -9,7 +9,7 @@ const actions = {
         data.json().then(data => {
           // myChart.showLoading()   //显示遮罩
           dispatch({
-            type: 'init',
+            type: 'firstPageChartInit',
             payload: data
           });
         });

@@ -38,7 +38,7 @@ module.exports = {
     plugins: debug ? [] : [
 
       new webpack.optimize.CommonsChunkPlugin({
-        name:['react'],
+        names:['react','react-dom'],
         minChunks:Infinity
       }),
       new webpack.optimize.UglifyJsPlugin({

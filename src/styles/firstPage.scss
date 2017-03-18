@@ -1,0 +1,449 @@
+@import url(reset.scss);
+/*主导航字体大小*/
+$navFontSize: 16px;
+/*侧边栏字体大小*/
+$sidebarNavFontSize: 15px;
+/*侧边栏宽度*/
+$sidebarWidth: 230px;
+/*侧边栏li>a高度*/
+$sidebarHeight:60px;
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #eee;
+  // font-family: "Microsoft Yahei";
+  font-family: 'Microsoft Yahei', 微软雅黑, "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+  // font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  // font-size: 14px;
+  height: 100%;
+  a {
+    text-decoration: none;
+  }
+}
+///*滚动条样式*/
+//::-webkit-scrollbar {
+//  width: 10px;
+//}
+///* 滚动槽 */
+//::-webkit-scrollbar-track {
+//  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+//  border-radius: 10px;}
+///* 滚动条滑块 */
+//::-webkit-scrollbar-thumb {
+//  border-radius: 5px;
+//  background: rgba(182,208,208,0.6);
+//  box-shadow: inset 0 0 6px rgba(0,0,0,1);
+//}
+////::-webkit-scrollbar-thumb:window-inactive {
+////  background: rgba(255,0,0,0.4);
+////}
+///*滚动条样式*/
+
+#app {
+  height: 100%;
+}
+
+nav {
+  height: 60px;
+  width: 100%;
+  background: linear-gradient(to bottom, #2c3742 0%, #28303a 100%);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  position: fixed;
+  .brand {
+    float: left;
+    padding-left: 17px;
+
+    display: inline-block;
+  }
+  a {
+    font-size: $navFontSize;
+    color: #cccccc;
+    line-height: 60px;
+    // font: 12px/1.62 "Microsoft Yahei";
+    font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    i {
+      margin-right: 3px;
+    }
+  }
+
+}
+
+/*主导航开始*/
+.navMenu {
+  list-style: none;
+  padding-left: 35px;
+  display: inline-block;
+  zoom: 1;
+  &:after {
+    content: '';
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+  }
+  li {
+    float: left;
+    a {
+      padding: 0 30px;
+      display: block;
+      transition: .2s all;
+    }
+    .active {
+      color: #ffffff;
+      background-color: rgb(30, 38, 48);
+    }
+    .active:hover {
+      color: #ffffff;
+      background-color: rgb(30, 38, 48);
+    }
+    a:hover {
+      color: #ffffff;
+      background-color: rgb(40, 48, 58);
+    }
+  }
+}
+
+/*右上角登录*/
+.loginWrapper {
+  display: inline;
+  float: right;
+}
+
+.loginBtn {
+  display: inline-block;
+  float: right;
+  li {
+    float: left;
+    a {
+      display: inline-block;
+      padding: 0 20px;
+      transition: .2s all;
+    }
+    a:hover {
+      color: #fff;
+      background-color: #1e2630;
+    }
+  }
+}
+/*主导航结束*/
+
+
+
+
+
+/*container开始*/
+
+/*侧边栏开始*/
+#sidebar_nav {
+  height: calc(100% - 60px);
+  // height:200px;
+  width: $sidebarWidth;
+  top: 60px;
+  background-color: #333333;
+  position: fixed;
+  min-height: 70%;
+  font-size: $sidebarNavFontSize;
+  overflow-x: hidden;
+
+  ///*滚动条样式*/
+  //&::-webkit-scrollbar {
+  //  width: 10px;
+  //}
+  ///* 滚动槽 */
+  //&::-webkit-scrollbar-track {
+  //  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  //  border-radius: 10px;}
+  ///* 滚动条滑块 */
+  //&::-webkit-scrollbar-thumb {
+  //  border-radius: 10px;
+  //  background: rgba(182,208,208,0.6);
+  //  box-shadow: inset 0 0 6px rgba(182,208,233,1);
+  //}
+  ////::-webkit-scrollbar-thumb:window-inactive {
+  ////  background: rgba(255,0,0,0.4);
+  ////}
+  ///*滚动条样式*/
+  
+  #app {
+    height: 100%;
+  }
+
+   //overflow-y:hidden;
+  li {
+    // padding:10px;
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.3);
+    position:relative;
+    // height: 60px;
+    /*方向图标*/
+    .fa-angle-double-right {
+      position: absolute;
+      // float: right;
+      right: -20px;
+      text-align: center;
+      line-height: $sidebarHeight;
+      transition: .1s all;
+    }
+    a {
+      padding-left: 20px;
+      line-height: $sidebarHeight;
+      color: #adadad;
+      display: block;
+      transition: .3s all;
+      i {
+        margin-right: 5px;
+        top:0;
+      }
+    }
+
+    a:hover {
+      background-color: #1b1717;
+      color: #fff;
+    }
+    //当前活动菜单项
+
+    .active {
+      background-color: #080808;
+      color:#fff;
+      &:hover{
+        background-color: #080808;
+        
+      }
+      .fa-angle-double-right {
+        font-size: 16px;
+        right: 60px;
+      }
+      & > a {
+        color: #fff;
+
+      }
+    }
+  }
+  /*商家搜索框样式*/
+  input{
+    height:$sidebarHeight - 30px;
+    width:180px;
+    font-size: $sidebarNavFontSize;
+    //font-style: italic;
+    margin-left: 1em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #eee;
+    text-indent: 6px;
+    border-radius: 30px;
+  }
+
+  input:focus{
+    outline: none;
+  }
+  ul>li input+i{
+    color: #313131;
+    position: absolute;
+    line-height: $sidebarHeight + 6px;
+    font-size: 17px;
+    left:170px;
+  }
+
+
+  .sidebar_subNav {
+    display: none;
+  }
+
+  /*侧边栏二级菜单*/
+  .sidebar_subNav > li {
+    height: 40px;
+    background-color: #333333;
+    a {
+      line-height: 40px;
+      text-indent: 15px;
+    }
+    &.active {
+      color: #fff;
+      background-color: #080808;
+    }
+  }
+
+}
+
+/*侧边栏结束*/
+
+#container {
+  position: absolute;
+  width:100%;
+  top: 60px;
+  //left:$sidebarWidth;
+  height: calc(100% - 60px);
+  // height:600px;
+  //图表warpper
+  .chartWrapper {
+    // height: 100%;
+    // width: 100%;
+    width: calc(100% - #{$sidebarWidth});
+    position: relative;
+    left: 230px;
+    //top:25px;
+    // border:7px solid red;
+    //padding: 30px;
+    /*
+    包装chartCanvas的panel，看情况可放到common中
+    */
+    .panel {
+      background-color: #fff;
+      height: 100%;
+      //width: 100%;
+      margin:20px 25px;
+      border: 1px solid #eee;
+      border-radius: 1px;
+      box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+      zoom: 1;
+      &:after {
+        content: '';
+        display: block;
+        height: 0;
+        visibility: hidden;
+        clear: both;
+
+      }
+      .panelHead {
+        height: 55px;
+        font-size: 19px;
+        text-align: left;
+        text-indent: 1em;
+        line-height: 55px;
+        font-weight: 500;
+        //background-color:#5eaacc;
+        border-bottom: 1px solid #e9e9e9;
+
+      }
+      .panelBody {
+        min-height: 300px;
+      }
+      .chartLine{
+        min-height: 400px;
+      }
+      .chartPie{
+        height:300px;
+      }
+    }
+
+  }
+}
+
+/*
+* 时间参数条,看情况可放到一个common的文件中
+*/
+.adjustingBar {
+  //position: absolute;
+  // height: 32px;
+  // width:190px;
+  // background-color:grey;
+  //display: block;
+  margin: 15px 25px;
+  float:right;
+  //right: 20px;
+  top: -35px;
+  font-size: 13px;
+  line-height: 32px;
+
+  .active {
+    color: #5eaacc;
+    font-weight: 500;
+    box-shadow: 0 0 3px #5eaacc;
+  }
+  span {
+    float: left;
+  }
+  li {
+    float: left;
+    height: 30px;
+    width: 30px;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    text-align: center;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: all .3s;
+  }
+}
+/*顶部文字开始*/
+.chartMessage {
+  //margin-top: 95px;
+  //text-indent: 6em;
+  margin: 15px 25px;
+  // float: left;
+  //position: absolute;
+  //right:80px;
+  //top:95px;
+  font-size: 13px;
+  line-height: 32px;
+  display: flex;
+  p{
+    flex:1;
+  }
+}
+/*顶部文字结束*/
+
+/*商家模块开始*/
+
+.allSellersLineChart{
+  height: 400px;
+}
+
+.allSellersTable{
+  margin:30px auto;
+  border:0;
+  border-collapse:collapse;
+  width: 100%;
+  text-align: center;
+  thead>tr>th,tbody tr th,tbody tr td{
+    border-bottom:1px solid #d8d8d8;
+    text-align: center;
+    font-size: 15px;
+    height: 47px;
+  }
+  thead>tr{
+    background-color:#636363;
+    color:#fff;
+  }
+  tbody tr:nth-child(even){
+    background:#efefef;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/*商家模块结束*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*container结束*/
+
+
+

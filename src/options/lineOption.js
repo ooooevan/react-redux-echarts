@@ -1,9 +1,13 @@
-
-var dataX,dataY;
-  var options={
+/*
+* 调节y坐标虚线: 在line->series->markLine->data->yAxis
+* 调节标题：line->title->text
+*
+* */
+let dataX,dataY;
+  let options={
     "line":{
         title: { 
-            text: 'xx商场客流量',
+            text: '万达商场客流量',
             show:false
             // textAlign:'center',
             // left:'50%',
@@ -38,6 +42,8 @@ var dataX,dataY;
 
         },
         yAxis: {
+            type: 'value',
+            name: '客流量',
             splitLine: {
                 show: false
             }
@@ -45,11 +51,11 @@ var dataX,dataY;
         dataZoom: [{
             // startValue: '16:32:024'
         }, {
-            type: 'inside'          //这个可以设置滚轮放大
+            //type: 'inside'          //这个可以设置滚轮放大
         }
         ],
         series: {
-            name: '人流量',
+            name: '客流量',
             type: 'line',
             data: dataY,
             smooth:true,
@@ -97,7 +103,7 @@ var dataX,dataY;
             min: 0,
             max: 100,
             // splitNumber: 11,
-            radius: '80%',
+            radius: '60%',
             splitNumber:10,
             center: ['50%', '50%'],
             axisLine: {            // 坐标轴线
@@ -142,7 +148,7 @@ var dataX,dataY;
             min:0,
             max:100,
             // endAngle:45,
-            // radius: '80%',
+             radius: '60%',
             splitNumber:10,
             axisLine: {            // 坐标轴线
                 lineStyle: {       // 属性lineStyle控制线条样式
@@ -187,7 +193,7 @@ var dataX,dataY;
             min:0,
             max:100,
             // endAngle:45,
-            // radius: '80%',
+             radius: '60%',
             splitNumber:10,
             axisLine: {            // 坐标轴线
                 lineStyle: {       // 属性lineStyle控制线条样式

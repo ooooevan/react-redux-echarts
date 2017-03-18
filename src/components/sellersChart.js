@@ -1,22 +1,13 @@
 /**
- * Created by HH on 2017/3/4.
+ * Created by HH on 2017/3/17.
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-const  redux =require('redux');
+import redux from 'redux';
 import {connect,Provider} from 'react-redux';
-import {Table } from 'react-bootstrap';
-import thunk from 'redux-thunk';
-import echarts from 'echarts';  
 import lineAction from '../actions/lineAction';
-import lineReducer from '../reducers/lineReducer';
-// var echarts = require('echarts/lib/echarts'); //必须
-// require('echarts/lib/chart/pie'); //图表类型
-// require('echarts/lib/component/title'); //标题插件
+import echarts from 'echarts';
 
-
-
-// const store=redux.createStore(lineReducer,options,redux.applyMiddleware(thunk));
 
 let _Chart = React.createClass({
     getInitialState(){
@@ -36,8 +27,8 @@ let _Chart = React.createClass({
 
     },
     componentDidMount(){
-        console.log('componentDidMount')
-        this.props.init(this.state.param);
+        console.log('componentDidMount');
+        this.props.chartInit(this.state.param);
         let domLine = ReactDOM.findDOMNode(this.refs.chartLine);
         let domPie = ReactDOM.findDOMNode(this.refs.chartPie);
         // this.state.myChart = echarts.init(dom);
@@ -45,9 +36,6 @@ let _Chart = React.createClass({
         // this.state.timer = setInterval(this.start,2000);
         this.state.myChartLine = echarts.init(domLine);
         this.state.myChartPie = echarts.init(domPie);
-
-        // console.log(this.state.myChart)
-
 
     },
     componentWillUnmount(){
@@ -68,10 +56,10 @@ let _Chart = React.createClass({
         // let Props =this.props;
         // let option=Props.data;
         // console.log(this.props)
-        this.state.optionLine=this.props.line;
-        this.state.optionPie=this.props.pie;
+        this.state.optionLine=this.props.a.line;
+        this.state.optionPie=this.props.a.pie;
         // console.log(this.state.option)
-        console.log(this.props.pie);
+        console.log(this.props.a.pie);
         this.state.myChartLine.setOption(this.state.optionLine);
         this.state.myChartPie.setOption(this.state.optionPie);
         this.state.chartNum = this.state.optionLine.series.data[this.state.optionLine.series.data.length - 1];
@@ -90,53 +78,60 @@ let _Chart = React.createClass({
         switch(e.target.innerText){
             case "时":
                 this.state.param='hour';
-                this.props.init(this.state.param);
+                this.props.chartInit(this.state.param);
                 break;
             case "日":
                 this.state.param='day';
-                this.props.init(this.state.param);
+                this.props.chartInit(this.state.param);
                 break;
             case "周":
                 this.state.param='week';
-                this.props.init(this.state.param);
+                this.props.chartInit(this.state.param);
                 break;
             case "月":
                 this.state.param='month';
-                this.props.init(this.state.param);
+                this.props.chartInit(this.state.param);
                 break;
-        
+
         }
     },
-    
+
     render(){
         // let msg=this.state.option.series.data;
         // let length=this.state.option.series.data.length;
-        return <div className='chartWapper'>
-            <div className='panel'>
-                <div className='panelHead'>{this.state.chartTitle}</div>
-                <div className='panelBody'>
-                    <div ref="chartLine" style={{height:"100%",width:"100%"}}></div>
-                </div>
-            </div>
-            <ul ref="adjustingBar" className="adjustingBar">
-                <span>时间参数&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <li className={this.state.param=='hour'?'active':''} onClick={this.adjusting}>时</li>
-                <li className={this.state.param=='day'?'active':''} onClick={this.adjusting}>日</li>
-                <li className={this.state.param=='week'?'active':''} onClick={this.adjusting}>周</li>
-                <li className={this.state.param=='month'?'active':''} onClick={this.adjusting}>月</li>
+        return <div className='chartWrapper'>
+            <div className="panel">
                 <div className='chartMessage'>
                     <p>最近人数：{this.state.chartNum}</p>
-                    <p>最近时间：{this.state.chartTime}</p>
                 </div>
-            </ul>
+                <ul ref="adjustingBar" className="adjustingBar">
+                    <span>时间参数&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <li className={this.state.param=='hour'?'active':''} onClick={this.adjusting}>时</li>
+                    <li className={this.state.param=='day'?'active':''} onClick={this.adjusting}>日</li>
+                    <li className={this.state.param=='week'?'active':''} onClick={this.adjusting}>周</li>
+                    <li className={this.state.param=='month'?'active':''} onClick={this.adjusting}>月</li>
+
+                </ul>
+            </div>
+
+            <div className='panel'>
+                <div className='panelHead'>
+                    {this.state.chartTitle}</div>
+                <div className='panelBody'>
+                    <div ref="chartLine" className="chartLine" ></div>
+                </div>
+            </div>
+
             <div className="panel">
-                <div ref="chartPie" style={{height:"300%",width:"100%"}}></div>
+                <div className='panelHead'>适宜度</div>
+                <div className='panelBody'>
+                    <div ref="chartPie" className="chartPie"></div>
+                </div>
             </div>
         </div>
     }
 
 })
+let Chart = connect(state=>state,null)(_Chart);
 
-let Line=connect(state=>state,lineAction)(_Chart);
-
-export default Line;
+export default Chart;

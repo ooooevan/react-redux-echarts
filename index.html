@@ -8,37 +8,39 @@
 <body>
 <div id="app"></div>
 
-<script src="dev/dev.js"></script>
 <!-- <script src='dist/react.bundle.js'></script> -->
 <!-- <script src='dist/app.bundle.js'></script> -->
-<script type="text/javascript" src="./lib/js/jquery-2.1.1.min.js"></script>
+<script src="dev/dev.js"></script>
+
+<!--<script type="text/javascript" src="./lib/js/jquery-2.1.1.min.js"></script>-->
 <script type="text/javascript">
-	$(function(){
-	//左侧导航箭头动画
-	var sidebarMenu=$("#sidebar_nav>ul li");
-	sidebarMenu.click(function(){
-		var _id=$(this).index();
-		$(this).addClass("active").siblings().removeClass("active");
-		$(this).siblings().children("ul").hide("fast");
-	})
-	//左侧导航二级菜单动画
-	var sidebarSubNav=$(".sidebar_subNav");
-	$(sidebarMenu[0]).click(function(e){
-		var e = e||window.event;
-		// alert(e.target.className)
-		if(e.target.className === "subNav_li"){
-			return;
-		}
-		sidebarSubNav.children().removeClass("active");
-		sidebarSubNav.slideToggle("fast");
-	})
-
-
-
-	})
+//	$(function(){
+//	//左侧导航箭头动画
+//	var sidebarMenu=$("#sidebar_nav>ul li");
+//	sidebarMenu.click(function(){
+//		var _id=$(this).index();
+//		$(this).addClass("active").siblings().removeClass("active");
+//		$(this).siblings().children("ul").hide("fast");
+//	})
+//	//左侧导航二级菜单动画
+//	var sidebarSubNav=$(".sidebar_subNav");
+//	$(sidebarMenu[0]).click(function(e){
+//		var e = e||window.event;
+//		// alert(e.target.className)
+//		if(e.target.className === "subNav_li"){
+//			return;
+//		}
+//		sidebarSubNav.children().removeClass("active");
+//		sidebarSubNav.slideToggle("fast");
+//	})
+//
+//
+//
+//	})
 
 
 
 </script>
+
 </body>
 </html>

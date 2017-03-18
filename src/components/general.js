@@ -4,17 +4,17 @@ import redux from 'redux';
 import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router';
 // import Line from './line';
 require('../../lib/css/font-awesome.min.css');
-require('../styles/nav.scss');
-import DevTool from './devTool';
+require('../styles/firstPage.scss');
+// import DevTool from './devTool';
 
 
 class Nav extends React.Component {
 	constructor(props){
 		super(props);
-		this.changeActive=this.changeActive.bind(this);
-		this.state = {
-			active:'seller'         //导航栏 general、seller、statistics
-		}
+		//this.changeActive=this.changeActive.bind(this);
+		//this.state = {
+		//	//active:'general'         //导航栏 general、seller、statistics
+		//}
 	}
 	// getInitialState(){
 	// 	return {
@@ -24,60 +24,38 @@ class Nav extends React.Component {
 	// }
 	componentDidMount(){
 	}
-	changeActive(e){
-		if(e.target.className == 'active'){
-			return;
-		}
-		switch(e.target.innerText){
-			case '概况':
-				this.setState({active:'general'})
-				break;
-			case '商家':
-				this.setState({active:'seller'})
-				break;
-			default:
-				this.setState({active:'statistics'})
-				break;
-
-		}
-	}
+	//changeActive(e){
+	//	if(e.target.className == 'active'){
+	//		return;
+	//	}
+	//	switch(e.target.innerText){
+	//		case '概况':
+	//			this.setState({active:'general'})
+	//			break;
+	//		case '商家':
+	//			this.setState({active:'seller'})
+	//			break;
+	//		default:
+	//			this.setState({active:'statistics'})
+	//			break;
+    //
+	//	}
+	//}
 
 
 	render(){
 		return <nav className='nav'>
 		<div className='brand'><a href='#'><i className="fa fa-reddit-alien fa-x" aria-hidden="true"></i>Old Pie</a></div>
 		<ul className='navMenu'>
-			<li><Link to='/general' className={this.state.active=='general'?'active':''} onClick={this.changeActive} draggable="false">概况</Link></li>
-			<li><Link to='/seller' className={this.state.active=='seller'?'active':''} onClick={this.changeActive} draggable="false">商家</Link></li>
-			<li><Link to='/statistics' className={this.state.active=='statistics'?'active':''} onClick={this.changeActive} draggable="false">统计分析</Link></li>
+			<li><Link to='/firstPage' activeClassName="active" draggable="false">概况</Link></li>
+			<li><Link to='/sellers'activeClassName="active" draggable="false">商家</Link></li>
+			<li><Link to='/statistics'activeClassName="active" draggable="false">统计分析</Link></li>
 		</ul>
 		</nav>
 	}
 
 }
 
-class SidebarNav extends React.Component {
-	constructor(props){
-		super(props);
-	}
-	render(){
-		return <div id='sidebar_nav'>
-			<ul>
-				<li ><Link to='/line ' activeClassName="active" draggable="false"><i className='fa fa-area-chart' aria-hidden="true"></i>当前客流 <i className='fa fa-angle-double-right' aria-hidden='true'></i></Link>
-					<ul className='sidebar_subNav'>
-						<li><Link to='/a' className='subNav_li' draggable="false">一层客流量</Link></li>
-						<li><Link to='/b' className='subNav_li' draggable="false">二层客流量</Link></li>
-						<li><Link to='/c' className='subNav_li' draggable="false">三层客流量</Link></li>
-					</ul>
-				</li>
-				<li><Link href='javascript:' draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>客量预警<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-				<li><Link href='javascript:' draggable="false"><i className='fa fa-bar-chart' aria-hidden="true"></i>商场排名<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-				<li><Link href='javascript:' draggable="false"><i className='fa fa-adjust' aria-hidden="true"></i>新老顾客<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-				<li><Link href='javascript:' draggable="false"><i className='fa fa-adjust' aria-hidden="true"></i>顾客活跃度<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-			</ul>
-		</div>
-	}
-}
 
 class General extends React.Component {
 	constructor(props){
@@ -87,9 +65,8 @@ class General extends React.Component {
 	render(){
 		return <div style={{height:'100%',position:'relative'}}>
 		<Nav />
-		<SidebarNav />
 
-		<div id="container">{this.props.children}</div>
+		{this.props.children}
 		
 		</div>
 	}
