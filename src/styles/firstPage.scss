@@ -296,6 +296,10 @@ nav {
       border: 1px solid #eee;
       border-radius: 1px;
       box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+      transition: all 0.5s;
+      &:hover{
+        box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      }
       zoom: 1;
       &:after {
         content: '';
@@ -318,6 +322,7 @@ nav {
       }
       .panelBody {
         min-height: 300px;
+        position:relative;
       }
       .chartLine{
         min-height: 400px;
@@ -330,42 +335,7 @@ nav {
   }
 }
 
-/*
-* 时间参数条,看情况可放到一个common的文件中
-*/
-.adjustingBar {
-  //position: absolute;
-  // height: 32px;
-  // width:190px;
-  // background-color:grey;
-  //display: block;
-  margin: 15px 25px;
-  float:right;
-  //right: 20px;
-  top: -35px;
-  font-size: 13px;
-  line-height: 32px;
 
-  .active {
-    color: #5eaacc;
-    font-weight: 500;
-    box-shadow: 0 0 3px #5eaacc;
-  }
-  span {
-    float: left;
-  }
-  li {
-    float: left;
-    height: 30px;
-    width: 30px;
-    border: 1px solid #eee;
-    border-radius: 50%;
-    text-align: center;
-    margin-right: 5px;
-    cursor: pointer;
-    transition: all .3s;
-  }
-}
 /*顶部文字开始*/
 .chartMessage {
   //margin-top: 95px;
@@ -385,6 +355,31 @@ nav {
 /*顶部文字结束*/
 
 /*商家模块开始*/
+/*左右调整商家的按钮*/
+.allSellersLineChartBtn{
+  position: absolute;
+  right:20px;
+  z-index: 2;
+  button{
+    width:45px;
+    height:25px;
+    border-radius:3px;
+    border-color:transparent;
+    background-color:#eee;
+    color:#ff3a3a;
+    margin-right:1px;
+    outline:none;
+  }
+  button:hover{
+    background-color:#dedede;
+  }
+  button:active{
+    background-color:#d0d0d0;
+    box-shadow: 0 0 6px rgba(182,208,233,1);
+
+    color:red;
+  }
+}
 
 .allSellersLineChart{
   height: 400px;
@@ -412,9 +407,119 @@ nav {
 
 
 }
+/*单个商家页面开始*/
+
+.singleSellerRoute{
+  margin:20px 25px;
+  line-height: 37px;
+  height: 37px;
+  border-radius:5px;
+  background-color: #fff;
+  box-shadow:0 0 3px rgba(0,0,0,.2);
+  transition: all .3s;
+  &:hover{
+    box-shadow:0 0 10px rgba(0,0,0,.3);
+  }
+  // display: flex;
+
+  ul{
+    zoom:1;
+    // flex:1;
+    // text-align: center;
+    // margin-bottom: 1px;
+    li{
+      float: left;
+      border-radius:5px;
+      // text-align: center;
+      // padding:0 10px;
+      a{
+        padding:0 10px;
+        display: inline-block;
+        color:#000;
+        border-radius:5px;
+      }
+      &:hover{
+        background-color: #f3f3f3;
+      }
+      &:active{
+        background-color: #b3cde6;
+      }
+      .active{
+        color:#fff;
+        background-color: #b3cde6;
+      }
+    }
+    &:after{
+      content: '';
+      display: block;
+      height: 0;
+      visibility: hidden;
+      clear: both;
+    }
+  }
+  //标题居中样式
+  p{
+    textAlign:center;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    top:0;
+  }
+}
+
+/*
+* 时间参数条,看情况可放到一个common的文件中
+*/
+.adjustingBar {
+   position: absolute;
+   right:10px;
+   top:5px;
+   text-align: center;
+   line-height: 30px;
+  span{
+    float:left;
+    // margin-right: 10px;
+    // padding-left: 25%;
+  }
+  li{
+    float:left;
+    padding: 0 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: all .3s;
+    // background-color:#fff;
+    // height: 23px;
+    border-radius:20%;
+    &:hover{
+      background-color: #dfdfdf;
+    }
+    &.active{
+      background-color:#b3cde6;
+      color:#fff;
+    }
+  }
+}
+/*单个商家singleSellerLineChart*/
+.singleSellerLineChart{
+  height: 400px;
+}
+
+
+/*单个商家wrapper*/
+.panelWrapper{
+  p{
+    position: absolute;
+    text-align: center;
+    left:50%;
+    transform: translateX(-50%);
+    transform: translateY(-47px);
+  }
+}
 
 
 
+/*单个商家wrapper*/
+/*单个商家页面结束*/
 
 
 

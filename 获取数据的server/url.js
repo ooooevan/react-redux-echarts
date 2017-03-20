@@ -6,6 +6,7 @@ var http=require("http");
 var urls=require("url");
 var util=require("util");
 http.createServer(function (req, res) {
+    console.log(req.url);
     switch(req.url){
       case "/":
         //res.writeHead(200,{"Content-Type":"text/plain"});
@@ -71,7 +72,7 @@ http.createServer(function (req, res) {
         res.end();
         break;
         //res.end(util.inspect(urls.parse(req.url,true)));
-      case "/allsellers":
+      case "/allsellers/1":
       res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
         var sellers=`
         {
@@ -119,6 +120,51 @@ http.createServer(function (req, res) {
                     "num":"4324",
                     "percent":1
 
+                },{
+                    "seller":"222",
+                    "num":"2142",
+                    "percent":1
+
+                },{
+                    "seller":"赶集网",
+                    "num":"1421",
+                    "percent":-1
+
+                },{
+                    "seller":"987",
+                    "num":"5232",
+                    "percent":-0.2
+
+                },{
+                    "seller":"q",
+                    "num":"4314",
+                    "percent":-2
+
+                },{
+                    "seller":"GV",
+                    "num":"3241",
+                    "percent":0.2
+
+                },{
+                    "seller":"GV",
+                    "num":"4324",
+                    "percent":1
+
+                },{
+                    "seller":"222",
+                    "num":"2142",
+                    "percent":1
+
+                },{
+                    "seller":"赶集网",
+                    "num":"1421",
+                    "percent":-1
+
+                },{
+                    "seller":"987",
+                    "num":"5232",
+                    "percent":-0.2
+
                 }]
         }
         `
@@ -126,5 +172,267 @@ http.createServer(function (req, res) {
         res.end();
 
         break;
+        case "/allsellers/2":
+      res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+        var sellers=`
+        {
+            "sellers":[{
+                    "seller":"赶集网",
+                    "num":"1421",
+                    "percent":-1
+
+                },{
+                    "seller":"987",
+                    "num":"5232",
+                    "percent":-0.2
+
+                },{
+                    "seller":"q",
+                    "num":"4314",
+                    "percent":-2
+
+                },{
+                    "seller":"GV",
+                    "num":"3241",
+                    "percent":0.2
+
+                },{
+                    "seller":"GV",
+                    "num":"4324",
+                    "percent":1
+
+                },{
+                    "seller":"222",
+                    "num":"2142",
+                    "percent":1
+
+                },{
+                    "seller":"赶集网",
+                    "num":"1421",
+                    "percent":-1
+
+                },{
+                    "seller":"987",
+                    "num":"5232",
+                    "percent":-0.2
+
+                },{
+                    "seller":"q",
+                    "num":"4314",
+                    "percent":-2
+
+                },{
+                    "seller":"GV",
+                    "num":"3241",
+                    "percent":0.2
+
+                },{
+                    "seller":"GV",
+                    "num":"4324",
+                    "percent":1
+
+                },{
+                    "seller":"222",
+                    "num":"2142",
+                    "percent":1
+
+                },{
+                    "seller":"赶集网",
+                    "num":"1421",
+                    "percent":-1
+
+                },{
+                    "seller":"987",
+                    "num":"5232",
+                    "percent":-0.2
+
+                }]
+        }
+        `
+        res.write(sellers);
+        res.end();
+
+        break;
+        case "/allsellers/3":
+      res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+        var sellers=`
+        {
+            "sellers":[{
+                    "seller":"三号店",
+                    "num":"4321",
+                    "percent":2
+                },{
+                    "seller":"淘宝",
+                    "num":"2142",
+                    "percent":3
+
+                },{
+                    "seller":"122",
+                    "num":"4351",
+                    "percent":-0.3
+
+                },{
+                    "seller":"222",
+                    "num":"2142",
+                    "percent":1
+
+                },{
+                    "seller":"赶集网",
+                    "num":"1421",
+                    "percent":-1
+
+                },{
+                    "seller":"987",
+                    "num":"5232",
+                    "percent":-0.2
+
+                },{
+                    "seller":"q",
+                    "num":"4314",
+                    "percent":-2
+
+                },{
+                    "seller":"GV",
+                    "num":"3241",
+                    "percent":0.2
+
+                },{
+                    "seller":"GV",
+                    "num":"4324",
+                    "percent":1
+
+                },{
+                    "seller":"222",
+                    "num":"2142",
+                    "percent":1
+
+                },{
+                    "seller":"赶集网",
+                    "num":"1421",
+                    "percent":-1
+
+                },{
+                    "seller":"987",
+                    "num":"5232",
+                    "percent":-0.2
+
+                },{
+                    "seller":"q",
+                    "num":"4314",
+                    "percent":-2
+
+                },{
+                    "seller":"GV",
+                    "num":"3241",
+                    "percent":0.2
+
+                },{
+                    "seller":"GV",
+                    "num":"4324",
+                    "percent":1
+
+                },{
+                    "seller":"222",
+                    "num":"2142",
+                    "percent":1
+
+                },{
+                    "seller":"赶集网",
+                    "num":"1421",
+                    "percent":-1
+
+                },{
+                    "seller":"987",
+                    "num":"5232",
+                    "percent":-0.2
+
+                }]
+        }
+        `
+        res.write(sellers);
+        res.end();
+
+        break;
+        case "/allsellers/4":
+      res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+        var sellers=`{
+            "error":"noSeller"
+        }`
+        res.write(sellers);
+        res.end();
+
+        break;
+    // case "/singleSeller/:id/hour":  //根据商家id获取对应的数据
+    //     console.log("-----")
+    //   res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+    //     var seller=`{
+    //         "name":"淘宝",
+    //         "value":[{
+    //             "time":"12:21:08",
+    //             "num":652,
+    //             "percent":3
+    //         },{
+    //             "time":"12:21:31",
+    //             "num":623,
+    //             "percent":2.4
+    //         },{
+    //             "time":"12:22:11",
+    //             "num":626,
+    //             "percent":2.8
+    //         }
+    //         ,{
+    //             "time":"12:23:31",
+    //             "num":553,
+    //             "percent":2
+    //         }
+    //         ,{
+    //             "time":"12:27:31",
+    //             "num":674,
+    //             "percent":4
+    //         }
+    //         ,{
+    //             "time":"12:31:31",
+    //             "num":632,
+    //             "percent":2.4
+    //         }
+    //         ,{
+    //             "time":"12:43:31",
+    //             "num":613,
+    //             "percent":2
+    //         },{
+    //             "time":"13:21:31",
+    //             "num":623,
+    //             "percent":2.4
+    //         },{
+    //             "time":"13:22:11",
+    //             "num":626,
+    //             "percent":2.8
+    //         }
+    //         ,{
+    //             "time":"13:23:31",
+    //             "num":553,
+    //             "percent":2
+    //         }
+    //         ,{
+    //             "time":"13:27:31",
+    //             "num":674,
+    //             "percent":4
+    //         }
+    //         ,{
+    //             "time":"13:31:31",
+    //             "num":632,
+    //             "percent":2.4
+    //         }
+    //         ,{
+    //             "time":"13:43:31",
+    //             "num":613,
+    //             "percent":2
+    //         }]
+
+    //     }`
+    //     res.write(sellers);
+    //     res.end();
+
+    //     break;
     }
 }).listen(3003);

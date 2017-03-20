@@ -17,7 +17,7 @@ let dataX,dataY;
             // }
         },
         grid:{
-            left:'3%',
+            left:'5%',
             right:'5%'
         },
         // legend:{
@@ -186,7 +186,7 @@ let dataX,dataY;
             data:[{value: 60, name: '活跃度'}]
         },
         {
-            name: 'xx度',
+            name: '新顾客率',
             type: 'gauge',
             center: ['83%', '50%'],    // 默认全局居中
             radius: '80%',
@@ -228,7 +228,7 @@ let dataX,dataY;
                     fontWeight: 'bolder',
                 }
             },
-            data:[{value: 90, name: 'xx度'}]
+            data:[{value: 30, name: '新顾客率'}]
         }
     ]
 }

@@ -9,9 +9,10 @@ import lineAction from '../actions/lineAction';
 import echarts from 'echarts';
 
 
-let _Chart = React.createClass({
-    getInitialState(){
-        return{
+class _Chart extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
             myChartLine:"",       //chart实例对象line
             myChartPie:"",       //chart实例对象pie
             timer:"",           //定时器
@@ -21,14 +22,15 @@ let _Chart = React.createClass({
             chartTime:'',     //显示当前时间
             chartTitle:''    //显示当前标题
         }
-    },
+    }
+    
     componentWillMount(){
-        console.log('componentWillMount')
+        console.log('componentWillMount');
+        this.props.firstPageChartInit();
 
-    },
+    }
     componentDidMount(){
         console.log('componentDidMount');
-        this.props.firstPageChartInit(this.state.param);
         let domLine = ReactDOM.findDOMNode(this.refs.chartLine);
         let domPie = ReactDOM.findDOMNode(this.refs.chartPie);
         // this.state.myChart = echarts.init(dom);
@@ -36,37 +38,63 @@ let _Chart = React.createClass({
         // this.state.timer = setInterval(this.start,2000);
         this.state.myChartLine = echarts.init(domLine);
         this.state.myChartPie = echarts.init(domPie);
+        this.props.firstPageChartInit();
 
-    },
+        // this.setState({
+        //     myChartLine:echarts.init(domLine),
+        //     myChartPie:echarts.init(domPie)
+        // })
+    }
     componentWillUnmount(){
         console.log('componentWillUnmount')
         this.state.myChartLine.dispose()   //销毁实例
         this.state.myChartPie.dispose()   //销毁实例
         // clearInterval(this.state.timer);
-    },
+    }
     componentDidUpdate(){
         // debugger;
         console.log('componentDidUpdate')
         // console.log(this.props)
 
 
-    },
+    }
     componentWillReceiveProps(){
         console.log('componentWillReceiveProps')
+//----------------------------------测试部分
+        // let domLine = ReactDOM.findDOMNode(this.refs.chartLine);
+        // let domPie = ReactDOM.findDOMNode(this.refs.chartPie);
+        // this.state.myChartLine = echarts.init(domLine);
+        // this.state.myChartPie = echarts.init(domPie);
+
+
+
+
+        //-------------------------
         // let Props =this.props;
         // let option=Props.data;
         // console.log(this.props)
-        this.state.optionLine=this.props.a.line;
-        this.state.optionPie=this.props.a.pie;
+        
+        // this.state.optionLine=this.props.a.line;
+        // this.state.optionPie=this.props.a.pie;
+        //这样赋值，才能触发渲染
+        this.setState({
+            optionLine:this.props.a.line,
+            optionPie:this.props.a.pie
+        })
         // console.log(this.state.option)
         // console.log(this.props.a.pie);
-        this.state.myChartLine.setOption(this.state.optionLine);
-        this.state.myChartPie.setOption(this.state.optionPie);
-        this.state.chartNum = this.state.optionLine.series.data[this.state.optionLine.series.data.length - 1];
-        this.state.chartTime = this.state.optionLine.xAxis.data[this.state.optionLine.xAxis.data.length - 1];
-        this.state.chartTitle = this.state.optionLine.title.text;
+        //有值才执行
+        if(this.state.optionLine){
+            this.state.myChartLine.setOption(this.state.optionLine);
+            this.state.myChartPie.setOption(this.state.optionPie);
+        // this.state.myChartLine.setOption(this.state.optionLine);
+        // this.state.myChartPie.setOption(this.state.optionPie);
+            this.state.chartNum = this.state.optionLine.series.data[this.state.optionLine.series.data.length - 1];
+            this.state.chartTime = this.state.optionLine.xAxis.data[this.state.optionLine.xAxis.data.length - 1];
+            this.state.chartTitle = this.state.optionLine.title.text;
+        }
 
-    },
+    }
     // start(){
     //     this.props.change(this.state.myChart)
     // },
@@ -134,7 +162,7 @@ let _Chart = React.createClass({
         </div>
     }
 
-})
+}
 let Chart = connect(state=>state,lineAction)(_Chart);
 
 export default Chart;

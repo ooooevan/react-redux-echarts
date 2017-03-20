@@ -803,5 +803,159 @@ router.get("/pie", function(req, res, next) {
 	res.write(data);
 	res.end();
 });
+router.get("/singleSeller/:id/:time",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+  var seller=`{
+        "name":"淘宝",
+        "value":[{
+            "time":"12:21:08",
+            "num":652,
+            "percent":3
+        },{
+            "time":"12:21:31",
+            "num":623,
+            "percent":2.4
+        },{
+            "time":"12:22:11",
+            "num":626,
+            "percent":2.8
+        }
+        ,{
+            "time":"12:23:31",
+            "num":553,
+            "percent":2
+        }
+        ,{
+            "time":"12:27:31",
+            "num":674,
+            "percent":4
+        }
+        ,{
+            "time":"12:31:31",
+            "num":632,
+            "percent":2.4
+        }
+        ,{
+            "time":"12:43:31",
+            "num":613,
+            "percent":2
+        },{
+            "time":"13:21:31",
+            "num":623,
+            "percent":2.4
+        },{
+            "time":"13:22:11",
+            "num":626,
+            "percent":2.8
+        }
+        ,{
+            "time":"13:23:31",
+            "num":553,
+            "percent":2
+        }
+        ,{
+            "time":"13:27:31",
+            "num":674,
+            "percent":4
+        }
+        ,{
+            "time":"13:31:31",
+            "num":632,
+            "percent":2.4
+        }
+        ,{
+            "time":"13:43:31",
+            "num":613,
+            "percent":2
+        }]
+    }`
+var seller2=`{
+        "name":"淘宝222",
+        "value":[{
+            "time":"12:21:08",
+            "num":552,
+            "percent":3
+        },{
+            "time":"12:21:31",
+            "num":523,
+            "percent":2.4
+        },{
+            "time":"12:22:11",
+            "num":326,
+            "percent":2.8
+        }
+        ,{
+            "time":"12:23:31",
+            "num":553,
+            "percent":2
+        }
+        ,{
+            "time":"12:27:31",
+            "num":574,
+            "percent":1
+        }
+        ,{
+            "time":"12:31:31",
+            "num":532,
+            "percent":2.4
+        }
+        ,{
+            "time":"12:43:31",
+            "num":413,
+            "percent":2
+        },{
+            "time":"13:21:31",
+            "num":323,
+            "percent":2.4
+        },{
+            "time":"13:22:11",
+            "num":326,
+            "percent":2.8
+        }
+        ,{
+            "time":"13:23:31",
+            "num":253,
+            "percent":2
+        }
+        ,{
+            "time":"13:27:31",
+            "num":174,
+            "percent":4
+        }
+        ,{
+            "time":"13:31:31",
+            "num":132,
+            "percent":2.4
+        }
+        ,{
+            "time":"13:43:31",
+            "num":713,
+            "percent":2
+        }]
+    }`
+    console.log(req.params.id)
+	if(req.params.id === '333'){
+		res.write(seller2);
+	}else{
+		res.write(seller);
+	}
+	res.end();
+})
+
+router.get("/singleSellerFetch/:id",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var num=500 + parseInt(Math.random()*100);
+	var percent=1 + parseInt(Math.random()*10);
+	var seller=`{
+		"value":[{
+            "time":"12:21:08",
+            "num":${num},
+            "percent":${percent}
+        }]
+	}`
+	res.write(seller);
+	res.end();
+
+})
 
 module.exports = router;

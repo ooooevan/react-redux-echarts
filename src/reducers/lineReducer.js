@@ -2,22 +2,24 @@ export default function lineReducer(state={line:{},pie:{}},action){
     // if(typeof state === 'undefined') return {line:{},pie:{}};
     switch(action.type){
         case 'firstPageChartInit':
+        console.log(action.payload)
             let time=new Array();
             let value=new Array();
             // const obj={};
             //获取time和value数据
-            action.payload.list.map(item=>{
+            action.payload.list.forEach(item=>{
                 time.push(item.time)
                 value.push(item.value)
             })
             //aa是新obj，用于返回
-            var aa = Object.assign({},state.line);
-            aa.xAxis.data=time;
-            aa.series.data=value;
+            // debugger
+            var aaa = Object.assign({},state.line);
+            aaa.xAxis.data=time;
+            aaa.series.data=value;
             // action.chart.hideLoading()  //隐藏遮罩
             // action.chart.setOption(state.data);
             // console.log(Object.assign({},state,{"line":aa}))
-            return Object.assign({},state,{"line":aa});
+            return Object.assign({},state,{"line":aaa});
         case 'change':
             // var aa = Object.assign({},state,{});
             // var aa = state;

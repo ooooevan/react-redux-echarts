@@ -2,7 +2,7 @@ import {createStore,applyMiddleware,compose,combineReducers } from 'redux';
 import lineReducer from '../reducers/lineReducer';
 import sellersReducer from '../reducers/sellersReducer';
 import lineOption from '../options/lineOption';
-import sellersTotalOption from '../options/sellersTotalOption';
+import sellersOption from '../options/sellersOption';
 
 import thunk from 'redux-thunk';
 
@@ -22,7 +22,7 @@ const logger = store=>nextDispatch=>action=>{
  //const store=createStore(lineReducer,lineOption,enhancer);
 
 const reducer = combineReducers({a:lineReducer,b:sellersReducer});
-const state={a:lineOption,b:sellersTotalOption};
+const state={a:lineOption,b:sellersOption};
 const store=createStore(reducer,state,applyMiddleware(logger,thunk));
 //const store=createStore(combineReducers({a:lineReducer}),{a:lineOption},applyMiddleware(thunk));
 //const store=createStore(lineReducer,lineOption,applyMiddleware(thunk));

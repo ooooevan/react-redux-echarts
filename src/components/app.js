@@ -13,6 +13,11 @@ import FirstFloorChart from './firstFloorChart';
 import SecondFloorChart from './secondFloorChart';
 import ThirdFloorChart from './thirdFloorChart';
 import Allsellers from './allSellers';
+import SingleSellerRoute from './singleSellerRoute';
+import SingleSellerChartCurrent from './singleSellerChartCurrent';
+import SingleSellerChartHistory from './singleSellerChartHistory';
+
+
 class Test extends React.Component {
 	constructor(props){
 		super(props);
@@ -33,16 +38,23 @@ ReactDOM.render(
 			<Redirect from="/" to="/firstPage"/>
 			<Route path='/' component={General}>
 				<Route path='firstPage' component={FirstPage}>
-					<IndexRoute path="total" component={FirstPageChart} />
+					<IndexRoute path='total' component={FirstPageChart} />
 					<Route path="total" component={FirstPageChart}/>
 					<Route path="firstFloor" component={FirstFloorChart}/>
 					<Route path="secondFloor" component={SecondFloorChart}/>
 					<Route path="thirdFloor" component={ThirdFloorChart}/>
 				</Route>
 				<Route path='sellers' component={Sellers}>
-					<IndexRoute path="total" component={Allsellers} />
+					<IndexRoute path='total' component={Allsellers} />
 					<Route path="total" component={Allsellers}/>
-					<Route path=":id" component={Test}/>
+					<Route path=":id" component={SingleSellerRoute}>
+						<IndexRoute path='now' component={SingleSellerChartCurrent} />
+						<Route path='now' component={SingleSellerChartCurrent}/>
+						<Route path='history' component={SingleSellerChartHistory}/>
+					</Route>
+				</Route>
+				<Route path='statistics' component={Test}>
+
 				</Route>
 			</Route>
 			</Router>

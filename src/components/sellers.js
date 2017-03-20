@@ -47,7 +47,7 @@ class _SidebarNav extends React.Component {
     }
     change(){
         let text=ReactDOM.findDOMNode(this.refs.searchText).value;
-        if(text === ' ') return;  //输入中文时有空格
+        // if(text === ' ') return;  //输入中文时有空格
         let rows=[];
         // rows.seller=[];
         // rows.id=[];
@@ -55,7 +55,7 @@ class _SidebarNav extends React.Component {
         this.props.b.sellers.forEach(function(seller){
 
             //seller是数值，不能indexOf，要转成string
-            if(seller.seller.indexOf(text) === -1) return;
+            if(seller.seller.indexOf(text.trim()) === -1) return;
             rows.push(seller);
         });
         this.setState({
@@ -70,7 +70,7 @@ class _SidebarNav extends React.Component {
         let rows=[];
         let routeData='sellers/';
         rows.push(<li key="all"><Link to='sellers/total' activeClassName="active" draggable="false">全部商家<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>);
-        if(this.state.sellers.length>0){
+        if(this.state.sellers){
             this.state.sellers.forEach(function(seller,index){
                 routeData+=seller.id;
                 rows.push(<li key={seller.id}><Link to={routeData} activeClassName="active" draggable="false">{seller.seller}<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>);
