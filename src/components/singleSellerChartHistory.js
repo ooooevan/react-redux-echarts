@@ -2,7 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
-import echarts from 'echarts';
+import echarts from 'echarts/lib/echarts';
+require('echarts/lib/chart/line');
+require('echarts/lib/component/grid');
+require('echarts/lib/component/title');
+require('echarts/lib/component/legend');
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/dataZoom');
+
+
 import sellersAction from '../actions/sellersAction';
 
 class _Chart extends React.Component {

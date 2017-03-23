@@ -12,28 +12,25 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        publicPath: '/dev/',
+        // publicPath: '/dev/',
         filename: 'dev.js'
         // filename: '[name].bundle.js'
     },
-    //plugins: [
-    //    //new webpack.HotModuleReplacementPlugin()
-    //    //提取公共部分资源
-    //    new webpack.optimize.CommonsChunkPlugin({
-    //        // 与 entry 中的 vendors 对应
-    //        name: 'vendors',
-    //        // 输出的公共资源名称
-    //        filename: 'common.bundle.js',
-    //        // 对所有entry实行这个规则
-    //        minChunks: Infinity
-    //    }),
-    //    // 把jquery作为全局变量插入到所有的代码中
-    //    // 然后就可以直接在页面中使用jQuery了
-    //    new webpack.ProvidePlugin({
-    //        $: 'jquery',
-    //        jQuery: 'jquery',
-    //        'window.jQuery': 'jquery'
-    //    })],
+    //  devServer: {
+    //     historyApiFallback: true,
+    //     contentBase: "./",
+    //     quiet: false, //控制台中不输出打包的信息
+    //     noInfo: false,
+    //     hot: true,
+    //     inline: true,
+    //     lazy: false,
+    //     progress: true, //显示打包的进度
+    //     // watchOptions: {
+    //     //     aggregateTimeout: 300
+    //     // },
+    //     port: '8080'
+    // },
+
 
     plugins: debug ? [] : [
 

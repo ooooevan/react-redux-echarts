@@ -6,8 +6,15 @@ import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
 import lineAction from '../actions/lineAction';
-import echarts from 'echarts';
-
+import echarts from 'echarts/lib/echarts';
+require('echarts/lib/chart/line');
+require('echarts/lib/component/title');
+require('echarts/lib/component/grid');
+require('echarts/lib/component/tooltip');
+// require('echarts/lib/component/xAxis');
+// require('echarts/lib/component/yAxis');
+require('echarts/lib/component/dataZoom');
+// require('echarts/lib/series');
 
 class _Chart extends React.Component {
     constructor(props){

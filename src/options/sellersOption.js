@@ -15,7 +15,8 @@ let dataX,barDataY,lineDataY;
         title:{
            text: "昨日/上月客流",
            show:false
-        },tooltip: {
+        },
+        tooltip: {
             trigger: 'axis'
         },
         // toolbox: {
@@ -88,14 +89,14 @@ let dataX,barDataY,lineDataY;
             tooltip: {
                 trigger: 'axis'
             },
-            toolbox: {
-                feature: {
-                    dataView: {show: true, readOnly: false},
-                    magicType: {show: true, type: ['line', 'bar']},
-                    restore: {show: true},
-                    saveAsImage: {show: true}
-                }
-            },
+            // toolbox: {
+            //     feature: {
+            //         dataView: {show: true, readOnly: false},
+            //         magicType: {show: true, type: ['line', 'bar']},
+            //         restore: {show: true},
+            //         saveAsImage: {show: true}
+            //     }
+            // },
             legend: {
                 data:['入店量','入店率']
             },
