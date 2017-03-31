@@ -434,5 +434,41 @@ http.createServer(function (req, res) {
     //     res.end();
 
     //     break;
+      case "/allsellers/allSellersTableInit":
+        res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+            var table= `
+            {
+              "sellers":[
+              {
+                "name":"淘宝",
+                "num":"590",
+                "increase":"false",
+                "percent":"2"
+              },{
+                "name":"2eee",
+                "num":"510",
+                "increase":"true",
+                "percent":"2"
+                },{
+                "name":"eva",
+                "num":"210",
+                "increase":"true",
+                "percent":"1"
+                },{
+                "name":"ooo",
+                "num":"410",
+                "increase":"true",
+                "percent":"2"
+                },{
+                "name":"vcx",
+                "num":"234",
+                "increase":"false",
+                "percent":"1"
+                }]
+            }
+            `;
+             res.write(table);
+             res.end();
+            break;
     }
 }).listen(3003);

@@ -10,9 +10,12 @@ import sellersAction from '../actions/sellersAction';
 
 
 class _SidebarNav extends React.Component {
+    static propTypes = {
+        sellersInit: React.PropTypes.func.isRequired, 
+        b: React.PropTypes.object.isRequired       //包含lineAndBar和table的数据
+    };
     constructor(props){
         super(props);
-        this.change=this.change.bind(this);
         this.state={
             sellers:[]
         }
@@ -45,7 +48,7 @@ class _SidebarNav extends React.Component {
         // console.log(this.state.sellers)
         // this.state.sellers=['111','222','333','113','美宜佳','麦克风'];
     }
-    change(){
+    change = ()=>{
         let text=ReactDOM.findDOMNode(this.refs.searchText).value;
         // if(text === ' ') return;  //输入中文时有空格
         let rows=[];

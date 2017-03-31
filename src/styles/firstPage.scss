@@ -5,7 +5,7 @@ $navFontSize: 16px;
 $sidebarNavFontSize: 15px;
 /*侧边栏宽度*/
 $sidebarWidth: 230px;
-/*侧边栏li>a高度*/
+/*侧边栏li>a 的高度 */
 $sidebarHeight:60px;
 
 body {
@@ -48,7 +48,7 @@ nav {
   height: 60px;
   width: 100%;
   background: linear-gradient(to bottom, #2c3742 0%, #28303a 100%);
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
   z-index: 100;
   position: fixed;
   .brand {
@@ -293,8 +293,8 @@ nav {
       height: 100%;
       //width: 100%;
       margin:20px 25px;
-      border: 1px solid #eee;
-      border-radius: 1px;
+      // border: 1px solid #eee;
+      // border-radius: 1px;
       box-shadow: 0 0 3px rgba(0, 0, 0, .2);
       transition: all 0.5s;
       &:hover{
@@ -401,6 +401,12 @@ nav {
     background-color:#636363;
     color:#fff;
   }
+  .up{
+    color:red;
+  }
+  .down{
+    color:green;
+  }
   tbody tr:nth-child(even){
     background:#efefef;
   }
@@ -410,15 +416,16 @@ nav {
 /*单个商家页面开始*/
 
 .singleSellerRoute{
-  margin:20px 25px;
-  line-height: 37px;
+  // margin:20px 25px;
+  line-height: 35px;
   height: 37px;
-  border-radius:5px;
+  z-index: 10;
+  // border-radius:5px;
   background-color: #fff;
-  box-shadow:0 0 3px rgba(0,0,0,.2);
-  transition: all .3s;
+  // box-shadow:0 0 3px rgba(0,0,0,.2);
+  transition: color .3s;
   &:hover{
-    box-shadow:0 0 10px rgba(0,0,0,.3);
+    // box-shadow:0 0 10px rgba(0,0,0,.3);
   }
   // display: flex;
 
@@ -433,20 +440,25 @@ nav {
       // text-align: center;
       // padding:0 10px;
       a{
+        transition:hover .3s;
         padding:0 10px;
         display: inline-block;
-        color:#000;
-        border-radius:5px;
+        color:#564848;
+        // border-radius:5px;
+        &:hover{
+          color: #c23531;
+        }
       }
-      &:hover{
-        background-color: #f3f3f3;
-      }
+      // &:hover{
+      //   color: #000;
+      // }
       &:active{
-        background-color: #b3cde6;
+        // background-color: #b3cde6;
       }
       .active{
-        color:#fff;
-        background-color: #b3cde6;
+        color:#c23531;
+        border-bottom:2px solid #c23531;
+        // background-color: #b3cde6;
       }
     }
     &:after{
@@ -486,16 +498,18 @@ nav {
     padding: 0 10px;
     margin-left: 5px;
     cursor: pointer;
-    transition: all .3s;
+    transition: color .3s;
     // background-color:#fff;
     // height: 23px;
-    border-radius:20%;
+    // border-radius:20%;
     &:hover{
-      background-color: #dfdfdf;
+      // background-color: #d82020;
+      color:#c23531;
     }
     &.active{
-      background-color:#b3cde6;
-      color:#fff;
+      // background-color:#b3cde6;
+      color:#c23531;
+      border-bottom:2px solid #c23531;
     }
   }
 }
@@ -514,6 +528,24 @@ nav {
     transform: translateX(-50%);
     transform: translateY(-47px);
   }
+  .halfPanel_1{
+    // overflow:hidden;
+    margin:0 24px 20px!important;
+    width:calc(50% - 35px);
+    // position:relative;
+    // float:left;
+    display:inline-block;
+    // vertical-align: baseline;
+  }
+    .halfPanel_2{
+    margin:0 20px 20px 0!important;
+    width:calc(50% - 35px);
+    // position:relative;
+    // float:left;
+    display:inline-block;
+    // vertical-align: baseline;
+  }
+
 }
 
 

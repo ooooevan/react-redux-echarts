@@ -1,8 +1,9 @@
+// import 'babel-polyfill';
 export default function lineReducer(state={line:{},pie:{}},action){
     // if(typeof state === 'undefined') return {line:{},pie:{}};
     switch(action.type){
         case 'firstPageChartInit':
-        console.log(action.payload)
+        //console.log(action.payload)
             let time=new Array();
             let value=new Array();
             // const obj={};

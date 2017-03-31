@@ -3,8 +3,9 @@
  */
 var path = require('path');
 var webpack = require('webpack');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+var WebpackMd5Hash = require('webpack-md5-hash');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         app: './src/components/app.js',
@@ -15,29 +16,18 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         publicPath: '/',
         // filename: 'dev.js'
-        filename: '[name].bundle.js'
+        filename: '[name]-[chunkhash:5].js'
+        // chunkFilename: '[name].js'  //路由对应文件
     },
-    //plugins: [
-    //    //new webpack.HotModuleReplacementPlugin()
-    //    //提取公共部分资源
-    //    new webpack.optimize.CommonsChunkPlugin({
-    //        // 与 entry 中的 vendors 对应
-    //        name: 'vendors',
-    //        // 输出的公共资源名称
-    //        filename: 'common.bundle.js',
-    //        // 对所有entry实行这个规则
-    //        minChunks: Infinity
-    //    })
-    //],
 
     plugins: [
-        // new ExtractTextPlugin('[name].css'),
+      new ExtractTextPlugin('style-[contenthash:5].css'),
+      new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.optimize.CommonsChunkPlugin({
         names:'vendors',
-        filename: 'vendors.[chunkhash:5].js',  
+        filename: 'vendors-[chunkhash:5].js',  
         minChunks:Infinity
       }),
-      // new ExtractTextPlugin('[name].css'),
       new webpack.optimize.UglifyJsPlugin({
         output:{
           comments:false,        //去掉所以注释
@@ -51,30 +41,36 @@ module.exports = {
             NODE_ENV: JSON.stringify('production'),
         },
       }),
-      new CopyWebpackPlugin([
-      { from: './index.html', to: 'index.html' }
-    ])
+    //   new CopyWebpackPlugin([
+    //   { from: './index.html', to: 'index.html' }
+    // ]),
+      new HtmlWebpackPlugin({
+        template: __dirname + "/index.html"
+      }),
+      new WebpackMd5Hash()
     ],
-      // devtool:'source-map',
 
 
 
     module: {
         loaders: [{
-            test: /\.css$/,
-            loaders: ['style-loader', 'css-loader']
-        }, {
+        //     test: /\.css$/,
+        //     loaders: ['style-loader', 'css-loader']
+        // }, {
             test: /\.(js|jsx)$/,
             loader: 'babel-loader',
             // loader: ['babel-loader','eslint-loader'],
             exclude: /node_modules/,
             query: {
-                presets: ['es2015', 'react']
+                presets: ['es2015', 'react', 'stage-0']
             }
         }, {
-            test: /\.scss/,
-            loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version","IE 8"]}!sass-loader?outputStyle=expanded'
-            // loader: ExtractTextPlugin.extract("style!css!sass")
+            test: /\.(scss|css)/,
+            // loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version","IE 8"]}!sass-loader?outputStyle=expanded'
+            use: ExtractTextPlugin.extract({
+                fallback:"style-loader",
+                loader:["css-loader","autoprefixer-loader?{browsers:['last 2 version','IE 8']}","sass-loader"]
+            })
             //loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader'
             //loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader!resolve-url!'
         },{

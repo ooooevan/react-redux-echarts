@@ -4,43 +4,55 @@ import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
 import echarts from 'echarts/lib/echarts';
-require('echarts/lib/chart/line');
-require('echarts/lib/chart/bar');
-require('echarts/lib/component/title');
-require('echarts/lib/component/legend');
-require('echarts/lib/component/tooltip');
-
+import 'echarts/lib/chart/line';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/tooltip';
 
 
 
 import sellersAction from '../actions/sellersAction';
 
 class _Chart extends React.Component {
+
+    static propTypes = {
+        allSellersLineChartInit: React.PropTypes.func.isRequired,
+        allSellersTableInit: React.PropTypes.func.isRequired,
+        b: React.PropTypes.object.isRequired       //包含lineAndBar和table的数据
+      };
+
     constructor(props){
         super(props);
-        this.turnLeft=this.turnLeft.bind(this);
-        this.turnRight=this.turnRight.bind(this);
         this.state={
 			allSellersLineChart:'',  //全部商家图表
         	allSellersLineOption:'',    //option参数
-            chartPage:1       //按页分开商家数据，第一页
-        }
+            chartPage:1,       //按页分开商家数据，第一页
+			table:[]
+		}
 
     }
+
+
+
     componentWillMount(){
       console.log('componentWillMount')
+		this.props.allSellersTableInit();
+        this.props.allSellersLineChartInit(this.state.chartPage);
+
     }
 	componentDidMount(){
     	console.log('componentDidMount');
-    	this.props.allSellersLineChartInit(this.state.chartPage);
+		//this.props.allSellersTableInit();
         let domLine = ReactDOM.findDOMNode(this.refs.allSellersLineChart);
 
         this.state.allSellersLineChart = echarts.init(domLine);
+        this.state.allSellersLineChart.showLoading();
 
 	}
 	componentWillUnmount(){
 		console.log('componentWillUnmount');
-		this.state.allSellersLineChart.dispose()   //销毁实例
+		this.state.allSellersLineChart.dispose();   //销毁实例
 	}
 	componentWillReceiveProps(){
 		// debugger;
@@ -48,29 +60,41 @@ class _Chart extends React.Component {
         //     allSellersLineOption:this.props.b.lineAndBar
         // })
 		this.state.allSellersLineOption=this.props.b.lineAndBar;    //获取参数
+		//获取表格数据
+		this.state.table = this.props.b.table;
 		this.state.allSellersLineChart.setOption(this.state.allSellersLineOption);
+        this.state.allSellersLineChart.hideLoading()
 		// console.log(this.state.allSellersLineOption);
 	}
-    turnLeft(){
+    turnLeft = ()=>{
         if(this.state.chartPage<=1){
             return;
         }
         this.state.chartPage -= 1;
-        console.log(this.state.chartPage)
         this.props.allSellersLineChartInit(this.state.chartPage);
     }
-    turnRight(){
+    turnRight = ()=>{
         this.state.chartPage +=1;
-        console.log(this.state.chartPage)
         //获取下一页商家数据
         this.props.allSellersLineChartInit(this.state.chartPage);
     }
 
 
     render(){
+		var rows = [];
+		if(this.state.table){
+			this.state.table.forEach(function(item,index){
+				rows.push(<tr key={index}><th>{index+1}</th><td>{item.name}</td><td>{item.num}{item.increase == 'true'? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={item.increase == 'true'? 'up':'down'}>{item.percent}%</td></tr>);
+
+			})
+		}
+
+
+
         return <div className="chartWrapper">
+
         	<div className="panel">
-        		<div className="panelHead">昨日商家客流</div>
+        		<div className="panelHead">商家客流排名</div>
         		<div className="panelBody">
                 <div className="allSellersLineChartBtn">
                     <button onClick={this.turnLeft}><i className="fa fa-chevron-left"></i></button>
@@ -89,10 +113,7 @@ class _Chart extends React.Component {
         					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
         				</thead>
         				<tbody>
-        				<tr><th>1</th><td>淘宝</td><td>600 ↑</td><td>1%</td></tr>
-        				<tr><th>2</th><td>马云</td><td>500 ↑</td><td>2%</td></tr>
-        				<tr><th>3</th><td>app</td><td>400 ↓</td><td>0%</td></tr>
-        				<tr><th>3</th><td>223</td><td>200 ↑</td><td>3%</td></tr>
+						{rows}
         				</tbody>
         			</table>
         		</div>

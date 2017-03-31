@@ -3,22 +3,27 @@ import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
 import echarts from 'echarts/lib/echarts';
-require('echarts/lib/chart/line');
-require('echarts/lib/component/grid');
-require('echarts/lib/component/title');
-require('echarts/lib/component/legend');
-require('echarts/lib/component/tooltip');
-require('echarts/lib/component/dataZoom');
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/grid';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/dataZoom';
 
 
 import sellersAction from '../actions/sellersAction';
 
 class _Chart extends React.Component {
+
+    static propTypes = {
+        params: React.PropTypes.object.isRequired,   //商店id，这里为数字
+        singleSellerLineChartInit: React.PropTypes.func.isRequired,
+        b: React.PropTypes.object.isRequired       //包含lineAndBar和table的数据
+    };
     constructor(props){
         super(props);
-        this.adjusting=this.adjusting.bind(this);
         this.state={
-					singleSellerLineChart:'',  //商家图表
+					singleSellerLineChart:'',  //商家客流图表
         	singleSellerLineOption:'',    //option参数
         	time:'hour',
           id:'',   //商家id
@@ -43,10 +48,11 @@ class _Chart extends React.Component {
 
 		}
 		componentWillUnmount(){
-
+      this.state.singleSellerLineChart.dispose();
 		}
-		adjusting(e){
+		adjusting = (e)=>{
 					 //点击当前项返回
+           console.log(11)
            if(e.target.className === 'active'){
                return;
            }
@@ -92,14 +98,50 @@ class _Chart extends React.Component {
                    </div>
                </ul>
     		<div className="panel">
-    			<div className="panelHead"></div>
+    			<div className="panelHead">入店顾客</div>
     			<div className="panelBody">
     				<div className="singleSellerLineChart" ref="singleSellerLineChart"></div>
     			</div>
     		</div>
 
-        <div className="panel">
-          <div className="panelHead"></div>
+        <div className="panel halfPanel_1">
+          <div className="panelHead">总体评价(雷达图)</div>
+          <div className="panelBody">
+            <div className="singleSellerLineChart" ref="singleSellerLineChart-----"></div>
+          </div>
+        </div>
+        <div className="panel halfPanel_2">
+          <div className="panelHead">驻店时长(柱状图)</div>
+          <div className="panelBody">
+            <div className="singleSellerLineChart" ref="singleSellerLineChart-----"></div>
+          </div>
+        </div>
+        <div className="panel halfPanel_1">
+          <div className="panelHead">新老顾客量+率(层叠柱状图)</div>
+          <div className="panelBody">
+            <div className="singleSellerLineChart" ref="singleSellerLineChart-----"></div>
+          </div>
+        </div>
+        <div className="panel halfPanel_2">
+          <div className="panelHead">各时间段占比(柱状图)</div>
+          <div className="panelBody">
+            <div className="singleSellerLineChart" ref="singleSellerLineChart-----"></div>
+          </div>
+        </div>
+        <div className="panel halfPanel_1">
+          <div className="panelHead">存留分析(门前客流、跳出率和新增率)</div>
+          <div className="panelBody">
+            <div className="singleSellerLineChart" ref="singleSellerLineChart-----"></div>
+          </div>
+        </div>
+        <div className="panel halfPanel_2">
+          <div className="panelHead">来访周期(竖向 柱状图)+活跃度(饼图)</div>
+          <div className="panelBody">
+            <div className="singleSellerLineChart" ref="singleSellerLineChart-----"></div>
+          </div>
+        </div>
+        <div className="panel ">
+          <div className="panelHead">深访率(柱状图)or--</div>
           <div className="panelBody">
             <div className="singleSellerLineChart" ref="singleSellerLineChart-----"></div>
           </div>

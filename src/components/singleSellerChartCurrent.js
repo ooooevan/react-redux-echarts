@@ -3,21 +3,26 @@ import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
 import echarts from 'echarts/lib/echarts';
-require('echarts/lib/chart/line');
-require('echarts/lib/component/grid');
-require('echarts/lib/component/title');
-require('echarts/lib/component/legend');
-require('echarts/lib/component/tooltip');
-require('echarts/lib/component/dataZoom');
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/grid';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/dataZoom';
 
 import sellersAction from '../actions/sellersAction';
 
 class _Chart extends React.Component {
+	static propTypes = {
+        params: React.PropTypes.object.isRequired,   //商店id，这里为数字
+        singleSellerLineChartInit: React.PropTypes.func.isRequired,
+        b: React.PropTypes.object.isRequired       //包含lineAndBar和table的数据
+    };
+
     constructor(props){
         super(props);
-        this.fetchData=this.fetchData.bind(this);
         this.state={
-					singleSellerLineChart:'',  //商家图表
+			singleSellerLineChart:'',  //商家图表
         	singleSellerLineOption:'',    //option参数
         	time:'hour',   //时间参数
         	param:'',   //路由参数
@@ -65,7 +70,7 @@ class _Chart extends React.Component {
 			this.state.singleSellerLineChart.dispose()
 
 		}
-		fetchData(){
+		fetchData = ()=>{
 			// if(this.state.timer){
 			// 	clearInterval(this.state.timer);
 			// }
@@ -76,7 +81,7 @@ class _Chart extends React.Component {
     	return <div className="panelWrapper">
              <p>{this.state.name}</p>
     		<div className="panel">
-    			<div className="panelHead"></div>
+    			<div className="panelHead">入店顾客</div>
     			<div className="panelBody">
     				<div className="singleSellerLineChart" ref="singleSellerLineChart"></div>
     			</div>

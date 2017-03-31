@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import redux from 'redux';
 import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router';
 // import Line from './line';
-require('../../lib/css/font-awesome.min.css');
-require('../styles/firstPage.scss');
+import '../../lib/css/font-awesome.min.css';
+import '../styles/firstPage.scss';
 // import DevTool from './devTool';
 
 

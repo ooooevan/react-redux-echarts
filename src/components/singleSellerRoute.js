@@ -6,6 +6,10 @@ import {connect,Provider} from 'react-redux';
 import { Router, Route, IndexRoute, hashHistory, Link ,Redirect} from 'react-router';
 
 class Chart extends React.Component {
+
+    static propTypes = {
+        params: React.PropTypes.object.isRequired       //数字
+    };
     constructor(props){
         super(props);
 
@@ -33,7 +37,7 @@ class Chart extends React.Component {
             <div className="singleSellerRoute">
                 <ul>
                     <li><Link to={nowUrl} activeClassName="active" draggable="false">实时客流</Link></li>
-                    <li><Link to={historyUrl} activeClassName="active" draggable="false">历史客流</Link></li>
+                    <li><Link to={historyUrl} activeClassName="active" draggable="false">历史数据</Link></li>
                 </ul>
             </div>
             {this.props.children}

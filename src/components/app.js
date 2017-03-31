@@ -16,6 +16,12 @@ import Allsellers from './allSellers';
 import SingleSellerRoute from './singleSellerRoute';
 import SingleSellerChartCurrent from './singleSellerChartCurrent';
 import SingleSellerChartHistory from './singleSellerChartHistory';
+import Statistics from './statistics';
+
+
+
+
+import NotFindPage from './notFindPage';
 
 
 class Test extends React.Component {
@@ -26,7 +32,7 @@ class Test extends React.Component {
 		console.log(this.props.params)
 	}
 	render(){
-		return <div className="chartWrapper"> test</div>
+		return <div className="chartWrapper" style={{"paddingTop":"70px"}}> 404</div>
 
 	}
 }
@@ -53,9 +59,14 @@ ReactDOM.render(
 						<Route path='history' component={SingleSellerChartHistory}/>
 					</Route>
 				</Route>
-				<Route path='statistics' component={Test}>
-
+				<Route path='statistics' component={Statistics}>
+						<IndexRoute path='total' component={Test} />
+						<Route path='total' component={Test}/>
+						<Route path='firstFloor' component={Test}/>
+						<Route path='secondFloor' component={Test}/>
+						<Route path='thirdFloor' component={Test}/>
 				</Route>
+				<Route path="*" component={NotFindPage} />
 			</Route>
 			</Router>
 		</Provider>

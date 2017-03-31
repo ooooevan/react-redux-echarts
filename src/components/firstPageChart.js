@@ -7,16 +7,20 @@ import redux from 'redux';
 import {connect,Provider} from 'react-redux';
 import lineAction from '../actions/lineAction';
 import echarts from 'echarts/lib/echarts';
-require('echarts/lib/chart/line');
-require('echarts/lib/component/title');
-require('echarts/lib/component/grid');
-require('echarts/lib/component/tooltip');
-// require('echarts/lib/component/xAxis');
-// require('echarts/lib/component/yAxis');
-require('echarts/lib/component/dataZoom');
-// require('echarts/lib/series');
+import 'echarts/lib/chart/line';
+import 'echarts/lib/chart/gauge';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/grid';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/dataZoom';
 
 class _Chart extends React.Component {
+
+    static propTypes = {
+        firstPageChartInit: React.PropTypes.func.isRequired,
+        a: React.PropTypes.object.isRequired       //包含line 和pie 的数据
+    };
+
     constructor(props){
         super(props);
         this.state={
@@ -33,6 +37,7 @@ class _Chart extends React.Component {
     
     componentWillMount(){
         console.log('componentWillMount');
+        //debugger;
         this.props.firstPageChartInit();
 
     }
@@ -44,8 +49,12 @@ class _Chart extends React.Component {
         // this.props.init(this.state.myChart,this.state.param);
         // this.state.timer = setInterval(this.start,2000);
         this.state.myChartLine = echarts.init(domLine);
+        this.state.myChartLine.showLoading();   //显是遮罩
         this.state.myChartPie = echarts.init(domPie);
-        this.props.firstPageChartInit();
+        this.state.myChartPie.showLoading();//显是遮罩
+
+
+        // this.props.firstPageChartInit();
 
         // this.setState({
         //     myChartLine:echarts.init(domLine),
@@ -83,17 +92,20 @@ class _Chart extends React.Component {
         
         // this.state.optionLine=this.props.a.line;
         // this.state.optionPie=this.props.a.pie;
-        //这样赋值，才能触发渲染
-        this.setState({
-            optionLine:this.props.a.line,
-            optionPie:this.props.a.pie
-        })
+        // this.setState({
+            // debugger;
+        this.state.optionLine=this.props.a.line,
+        this.state.optionPie=this.props.a.pie
+        // })
         // console.log(this.state.option)
         // console.log(this.props.a.pie);
         //有值才执行
         if(this.state.optionLine){
             this.state.myChartLine.setOption(this.state.optionLine);
+            this.state.myChartLine.hideLoading();
+            //debugger
             this.state.myChartPie.setOption(this.state.optionPie);
+            this.state.myChartPie.hideLoading();
         // this.state.myChartLine.setOption(this.state.optionLine);
         // this.state.myChartPie.setOption(this.state.optionPie);
             this.state.chartNum = this.state.optionLine.series.data[this.state.optionLine.series.data.length - 1];

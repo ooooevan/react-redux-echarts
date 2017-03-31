@@ -154,7 +154,8 @@ let dataX,barDataY,lineDataY;
                     data:lineDataY
                 }
             ]
-        }
+        },
+      "table":[]
 };
 
 

@@ -1,0 +1,33 @@
+.notFindPage{
+	position:absolute;
+	width:100%;
+	height:calc(100% - 60px);
+	top:60px;
+	
+	// background:url('../../lib/images/bg.png');
+	// background-image:#eeeeee;
+	// background-size:100% 100%;
+	.errorMsg{
+		line-height:30px;
+		font-size: 18px;
+		// top:50%;
+		margin-top:200px;
+		text-align:center;
+		// font-size: 20px;
+		color:black;
+		i{
+			font-size: 23px;
+			transform:translateX(-10px);
+		}
+		p:nth-child(1){
+			font-size:67px;
+			line-height:67px;
+			margin-bottom:8px;
+			color:#c23531;
+		}
+		a{
+			color:#c23531;
+		}
+	}
+
+}

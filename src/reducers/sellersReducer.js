@@ -1,6 +1,7 @@
 /**
  * Created by HH on 2017/3/16.
  */
+// import 'babel-polyfill';
 export default function sellersReducer(state={"sellers":[]},action){
     // if(typeof state === 'undefined') return {sellers:[]}
     switch(action.type){
@@ -47,6 +48,14 @@ export default function sellersReducer(state={"sellers":[]},action){
           obj4.lineAndLine.series[0].data.shift();
           obj4.lineAndLine.series[1].data.shift();
           return Object.assign({},state,obj4);
+        case "allSellersTableInit":
+            let obj5=Object.assign({},state);
+            obj5.table=[];
+            action.payload.forEach(item=>{
+                obj5.table.push(item);
+            });
+            //debugger;
+            return Object.assign({},state,obj5);
         default:
             return state;
     }

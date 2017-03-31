@@ -1,10 +1,11 @@
 /**
  * Created by HH on 2017/3/3.
  */
- var debug=process.env.NODE_ENV !=="production";
+var debug=process.env.NODE_ENV !=="production";
 var path = require('path');
 var webpack = require('webpack');
 module.exports = {
+    devtool: 'source-map',
     entry: {
         app: './src/components/app.js'
         // react:['react']
@@ -60,18 +61,18 @@ module.exports = {
 
     module: {
         loaders: [{
-            test: /\.css$/,
-            loaders: ['style-loader', 'css-loader']
-        }, {
+        //     test: /\.css$/,
+        //     loaders: ['style-loader', 'css-loader']
+        // }, {
             test: /\.(js|jsx)$/,
             loader: 'babel-loader',
             // loader: ['babel-loader','eslint-loader'],
             exclude: /node_modules/,
             query: {
-                presets: ['es2015', 'react']
+                presets: ['es2015', 'react','stage-0']
             }
         }, {
-            test: /\.scss/,
+            test: /\.(scss|css)/,
             loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version"]}!sass-loader?outputStyle=expanded'
             //loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader'
             //loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader!resolve-url!'

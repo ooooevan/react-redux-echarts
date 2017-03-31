@@ -5,12 +5,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
-// import echarts from 'echarts';
+// import echarts from 'echarts'
 
 class _Chart extends React.Component {
     constructor(props){
         super(props);
-
+  
     }
 
     render(){
