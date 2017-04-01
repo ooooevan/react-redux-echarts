@@ -5,21 +5,18 @@ import redux from 'redux';
 import {connect,Provider} from 'react-redux';
 import { Router, Route, IndexRoute, hashHistory, Link ,Redirect,browserHistory} from 'react-router';
 import General from './general';
-import Sellers from './sellers';
+// import Sellers from './sellers';
 import FirstPage from './firstPage';
 import store from '../store/store';
 import FirstPageChart from './firstPageChart';
 import FirstFloorChart from './firstFloorChart';
 import SecondFloorChart from './secondFloorChart';
 import ThirdFloorChart from './thirdFloorChart';
-import Allsellers from './allSellers';
-import SingleSellerRoute from './singleSellerRoute';
-import SingleSellerChartCurrent from './singleSellerChartCurrent';
-import SingleSellerChartHistory from './singleSellerChartHistory';
+// import Allsellers from './allSellers';
+// import SingleSellerRoute from './singleSellerRoute';
+// import SingleSellerChartCurrent from './singleSellerChartCurrent';
+// import SingleSellerChartHistory from './singleSellerChartHistory';
 import Statistics from './statistics';
-
-
-
 
 import NotFindPage from './notFindPage';
 
@@ -33,9 +30,37 @@ class Test extends React.Component {
 	}
 	render(){
 		return <div className="chartWrapper" style={{"paddingTop":"70px"}}> 404</div>
-
 	}
 }
+
+const Sellers = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./sellers').default)
+    },'sellers')
+}
+
+const Allsellers = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./allSellers').default)
+    },'allsellers')
+}
+const SingleSellerRoute = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./singleSellerRoute').default)
+    },'total')
+}
+const SingleSellerChartCurrent = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./singleSellerChartCurrent').default)
+    },'now')
+}
+const SingleSellerChartHistory = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./singleSellerChartHistory').default)
+    },'history')
+}
+
+
 
 
 ReactDOM.render(
@@ -50,13 +75,13 @@ ReactDOM.render(
 					<Route path="secondFloor" component={SecondFloorChart}/>
 					<Route path="thirdFloor" component={ThirdFloorChart}/>
 				</Route>
-				<Route path='sellers' component={Sellers}>
-					<IndexRoute path='total' component={Allsellers} />
-					<Route path="total" component={Allsellers}/>
-					<Route path=":id" component={SingleSellerRoute}>
-						<IndexRoute path='now' component={SingleSellerChartCurrent} />
-						<Route path='now' component={SingleSellerChartCurrent}/>
-						<Route path='history' component={SingleSellerChartHistory}/>
+				<Route path='sellers' getComponent={Sellers}>
+					<IndexRoute path='allsellers' getComponent={Allsellers} />
+					<Route path="allsellers" getComponent={Allsellers}/>
+					<Route path=":id" getComponent={SingleSellerRoute}>
+						<IndexRoute path='now' getComponent={SingleSellerChartCurrent} />
+						<Route path='now' getComponent={SingleSellerChartCurrent}/>
+						<Route path='history' getComponent={SingleSellerChartHistory}/>
 					</Route>
 				</Route>
 				<Route path='statistics' component={Statistics}>

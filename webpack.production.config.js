@@ -13,16 +13,16 @@ module.exports = {
 
     },
     output: {
-        path: path.join(__dirname, 'dist'),
-        publicPath: '/',
+        path: path.join(__dirname, 'dist/'),
+        publicPath: '',
         // filename: 'dev.js'
-        filename: '[name]-[chunkhash:5].js'
-        // chunkFilename: '[name].js'  //路由对应文件
+        filename: '[name]-[chunkhash:5].js',
+        chunkFilename: '[name].js'  //路由对应文件
     },
 
     plugins: [
       new ExtractTextPlugin('style-[contenthash:5].css'),
-      new webpack.optimize.OccurrenceOrderPlugin(),
+      // new webpack.optimize.OccurrenceOrderPlugin(),  //已被默认加载
       new webpack.optimize.CommonsChunkPlugin({
         names:'vendors',
         filename: 'vendors-[chunkhash:5].js',  
@@ -69,7 +69,8 @@ module.exports = {
             // loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version","IE 8"]}!sass-loader?outputStyle=expanded'
             use: ExtractTextPlugin.extract({
                 fallback:"style-loader",
-                loader:["css-loader","autoprefixer-loader?{browsers:['last 2 version','IE 8']}","sass-loader"]
+                use:["css-loader","autoprefixer-loader?{browsers:['last 2 version','IE 8']}","sass-loader"],
+                publicPath: ""   //css需要的资源的路径
             })
             //loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader'
             //loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader!resolve-url!'

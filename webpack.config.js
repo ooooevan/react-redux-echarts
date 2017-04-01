@@ -4,42 +4,58 @@
 var debug=process.env.NODE_ENV !=="production";
 var path = require('path');
 var webpack = require('webpack');
+
+var proxy = require('http-proxy-middleware');
+const context = ['/*', '/allsellers/*'];
 module.exports = {
     devtool: 'source-map',
     entry: {
-        app: './src/components/app.js'
-        // react:['react']
+        app: './src/components/app.js',
+        vendors:['react','react-dom']
 
     },
     output: {
         path: path.join(__dirname, 'dist'),
         // publicPath: '/dev/',
-        filename: 'dev.js'
-        // filename: '[name].bundle.js'
+        // filename: 'dev.js'
+        filename: '[name].js',      //①
+        chunkFilename: '[name].js'    //②
     },
     //  devServer: {
     //     historyApiFallback: true,
     //     contentBase: "./",
     //     quiet: false, //控制台中不输出打包的信息
     //     noInfo: false,
-    //     hot: true,
-    //     inline: true,
+    //     hot: true,       //热替换(MHR)、即改变部分，不刷新
+    //     inline: true,   //刷新页面            -->和上面都为true，则优先hot
     //     lazy: false,
     //     progress: true, //显示打包的进度
-    //     // watchOptions: {
-    //     //     aggregateTimeout: 300
-    //     // },
-    //     port: '8080'
+    //     watchOptions: {
+    //         aggregateTimeout: 300
+    //     },
+    //     port: '8080',
+    //      //设置代理只要配置这个参数就可以了
+    //     proxy: [
+    //         {
+    //             context:context,
+    //             target: 'http://localhost:3003',   //api要访问的域名
+    //             secure: false
+    //         }
+    //     ]
     // },
 
 
-    plugins: debug ? [] : [
+    plugins:  [
 
       new webpack.optimize.CommonsChunkPlugin({
-        names:['react','react-dom'],
+        // names:['react','react-dom'],
+        // minChunks:Infinity
+        names:'vendors',
+        filename: 'vendors.js',  
         minChunks:Infinity
       }),
       new webpack.optimize.UglifyJsPlugin({
+        sourceMap: true,
         output:{
           comments:false,        //去掉所以注释
         },
@@ -47,11 +63,11 @@ module.exports = {
           warnings:false
         }
       }),
-      // new webpack.DefinePlugin({
-      //   'process.env': {
-      //       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      //   },
-      // }),
+      new webpack.DefinePlugin({
+        'process.env': {
+            NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        },
+      }),
     ],
       
 
