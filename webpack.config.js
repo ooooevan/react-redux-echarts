@@ -54,20 +54,20 @@ module.exports = {
         filename: 'vendors.js',  
         minChunks:Infinity
       }),
-      new webpack.optimize.UglifyJsPlugin({
-        sourceMap: true,
-        output:{
-          comments:false,        //去掉所以注释
-        },
-        compress:{
-          warnings:false
-        }
-      }),
-      new webpack.DefinePlugin({
-        'process.env': {
-            NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        },
-      }),
+      // new webpack.optimize.UglifyJsPlugin({
+      //   sourceMap: true,
+      //   output:{
+      //     comments:false,        //去掉所以注释
+      //   },
+      //   compress:{
+      //     warnings:false
+      //   }
+      // }),
+      // new webpack.DefinePlugin({
+      //   'process.env': {
+      //       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      //   },
+      // }),
     ],
       
 

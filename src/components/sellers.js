@@ -40,9 +40,16 @@ class _SidebarNav extends React.Component {
          * 有一个bug，或者是和别的路由相同接口引起的。this.props.b.sellers是 []
          */
          // debugger;
-        this.setState({
-            sellers:this.props.b.sellers
-        })
+        // this.setState({
+        //     sellers:this.props.b.sellers
+        // })
+
+        //bug消除：全部商家列表中，搜索后为部分商家，选择某商家，商家列表就回到全部商家。下面entireList函数，点击全部商家回到全部
+        if(this.props.b.sellers){
+            this.state.sellers = this.props.b.sellers;
+            this.change();
+        }
+        // console.log(this)
         // console.log('输出sellers：')
         // console.log(this.props.b.sellers)
         // console.log(this.state.sellers)
@@ -54,7 +61,7 @@ class _SidebarNav extends React.Component {
         let rows=[];
         // rows.seller=[];
         // rows.id=[];
-        console.log(this.props.b.sellers);
+        // console.log(this.props.b.sellers);
         this.props.b.sellers.forEach(function(seller){
 
             //seller是数值，不能indexOf，要转成string
@@ -67,12 +74,19 @@ class _SidebarNav extends React.Component {
 
 
     }
+    //回到整个商家列表
+    entireList = ()=>{
+        let dom=ReactDOM.findDOMNode(this.refs.searchText);
+        dom.value='';
+    }
+
+
 
     render(){
         //const usersdom = this.props.sellers.map(seller=><li>{seller.name}</li>);
         let rows=[];
         let routeData='sellers/';
-        rows.push(<li key="all"><Link to='sellers/total' activeClassName="active" draggable="false">全部商家<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>);
+        rows.push(<li key="all" onClick={this.entireList}><Link to='sellers/allsellers' activeClassName="active" draggable="false">全部商家<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>);
         if(this.state.sellers){
             this.state.sellers.forEach(function(seller,index){
                 routeData+=seller.id;

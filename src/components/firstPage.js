@@ -9,7 +9,7 @@ import {connect,Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 // import echarts from 'echarts';  
 //import lineAction from '../actions/lineAction';
-import lineReducer from '../reducers/lineReducer';
+// import FirstPageLineReducer from '../reducers/firstPageLineReducer';
 import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router';
 
 // var echarts = require('echarts/lib/echarts'); //必须

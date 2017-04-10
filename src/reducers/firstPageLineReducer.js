@@ -43,6 +43,7 @@ export default function lineReducer(state={line:{},pie:{}},action){
             // action.chart.setOption(aa);
             // console.log(action)
             return aa;
+        
         default:return state;
     }
 }

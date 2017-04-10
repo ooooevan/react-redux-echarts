@@ -285,6 +285,8 @@ nav {
     //top:25px;
     // border:7px solid red;
     //padding: 30px;
+
+
     /*
     包装chartCanvas的panel，看情况可放到common中
     */
@@ -513,11 +515,36 @@ nav {
     }
   }
 }
-/*单个商家singleSellerLineChart*/
+/*单个商家 设置高度*/
 .singleSellerLineChart{
   height: 400px;
 }
+.singleSellerCustomerNumChart{
+  height:400px;
+}
+.singleSellerCustomerFlowChart{
+  height: 400px;
+}
 
+.singleSellerRadarChart{
+  height: 400px;
+  // width:300px;
+}
+.singleSellerStayBarChart{
+  height: 400px;
+}
+.singleSellerOldOrNewChart{
+  height:400px;
+}
+.singleSellerTimeSectionChart{
+  height:400px;
+}
+.singleSellerDeepVisitChart{
+  height:400px;
+}
+.singleSellerCycleAndActiveChart{
+  height:400px;
+}
 
 /*单个商家wrapper*/
 .panelWrapper{
@@ -529,22 +556,46 @@ nav {
     transform: translateY(-47px);
   }
   .halfPanel_1{
-    // overflow:hidden;
-    margin:0 24px 20px!important;
-    width:calc(50% - 35px);
-    // position:relative;
-    // float:left;
-    display:inline-block;
-    // vertical-align: baseline;
+    margin:0 10px 0 25px!important;
   }
-    .halfPanel_2{
-    margin:0 20px 20px 0!important;
-    width:calc(50% - 35px);
-    // position:relative;
-    // float:left;
-    display:inline-block;
-    // vertical-align: baseline;
+  .halfPanel_2{
+    margin:0 25px 0 10px!important;
+
   }
+  .halfPanel_1,.halfPanel_2{
+    width:calc(50% - 35px);
+    display:inline-block;
+    vertical-align: top;
+  }
+  .halfPanel_3,.halfPanel_4{
+    width:calc(50% - 35px);
+    display:inline-block;
+    vertical-align: top;
+  }
+  .halfPanel_3{
+    margin:20px 10px 0 25px!important;
+  }
+  .halfPanel_4{
+    margin:20px 25px 0 10px!important;
+
+  }
+  // .halfPanel_1{
+  //   // overflow:hidden;
+  //   // margin:0 24px 20px!important;
+  //   width:calc(50% - 135px);
+  //   // position:relative;
+  //   // float:left;
+  //   display:inline-block;
+  //   // vertical-align: baseline;
+  // }
+  //   .halfPanel_2{
+  //   // margin:0 20px 20px 0!important;
+  //   width:calc(50% - 135px);
+  //   // position:relative;
+  //   // float:left;
+  //   display:inline-block;
+  //   // vertical-align: baseline;
+  // }
 
 }
 

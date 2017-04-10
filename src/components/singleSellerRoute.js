@@ -8,7 +8,7 @@ import { Router, Route, IndexRoute, hashHistory, Link ,Redirect} from 'react-rou
 class Chart extends React.Component {
 
     static propTypes = {
-        params: React.PropTypes.object.isRequired       //数字
+        params: React.PropTypes.object.isRequired       //
     };
     constructor(props){
         super(props);

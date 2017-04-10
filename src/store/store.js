@@ -1,7 +1,7 @@
 import {createStore,applyMiddleware,compose,combineReducers } from 'redux';
-import lineReducer from '../reducers/lineReducer';
+import FirstPageLineReducer from '../reducers/firstPageLineReducer';
 import sellersReducer from '../reducers/sellersReducer';
-import lineOption from '../options/lineOption';
+import FirstPageLineOption from '../options/firstPageLineOption';
 import sellersOption from '../options/sellersOption';
 
 import thunk from 'redux-thunk';
@@ -19,17 +19,17 @@ const logger = store=>nextDispatch=>action=>{
 //	applyMiddleware(logger,thunk),
 //  	DevTool.instrument()
 //);
- //const store=createStore(lineReducer,lineOption,enhancer);
+ //const store=createStore(FirstPageLineReducer,lineOption,enhancer);
 
-const reducer = combineReducers({a:lineReducer,b:sellersReducer});
-const state={a:lineOption,b:sellersOption};
+const reducer = combineReducers({a:FirstPageLineReducer,b:sellersReducer});
+const state={a:FirstPageLineOption,b:sellersOption};
 const store=createStore(reducer,state,applyMiddleware(logger,thunk));
-//const store=createStore(combineReducers({a:lineReducer}),{a:lineOption},applyMiddleware(thunk));
-//const store=createStore(lineReducer,lineOption,applyMiddleware(thunk));
+//const store=createStore(combineReducers({a:FirstPageLineReducer}),{a:lineOption},applyMiddleware(thunk));
+//const store=createStore(FirstPageLineReducer,lineOption,applyMiddleware(thunk));
 
 
 /*  原来的store
- const store=createStore(lineReducer,lineOption,applyMiddleware(thunk));
+ const store=createStore(FirstPageLineReducer,lineOption,applyMiddleware(thunk));
 */
 
 

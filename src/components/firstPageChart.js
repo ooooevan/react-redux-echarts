@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
-import lineAction from '../actions/lineAction';
+import FrstPageAction from '../actions/firstPageAction';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/gauge';
@@ -28,7 +28,7 @@ class _Chart extends React.Component {
             myChartPie:"",       //chart实例对象pie
             timer:"",           //定时器
             param:'hour',       //不同时间阀值参数
-            optionLine:'',          //得到的chart实例的option参数
+            // optionLine:'',          //得到的chart实例的option参数
             chartNum:'',     //显示当前人数
             chartTime:'',     //显示当前时间
             chartTitle:''    //显示当前标题
@@ -94,23 +94,24 @@ class _Chart extends React.Component {
         // this.state.optionPie=this.props.a.pie;
         // this.setState({
             // debugger;
-        this.state.optionLine=this.props.a.line,
-        this.state.optionPie=this.props.a.pie
+        // this.state.optionLine=this.props.a.line,
+        // this.state.optionPie=this.props.a.pie
         // })
         // console.log(this.state.option)
         // console.log(this.props.a.pie);
         //有值才执行
-        if(this.state.optionLine){
-            this.state.myChartLine.setOption(this.state.optionLine);
+        // debugger
+        if(this.props.a.line.xAxis.data){
+            this.state.myChartLine.setOption(this.props.a.line);
             this.state.myChartLine.hideLoading();
             //debugger
-            this.state.myChartPie.setOption(this.state.optionPie);
+            this.state.myChartPie.setOption(this.props.a.pie);
             this.state.myChartPie.hideLoading();
         // this.state.myChartLine.setOption(this.state.optionLine);
         // this.state.myChartPie.setOption(this.state.optionPie);
-            this.state.chartNum = this.state.optionLine.series.data[this.state.optionLine.series.data.length - 1];
-            this.state.chartTime = this.state.optionLine.xAxis.data[this.state.optionLine.xAxis.data.length - 1];
-            this.state.chartTitle = this.state.optionLine.title.text;
+            this.state.chartNum = this.props.a.line.series.data[this.props.a.line.series.data.length - 1];
+            this.state.chartTime = this.props.a.line.xAxis.data[this.props.a.line.xAxis.data.length - 1];
+            this.state.chartTitle = this.props.a.line.title.text;
         }
 
     }
@@ -182,6 +183,6 @@ class _Chart extends React.Component {
     }
 
 }
-let Chart = connect(state=>state,lineAction)(_Chart);
+let Chart = connect(state=>state,FrstPageAction)(_Chart);
 
 export default Chart;

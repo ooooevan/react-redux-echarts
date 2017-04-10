@@ -38,24 +38,128 @@ export default function sellersReducer(state={"sellers":[]},action){
 
 
           return Object.assign({},state,obj3);
-        case "singleSellerLineChartFetch":
+        case "singleSellerCustomerNumInit":
+          // debugger;
+          let obj13=Object.assign({},state);
+          obj13.customerNum.xAxis[0].data=[];
+          obj13.customerNum.series[0].data=[];
+          obj13.customerNum.series[1].data=[];
+          obj13.customerNum.series[2].data=[];
+          //商家名
+          obj13.customerNum.name =action.payload.name;
+          //赋值
+          action.payload.value.forEach(item=>{
+            // debugger
+            obj13.customerNum.xAxis[0].data.push(item.time);
+            obj13.customerNum.series[0].data.push(item.num1);
+            obj13.customerNum.series[1].data.push(item.num2);
+            obj13.customerNum.series[2].data.push(item.percent);
+          })
+          return Object.assign({},state,obj13);
+
+
+
+        case "singleSellerCustomerNumFetch":
           let obj4=Object.assign({},state);
           // debugger
-          obj4.lineAndLine.xAxis.data.push(action.payload.value[0].time);
-          obj4.lineAndLine.series[0].data.push(action.payload.value[0].num);
-          obj4.lineAndLine.series[1].data.push(action.payload.value[0].percent);
-          obj4.lineAndLine.xAxis.data.shift();
-          obj4.lineAndLine.series[0].data.shift();
-          obj4.lineAndLine.series[1].data.shift();
+          obj4.customerNum.xAxis[0].data.push(action.payload.value.time);
+          obj4.customerNum.series[0].data.push(action.payload.value.num1);
+          obj4.customerNum.series[1].data.push(action.payload.value.num2);
+          obj4.customerNum.series[2].data.push(action.payload.value.percent);
+          obj4.customerNum.xAxis[0].data.shift();
+          obj4.customerNum.series[0].data.shift();
+          obj4.customerNum.series[1].data.shift();
+          obj4.customerNum.series[2].data.shift();
           return Object.assign({},state,obj4);
+        case "singleSellerCustomerFlowInit":
+          // debugger
+          let obj12=Object.assign({},state);
+          obj12.customerFlow.xAxis.data=[]
+          obj12.customerFlow.series[0].data=[];
+          obj12.customerFlow.series[1].data=[];
+          obj12.customerFlow.series[2].data=[];
+          //商家名
+          obj12.customerFlow.name =action.payload.name;
+          //赋值
+          action.payload.value.forEach(item=>{
+            obj12.customerFlow.xAxis.data.push(item.time);
+            obj12.customerFlow.series[0].data.push(item.num);
+            obj12.customerFlow.series[1].data.push(item.percent1);
+            obj12.customerFlow.series[2].data.push(item.percent2);
+          })
+          return Object.assign({},state,obj12);
         case "allSellersTableInit":
-            let obj5=Object.assign({},state);
-            obj5.table=[];
-            action.payload.forEach(item=>{
-                obj5.table.push(item);
-            });
-            //debugger;
-            return Object.assign({},state,obj5);
+          let obj5=Object.assign({},state);
+          obj5.table=[];
+          action.payload.forEach(item=>{
+              obj5.table.push(item);
+          });
+          //debugger;
+          return Object.assign({},state,obj5);
+        case 'singleSellerRadar':   
+          // debugger
+          let obj6=Object.assign({},state);
+          let value=[];
+          let payloadValue=action.payload.value;
+          for(let item in payloadValue){
+            value.push(payloadValue[item])
+          }
+          obj6.radar.series.data[0].value = value;
+// debugger
+          return Object.assign({},state,obj6);
+        case 'singleSellerStayBar':
+          // debugger
+          let obj7=Object.assign({},state);
+          let name2=[];
+          let value2=[];
+          action.payload.value.forEach(data=>{
+            name2.push(data.name);
+            value2.push(data.value);
+          })
+          obj7.stayBar.xAxis[0].data = name2;
+          obj7.stayBar.series[0].data = value2;
+          return Object.assign({},state,obj7);
+        case 'singleSellerOldOrNew':
+          // debugger
+          let obj8=Object.assign({},state);
+          obj8.OldOrNew.series[0].data[0].value = action.payload.value.old;
+          obj8.OldOrNew.series[0].data[1].value = action.payload.value.new;
+          return Object.assign({},state,obj8);
+        case 'singleSellerTimeSection':
+          // debugger
+          let obj9=Object.assign({},state);
+          let name3=[];
+          let value3=[];
+          action.payload.value.forEach(data=>{
+            name3.push(data.name);
+            value3.push(data.value);
+          })
+          obj9.timeSection.xAxis[0].data = name3;
+          obj9.timeSection.series[0].data = value3;
+          return Object.assign({},state,obj9);
+        case 'singleSellerDeepVisit':
+          // debugger
+          let obj10=Object.assign({},state);
+          obj10.deepVisit.series[0].data[0].value = action.payload.value.shallow;
+          obj10.deepVisit.series[0].data[1].value = action.payload.value.common;
+          obj10.deepVisit.series[0].data[2].value = action.payload.value.deep;
+          return Object.assign({},state,obj10);
+        case 'singleSellerCycleAndActive':
+          let obj11=Object.assign({},state);
+          let payLoadData1=action.payload.data1;
+          let payLoadData2=action.payload.data2;
+          obj11.cycleAndActive.yAxis[0].data=[];
+          obj11.cycleAndActive.series[0].data=[];
+          obj11.cycleAndActive.series[1].data=[];
+          for(let i in payLoadData1){        //bar、来访周期放入数据
+            obj11.cycleAndActive.yAxis[0].data.push(payLoadData1[i].time);
+            obj11.cycleAndActive.series[0].data.push(payLoadData1[i].value);
+          }
+          for(let i in payLoadData2){       //pie、活跃度放入数据
+            obj11.cycleAndActive.series[1].data.push(payLoadData2[i]);
+          }
+          return Object.assign({},state,obj11);
+
         default:
             return state;
     }

@@ -942,20 +942,327 @@ var seller2=`{
 	res.end();
 })
 
-router.get("/singleSellerFetch/:id",function(req,res,next){
+router.get("/singleSellerCustomerNumFetch/:id",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var num1=500 + parseInt(Math.random()*100);
+	var num2=500 + parseInt(Math.random()*100);
+	var percent=1 + parseInt(Math.random()*10);
+	var seller=`{
+		"value":{
+            "time":"12:21:08",
+            "num1":${num1},
+            "num2":${num2},
+            "percent":${percent}
+        }
+	}`
+	res.write(seller);
+	res.end();
+
+})
+
+router.get("/singleSellerRadar/:id",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var num=500 + parseInt(Math.random()*100);
+	var percent=1 + parseInt(Math.random()*10);
+	var seller=`{
+		"value":{
+            "0":"72",
+            "1":"65",
+            "2":"91",
+            "3":"58",
+            "4":"27"
+        }
+	}`
+	res.write(seller);
+	res.end();
+})
+router.get("/singleSellerStayBar/:id",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
 	var seller=`{
 		"value":[{
-            "time":"12:21:08",
-            "num":${num},
-            "percent":${percent}
+            "name":"少于5分钟",
+            "value":"300"
+        },{
+        		"name":"10分钟",
+            "value":"800"
+        },{
+        		"name":"30分钟",
+            "value":"500"
+        },{
+        		"name":"45分钟",
+            "value":"400"
+        },{
+        		"name":"大于60分钟",
+            "value":"100"
         }]
 	}`
 	res.write(seller);
 	res.end();
+})
+router.get("/singleSellerOldOrNew/:id",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var num=500 + parseInt(Math.random()*100);
+	var percent=1 + parseInt(Math.random()*10);
+	var seller=`{
+		"value":{
+            "new":"200",
+            "old":"650"
+        }
+	}`
+	res.write(seller);
+	res.end();
+})
+router.get("/singleSellerTimeSection/:id",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var num=500 + parseInt(Math.random()*100);
+	var percent=1 + parseInt(Math.random()*10);
+	var seller=`{
+		"value":[{
+            "name":"0",
+            "value":"50"
+        },{
+        		"name":"2",
+            "value":"10"
+        },{
+        		"name":"4",
+            "value":"7"
+        },{
+        		"name":"6",
+            "value":"400"
+        },{
+        		"name":"8",
+            "value":"800"
+        },{
+            "name":"10",
+            "value":"792"
+        },{
+        		"name":"12",
+            "value":"1073"
+        },{
+        		"name":"14",
+            "value":"970"
+        },{
+        		"name":"16",
+            "value":"1421"
+        },{
+        		"name":"6",
+            "value":"1082"
+        },{
+            "name":"18",
+            "value":"1181"
+        },{
+        		"name":"20",
+            "value":"2091"
+        },{
+        		"name":"22",
+            "value":"1741"
+        }]
+	}`
+	res.write(seller);
+	res.end();
+})
+router.get("/singleSellerDeepVisit/:id",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var num=500 + parseInt(Math.random()*100);
+	var percent=1 + parseInt(Math.random()*10);
+	var seller=`{
+		"value":{
+            "deep":"105",
+            "common":"1750",
+            "shallow":"203"
+        }
+	}`
+	res.write(seller);
+	res.end();
+})
+router.get("/singleSellerCycleAndActive/:id",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var num=500 + parseInt(Math.random()*100);
+	var percent=1 + parseInt(Math.random()*10);
+	var seller=`{
+    "data1":[{
+  		"time":"初次",
+  		"value":"414"
+    },{
+    	"time":"昨日",
+  		"value":"627"
+    },{
+    	"time":"前日",
+  		"value":"1449"
+    },{
+    	"time":"一周前",
+  		"value":"782"
+    },{
+    	"time":"半月前",
+  		"value":"582"
+    },{
+    	"time":"一月前",
+  		"value":"219"
+    }],
+    "data2":[{
+    	"name":"高活跃度",
+    	"value":"415"
+    },{
+    	"name":"中活跃度",
+    	"value":"680"
+    },{
+    	"name":"低活跃度",
+    	"value":"214"
+    },{
+    	"name":"沉睡活跃度",
+    	"value":"152"
+    }]
+	}`
+	res.write(seller);
+	res.end();
+})
+router.get("/singleSellerCustomerFlowInit/:id",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var num=500 + parseInt(Math.random()*100);
+	var percent=1 + parseInt(Math.random()*10);
+	var seller=`{
+        "name":"淘宝",
+        "value":[{
+            "time":"12:21:08",
+            "num":632,
+            "percent1":3,
+            "percent2":2
+        },{
+            "time":"12:21:31",
+            "num":633,
+            "percent1":2.4,
+            "percent2":2.5
+        },{
+            "time":"12:22:11",
+            "num":656,
+            "percent1":2.8,
+            "percent2":1
+        }
+        ,{
+            "time":"12:23:31",
+            "num":563,
+            "percent1":2,
+            "percent2":4
+        }
+        ,{
+            "time":"12:27:31",
+            "num":644,
+            "percent1":4,
+            "percent2":1.3
+        }
+        ,{
+            "time":"12:31:31",
+            "num":662,
+            "percent1":2.4,
+            "percent2":1
+        }
+        ,{
+            "time":"12:43:31",
+            "num":613,
+            "percent1":2,
+            "percent2":2.1
+        },{
+            "time":"13:21:31",
+            "num":633,
+            "percent1":2.4,
+            "percent2":6
+        },{
+            "time":"13:22:11",
+            "num":666,
+            "percent1":2.8,
+            "percent2":1.2
+        }
+        ,{
+            "time":"13:23:31",
+            "num":533,
+            "percent1":2,
+            "percent2":2
+        }
+        ,{
+            "time":"13:27:31",
+            "num":634,
+            "percent1":4,
+            "percent2":1.7
+        }
+        ,{
+            "time":"13:31:31",
+            "num":532,
+            "percent1":2.4,
+            "percent2":3.2
+        }
+        ,{
+            "time":"13:43:31",
+            "num":413,
+            "percent1":2,
+            "percent2":1
+        }]
+    }`
+	res.write(seller);
+	res.end();
+})
+router.get("/singleSellerCustomerNumInit/:id",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var num=500 + parseInt(Math.random()*100);
+	var percent=1 + parseInt(Math.random()*10);
+	/*
+		num1:入店量
+		num2:门前客流量
+		percent:可以是门前客流入店的比例，也可以是总入店比例  （入店比例）
 
+	*/
+	var seller=`{
+        "name":"淘宝",
+        "value":[{
+            "time":"12:21:08",
+            "num1":632,
+            "num2":722,
+            "percent":88
+        },{
+            "time":"12:21:31",
+            "num1":633,
+            "num2":731,
+            "percent":85
+        },{
+            "time":"12:22:11",
+            "num1":646,
+            "num2":756,
+            "percent":70
+        },{
+            "time":"12:21:08",
+            "num1":632,
+            "num2":722,
+            "percent":88
+        },{
+            "time":"12:21:31",
+            "num1":633,
+            "num2":731,
+            "percent":85
+        },{
+            "time":"12:22:11",
+            "num1":646,
+            "num2":756,
+            "percent":70
+        },{
+            "time":"12:21:08",
+            "num1":632,
+            "num2":722,
+            "percent":88
+        },{
+            "time":"12:21:31",
+            "num1":633,
+            "num2":731,
+            "percent":85
+        },{
+            "time":"12:22:11",
+            "num1":646,
+            "num2":756,
+            "percent":70
+        }]
+    }`
+	res.write(seller);
+	res.end();
 })
 
 module.exports = router;
