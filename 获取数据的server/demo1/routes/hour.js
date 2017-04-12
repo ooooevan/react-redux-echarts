@@ -11,8 +11,7 @@ router.get("/init", function(req, res, next) {
 		// 	{"a":[{"sd":1},{"sd":"1"}]}
 
 		`
-	{
-		"list":[{
+	[{
 			"time": "16:32:00",
 			"value": 341
 		}, {
@@ -751,7 +750,6 @@ router.get("/init", function(req, res, next) {
 			"time": "16:32:105",
 			"value": 321
 		}]
-}
 `
 		// console.log(data.toString())
 	res.write(data);
@@ -791,13 +789,13 @@ router.get("/pie", function(req, res, next) {
 	return value
 	}
 	// console.log(getVal());
-	var data =`{"list":[
+	var data =`[
 	{"value":"${getVal()}","name":"视频广告"},
 	{"value":"${getVal()}","name":"联盟广告"},
 	{"value":"${getVal()}","name":"邮件营销"},
 	{"value":"${getVal()}","name":"直接访问"},
 	{"value":"${getVal()}","name":"搜索引擎"}]
-}`
+`
 		console.log(data)
 		// console.log(JSON.stringify(data.toJSONString()))
 	res.write(data);
@@ -948,12 +946,10 @@ router.get("/singleSellerCustomerNumFetch/:id",function(req,res,next){
 	var num2=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
 	var seller=`{
-		"value":{
             "time":"12:21:08",
             "num1":${num1},
             "num2":${num2},
             "percent":${percent}
-        }
 	}`
 	res.write(seller);
 	res.end();
@@ -965,13 +961,11 @@ router.get("/singleSellerRadar/:id",function(req,res,next){
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
 	var seller=`{
-		"value":{
             "0":"72",
             "1":"65",
             "2":"91",
             "3":"58",
             "4":"27"
-        }
 	}`
 	res.write(seller);
 	res.end();
@@ -980,8 +974,7 @@ router.get("/singleSellerStayBar/:id",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
-	var seller=`{
-		"value":[{
+	var seller=`[{
             "name":"少于5分钟",
             "value":"300"
         },{
@@ -997,7 +990,7 @@ router.get("/singleSellerStayBar/:id",function(req,res,next){
         		"name":"大于60分钟",
             "value":"100"
         }]
-	}`
+	`
 	res.write(seller);
 	res.end();
 })
@@ -1006,10 +999,8 @@ router.get("/singleSellerOldOrNew/:id",function(req,res,next){
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
 	var seller=`{
-		"value":{
             "new":"200",
             "old":"650"
-        }
 	}`
 	res.write(seller);
 	res.end();
@@ -1018,8 +1009,7 @@ router.get("/singleSellerTimeSection/:id",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
-	var seller=`{
-		"value":[{
+	var seller=`[{
             "name":"0",
             "value":"50"
         },{
@@ -1059,7 +1049,7 @@ router.get("/singleSellerTimeSection/:id",function(req,res,next){
         		"name":"22",
             "value":"1741"
         }]
-	}`
+	`
 	res.write(seller);
 	res.end();
 })
@@ -1068,11 +1058,9 @@ router.get("/singleSellerDeepVisit/:id",function(req,res,next){
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
 	var seller=`{
-		"value":{
             "deep":"105",
             "common":"1750",
             "shallow":"203"
-        }
 	}`
 	res.write(seller);
 	res.end();

@@ -27,8 +27,7 @@ http.createServer(function (req, res) {
         // str = eval("'" + str + "'");
 
         var sellers=`
-        {
-            "sellers":[{
+        [{
                     "seller":"一号店",
                     "id":"1111"
                 },{
@@ -64,7 +63,6 @@ http.createServer(function (req, res) {
                     "id":"99"
 
                 }]
-        }
         `
 
 
@@ -75,8 +73,7 @@ http.createServer(function (req, res) {
       case "/allsellers/1":
       res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
         var sellers=`
-        {
-            "sellers":[{
+      [{
                     "seller":"一号店",
                     "num":"4321",
                     "percent":2
@@ -166,7 +163,6 @@ http.createServer(function (req, res) {
                     "percent":-0.2
 
                 }]
-        }
         `
         res.write(sellers);
         res.end();
@@ -175,8 +171,7 @@ http.createServer(function (req, res) {
         case "/allsellers/2":
       res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
         var sellers=`
-        {
-            "sellers":[{
+      [{
                     "seller":"赶集网",
                     "num":"1421",
                     "percent":-1
@@ -247,7 +242,6 @@ http.createServer(function (req, res) {
                     "percent":-0.2
 
                 }]
-        }
         `
         res.write(sellers);
         res.end();
@@ -256,8 +250,7 @@ http.createServer(function (req, res) {
         case "/allsellers/3":
       res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
         var sellers=`
-        {
-            "sellers":[{
+      [{
                     "seller":"三号店",
                     "num":"4321",
                     "percent":2
@@ -346,18 +339,10 @@ http.createServer(function (req, res) {
                     "num":"5232",
                     "percent":-0.2
 
+                },{
+                    "lastPage":"true"
                 }]
-        }
         `
-        res.write(sellers);
-        res.end();
-
-        break;
-        case "/allsellers/4":
-      res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
-        var sellers=`{
-            "error":"noSeller"
-        }`
         res.write(sellers);
         res.end();
 
@@ -437,8 +422,7 @@ http.createServer(function (req, res) {
       case "/allsellers/allSellersTableInit":
         res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
             var table= `
-            {
-              "sellers":[
+            [
               {
                 "name":"淘宝",
                 "num":"590",
@@ -485,7 +469,6 @@ http.createServer(function (req, res) {
                 "increase":"false",
                 "percent":"1"
                 }]
-            }
             `;
              res.write(table);
              res.end();

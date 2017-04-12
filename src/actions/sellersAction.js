@@ -8,7 +8,7 @@ const actions = {
                 .then(data=>{
                     dispatch({
                         type: 'sellersInit',
-                        payload: data.sellers
+                        payload: data
                     })
             })
         }
@@ -21,7 +21,7 @@ const actions = {
                     if(data.error) return;
                     dispatch({
                         type:'allSellersLineChartInit',
-                        payload:data.sellers
+                        payload:data
                     })
             })
         }
@@ -34,7 +34,7 @@ const actions = {
                     if(data.error) return;
                         dispatch({
                             type:'allSellersTableInit',
-                            payload:data.sellers
+                            payload:data
                         })
                 })
             }

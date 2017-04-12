@@ -23,6 +23,9 @@ const actions = {
             payload: data
           })
         })
+        .catch(function(err){
+          console.log(err)
+        })
     }
   }
 }

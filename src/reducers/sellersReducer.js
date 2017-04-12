@@ -11,15 +11,20 @@ export default function sellersReducer(state={"sellers":[]},action){
           return Object.assign({},state,obj);
         case 'allSellersLineChartInit':
       		let obj2=Object.assign({},state);
+          let lastPage=false;
           //本身没有数据就初始化，本身有数据就清除
       		obj2.lineAndBar.xAxis[0].data=[];
       		obj2.lineAndBar.series[0].data=[];
       		obj2.lineAndBar.series[1].data=[];
-          action.payload.forEach(item=>{
+          action.payload.forEach((item)=>{
+            if(item.lastPage){         //判断是否最后一页
+              lastPage=true;
+            }
           	obj2.lineAndBar.xAxis[0].data.push(item.seller);
           	obj2.lineAndBar.series[0].data.push(item.num);
           	obj2.lineAndBar.series[1].data.push(item.percent);
           });
+            obj2.lineAndBar.xAxis[0].lastPage=lastPage;
 					return Object.assign({},state,obj2);
 
         case "singleSellerLineChartInit":
@@ -62,10 +67,10 @@ export default function sellersReducer(state={"sellers":[]},action){
         case "singleSellerCustomerNumFetch":
           let obj4=Object.assign({},state);
           // debugger
-          obj4.customerNum.xAxis[0].data.push(action.payload.value.time);
-          obj4.customerNum.series[0].data.push(action.payload.value.num1);
-          obj4.customerNum.series[1].data.push(action.payload.value.num2);
-          obj4.customerNum.series[2].data.push(action.payload.value.percent);
+          obj4.customerNum.xAxis[0].data.push(action.payload.time);
+          obj4.customerNum.series[0].data.push(action.payload.num1);
+          obj4.customerNum.series[1].data.push(action.payload.num2);
+          obj4.customerNum.series[2].data.push(action.payload.percent);
           obj4.customerNum.xAxis[0].data.shift();
           obj4.customerNum.series[0].data.shift();
           obj4.customerNum.series[1].data.shift();
@@ -100,7 +105,7 @@ export default function sellersReducer(state={"sellers":[]},action){
           // debugger
           let obj6=Object.assign({},state);
           let value=[];
-          let payloadValue=action.payload.value;
+          let payloadValue=action.payload;
           for(let item in payloadValue){
             value.push(payloadValue[item])
           }
@@ -112,7 +117,7 @@ export default function sellersReducer(state={"sellers":[]},action){
           let obj7=Object.assign({},state);
           let name2=[];
           let value2=[];
-          action.payload.value.forEach(data=>{
+          action.payload.forEach(data=>{
             name2.push(data.name);
             value2.push(data.value);
           })
@@ -122,15 +127,15 @@ export default function sellersReducer(state={"sellers":[]},action){
         case 'singleSellerOldOrNew':
           // debugger
           let obj8=Object.assign({},state);
-          obj8.OldOrNew.series[0].data[0].value = action.payload.value.old;
-          obj8.OldOrNew.series[0].data[1].value = action.payload.value.new;
+          obj8.OldOrNew.series[0].data[0].value = action.payload.old;
+          obj8.OldOrNew.series[0].data[1].value = action.payload.new;
           return Object.assign({},state,obj8);
         case 'singleSellerTimeSection':
           // debugger
           let obj9=Object.assign({},state);
           let name3=[];
           let value3=[];
-          action.payload.value.forEach(data=>{
+          action.payload.forEach(data=>{
             name3.push(data.name);
             value3.push(data.value);
           })
@@ -140,9 +145,9 @@ export default function sellersReducer(state={"sellers":[]},action){
         case 'singleSellerDeepVisit':
           // debugger
           let obj10=Object.assign({},state);
-          obj10.deepVisit.series[0].data[0].value = action.payload.value.shallow;
-          obj10.deepVisit.series[0].data[1].value = action.payload.value.common;
-          obj10.deepVisit.series[0].data[2].value = action.payload.value.deep;
+          obj10.deepVisit.series[0].data[0].value = action.payload.shallow;
+          obj10.deepVisit.series[0].data[1].value = action.payload.common;
+          obj10.deepVisit.series[0].data[2].value = action.payload.deep;
           return Object.assign({},state,obj10);
         case 'singleSellerCycleAndActive':
           let obj11=Object.assign({},state);

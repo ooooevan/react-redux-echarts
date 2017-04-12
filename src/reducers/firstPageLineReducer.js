@@ -8,7 +8,7 @@ export default function lineReducer(state={line:{},pie:{}},action){
             let value=new Array();
             // const obj={};
             //获取time和value数据
-            action.payload.list.forEach(item=>{
+            action.payload.forEach(item=>{
                 time.push(item.time)
                 value.push(item.value)
             })

@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
 import echarts from 'echarts/lib/echarts';
+import Calendar from './calendar';
+import '../styles/calendar.scss';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
@@ -26,9 +28,10 @@ class _Chart extends React.Component {
         super(props);
         this.state={
 			allSellersLineChart:'',  //全部商家图表
-        	allSellersLineOption:'',    //option参数
+        	// allSellersLineOption:'',    //option参数
             chartPage:1,       //按页分开商家数据，第一页
-			table:[]
+			// table:[]
+            lastPage:false
 		}
 
     }
@@ -55,16 +58,29 @@ class _Chart extends React.Component {
 		this.state.allSellersLineChart.dispose();   //销毁实例
 	}
 	componentWillReceiveProps(){
+        console.log(this.state.chartPage)
 		// debugger;
         // this.setState({
         //     allSellersLineOption:this.props.b.lineAndBar
         // })
-		this.state.allSellersLineOption=this.props.b.lineAndBar;    //获取参数
+		// this.state.allSellersLineOption=this.props.b.lineAndBar;    //获取参数
 		//获取表格数据
-		this.state.table = this.props.b.table;
-		this.state.allSellersLineChart.setOption(this.state.allSellersLineOption);
+		// this.state.table = this.props.b.table;
+		this.state.allSellersLineChart.setOption(this.props.b.lineAndBar);
         this.state.allSellersLineChart.hideLoading()
 		// console.log(this.state.allSellersLineOption);
+
+        /*判断商家排名的下一页，是否到了最后一页，是则将按钮设置为disabled*/
+        let rightBtn=ReactDOM.findDOMNode(this.refs.rightBtn);
+        if(this.props.b.lineAndBar.xAxis[0].lastPage){
+            this.state.lastPage =  true;
+            // rightBtn.style.backgroundColor='black';   //可改变按钮颜色，还没写
+            // rightBtn.disabled=true;
+            // this.state.chartPage-=1;
+        }else{
+            // rightBtn.disabled=false;
+            this.state.lastPage =  false;
+        }
 	}
     turnLeft = ()=>{
         if(this.state.chartPage<=1){
@@ -74,6 +90,9 @@ class _Chart extends React.Component {
         this.props.allSellersLineChartInit(this.state.chartPage);
     }
     turnRight = ()=>{
+        if(this.state.lastPage){
+            return;
+        }
         this.state.chartPage +=1;
         //获取下一页商家数据
         this.props.allSellersLineChartInit(this.state.chartPage);
@@ -82,8 +101,8 @@ class _Chart extends React.Component {
 
     render(){
 		var rows = [];
-		if(this.state.table){
-			this.state.table.forEach(function(item,index){
+		if(this.props.b.table){
+			this.props.b.table.forEach(function(item,index){
 				rows.push(<tr key={index}><th>{index+1}</th><td>{item.name}</td><td>{item.num}{item.increase == 'true'? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={item.increase == 'true'? 'up':'down'}>{item.percent}%</td></tr>);
 
 			})
@@ -92,13 +111,13 @@ class _Chart extends React.Component {
 
 
         return <div className="chartWrapper">
-
+                                    {/*<Calendar/><br /><Calendar/>*/}
         	<div className="panel">
         		<div className="panelHead">商家客流排名</div>
         		<div className="panelBody">
                 <div className="allSellersLineChartBtn">
                     <button onClick={this.turnLeft}><i className="fa fa-chevron-left"></i></button>
-                    <button onClick={this.turnRight}><i className="fa fa-chevron-right"></i></button>
+                    <button onClick={this.turnRight} ref='rightBtn'><i className="fa fa-chevron-right"></i></button>
                 </div>
     			<div ref="allSellersLineChart" className="allSellersLineChart"></div>
         		</div>

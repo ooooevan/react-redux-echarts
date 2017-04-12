@@ -1,0 +1,92 @@
+
+#calendar{
+	position:relative;
+	margin-left: 700px;
+	width:210px;
+	height:300px;
+	z-index:100;
+}
+
+.timeInput{
+	
+	border-radius: 2px;
+	border:1px solid #d9d9d9;
+	height:25px;
+	outline:none;
+	transition:all .3s;
+	// box-shadow:none;
+}
+.timeInput:hover{
+	border:1px solid rgba(0,0,0,.6);
+}
+.timePicker{
+	position:absolute;
+	right:40px;   //日历距右边的距离
+	background-color:white;
+	border-radius:3px;
+	box-shadow:0 0 3px rgba(0,0,0,.3);
+	width:220px;
+	height:auto;
+	transition:height .3s;
+}
+.timePickerHeader{
+	font-size:13px;
+	border-bottom:1px solid rgba(0,0,0,.3);
+	font-weight: 600;
+	height:38px;
+	line-height:38px;
+	text-align: center;
+	padding-right:6px;
+}
+.timePickerHeader span{
+	font-size:7px;
+	line-height:38px;
+}
+.timePickerBody{
+	border-bottom:1px solid rgba(0,0,0,.3);
+}
+.timePickerBody table{
+	font-size:12px;
+
+	// margin:5px 0;
+	width:100%;
+}
+.timePickerBody table td,.timePickerBody table th{
+	// padding: 6px;
+	text-align: center;
+	border-radius:3px;
+	transition : all .2s;
+}
+.timePickerBody table td.notThisMonth{
+	color:rgba(0,0,0,.5);
+}
+.timePickerBody table td.thisMonth{
+	color:rgba(0,0,0,.9);
+}
+.timePickerBody table td.picked{
+	box-shadow:0 0 3px rgba(0,0,0,1) inset;
+}
+.timePickerBody table td:hover{
+	background-color: rgba(0,0,0,.2);
+	cursor:pointer;
+
+}
+.timePickerFooter{
+	// padding:7px 0;
+	text-align: center;
+	cursor:pointer;
+	transition : all .2s;
+}
+.timePickerFooter:hover{
+	border-radius:2px;
+	background-color: rgba(0,0,0,.2);
+}
+
+.calendarDoubleLeft,.calendarLeft,.calendarRight,.calendarDoubleRight{
+	// padding:0 5px;
+	cursor:pointer;
+	transition:all .2s;
+}
+.calendarDoubleLeft:hover,.calendarLeft:hover,.calendarDoubleRight:hover,.calendarRight:hover{
+	color:red;
+}

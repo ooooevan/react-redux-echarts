@@ -18,6 +18,7 @@ import ThirdFloorChart from './thirdFloorChart';
 // import SingleSellerChartHistory from './singleSellerChartHistory';
 import Statistics from './statistics';
 
+import Calendar from './calendar';
 import NotFindPage from './notFindPage';
 
 
@@ -85,8 +86,8 @@ ReactDOM.render(
 					</Route>
 				</Route>
 				<Route path='statistics' component={Statistics}>
-						<IndexRoute path='total' component={Test} />
-						<Route path='total' component={Test}/>
+						<IndexRoute path='total' component={Calendar} />
+						<Route path='total' component={Calendar}/>
 						<Route path='firstFloor' component={Test}/>
 						<Route path='secondFloor' component={Test}/>
 						<Route path='thirdFloor' component={Test}/>
