@@ -47,6 +47,16 @@ class _Chart extends React.Component {
 		this.state.timer = setInterval(this.fetchData,this.state.timerTime)
 
     }
+    componentWillUpdate(nextProps,nextState){
+          // 判断请求回来时是否刚好换了商家，也就是防止上一个fetch数据合并到下一个商家里。这里处理还是ShouldComponentUpdate？
+        if(this.props.params !== nextProps.params){
+            return;
+        }else{
+            // this.setState({
+                this.name=nextProps.customerNum.get('name');
+            // })
+        }
+    }
 	componentDidUpdate(){
         // debugger;
         let par=this.props.params;
@@ -66,14 +76,7 @@ class _Chart extends React.Component {
         
 	}
     componentWillReceiveProps(nextProps,nextState){
-        // 判断请求回来时是否刚好换了商家，也就是防止上一个fetch数据合并到下一个商家里。这里处理还是ShouldComponentUpdate？
-        if(this.props.params !== nextProps.params){
-            return;
-        }else{
-            this.setState({
-                name:nextProps.customerNum.get('name')
-            })
-        }
+      
         
     }
 	componentWillUnmount(){

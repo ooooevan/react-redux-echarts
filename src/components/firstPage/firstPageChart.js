@@ -31,18 +31,19 @@ class _Chart extends React.Component {
             chartNum:'',     //显示当前人数
             chartTime:'',     //显示当前时间
             chartTitle:'',    //显示当前标题
-            yesterday:Immutable.fromJS({})     //昨天的信息
+            yesterday:Immutable.fromJS({}),     //昨天的信息
+            test:1
         }
     }
     
     componentWillMount(){
         console.log('componentWillMount');
-        //debugger;
+        // debugger;
+        
         this.props.firstPageChartInit();
 
     }
     componentDidMount(){
-        console.log('componentDidMount');
         let domLine = ReactDOM.findDOMNode(this.refs.chartLine);
         let domPie = ReactDOM.findDOMNode(this.refs.chartPie);
         // this.state.myChart = echarts.init(dom);
@@ -78,6 +79,14 @@ class _Chart extends React.Component {
     // shouldComponentUpdate(){
     //     return true;
     // }
+    componentWillUpdate(nextProps,nextState){
+        if(nextProps.line.getIn(['series','data'])){
+            this.state.chartNum=nextProps.line.getIn(['series','data'])[nextProps.line.getIn(['series','data']).length - 1];
+            this.state.chartTime=nextProps.line.getIn(['xAxis','data'])[nextProps.line.getIn(['xAxis','data']).length - 1];
+            this.state.chartTitle=nextProps.line.getIn(['title','text']);
+            this.state.yesterday=nextProps.line.getIn(['xAxis','yesterday']);
+        }
+    }
     componentWillReceiveProps(nextProps,nextState){
         // debugger;
         // let aadf=nextProps.get('line');
@@ -86,16 +95,16 @@ class _Chart extends React.Component {
         // console.log(nextProps.line.get('series'));
         // console.log(nextProps.line.getIn(['series','data']));
         // console.log(nextProps.line.getIn(['series','data']).length);
-        if(nextProps.line.getIn(['series','data'])){
-            this.setState({
-                chartNum:nextProps.line.getIn(['series','data'])[nextProps.line.getIn(['series','data']).length - 1],
-                chartTime:nextProps.line.getIn(['xAxis','data'])[nextProps.line.getIn(['xAxis','data']).length - 1],
-                chartTitle:nextProps.line.getIn(['title','text']),
-                yesterday:nextProps.line.getIn(['xAxis','yesterday'])
-            })
+        // if(nextProps.line.getIn(['series','data'])){
+            // this.setState({
+                // this.state.chartNum=nextProps.line.getIn(['series','data'])[nextProps.line.getIn(['series','data']).length - 1],
+                // this.state.chartTime=nextProps.line.getIn(['xAxis','data'])[nextProps.line.getIn(['xAxis','data']).length - 1],
+                // this.state.chartTitle=nextProps.line.getIn(['title','text']),
+                // this.state.yesterday=nextProps.line.getIn(['xAxis','yesterday'])
+            // })
 
             // console.log(nextProps.line.getIn['series','data'])
-        }
+        // }
         // if(nextProps.line.series.data){
         //     this.state.chartNum = nextProps.line.series.data[nextProps.line.series.data.length - 1];
         //     this.state.chartTime = nextProps.line.xAxis.data[nextProps.line.xAxis.data.length - 1];
@@ -108,7 +117,7 @@ class _Chart extends React.Component {
         //     })
         // }
         
-        console.log('componentWillReceiveProps')
+        console.log('componentWillReceiveProps '+new Date().getTime())
 
         
         //-------------------------
@@ -133,8 +142,7 @@ class _Chart extends React.Component {
     }
 
     render(){
-        console.log(this.state.chartNum)
-        console.log(this.state.yesterday)
+        console.log('firstPageChart:'+this.state.test++ +',render,'+new Date().getTime())
         return <div className='chartWrapper'>
             {/*<div className='chartMessage'>
                 <p>当前人数：{this.state.chartNum}</p><p>昨日平均客流：2132</p><p>昨日高峰时段：16:30-21:00</p>

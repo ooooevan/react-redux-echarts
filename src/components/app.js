@@ -88,9 +88,11 @@ ReactDOM.render(
 				<Route path='statistics' component={Statistics}>
 						<IndexRoute path='total' component={Test} />
 						<Route path='total' component={Test}/>
+						<Route path='oldOrNew' component={Test}/>
 						<Route path='firstFloor' component={Test}/>
 						<Route path='secondFloor' component={Test}/>
 						<Route path='thirdFloor' component={Test}/>
+						<Route path='compare' component={Test}/>
 				</Route>
 				<Route path="*" component={NotFindPage} />
 			</Route>

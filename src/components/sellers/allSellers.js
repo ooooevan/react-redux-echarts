@@ -63,8 +63,8 @@ class _Chart extends React.Component {
         this.state.allSellersLineChart.hideLoading()
         // console.log(this.state.allSellersLineOption);
         // debugger
-        let afda=this.props.lineAndBar.get('xAxis');
-        let asfda=this.props.lineAndBar.get('xAxis')[0];
+        // let afda=this.props.lineAndBar.get('xAxis');
+        // let asfda=this.props.lineAndBar.get('xAxis')[0];
 
         /*判断商家排名的下一页，是否到了最后一页，是则将按钮设置为disabled*/
         let rightBtn=ReactDOM.findDOMNode(this.refs.rightBtn);

@@ -49,7 +49,8 @@ import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router';
 
 */
 
-let _FirstPage=React.createClass({
+class _FirstPage extends React.Component  {
+// const  _FirstPage = (props)=>{
     render(){
         return <div id="container">
                 <div id='sidebar_nav'>
@@ -64,7 +65,7 @@ let _FirstPage=React.createClass({
                 {this.props.children}
             </div>;
     }
-})
+}
 // let FirstPage=connect(state=>state,null)(_FirstPage);
 
 export default _FirstPage;

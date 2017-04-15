@@ -9,7 +9,6 @@ import Immutable from 'immutable';
 import { Router, Route, IndexRoute, hashHistory, Link ,Redirect} from 'react-router';
 import sellersAction from '../../actions/sellersAction';
 
-
 class _SidebarNav extends React.Component {
     static propTypes = {
         sellersInit: React.PropTypes.func.isRequired, 
@@ -34,9 +33,49 @@ class _SidebarNav extends React.Component {
         // debugger
         // this.props.sellersInit();
     }
-    componentDidUpdate(){
+    componentWillUpdate(nextProps,nextState){
+            this.state.sellers=nextProps.sellers
+            // this.change();
 
         
+    }
+    shouldComponentUpdate(nextProps,nextState){
+        if(!Immutable.is(this.props.sellers,nextProps.sellers)){
+            console.log('shouldComponentUpdate--true');
+            return true;
+        }
+        else if(!Immutable.is(this.state.sellers,nextState.sellers)){
+        console.log('shouldComponentUpdate--true');
+            return true;
+        }else{
+        console.log('shouldComponentUpdate--false');
+            return false;
+        }
+
+        /*const thisProps = this.props || {}, thisState = this.state || {};
+
+          if (Object.keys(thisProps).length !== Object.keys(nextProps).length ||
+              Object.keys(thisState).length !== Object.keys(nextState).length) {
+            console.log('shouldComponentUpdate--true1');
+            return true;
+          }
+
+          for (const key in nextProps) {
+            if (thisProps[key] !== nextProps[key] || !Immutable.is(thisProps[key], nextProps[key])) {
+              console.log('shouldComponentUpdate--true2');
+              return true;
+            }
+          }
+
+          for (const key in nextState) {
+            if (thisState[key] !== nextState[key] || !Immutable.is(thisState[key], nextState[key])) {
+              console.log('shouldComponentUpdate--true3');
+              return true;
+            }
+          }
+          console.log('shouldComponentUpdate--false');
+          return false;*/
+
     }
     componentWillReceiveProps(nextProps,nextState){
         console.log('componentWillReceiveProps..');
@@ -54,12 +93,12 @@ class _SidebarNav extends React.Component {
 // debugger
         // console.log(nextProps.sellers);
         //bug消除：全部商家列表中，搜索后为部分商家，选择某商家，商家列表就回到全部商家。下面entireList函数，点击全部商家回到全部
-        if(nextProps.sellers){
-            this.setState({
-                sellers:nextProps.sellers
-            })
-            // this.change();
-        }
+        // if(nextProps.sellers){
+        //     this.setState({
+        //         sellers:nextProps.sellers
+        //     })
+        //     // this.change();
+        // }
         // console.log(this)
         // console.log('输出sellers：')
         // console.log(this.props.b.sellers)
@@ -82,7 +121,7 @@ class _SidebarNav extends React.Component {
                 rows.push(seller);
             }
         });
-        console.log(rows)
+        // console.log(rows)
         this.setState({
             sellers:Immutable.List(rows)
         })
@@ -102,7 +141,6 @@ class _SidebarNav extends React.Component {
 
     render(){
         //const usersdom = this.props.sellers.map(seller=><li>{seller.name}</li>);
-        // console.log('-render----------')
         // console.log(this.state.sellers.toJS())
         let rows=[];
         let routeData='sellers/';
@@ -135,9 +173,9 @@ const mapStateToProps = state => {
     }
 }
 
-let SidebarNav=connect(mapStateToProps,sellersAction)(_SidebarNav);
+const SidebarNav=connect(mapStateToProps,sellersAction)(_SidebarNav);
 
-let Sellers=React.createClass({
+const Sellers=React.createClass({
     render(){
         return <div id="container">
             <SidebarNav />

@@ -30,9 +30,8 @@ class SidebarNav extends React.Component {
                 <li><Link to='statistics/oldOrNew' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>新老顾客<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
                 <li><Link to='statistics/firstFloor' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>顾客活跃度<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
                 <li><Link to='statistics/secondFloor' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>各时间段<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-                <li><Link to='statistics/thirdFloor' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>来访周期<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link>
-                    
-                </li>
+                <li><Link to='statistics/thirdFloor' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>来访周期<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
+                <li><Link to='statistics/compare' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>商家对比<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
             </ul>
         </div>
     }
@@ -53,6 +52,6 @@ let _FirstPage=React.createClass({
         </div>;
     }
 })
-let FirstPage=connect(state=>state,null)(_FirstPage);
+let FirstPage=connect(state=>state.toJS(),null)(_FirstPage);
 
 export default FirstPage;

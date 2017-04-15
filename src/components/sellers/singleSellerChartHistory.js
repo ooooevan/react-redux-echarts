@@ -14,10 +14,12 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/dataZoom';
 
+// import CustomerFlow from './singleSellerChartHistory/customerFlow';
+
 
 import sellersAction from '../../actions/sellersAction';
 
-class _Chart extends React.Component {
+class _singleHistory extends React.Component {
 
     static propTypes = {
         params: React.PropTypes.object.isRequired,   //商店id，这里为数字
@@ -54,8 +56,11 @@ class _Chart extends React.Component {
         }
 
     }
-
+    componentWillMount(){
+      console.log('componentWillMount  '+new Date().getTime());
+    }
     componentDidMount(){
+      console.log('componentDidMount  '+new Date().getTime());
     	this.state.id = this.props.params.id  //获取该商店id
       this.props.singleSellerCustomerFlowInit(this.state.id,this.state.time);
       this.props.singleSellerRadar(this.state.id,this.state.time); //总评价雷达图
@@ -100,33 +105,48 @@ class _Chart extends React.Component {
 		componentDidUpdate(){
       // debugger
       //echarts渲染数据    setOption
+
       this.state.singleSellerCustomerFlowChart.setOption(this.props.customerFlow.toJS());
+      this.state.singleSellerCustomerFlowChart.hideLoading();
       this.state.singleSellerRadarChart.setOption(this.props.radar.toJS());
+      this.state.singleSellerRadarChart.hideLoading();
+      setTimeout(function(){
+
       this.state.singleSellerStayBarChart.setOption(this.props.stayBar.toJS());
       this.state.singleSellerOldOrNewChart.setOption(this.props.OldOrNew.toJS());
       this.state.singleSellerTimeSectionChart.setOption(this.props.timeSection.toJS());
       this.state.singleSellerDeepVisitChart.setOption(this.props.deepVisit.toJS());
       this.state.singleSellerCycleAndActiveChart.setOption(this.props.cycleAndActive.toJS());
+        // this.state.singleSellerTimeSectionChart.setOption(this.props.timeSection.toJS());
+        // this.state.singleSellerDeepVisitChart.setOption(this.props.deepVisit.toJS());
+        // this.state.singleSellerCycleAndActiveChart.setOption(this.props.cycleAndActive.toJS());
+        // this.state.singleSellerTimeSectionChart.hideLoading();
+        // this.state.singleSellerDeepVisitChart.hideLoading();
+        // this.state.singleSellerCycleAndActiveChart.hideLoading();
+      
       // console.log(this.props.OldOrNew.toJS());
       // console.log(this.props.deepVisit.toJS());
         //隐藏遮罩
-      this.state.singleSellerCustomerFlowChart.hideLoading();
-      this.state.singleSellerRadarChart.hideLoading();
       this.state.singleSellerStayBarChart.hideLoading();
       this.state.singleSellerOldOrNewChart.hideLoading();
       this.state.singleSellerTimeSectionChart.hideLoading();
       this.state.singleSellerDeepVisitChart.hideLoading();
       this.state.singleSellerCycleAndActiveChart.hideLoading();
 
-
-
+      }.bind(this),0)
 
 		}
+    componentWillUpdate(nextProps,nextState){
+      //对应的名字写入
+      this.state.name=nextProps.customerFlow.name;
+      this.state.id=nextProps.params.id;
+    }
     componentWillReceiveProps(nextProps,nextState){
       //对应的名字写入
-      this.setState({
-        name:nextProps.customerFlow.name
-      })
+      // this.setState({
+      //   name:nextProps.customerFlow.name,
+      //   id:nextProps.params.id
+      // })
     }
 		componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -211,7 +231,8 @@ class _Chart extends React.Component {
     			<div className="panelHead">顾客流动</div>
     			<div className="panelBody">
     				<div className="singleSellerCustomerFlowChart" ref="singleSellerCustomerFlowChart"></div>
-    			</div>
+    			 {/*<CustomerFlow id={this.state.id}/>*/}
+          </div>
     		</div>
 
         <div className="panel halfPanel_1">
@@ -264,6 +285,8 @@ class _Chart extends React.Component {
 */
 const mapStateToProps = (state)=>{
   // debugger;
+  // let fdd=state.getIn(['b','deepVisit'])
+  // let d=state.getIn(['b','deepVisit']).toJS()
   return {
     customerFlow:state.getIn(['b','customerFlow']),
     radar:state.getIn(['b','radar']),
@@ -279,6 +302,6 @@ const mapStateToProps = (state)=>{
     
     cycleAndActive:state.getIn(['b','cycleAndActive']).toJS()*/
 
-let Chart=connect(mapStateToProps,sellersAction)(_Chart);
+let singleHistory=connect(mapStateToProps,sellersAction)(_singleHistory);
 
-export default Chart;
+export default singleHistory;
