@@ -12,7 +12,10 @@ const actions = {
             payload: data,
             chart: myChart
           });
-      });
+         })
+        .catch(function(err){
+          console.log(err)
+        })
     };
   }
   /*,

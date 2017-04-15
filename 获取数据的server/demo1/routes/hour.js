@@ -749,6 +749,12 @@ router.get("/init", function(req, res, next) {
 		}, {
 			"time": "16:32:105",
 			"value": 321
+		},{
+			"num":110,
+			"increase":true,
+			"most":1958,
+			"avg":789,
+			"timeSection":"17:00-21:30"
 		}]
 `
 		// console.log(data.toString())
@@ -960,13 +966,7 @@ router.get("/singleSellerRadar/:id",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
-	var seller=`{
-            "0":"72",
-            "1":"65",
-            "2":"91",
-            "3":"58",
-            "4":"27"
-	}`
+	var seller=`[72,65,91,59,27]`
 	res.write(seller);
 	res.end();
 })

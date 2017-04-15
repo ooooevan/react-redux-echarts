@@ -14,15 +14,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "echarts": "^3.4.0",
+    "immutable": "^3.8.1",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-router": "^3.0.2",
     "react-bootstrap": "^0.30.7",
+    "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
+    "react-router": "^3.0.2",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
-    "babel-polyfill": "^6.23.0"
+    "redux-immutable": "^4.0.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",

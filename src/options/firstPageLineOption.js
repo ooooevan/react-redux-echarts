@@ -5,7 +5,7 @@
 * */
 let dataX,dataY;
   let options={
-    "line":{
+    line:{
         title: { 
             text: '万达商场客流量',
             show:false
@@ -38,7 +38,8 @@ let dataX,dataY;
             onZero:'true',
             axisTick:{
                 alignWithLabel:'true'
-            }
+            },
+            yesterday:{}
 
         },
         yAxis: {
@@ -84,7 +85,7 @@ let dataX,dataY;
         },
 
 
-    "pie":{
+    pie:{
     tooltip : {
         formatter: "{a} <br/>{c} {b}"
     },

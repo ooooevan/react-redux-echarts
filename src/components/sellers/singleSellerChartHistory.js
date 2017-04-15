@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
+import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/radar';
@@ -14,20 +15,33 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/dataZoom';
 
 
-import sellersAction from '../actions/sellersAction';
+import sellersAction from '../../actions/sellersAction';
 
 class _Chart extends React.Component {
 
     static propTypes = {
         params: React.PropTypes.object.isRequired,   //商店id，这里为数字
         // singleSellerLineChartInit: React.PropTypes.func.isRequired,
-        b: React.PropTypes.object.isRequired       //包含lineAndBar和table的数据
+        singleSellerCustomerFlowInit:React.PropTypes.func.isRequired,
+        singleSellerRadar:React.PropTypes.func.isRequired,
+        singleSellerStayBar:React.PropTypes.func.isRequired,
+        singleSellerOldOrNew:React.PropTypes.func.isRequired,
+        singleSellerTimeSection:React.PropTypes.func.isRequired,
+        singleSellerDeepVisit:React.PropTypes.func.isRequired,
+        singleSellerCycleAndActive:React.PropTypes.func.isRequired,
+        customerFlow:React.PropTypes.instanceOf(Immutable.Map),
+        radar:React.PropTypes.instanceOf(Immutable.Map),
+        stayBar:React.PropTypes.instanceOf(Immutable.Map),
+        OldOrNew:React.PropTypes.instanceOf(Immutable.Map),
+        timeSection:React.PropTypes.instanceOf(Immutable.Map),
+        deepVisit:React.PropTypes.instanceOf(Immutable.Map),
+        cycleAndActive:React.PropTypes.instanceOf(Immutable.Map)
     };
     constructor(props){
         super(props);
+        this.adjusting=this.adjusting.bind(this);
         this.state={
 					singleSellerCustomerFlowChart:'',    //顾客流动图表
-        	// singleSellerLineOption:'',    //option参数
           singleSellerRadarChart:'',      //总体评价图表
           singleSellerStayBarChart:'',    //驻店时长图表
           singleSellerOldOrNewChart:'',   //新老顾客图表
@@ -53,7 +67,6 @@ class _Chart extends React.Component {
 
 
 
-
       //获取dom
       let singleSellerCustomerFlowChart = ReactDOM.findDOMNode(this.refs.singleSellerCustomerFlowChart);
       let singleSellerRadarChart = ReactDOM.findDOMNode(this.refs.singleSellerRadarChart);
@@ -73,29 +86,48 @@ class _Chart extends React.Component {
       this.state.singleSellerTimeSectionChart = echarts.init(singleSellerTimeSectionChart);
       this.state.singleSellerDeepVisitChart = echarts.init(singleSellerDeepVisitChart);
       this.state.singleSellerCycleAndActiveChart = echarts.init(singleSellerCycleAndActiveChart);
+      
+      // 显示遮罩
+      this.state.singleSellerCustomerFlowChart.showLoading();
+      this.state.singleSellerRadarChart.showLoading();
+      this.state.singleSellerStayBarChart.showLoading();
+      this.state.singleSellerOldOrNewChart.showLoading();
+      this.state.singleSellerTimeSectionChart.showLoading();
+      this.state.singleSellerDeepVisitChart.showLoading();
+      this.state.singleSellerCycleAndActiveChart.showLoading();
 
     }
-		componentWillReceiveProps(){
+		componentDidUpdate(){
       // debugger
       //echarts渲染数据    setOption
-      this.state.singleSellerCustomerFlowChart.setOption(this.props.b.customerFlow);
-      this.state.singleSellerRadarChart.setOption(this.props.b.radar);
-      this.state.singleSellerStayBarChart.setOption(this.props.b.stayBar);
-      this.state.singleSellerOldOrNewChart.setOption(this.props.b.OldOrNew);
-      this.state.singleSellerTimeSectionChart.setOption(this.props.b.timeSection);
-      this.state.singleSellerDeepVisitChart.setOption(this.props.b.deepVisit);
-      this.state.singleSellerCycleAndActiveChart.setOption(this.props.b.cycleAndActive);
+      this.state.singleSellerCustomerFlowChart.setOption(this.props.customerFlow.toJS());
+      this.state.singleSellerRadarChart.setOption(this.props.radar.toJS());
+      this.state.singleSellerStayBarChart.setOption(this.props.stayBar.toJS());
+      this.state.singleSellerOldOrNewChart.setOption(this.props.OldOrNew.toJS());
+      this.state.singleSellerTimeSectionChart.setOption(this.props.timeSection.toJS());
+      this.state.singleSellerDeepVisitChart.setOption(this.props.deepVisit.toJS());
+      this.state.singleSellerCycleAndActiveChart.setOption(this.props.cycleAndActive.toJS());
+      // console.log(this.props.OldOrNew.toJS());
+      // console.log(this.props.deepVisit.toJS());
+        //隐藏遮罩
+      this.state.singleSellerCustomerFlowChart.hideLoading();
+      this.state.singleSellerRadarChart.hideLoading();
+      this.state.singleSellerStayBarChart.hideLoading();
+      this.state.singleSellerOldOrNewChart.hideLoading();
+      this.state.singleSellerTimeSectionChart.hideLoading();
+      this.state.singleSellerDeepVisitChart.hideLoading();
+      this.state.singleSellerCycleAndActiveChart.hideLoading();
 
 
 
-
-
-      //对应的名字写入
-      // this.setState({
-      //   name:this.props.b.lineAndLine.name
-      // })
 
 		}
+    componentWillReceiveProps(nextProps,nextState){
+      //对应的名字写入
+      this.setState({
+        name:nextProps.customerFlow.name
+      })
+    }
 		componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.singleSellerCustomerFlowChart.dispose();
@@ -162,7 +194,6 @@ class _Chart extends React.Component {
            }
 		}
     render(){
-
     	return <div className="panelWrapper">
               <p>{this.state.name}</p>
 
@@ -231,6 +262,23 @@ class _Chart extends React.Component {
         </div>
         
 */
-let Chart=connect(state=>state,sellersAction)(_Chart);
+const mapStateToProps = (state)=>{
+  // debugger;
+  return {
+    customerFlow:state.getIn(['b','customerFlow']),
+    radar:state.getIn(['b','radar']),
+    stayBar:state.getIn(['b','stayBar']),
+    OldOrNew:state.getIn(['b','OldOrNew']),
+    timeSection:state.getIn(['b','timeSection']),
+    deepVisit:state.getIn(['b','deepVisit']),
+    cycleAndActive:state.getIn(['b','cycleAndActive'])
+    }
+}
+/*
+   
+    
+    cycleAndActive:state.getIn(['b','cycleAndActive']).toJS()*/
+
+let Chart=connect(mapStateToProps,sellersAction)(_Chart);
 
 export default Chart;

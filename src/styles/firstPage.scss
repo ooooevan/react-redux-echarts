@@ -247,7 +247,7 @@ nav {
 
 
   .sidebar_subNav {
-    display: none;
+    // display: none;
   }
 
   /*侧边栏二级菜单*/
@@ -339,7 +339,7 @@ nav {
 
 
 /*顶部文字开始*/
-.chartMessage {
+/* .chartMessage {
   //margin-top: 95px;
   //text-indent: 6em;
   margin: 15px 25px;
@@ -353,7 +353,68 @@ nav {
   p{
     flex:1;
   }
+} */
+
+.topMessage{
+  position:relative;
+  margin:20px 25px 0;
+  // background-color:#fff;
+  display:flex;
+  .message{
+    border-radius:4px;
+    box-shadow:1px 1px 3px rgba(0,0,0,0.1);
+    background-color:#fff;
+    margin-left:50px;
+    flex:1;
+    height:80px;
+    float:left;
+    // line-height:110px;
+  }
+  .message div{
+    position:absolute;
+    height:100%;
+    p{
+      margin:15px;
+    }
+    p:nth-child(2){
+      font-size:80%;
+    }
+    .up{
+     color:red;
+    }
+   .down{
+      color:green;
+    }
+  }
+  // .message div{
+  //   p:nth-child(2){
+  //     font-size:80%;
+  //   }
+  // }
+
+  .message div:before{
+    content: "";
+    height:100%;
+    width:7px;
+    border-radius:10px 0 0 10px;
+    position:absolute;
+    left:-7px;
+    // top:0;
+    background-color:rgba(182,208,233,1);
+  }
+  .message:first-child{
+    margin-left:10px;
+  }
+  zoom: 1;
+  &:after {
+    content: '';
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+  }
 }
+
 /*顶部文字结束*/
 
 /*商家模块开始*/
@@ -386,6 +447,24 @@ nav {
 .allSellersLineChart{
   height: 400px;
 }
+
+  /*日期选择*/
+.sellersTime1{
+  position:absolute;
+  top:10px;
+  right:200px;
+}
+.sellersTime2{
+  position:absolute;
+  top:10px;
+  right:350px;
+}
+
+
+
+
+
+
 
 .allSellersTable{
   margin:30px auto;
@@ -516,34 +595,9 @@ nav {
   }
 }
 /*单个商家 设置高度*/
-.singleSellerLineChart{
+.singleSellerLineChart,.singleSellerCustomerNumChart,.singleSellerCustomerFlowChart,.singleSellerRadarChart,.singleSellerStayBarChart
+,.singleSellerOldOrNewChart,.singleSellerTimeSectionChart,.singleSellerDeepVisitChart,.singleSellerCycleAndActiveChart{
   height: 400px;
-}
-.singleSellerCustomerNumChart{
-  height:400px;
-}
-.singleSellerCustomerFlowChart{
-  height: 400px;
-}
-
-.singleSellerRadarChart{
-  height: 400px;
-  // width:300px;
-}
-.singleSellerStayBarChart{
-  height: 400px;
-}
-.singleSellerOldOrNewChart{
-  height:400px;
-}
-.singleSellerTimeSectionChart{
-  height:400px;
-}
-.singleSellerDeepVisitChart{
-  height:400px;
-}
-.singleSellerCycleAndActiveChart{
-  height:400px;
 }
 
 /*单个商家wrapper*/

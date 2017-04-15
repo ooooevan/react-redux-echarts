@@ -10,7 +10,10 @@ const actions = {
                         type: 'sellersInit',
                         payload: data
                     })
-            })
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
         }
     },
     allSellersLineChartInit(chartPage){
@@ -18,11 +21,13 @@ const actions = {
             let url="http://localhost:3003/allsellers/"+chartPage
             fetch(url).then(data => data.json())
                 .then(data=>{
-                    if(data.error) return;
                     dispatch({
                         type:'allSellersLineChartInit',
                         payload:data
                     })
+                })
+                .catch(function(err){
+                    console.log(err)
             })
         }
     },
@@ -31,12 +36,16 @@ const actions = {
             let url="http://localhost:3003/allsellers/allSellersTableInit";
             fetch(url).then((data) => data.json())
             .then(data=>{
-                    if(data.error) return;
-                        dispatch({
-                            type:'allSellersTableInit',
-                            payload:data
-                        })
+                if(data.error) return;
+                    dispatch({
+                        type:'allSellersTableInit',
+                        payload:data
+                    })
                 })
+            .catch(function(err){
+                console.log(err)
+            })
+
             }
     },
     singleSellerLineChartInit(id,param){
@@ -48,7 +57,10 @@ const actions = {
                         type:'singleSellerLineChartInit',
                         payload:data
                     })
-            })
+                 })
+                .catch(function(err){
+                    console.log(err)
+             })
         }
     },
     singleSellerCustomerNumInit(id,param){
@@ -60,6 +72,9 @@ const actions = {
                         type:'singleSellerCustomerNumInit',
                         payload:data
                     })
+                 })
+                .catch(function(err){
+                  console.log(err)
             })
         }
     },
@@ -85,6 +100,9 @@ const actions = {
                         payload:data
                     })
                 })
+                .catch(function(err){
+                    console.log(err)
+                })
         }
     }, 
     singleSellerCustomerFlowInit(id,param){
@@ -97,6 +115,9 @@ const actions = {
                         payload:data
                     })
                 })
+                .catch(function(err){
+                     console.log(err)
+            })
         }
     },
     singleSellerRadar(id,param){
@@ -109,6 +130,9 @@ const actions = {
                         payload:data
                     })
                 })
+                .catch(function(err){
+                     console.log(err)
+            })
         }
     },
     singleSellerStayBar(id,param){
@@ -121,6 +145,9 @@ const actions = {
                         payload:data
                     })
                 })
+                .catch(function(err){
+                     console.log(err)
+            })
         }
     },
     singleSellerOldOrNew(id,param){
@@ -133,6 +160,9 @@ const actions = {
                         payload:data
                     })
                 })
+                .catch(function(err){
+                     console.log(err)
+            })
         }
     },
     singleSellerTimeSection(id,param){
@@ -145,6 +175,9 @@ const actions = {
                         payload:data
                     })
                 })
+                .catch(function(err){
+                    console.log(err)
+            })
         }
     },
     singleSellerDeepVisit(id,param){
@@ -157,6 +190,9 @@ const actions = {
                         payload:data
                     })
                 })
+                .catch(function(err){
+                    console.log(err)
+            })
         }
     },
     singleSellerCycleAndActive(id,param){
@@ -169,6 +205,9 @@ const actions = {
                         payload:data
                     })
                 })
+                .catch(function(err){
+                    console.log(err)
+            })
         }
     }
 

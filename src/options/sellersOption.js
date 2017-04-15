@@ -9,7 +9,7 @@
 * */
 let data;
   let options = {
-    "lineAndBar":{
+    lineAndBar:{
         title:{
            text: "昨日/上月客流",
            show:false
@@ -75,6 +75,7 @@ let data;
             }
         ]
     },
+    sellers:[],
     // "lineAndLine":{
     //         title:{
     //            text: "商家入店量及入店率",
@@ -152,7 +153,7 @@ let data;
     //             }
     //         ]
     // },
-    "customerNum":{
+    customerNum:{
         /*颜色是后面叠加前面的，要想某个颜色不被覆盖，要放到后面*/
         color:['#1165ee','#cfd9ee','#d14a61'],
         title: {
@@ -254,8 +255,8 @@ let data;
                 }
             ]
     },
-    "table":[],
-    "customerFlow":{
+    table:[],
+    customerFlow:{
             color: ['#d14a61', '#5793f3'],
             title:{
                text: "商家顾客流动",
@@ -368,7 +369,7 @@ let data;
                 }
             ]
     },
-    "radar":{
+    radar:{
         title: {
             text: '整体分析',
             show:false
@@ -397,7 +398,7 @@ let data;
                 }]
         }
     },
-    "stayBar":{
+    stayBar:{
 
         title:{
            text: "驻店时长",
@@ -443,7 +444,7 @@ let data;
             }
         ]
     },
-    "OldOrNew":{
+    OldOrNew:{
         title : {
             text: '新老顾客',
             x:'center',
@@ -478,7 +479,7 @@ let data;
             }
         ]
     },
-    "timeSection":{
+    timeSection:{
 
 
         title:{
@@ -525,7 +526,7 @@ let data;
             }
         ]
     },
-    "deepVisit":{
+    deepVisit:{
 
         title : {
             text: '深访率',
@@ -562,97 +563,92 @@ let data;
             }
         ]
     },
-    "cycleAndActive":{
-    // backgroundColor: {
-    //     type: 'pattern',
-    //     image: canvas,
-    //     repeat: 'repeat'
-    // },
-    tooltip: {},
-    title: [{
-        text: '来访周期',
-        // subtext: '总计 ' + builderJson.all,
-        x: '25%',
-        textAlign: 'center'
-    }, {
-        text: '活跃度',
-        // subtext: '总计 ' + Object.keys(downloadJson).reduce(function (all, key) {
-            // return all + downloadJson[key];
-        // }, 0),
-        x: '75%',
-        textAlign: 'center'
-    }],
-    grid: [{
-        top: 50,
-        width: '50%',
-        // bottom: '45%',
-        left: 10,
-        containLabel: true
-    }
-    // , {
-    //     // top: '55%',
-    //     // width: '50%',
-    //     // bottom: 0,
-    //     // left: 10,
-    //     // containLabel: true
-    // }
-    ],
-    xAxis: [{
-        type: 'value',
-        // max: builderJson.all,
-        splitLine: {
-            show: false
+    cycleAndActive:{
+        tooltip: {},
+        title: [{
+            text: '来访周期',
+            // subtext: '总计 ' + builderJson.all,
+            x: '25%',
+            textAlign: 'center'
+        }, {
+            text: '活跃度',
+            // subtext: '总计 ' + Object.keys(downloadJson).reduce(function (all, key) {
+                // return all + downloadJson[key];
+            // }, 0),
+            x: '75%',
+            textAlign: 'center'
+        }],
+        grid: [{
+            top: 50,
+            width: '50%',
+            // bottom: '45%',
+            left: 10,
+            containLabel: true
         }
-    }
-    // , {
-    //     // type: 'value',
-    //     // max: builderJson.all,
-    //     gridIndex: 1,
-    //     // splitLine: {
-    //     //     show: false
-    //     // }
-    // }
-    ],
-    yAxis: [{
-        type: 'category',
-        data: data,
-        axisLabel: {
-            interval: 0,
-            rotate: 30
-        },
-        splitLine: {
-            show: false
-        }
-    // }, {
-    //     gridIndex: 1,
-        // type: 'category',
-        // data: Object.keys(builderJson.components),
-        // axisLabel: {
-        //     interval: 0,
-        //     rotate: 30
-        // },
-        // splitLine: {
-        //     show: false
+        // , {
+        //     // top: '55%',
+        //     // width: '50%',
+        //     // bottom: 0,
+        //     // left: 10,
+        //     // containLabel: true
         // }
-    }],
-    series: [{
-        type: 'bar',
-        stack: 'chart',
-        z: 3,
-        label: {
-            normal: {
-                position: 'right',
-                show: true
+        ],
+        xAxis: [{
+            type: 'value',
+            // max: builderJson.all,
+            splitLine: {
+                show: false
             }
-        },
-        data: data
-    },{
-        type: 'pie',
-        radius: [0, '30%'],
-        center: ['75%', '50%'],
-        data: data
-    }]
-}
+        }
+        // , {
+        //     // type: 'value',
+        //     // max: builderJson.all,
+        //     gridIndex: 1,
+        //     // splitLine: {
+        //     //     show: false
+        //     // }
+        // }
+        ],
+        yAxis: [{
+            type: 'category',
+            data: data,
+            axisLabel: {
+                interval: 0,
+                rotate: 30
+            },
+            splitLine: {
+                show: false
+            }
+        // }, {
+        //     gridIndex: 1,
+            // type: 'category',
+            // data: Object.keys(builderJson.components),
+            // axisLabel: {
+            //     interval: 0,
+            //     rotate: 30
+            // },
+            // splitLine: {
+            //     show: false
+            // }
+        }],
+        series: [{
+            type: 'bar',
+            stack: 'chart',
+            z: 3,
+            label: {
+                normal: {
+                    position: 'right',
+                    show: true
+                }
+            },
+            data: data
+        },{
+            type: 'pie',
+            radius: [0, '30%'],
+            center: ['75%', '50%'],
+            data: data
+        }]
+    }
 };
 
 

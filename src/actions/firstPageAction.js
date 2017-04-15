@@ -11,7 +11,10 @@ const actions = {
               type: 'firstPageChartInit',
               payload: data
             });
-        });
+          })
+          .catch(function(err){
+            console.log(err)
+        })
     };
   },
   change(myChart) {

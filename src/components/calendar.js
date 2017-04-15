@@ -64,7 +64,10 @@ class Calendar extends React.Component {
     }
     componentDidMount(){
     	window.addEventListener('click',e=>{
-    		ReactDOM.findDOMNode(this.refs.timePicker).style.display = 'none';
+    		let timePickerDOM=ReactDOM.findDOMNode(this.refs.timePicker);
+    		if(timePickerDOM){
+    			timePickerDOM.style.display = 'none';
+    		}
     	});
     	let timeInput=ReactDOM.findDOMNode(this.refs.timeInput); //input
 			timeInput.value=this.state.year+'-'+(this.state.month+1)+'-'+this.state.day;

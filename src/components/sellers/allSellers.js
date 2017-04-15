@@ -3,25 +3,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
+import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
-import Calendar from './calendar';
-import '../styles/calendar.scss';
+import Calendar from '../calendar';
+import '../../styles/calendar.scss';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 
-
-
-import sellersAction from '../actions/sellersAction';
+import sellersAction from '../../actions/sellersAction';
 
 class _Chart extends React.Component {
 
     static propTypes = {
         allSellersLineChartInit: React.PropTypes.func.isRequired,
         allSellersTableInit: React.PropTypes.func.isRequired,
-        b: React.PropTypes.object.isRequired       //包含lineAndBar和table的数据
+        lineAndBar:React.PropTypes.instanceOf(Immutable.Map),
+        table:React.PropTypes.instanceOf(Immutable.List)
       };
 
     constructor(props){
@@ -57,22 +57,18 @@ class _Chart extends React.Component {
 		console.log('componentWillUnmount');
 		this.state.allSellersLineChart.dispose();   //销毁实例
 	}
-	componentWillReceiveProps(){
-        console.log(this.state.chartPage)
-		// debugger;
-        // this.setState({
-        //     allSellersLineOption:this.props.b.lineAndBar
-        // })
-		// this.state.allSellersLineOption=this.props.b.lineAndBar;    //获取参数
-		//获取表格数据
-		// this.state.table = this.props.b.table;
-		this.state.allSellersLineChart.setOption(this.props.b.lineAndBar);
+    componentDidUpdate(){
+        let lineAndBarObj = this.props.lineAndBar.toJS();
+        this.state.allSellersLineChart.setOption(lineAndBarObj);
         this.state.allSellersLineChart.hideLoading()
-		// console.log(this.state.allSellersLineOption);
+        // console.log(this.state.allSellersLineOption);
+        // debugger
+        let afda=this.props.lineAndBar.get('xAxis');
+        let asfda=this.props.lineAndBar.get('xAxis')[0];
 
         /*判断商家排名的下一页，是否到了最后一页，是则将按钮设置为disabled*/
         let rightBtn=ReactDOM.findDOMNode(this.refs.rightBtn);
-        if(this.props.b.lineAndBar.xAxis[0].lastPage){
+        if(lineAndBarObj.xAxis[0].lastPage){
             this.state.lastPage =  true;
             // rightBtn.style.backgroundColor='black';   //可改变按钮颜色，还没写
             // rightBtn.disabled=true;
@@ -81,6 +77,31 @@ class _Chart extends React.Component {
             // rightBtn.disabled=false;
             this.state.lastPage =  false;
         }
+    }
+	componentWillReceiveProps(){
+        // console.log(this.state.chartPage)
+		// debugger;
+        // this.setState({
+        //     allSellersLineOption:this.props.b.lineAndBar
+        // })
+		// this.state.allSellersLineOption=this.props.b.lineAndBar;    //获取参数
+		//获取表格数据
+		// this.state.table = this.props.b.table;
+		// this.state.allSellersLineChart.setOption(this.props.b.lineAndBar);
+  //       this.state.allSellersLineChart.hideLoading()
+		// // console.log(this.state.allSellersLineOption);
+
+  //       /*判断商家排名的下一页，是否到了最后一页，是则将按钮设置为disabled*/
+  //       let rightBtn=ReactDOM.findDOMNode(this.refs.rightBtn);
+  //       if(this.props.b.lineAndBar.xAxis[0].lastPage){
+  //           this.state.lastPage =  true;
+  //           // rightBtn.style.backgroundColor='black';   //可改变按钮颜色，还没写
+  //           // rightBtn.disabled=true;
+  //           // this.state.chartPage-=1;
+  //       }else{
+  //           // rightBtn.disabled=false;
+  //           this.state.lastPage =  false;
+  //       }
 	}
     turnLeft = ()=>{
         if(this.state.chartPage<=1){
@@ -100,9 +121,9 @@ class _Chart extends React.Component {
 
 
     render(){
-		var rows = [];
-		if(this.props.b.table){
-			this.props.b.table.forEach(function(item,index){
+		let rows = [];
+		if(this.props.table){
+			this.props.table.forEach(function(item,index){
 				rows.push(<tr key={index}><th>{index+1}</th><td>{item.name}</td><td>{item.num}{item.increase == 'true'? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={item.increase == 'true'? 'up':'down'}>{item.percent}%</td></tr>);
 
 			})
@@ -111,7 +132,8 @@ class _Chart extends React.Component {
 
 
         return <div className="chartWrapper">
-                                    {/*<Calendar/><br /><Calendar/>*/}
+              <div className='sellersTime1'><Calendar/></div>
+              <div className='sellersTime2'><Calendar/></div>
         	<div className="panel">
         		<div className="panelHead">商家客流排名</div>
         		<div className="panelBody">
@@ -139,8 +161,16 @@ class _Chart extends React.Component {
         	</div>
         </div>
     }
-
 }
-let Chart=connect(state=>state,sellersAction)(_Chart);
+const mapStateToProps = (state)=>{
+    // console.log(state);
+    // debugger
+    // console.log(state.toJS());
+    return {
+        lineAndBar:state.getIn(['b','lineAndBar']),
+        table:state.getIn(['b','table'])
+    }
+}
+let Chart=connect(mapStateToProps,sellersAction)(_Chart);
 export default Chart;
 

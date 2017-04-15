@@ -5,19 +5,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
+import Immutable from 'immutable';
 import { Router, Route, IndexRoute, hashHistory, Link ,Redirect} from 'react-router';
-import sellersAction from '../actions/sellersAction';
+import sellersAction from '../../actions/sellersAction';
 
 
 class _SidebarNav extends React.Component {
     static propTypes = {
         sellersInit: React.PropTypes.func.isRequired, 
-        b: React.PropTypes.object.isRequired       //包含lineAndBar和table的数据
+        sellers:React.PropTypes.instanceOf(Immutable.List)
     };
     constructor(props){
         super(props);
+        this.change=this.change.bind(this);
+        this.entireList=this.entireList.bind(this);
         this.state={
-            sellers:[]
+            sellers:Immutable.List([])
         }
     }
     componentWillMount(){
@@ -28,9 +31,14 @@ class _SidebarNav extends React.Component {
     }
     componentDidMount(){
         console.log('componentDidMount...')
-        this.props.sellersInit();
+        // debugger
+        // this.props.sellersInit();
     }
-    componentWillReceiveProps(){
+    componentDidUpdate(){
+
+        
+    }
+    componentWillReceiveProps(nextProps,nextState){
         console.log('componentWillReceiveProps..');
         //debugger;
         /*获取商家名称，要是一个数组或对象*/
@@ -43,11 +51,14 @@ class _SidebarNav extends React.Component {
         // this.setState({
         //     sellers:this.props.b.sellers
         // })
-
+// debugger
+        // console.log(nextProps.sellers);
         //bug消除：全部商家列表中，搜索后为部分商家，选择某商家，商家列表就回到全部商家。下面entireList函数，点击全部商家回到全部
-        if(this.props.b.sellers){
-            this.state.sellers = this.props.b.sellers;
-            this.change();
+        if(nextProps.sellers){
+            this.setState({
+                sellers:nextProps.sellers
+            })
+            // this.change();
         }
         // console.log(this)
         // console.log('输出sellers：')
@@ -59,31 +70,40 @@ class _SidebarNav extends React.Component {
         let text=ReactDOM.findDOMNode(this.refs.searchText).value;
         // if(text === ' ') return;  //输入中文时有空格
         let rows=[];
-        // rows.seller=[];
-        // rows.id=[];
-        // console.log(this.props.b.sellers);
-        this.props.b.sellers.forEach(function(seller){
+        //输入时留下匹配的商家列表
+        // let afdsa=this.props.sellers;
+        // let css=this.props.sellers.toJS();
+        this.props.sellers.forEach(function(seller){
 
             //seller是数值，不能indexOf，要转成string
-            if(seller.seller.indexOf(text.trim()) === -1) return;
-            rows.push(seller);
+            if(seller.seller.indexOf(text.trim()) === -1){
+                return;
+            }else{
+                rows.push(seller);
+            }
         });
+        console.log(rows)
         this.setState({
-            sellers:rows
+            sellers:Immutable.List(rows)
         })
 
 
     }
     //回到整个商家列表
     entireList = ()=>{
-        let dom=ReactDOM.findDOMNode(this.refs.searchText);
-        dom.value='';
+        // let dom=ReactDOM.findDOMNode(this.refs.searchText);
+        // dom.value='';
+        this.setState({
+            sellers:this.props.sellers
+        })
     }
 
 
 
     render(){
         //const usersdom = this.props.sellers.map(seller=><li>{seller.name}</li>);
+        // console.log('-render----------')
+        // console.log(this.state.sellers.toJS())
         let rows=[];
         let routeData='sellers/';
         rows.push(<li key="all" onClick={this.entireList}><Link to='sellers/allsellers' activeClassName="active" draggable="false">全部商家<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>);
@@ -108,7 +128,14 @@ class _SidebarNav extends React.Component {
         </div>
     }
 }
-let SidebarNav=connect(state=>state,sellersAction)(_SidebarNav);
+
+const mapStateToProps = state => {
+    return {
+        sellers:state.getIn(['b','sellers'])
+    }
+}
+
+let SidebarNav=connect(mapStateToProps,sellersAction)(_SidebarNav);
 
 let Sellers=React.createClass({
     render(){

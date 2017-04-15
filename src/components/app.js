@@ -6,17 +6,17 @@ import {connect,Provider} from 'react-redux';
 import { Router, Route, IndexRoute, hashHistory, Link ,Redirect,browserHistory} from 'react-router';
 import General from './general';
 // import Sellers from './sellers';
-import FirstPage from './firstPage';
+import FirstPage from './firstPage/firstPage';
 import store from '../store/store';
-import FirstPageChart from './firstPageChart';
-import FirstFloorChart from './firstFloorChart';
-import SecondFloorChart from './secondFloorChart';
-import ThirdFloorChart from './thirdFloorChart';
+import FirstPageChart from './firstPage/firstPageChart';
+import FirstFloorChart from './firstPage/firstFloorChart';
+import SecondFloorChart from './firstPage/secondFloorChart';
+import ThirdFloorChart from './firstPage/thirdFloorChart';
 // import Allsellers from './allSellers';
 // import SingleSellerRoute from './singleSellerRoute';
 // import SingleSellerChartCurrent from './singleSellerChartCurrent';
 // import SingleSellerChartHistory from './singleSellerChartHistory';
-import Statistics from './statistics';
+import Statistics from './statistics/statistics';
 
 import Calendar from './calendar';
 import NotFindPage from './notFindPage';
@@ -36,28 +36,28 @@ class Test extends React.Component {
 
 const Sellers = (location, callback) => {
     require.ensure([], require => {
-        callback(null, require('./sellers').default)
+        callback(null, require('./sellers/sellers').default)
     },'sellers')
 }
 
 const Allsellers = (location, callback) => {
     require.ensure([], require => {
-        callback(null, require('./allSellers').default)
+        callback(null, require('./sellers/allSellers').default)
     },'allsellers')
 }
 const SingleSellerRoute = (location, callback) => {
     require.ensure([], require => {
-        callback(null, require('./singleSellerRoute').default)
+        callback(null, require('./sellers/singleSellerRoute').default)
     },'total')
 }
 const SingleSellerChartCurrent = (location, callback) => {
     require.ensure([], require => {
-        callback(null, require('./singleSellerChartCurrent').default)
+        callback(null, require('./sellers/singleSellerChartCurrent').default)
     },'now')
 }
 const SingleSellerChartHistory = (location, callback) => {
     require.ensure([], require => {
-        callback(null, require('./singleSellerChartHistory').default)
+        callback(null, require('./sellers/singleSellerChartHistory').default)
     },'history')
 }
 
@@ -86,8 +86,8 @@ ReactDOM.render(
 					</Route>
 				</Route>
 				<Route path='statistics' component={Statistics}>
-						<IndexRoute path='total' component={Calendar} />
-						<Route path='total' component={Calendar}/>
+						<IndexRoute path='total' component={Test} />
+						<Route path='total' component={Test}/>
 						<Route path='firstFloor' component={Test}/>
 						<Route path='secondFloor' component={Test}/>
 						<Route path='thirdFloor' component={Test}/>
