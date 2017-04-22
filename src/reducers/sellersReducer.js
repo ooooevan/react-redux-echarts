@@ -1,17 +1,18 @@
-/**
- * Created by HH on 2017/3/16.
- */
+
 // import 'babel-polyfill';
 import Immutable from 'immutable';
+import dispatchType from '../constants/dispatchType';
+const TYPE=dispatchType.sellers;
+
 const initialState = Immutable.Map({});
 export default function sellersReducer(state=initialState,action){
     // if(typeof state === 'undefined') return {sellers:[]}
     switch(action.type){
-        case 'sellersInit':
+        case TYPE.sellersListInit:
           // debugger;
           //商家列表,action.payload是对象数组，用List
           return state.setIn(['sellers'],Immutable.List(action.payload));
-        case 'allSellersLineChartInit':
+        case TYPE.allSellersLineChartInit:
       		/*let obj2=Object.assign({},state);*/
           
           /*//本身没有数据就初始化，本身有数据就清除
@@ -48,7 +49,7 @@ export default function sellersReducer(state=initialState,action){
             // obj2.lineAndBar.xAxis[0].lastPage=lastPage;
             // let df=xAxis.toJS();
 					// return xAxis;
-        case "singleSellerLineChartInit":
+        // case "singleSellerLineChartInit":
 
 
 
@@ -69,7 +70,7 @@ export default function sellersReducer(state=initialState,action){
 
 
           // return Object.assign({},state,obj3);
-        case "singleSellerCustomerNumInit":
+        case TYPE.singleSellerCustomerNumInit:
           // debugger;
           /*let obj13=Object.assign({},state);
           obj13.customerNum.xAxis[0].data=[];
@@ -93,7 +94,7 @@ export default function sellersReducer(state=initialState,action){
                       .setIn(['customerNum','series',2,'data'],Immutable.List(customer.percent))
                       .setIn(['customerNum','name'],customer.name);
 
-        case "singleSellerCustomerNumFetch":
+        case TYPE.singleSellerCustomerNumFetch:
           // let obj4=Object.assign({},state);
           // let dfas= state.setIn(['customerNum','xAxis',0,'data'],action.payload.time)
           //             .setIn(['customerNum','series',0,'data'],action.payload.num1)
@@ -112,7 +113,7 @@ export default function sellersReducer(state=initialState,action){
                         return data.push(action.payload.percent).shift();
                       });
 
-        case "allSellersTableInit":
+        case TYPE.allSellersTableInit:
           // debugger
           let arr=[];
           // let obj5=Object.assign({},state);
@@ -123,7 +124,7 @@ export default function sellersReducer(state=initialState,action){
           });
           return state.set('table',Immutable.List(arr));
 
-        case "singleSellerCustomerFlowInit":
+        case TYPE.singleSellerCustomerFlowInit:
           // debugger
           let customerFlow={name:'',time:[],num:[],percent1:[],percent2:[]};
           /*let obj12=Object.assign({},state);
@@ -151,7 +152,7 @@ export default function sellersReducer(state=initialState,action){
                         .setIn(['customerFlow','series',1,'data'],Immutable.List(customerFlow.percent1))
                         .setIn(['customerFlow','series',2,'data'],Immutable.List(customerFlow.percent2));
         
-        case 'singleSellerRadar':
+        case TYPE.singleSellerRadar:
           // debugger
 
           // let obj6=Object.assign({},state);
@@ -165,7 +166,7 @@ export default function sellersReducer(state=initialState,action){
           // obj6.radar.series.data[0].value = value;
           return state.setIn(['radar','series','data',0],Immutable.List(value));
           // return Object.assign({},state,obj6);
-        case 'singleSellerStayBar':
+        case TYPE.singleSellerStayBar:
           // debugger
           // let obj7=Object.assign({},state);
           let staybar={name:[],value:[]}
@@ -180,7 +181,7 @@ export default function sellersReducer(state=initialState,action){
           // obj7.stayBar.xAxis[0].data = name2;
           // obj7.stayBar.series[0].data = value2;
           // return Object.assign({},state,obj7);
-        case 'singleSellerOldOrNew':
+        case TYPE.singleSellerOldOrNew:
           // debugger
           // let obj8=Object.assign({},state);
           // obj8.OldOrNew.series[0].data[0].value = action.payload.old;
@@ -188,7 +189,7 @@ export default function sellersReducer(state=initialState,action){
           // return Object.assign({},state,obj8);
           return state.setIn(['OldOrNew','series',0,'data',0,'value'],action.payload.old)
                       .setIn(['OldOrNew','series',0,'data',1,'value'],action.payload.new);
-        case 'singleSellerTimeSection':
+        case TYPE.singleSellerTimeSection:
           // debugger
           // let obj9=Object.assign({},state);
           let timeSection={name:[],value:[]};
@@ -203,7 +204,7 @@ export default function sellersReducer(state=initialState,action){
           // return Object.assign({},state,obj9);
           return state.setIn(['timeSection','xAxis',0,'data'],Immutable.List(timeSection.name))
                       .setIn(['timeSection','series',0,'data'],Immutable.List(timeSection.value))
-        case 'singleSellerDeepVisit':
+        case TYPE.singleSellerDeepVisit:
           // debugger
           // let obj10=Object.assign({},state);
           // obj10.deepVisit.series[0].data[0].value = action.payload.shallow;
@@ -213,7 +214,7 @@ export default function sellersReducer(state=initialState,action){
                       .setIn(['deepVisit','series',0,'data',1,'value'],action.payload.common)
                       .setIn(['deepVisit','series',0,'data',2,'value'],action.payload.deep)
           // return Object.assign({},state,obj10);
-        case 'singleSellerCycleAndActive':
+        case TYPE.singleSellerCycleAndActive:
           // let obj11=Object.assign({},state);
           // let payLoadData1=action.payload.data1;
           // let payLoadData2=action.payload.data2;
@@ -230,7 +231,7 @@ export default function sellersReducer(state=initialState,action){
           let data1={time:[],value:[]};
           let data2=[];
           //bar、来访周期放入数据
-          action.payload.data1.forEach(item=>{
+          action.payload.data1.reverse().forEach(item=>{
             data1.time.push(item.time);
             data1.value.push(item.value);
           })

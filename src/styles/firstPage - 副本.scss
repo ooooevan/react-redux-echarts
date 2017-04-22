@@ -244,24 +244,10 @@ nav {
     font-size: 17px;
     left:170px;
   }
-  //数据对比 分隔条
-  .split{
-    // height:35px;
-    line-height:35px;
-    font-size:13px;
-    color:#e9e9e9;
-    // border-bottom:1px solid #5d5d5d;
-    background-color: #404040;
-  }
+
 
   .sidebar_subNav {
-    // height:0;
-    // transition:all .3s;
-    display: none;
-    &.active{
-      // height:auto;
-      display: block;
-    }
+    // display: none;
   }
 
   /*侧边栏二级菜单*/
@@ -291,7 +277,6 @@ nav {
   // height:600px;
   //图表warpper
   .chartWrapper {
-    overflow-x:hidden;
     // height: 100%;
     // width: 100%;
     width: calc(100% - #{$sidebarWidth});
@@ -340,38 +325,16 @@ nav {
       .panelBody {
         min-height: 300px;
         position:relative;
-        p{
-          margin:35px 0 0;
-          padding-left:25px;
-          padding-bottom:6px;
-          font-size: 17px;
-          font-weight:600;
-          // border-bottom:2px solid rgba(90,90,90,1);
-        }
       }
       .chartLine{
-        height: 430px;
+        min-height: 400px;
+      }
+      .chartPie{
+        height:300px;
       }
     }
 
   }
-  .firstTable{
-    margin:0 auto 25px;
-    border:0;
-    border-collapse:collapse;
-    width: 95%;
-    text-align: center;
-    thead>tr>th{
-      font-weight:600;
-    }
-    thead>tr>th,tbody tr th,tbody tr td{
-      border:1px solid #d8d8d8;
-      text-align: center;
-      font-size: 15px;
-      height: 47px;
-    }
-  }
-
 }
 
 
@@ -485,87 +448,17 @@ nav {
   height: 400px;
 }
 
-  /*参数选择*/
-.selectOption{
-  width:100%;
-  margin:10px 25px 0;
-  font-size:13px;
-  // line-height:23px;
-    //select样式
-  .sellersSelect1,.sellersSelect2,.selectClick,.quickSelect{
-
-    display:inline-block;
-    // top:15px;
-    select{
-      height:30px;
-      // background-color:#f6f6f6;
-      // appearance:none;  //去除下箭头
-      outline: none;
-      width:100px;
-      border:1px solid #eee;
-      border-radius:3px;
-      box-shadow:0px 1px 1px rgba(0,0,0,.1);
-      &:hover{
-        background-color:#f9f9f9;
-      }
-    }
-  }
-  .quickSelect ul {
-    border: 1px solid #eee;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-    li{
-      padding: 10px 20px;
-      background-color:white;
-      display:inline-block;
-      cursor:pointer;
-      border-right:1px solid #eee;
-      transition:all .3s;
-    }
-    li:first-child{
-      border-radius:3px 0 0 3px;
-    }
-    li:last-child{
-      border-radius:0 3px 3px 0;
-    }
-    li.active{
-      background-color:#5db4e5;
-      color:white;
-    }
-  }
-
-  
-  .selectClick input{
-    box-shadow:0px 1px 1px rgba(0,0,0,.1);
-    outline: none;
-    margin-left:20px;
-    padding:0 12px;
-    height:30px;
-    border:1px solid #eee;
-    border-radius:3px;
-    background-color:#fff;
-    &:hover{
-      background-color:#f9f9f9;
-    }
-    &:active{
-      background-color:#f5f5f5;
-    }
-  }
-  // ul{
-  //   display:inline-block;
-  // }
-  // ul li{
-  //   float:left;
-  //   line-height:100%;
-  //   a{
-  //     padding:5px 10px;
-  //     display:block;
-  //     background-color:white;
-  //   }
-  // }
+  /*日期选择*/
+.sellersTime1{
+  position:absolute;
+  top:10px;
+  right:200px;
 }
-
-
-
+.sellersTime2{
+  position:absolute;
+  top:10px;
+  right:350px;
+}
 
 
 
@@ -589,16 +482,15 @@ nav {
     background-color:#636363;
     color:#fff;
   }
+  tbody tr:nth-child(even){
+    background:#efefef;
+  }
   .up{
     color:red;
   }
   .down{
     color:green;
   }
-  tbody tr:nth-child(even){
-    background:#efefef;
-  }
-
 
 }
 /*单个商家页面开始*/
@@ -706,17 +598,40 @@ nav {
 ,.singleSellerOldOrNewChart,.singleSellerTimeSectionChart,.singleSellerDeepVisitChart,.singleSellerCycleAndActiveChart{
   height: 400px;
 }
-
+//商家介绍内容
+.sellerIntroduce p{
+  line-height:30px;
+  padding:20px;
+}
+.panel_table{
+  .singleSellerOldOrNewChart{
+    float:left;
+    width:30%;
+  }
+  table{
+    width:60%;
+    float:right;
+    thead>tr>th,tbody tr th,tbody tr td{
+      border:1px solid #d8d8d8;
+      text-align: center;
+      font-size: 15px;
+      height: 47px;
+    }
+    thead>tr{
+      background-color:#636363;
+      color:#fff;
+    }
+  }
+}
 /*单个商家wrapper*/
 .panelWrapper{
-  overflow:hidden;
-  // p{
-  //   position: absolute;
-  //   text-align: center;
-  //   left:50%;
-  //   transform: translateX(-50%);
-  //   transform: translateY(-47px);
-  // }
+  &>p{
+    position: absolute;
+    text-align: center;
+    left:50%;
+    transform: translateX(-50%);
+    transform: translateY(-47px);
+  }
   .halfPanel_1{
     margin:0 10px 0 25px!important;
   }
@@ -778,38 +693,8 @@ nav {
 
 
 
-/*统计开始*/
-.selectTime1,.selectTime2{
-  display:inline-block;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-}
-.selectTimeError{
-  .calendar{
-    input{
-      border: 1px solid red;
-    }
-  }
-}
-// .quickSelect{
-//   // padding: 13px 0 0;
-//   vertical-align:top;
 
-  // ul{
-  //   display:inline-block;
 
-  // }
-  // ul li{
-  //   float:left;
-  //   line-height:100%;
-  //   a{
-  //     padding:5px 10px;
-  //     display:block;
-  //     background-color:white;
-  //   }
-  // }
-// }
-
-/*统计结束*/
 
 
 

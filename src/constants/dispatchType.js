@@ -1,0 +1,21 @@
+export default {
+	firstPage:{
+		firstPageNumInit:'firstPageNumInit',
+		firstPageFetch:'firstPageFetch'
+	},
+	sellers:{
+		sellersListInit:'sellersListInit',
+		allSellersLineChartInit:'allSellersLineChartInit',
+		allSellersTableInit:'allSellersTableInit',
+		singleSellerLineChartInit:'singleSellerLineChartInit',
+		singleSellerCustomerNumInit:'singleSellerCustomerNumInit',
+		singleSellerCustomerNumFetch:'singleSellerCustomerNumFetch',
+		singleSellerCustomerFlowInit:'singleSellerCustomerFlowInit',
+		singleSellerRadar:'singleSellerRadar',
+		singleSellerStayBar:'singleSellerStayBar',
+		singleSellerOldOrNew:'singleSellerOldOrNew',
+		singleSellerTimeSection:'singleSellerTimeSection',
+		singleSellerDeepVisit:'singleSellerDeepVisit',
+		singleSellerCycleAndActive:'singleSellerCycleAndActive'
+	}
+}

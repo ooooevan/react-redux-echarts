@@ -1,11 +1,9 @@
 import {createStore,applyMiddleware,compose } from 'redux';
 import {combineReducers} from 'redux-immutable';
 import Immutable from 'immutable';
-import FirstPageLineReducer from '../reducers/firstPageLineReducer';
-import sellersReducer from '../reducers/sellersReducer';
 
-import FirstPageLineOption from '../options/firstPageLineOption';
-import sellersOption from '../options/sellersOption';
+import reducers from '../reducers/index';
+import options from '../options/index';
 
 import thunk from 'redux-thunk';
 
@@ -24,8 +22,8 @@ const logger = store=>nextDispatch=>action=>{
 //);
  //const store=createStore(FirstPageLineReducer,lineOption,enhancer);
 
-const reducer = combineReducers({a:FirstPageLineReducer,b:sellersReducer});
-const state=Immutable.fromJS({a:FirstPageLineOption,b:sellersOption});
+const reducer = combineReducers({a:reducers.firstPage,b:reducers.sellers});
+const state=Immutable.fromJS({a:options.firstPage,b:options.sellers});
 // const state={a:FirstPageLineOption,b:sellersOption};
 const store=createStore(reducer,state,applyMiddleware(logger,thunk));
 //const store=createStore(combineReducers({a:FirstPageLineReducer}),{a:lineOption},applyMiddleware(thunk));

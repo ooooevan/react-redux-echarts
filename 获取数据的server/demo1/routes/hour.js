@@ -762,7 +762,7 @@ router.get("/init", function(req, res, next) {
 	res.end();
 });
 
-router.get("/change", function(req, res, next) {
+router.get("/firstPageFetch", function(req, res, next) {
 	res.writeHead(200, {
 		"Access-Control-Allow-Origin": "*"
 	});
@@ -1108,10 +1108,12 @@ router.get("/singleSellerCycleAndActive/:id",function(req,res,next){
 })
 router.get("/singleSellerCustomerFlowInit/:id",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var id=req.params.id.substr(0,4);
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
+	var nameNum=parseInt(10*Math.random());
 	var seller=`{
-        "name":"淘宝",
+        "name":"淘宝${id}",
         "value":[{
             "time":"12:21:08",
             "num":632,
@@ -1187,6 +1189,7 @@ router.get("/singleSellerCustomerFlowInit/:id",function(req,res,next){
             "percent2":1
         }]
     }`
+    console.log(seller)
 	res.write(seller);
 	res.end();
 })
@@ -1194,6 +1197,9 @@ router.get("/singleSellerCustomerNumInit/:id",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
+	var sellerNum=parseInt(10*Math.random());
+	var index=req.params.id.indexOf('&');
+	var id=req.params.id.substr(0,index);
 	/*
 		num1:入店量
 		num2:门前客流量
@@ -1201,7 +1207,7 @@ router.get("/singleSellerCustomerNumInit/:id",function(req,res,next){
 
 	*/
 	var seller=`{
-        "name":"淘宝",
+        "name":"淘宝${id}",
         "value":[{
             "time":"12:21:08",
             "num1":632,
@@ -1252,5 +1258,12 @@ router.get("/singleSellerCustomerNumInit/:id",function(req,res,next){
 	res.write(seller);
 	res.end();
 })
+router.get("/login",function(req,res,next){
+	// res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	console.log(req.params)
 
+
+	res.write('ok!');
+	res.end();
+})
 module.exports = router;

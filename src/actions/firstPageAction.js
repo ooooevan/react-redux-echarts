@@ -1,14 +1,20 @@
+
+import actionApi from '../constants/actionApi';
+import dispatchType from '../constants/dispatchType';
+const Api=actionApi.firstPage;
+const TYPE=dispatchType.firstPage;
+
 const actions = {
-  firstPageChartInit() {
+  firstPageNumInit() {
 
     /*
      *   param是时间段参数，用于获取不同范围数据.可以是hour、day、week、month
      */
     return function(dispatch) {
-      fetch('http://localhost:3000/hour/init').then(data => data.json())
+      fetch(Api.firstPageNumInit).then(data => data.json())
           .then(data => {
             dispatch({
-              type: 'firstPageChartInit',
+              type: TYPE.firstPageNumInit,
               payload: data
             });
           })
@@ -17,12 +23,12 @@ const actions = {
         })
     };
   },
-  change(myChart) {
+  firstPageFetch(myChart) {
     return function(dispatch) {
-      fetch('http://localhost:3000/hour/change').then(data => data.json())
+      fetch(Api.fetch).then(data => data.json())
         .then(data => {
           dispatch({
-            type: 'change',
+            type: TYPE.firstPageFetch,
             payload: data
           })
         })

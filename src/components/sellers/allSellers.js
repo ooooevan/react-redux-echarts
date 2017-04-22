@@ -31,7 +31,8 @@ class _Chart extends React.Component {
         	// allSellersLineOption:'',    //option参数
             chartPage:1,       //按页分开商家数据，第一页
 			// table:[]
-            lastPage:false
+            lastPage:false,
+            resizeHandler:null
 		}
 
     }
@@ -52,10 +53,22 @@ class _Chart extends React.Component {
         this.state.allSellersLineChart = echarts.init(domLine);
         this.state.allSellersLineChart.showLoading();
 
+        window.addEventListener('resize',this.resizeFun)
 	}
+    resizeFun = ()=>{
+        if(this.state.resizeHandler){
+                clearTimeout(this.state.resizeHandler);
+            }
+            if(this.state.allSellersLineChart){
+                this.state.resizeHandler = setTimeout(function () {
+                   this.state.allSellersLineChart.resize();
+                }.bind(this), 100)
+            }
+    }
 	componentWillUnmount(){
 		console.log('componentWillUnmount');
 		this.state.allSellersLineChart.dispose();   //销毁实例
+        window.removeEventListener('resize',this.resizeFun);
 	}
     componentDidUpdate(){
         let lineAndBarObj = this.props.lineAndBar.toJS();
@@ -132,10 +145,34 @@ class _Chart extends React.Component {
 
 
         return <div className="chartWrapper">
-              <div className='sellersTime1'><Calendar/></div>
-              <div className='sellersTime2'><Calendar/></div>
+              {/*<div className='sellersTime1'><Calendar/></div>
+              <div className='sellersTime2'><Calendar/></div>*/}
+              <div className='selectOption'>
+                区域选择：
+                <div className='sellersSelect1'>
+                  <select>
+                    <option value ="allsellers">全部商家</option>
+                    <option value ="firstFloor">一层商家</option>
+                    <option value="secondFloor">二层商家</option>
+                    <option value="thirdFloor">三层商家</option>
+                  </select>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间选择：
+                <div className='sellersSelect2'>
+                  <select>
+                    <option value ="yesterday">昨日</option>
+                    <option value ="lastWeek">最近一周</option>
+                    <option value="lastMonth">最近一月</option>
+                    <option value="all">全部</option>
+                  </select>
+                </div>
+                <div className='selectClick'>
+                  <input type='button' value='查询'/>
+                </div>
+              </div>
+              
         	<div className="panel">
-        		<div className="panelHead">商家客流排名</div>
+        		<div className="panelHead">各商家客流</div>
         		<div className="panelBody">
                 <div className="allSellersLineChartBtn">
                     <button onClick={this.turnLeft}><i className="fa fa-chevron-left"></i></button>

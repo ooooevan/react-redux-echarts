@@ -645,7 +645,7 @@ let data;
         },{
             type: 'pie',
             radius: [0, '30%'],
-            center: ['75%', '50%'],
+            center: ['75%', '45%'],
             data: data
         }]
     }

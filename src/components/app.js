@@ -17,6 +17,8 @@ import ThirdFloorChart from './firstPage/thirdFloorChart';
 // import SingleSellerChartCurrent from './singleSellerChartCurrent';
 // import SingleSellerChartHistory from './singleSellerChartHistory';
 import Statistics from './statistics/statistics';
+import CustomerNum from './statistics/customerNum';
+import Compare from './Compare/compare';
 
 import Calendar from './calendar';
 import NotFindPage from './notFindPage';
@@ -67,32 +69,43 @@ const SingleSellerChartHistory = (location, callback) => {
 ReactDOM.render(
 	<Provider store={store} >
 		<Router history={hashHistory}>
-			<Redirect from="/" to="/firstPage"/>
+			<Redirect from="/" to="/firstPage/total"/>
 			<Route path='/' component={General}>
+			<Redirect from="firstPage" to="/firstPage/total"/>
 				<Route path='firstPage' component={FirstPage}>
-					<IndexRoute path='total' component={FirstPageChart} />
+					<IndexRoute component={FirstPageChart} />
 					<Route path="total" component={FirstPageChart}/>
+					<Route path="allSellers" component={FirstFloorChart}/>
 					<Route path="firstFloor" component={FirstFloorChart}/>
 					<Route path="secondFloor" component={SecondFloorChart}/>
 					<Route path="thirdFloor" component={ThirdFloorChart}/>
 				</Route>
+				<Redirect from="sellers" to="/sellers/allsellers"/>
 				<Route path='sellers' getComponent={Sellers}>
-					<IndexRoute path='allsellers' getComponent={Allsellers} />
+					<IndexRoute getComponent={Allsellers} />
 					<Route path="allsellers" getComponent={Allsellers}/>
+					<Redirect from=":id" to=":id/now"/>
 					<Route path=":id" getComponent={SingleSellerRoute}>
-						<IndexRoute path='now' getComponent={SingleSellerChartCurrent} />
+						<IndexRoute getComponent={SingleSellerChartCurrent} />
 						<Route path='now' getComponent={SingleSellerChartCurrent}/>
 						<Route path='history' getComponent={SingleSellerChartHistory}/>
 					</Route>
 				</Route>
+				<Redirect from="statistics" to="/statistics/total"/>
 				<Route path='statistics' component={Statistics}>
-						<IndexRoute path='total' component={Test} />
+						<IndexRoute component={CustomerNum} />
+						<Route path='total' component={CustomerNum}/>
+						<Route path='oldOrNew' component={Test}/>
+						<Route path='firstFloor' component={Test}/>
+						<Route path='secondFloor' component={Test}/>
+						<Route path='thirdFloor' component={Test}/>
+				</Route>
+				<Route path='compare' component={Compare}>
 						<Route path='total' component={Test}/>
 						<Route path='oldOrNew' component={Test}/>
 						<Route path='firstFloor' component={Test}/>
 						<Route path='secondFloor' component={Test}/>
 						<Route path='thirdFloor' component={Test}/>
-						<Route path='compare' component={Test}/>
 				</Route>
 				<Route path="*" component={NotFindPage} />
 			</Route>

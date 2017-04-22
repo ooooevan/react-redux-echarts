@@ -11,7 +11,7 @@ import sellersAction from '../../actions/sellersAction';
 
 class _SidebarNav extends React.Component {
     static propTypes = {
-        sellersInit: React.PropTypes.func.isRequired, 
+        sellersListInit: React.PropTypes.func.isRequired, 
         sellers:React.PropTypes.instanceOf(Immutable.List)
     };
     constructor(props){
@@ -23,7 +23,7 @@ class _SidebarNav extends React.Component {
         }
     }
     componentWillMount(){
-        this.props.sellersInit();
+        this.props.sellersListInit();
     }
     componentWillUpdate(){
         console.log('componentWillUpdate..');

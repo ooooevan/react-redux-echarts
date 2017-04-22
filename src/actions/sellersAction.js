@@ -1,13 +1,18 @@
 /**
  * Created by HH on 2017/3/16.
  */
+import actionApi from '../constants/actionApi';
+import dispatchType from '../constants/dispatchType';
+const TYPE=dispatchType.sellers;
+const url=actionApi.sellers; 
+
 const actions = {
-    sellersInit(){
+    sellersListInit(){
         return function(dispatch){
-            fetch('http://localhost:3003').then(data=> data.json())
+            fetch(url.sellersListInit).then(data=> data.json())
                 .then(data=>{
                     dispatch({
-                        type: 'sellersInit',
+                        type: TYPE.sellersListInit,
                         payload: data
                     })
                 })
@@ -18,11 +23,11 @@ const actions = {
     },
     allSellersLineChartInit(chartPage){
         return function(dispatch){
-            let url="http://localhost:3003/allsellers/"+chartPage
-            fetch(url).then(data => data.json())
+            let url1=url.allSellersLineChartInit+chartPage;
+            fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
-                        type:'allSellersLineChartInit',
+                        type:TYPE.allSellersLineChartInit,
                         payload:data
                     })
                 })
@@ -33,12 +38,12 @@ const actions = {
     },
     allSellersTableInit(){
         return function(dispatch){
-            let url="http://localhost:3003/allsellers/allSellersTableInit";
-            fetch(url).then((data) => data.json())
+            let url1=url.allSellersTableInit;
+            fetch(url1).then((data) => data.json())
             .then(data=>{
                 if(data.error) return;
                     dispatch({
-                        type:'allSellersTableInit',
+                        type:TYPE.allSellersTableInit,
                         payload:data
                     })
                 })
@@ -50,11 +55,11 @@ const actions = {
     },
     singleSellerLineChartInit(id,param){
         return function(dispatch){
-            let url="http://localhost:3000/hour/singleSeller/"+id+"/"+param;
-            fetch(url).then(data => data.json())
+            let url1=url.singleSellerLineChartInit+id+"/"+param;
+            fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
-                        type:'singleSellerLineChartInit',
+                        type:TYPE.singleSellerLineChartInit,
                         payload:data
                     })
                  })
@@ -65,11 +70,12 @@ const actions = {
     },
     singleSellerCustomerNumInit(id,param){
         return function(dispatch){
-            let url="http://localhost:3000/hour/singleSellerCustomerNumInit/"+id+"&"+param;
-            fetch(url).then(data => data.json())
+            let url1=url.singleSellerCustomerNumInit+id+"&"+param;
+            fetch(url1).then(data => data.json())
                 .then(data=>{
+
                     dispatch({
-                        type:'singleSellerCustomerNumInit',
+                        type:TYPE.singleSellerCustomerNumInit,
                         payload:data
                     })
                  })
@@ -91,12 +97,12 @@ const actions = {
     //     }
     // },  
     singleSellerCustomerNumFetch(id){
-        let url="http://localhost:3000/hour/singleSellerCustomerNumFetch/"+id;
+        let url1=url.singleSellerCustomerNumFetch+id;
         return function(dispatch){
-            fetch(url).then(data => data.json())
+            fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
-                        type:'singleSellerCustomerNumFetch',
+                        type:TYPE.singleSellerCustomerNumFetch,
                         payload:data
                     })
                 })
@@ -106,12 +112,12 @@ const actions = {
         }
     }, 
     singleSellerCustomerFlowInit(id,param){
-        let url="http://localhost:3000/hour/singleSellerCustomerFlowInit/"+id+"&"+param;
+        let url1=url.singleSellerCustomerFlowInit+id+"&"+param;
         return function(dispatch){
-            fetch(url).then(data => data.json())
+            fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
-                        type:'singleSellerCustomerFlowInit',
+                        type:TYPE.singleSellerCustomerFlowInit,
                         payload:data
                     })
                 })
@@ -121,12 +127,12 @@ const actions = {
         }
     },
     singleSellerRadar(id,param){
-        let url="http://localhost:3000/hour/singleSellerRadar/"+id+"&"+param;
+        let url1=url.singleSellerRadar+id+"&"+param;
         return function(dispatch){
-            fetch(url).then(data => data.json())
+            fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
-                        type:'singleSellerRadar',
+                        type:TYPE.singleSellerRadar,
                         payload:data
                     })
                 })
@@ -136,12 +142,12 @@ const actions = {
         }
     },
     singleSellerStayBar(id,param){
-        let url="http://localhost:3000/hour/singleSellerStayBar/"+id+"&"+param;
+        let url1=url.singleSellerStayBar+id+"&"+param;
         return function(dispatch){
-            fetch(url).then(data => data.json())
+            fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
-                        type:'singleSellerStayBar',
+                        type:TYPE.singleSellerStayBar,
                         payload:data
                     })
                 })
@@ -151,12 +157,12 @@ const actions = {
         }
     },
     singleSellerOldOrNew(id,param){
-        let url="http://localhost:3000/hour/singleSellerOldOrNew/"+id+"&"+param;
+        let url1=url.singleSellerOldOrNew+id+"&"+param;
         return function(dispatch){
-            fetch(url).then(data => data.json())
+            fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
-                        type:'singleSellerOldOrNew',
+                        type:TYPE.singleSellerOldOrNew,
                         payload:data
                     })
                 })
@@ -166,12 +172,12 @@ const actions = {
         }
     },
     singleSellerTimeSection(id,param){
-        let url="http://localhost:3000/hour/singleSellerTimeSection/"+id+"&"+param;
+        let url1=url.singleSellerTimeSection+id+"&"+param;
         return function(dispatch){
-            fetch(url).then(data => data.json())
+            fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
-                        type:'singleSellerTimeSection',
+                        type:TYPE.singleSellerTimeSection,
                         payload:data
                     })
                 })
@@ -181,12 +187,12 @@ const actions = {
         }
     },
     singleSellerDeepVisit(id,param){
-        let url="http://localhost:3000/hour/singleSellerDeepVisit/"+id+"&"+param;
+        let url1=url.singleSellerDeepVisit+id+"&"+param;
         return function(dispatch){
-            fetch(url).then(data => data.json())
+            fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
-                        type:'singleSellerDeepVisit',
+                        type:TYPE.singleSellerDeepVisit,
                         payload:data
                     })
                 })
@@ -196,12 +202,12 @@ const actions = {
         }
     },
     singleSellerCycleAndActive(id,param){
-        let url="http://localhost:3000/hour/singleSellerCycleAndActive/"+id+"&"+param;
+        let url1=url.singleSellerCycleAndActive+id+"&"+param;
         return function(dispatch){
-            fetch(url).then(data => data.json())
+            fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
-                        type:'singleSellerCycleAndActive',
+                        type:TYPE.singleSellerCycleAndActive,
                         payload:data
                     })
                 })

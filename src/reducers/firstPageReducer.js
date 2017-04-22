@@ -1,12 +1,15 @@
 // import 'babel-polyfill';
+
+import dispatchType from '../constants/dispatchType';
+const TYPE=dispatchType.firstPage;
 import Immutable from 'immutable';
 const initialState = Immutable.Map({})
+
 export default function lineReducer(state=initialState,action){
     // if(typeof state === 'undefined') return {line:{},pie:{}};
     switch(action.type){
-        case 'firstPageChartInit':{
+        case TYPE.firstPageNumInit:{
 
-        //console.log(action.payload)
         // debugger
 
             let time=[];
@@ -69,7 +72,7 @@ export default function lineReducer(state=initialState,action){
             // debugger
             return mapLine3;
         }
-        case 'change':{
+        case TYPE.firstPageFetch:{
             
             // var aa = Object.assign({},state,{});
             // var aa = state;

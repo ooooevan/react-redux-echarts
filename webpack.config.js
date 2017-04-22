@@ -1,7 +1,7 @@
 /**
  * Created by HH on 2017/3/3.
  */
-var debug=process.env.NODE_ENV !=="production";
+// var debug=process.env.NODE_ENV !=="production";
 var path = require('path');
 var webpack = require('webpack');
 
@@ -89,7 +89,7 @@ module.exports = {
             }
         }, {
             test: /\.(scss|css)/,
-            loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version"]}!sass-loader?outputStyle=expanded'
+            loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version"]}!sass-loader'
             //loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader'
             //loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader!resolve-url!'
         },{

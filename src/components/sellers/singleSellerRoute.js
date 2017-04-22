@@ -12,7 +12,17 @@ class Chart extends React.Component {
     };
     constructor(props){
         super(props);
+        this.changeSellerName=this.changeSellerName.bind(this);
+        this.state = {
+            sellerName:''
+        }
 
+
+    }
+    changeSellerName(name){
+        this.setState({
+            sellerName:name
+        })
     }
     componentWillMount(){
       // console.log('componentWillMount')
@@ -36,11 +46,12 @@ class Chart extends React.Component {
         return <div className="chartWrapper">
             <div className="singleSellerRoute">
                 <ul>
-                    <li><Link to={nowUrl} activeClassName="active" draggable="false">实时客流</Link></li>
+                    <li><Link to={nowUrl} activeClassName="active" draggable="false">当前客流</Link></li>
                     <li><Link to={historyUrl} activeClassName="active" draggable="false">历史数据</Link></li>
                 </ul>
+                <p>{this.state.sellerName}</p>
             </div>
-            {this.props.children}
+            {this.props.children && React.cloneElement(this.props.children, {changeSellerName:this.changeSellerName})}
         </div>
     }
 

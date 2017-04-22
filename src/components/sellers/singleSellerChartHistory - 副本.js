@@ -158,7 +158,8 @@ class _singleHistory extends React.Component {
 		}
     componentWillUpdate(nextProps,nextState){
       //对应的名字写入
-      // this.state.name=nextProps.customerFlow.get('name');
+      // debugger;
+      this.state.name=nextProps.customerFlow.get('name');
       this.state.id=nextProps.params.id;
     }
     componentWillReceiveProps(nextProps,nextState){
@@ -235,36 +236,9 @@ class _singleHistory extends React.Component {
 		}
     render(){
     	return <div className="panelWrapper">
-              {/*<p>{this.state.name}</p>*/}
-              <div className='selectOption'>
-                指标选择：
-                <div className='sellersSelect1'>
-                  <select>
-                    <option value ="allsellers">客流量</option>
-                    <option value ="firstFloor">驻店时长</option>
-                    <option value="secondFloor">新老顾客</option>
-                    <option value="thirdFloor">各时间段占比</option>
-                    <option value="thirdFloor">深访率</option>
-                    <option value="thirdFloor">来访周期</option>
-                    <option value="thirdFloor">活跃度</option>
-                  </select>
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间参数：
-                <div className='sellersSelect2'>
-                  <select>
-                    <option value ="hour">时</option>
-                    <option value ="day">日</option>
-                    <option value="week">周</option>
-                    <option value="month">月</option>
-                    <option value="all">全部</option>
-                  </select>
-                </div>
-                <div className='selectClick'>
-                  <input type='button' value='查询'/>
-                </div>
-              </div>
-    					{/*
-              <ul ref="adjustingBar" className="adjustingBar">
+              <p>{this.state.name}</p>
+
+    					<ul ref="adjustingBar" className="adjustingBar">
                    <span>时间参数&nbsp;&nbsp;&nbsp;&nbsp;</span>
                    <li className={this.state.time=='hour'?'active':''} onClick={this.adjusting}><a>时</a></li>
                    <li className={this.state.time=='day'?'active':''} onClick={this.adjusting}><a>日</a></li>
@@ -273,7 +247,6 @@ class _singleHistory extends React.Component {
                    <div className='chartMessage'>
                    </div>
                </ul>
-              */}
 
     		<div className="panel">
     			<div className="panelHead">顾客流动</div>
@@ -284,39 +257,63 @@ class _singleHistory extends React.Component {
     		</div>
 
         <div className="panel halfPanel_1">
+          <div className="panelHead">商家介绍</div>
+          <div className="panelBody">
+            <div className="sellerIntroduce" ref="sellerIntroduce">
+              <p>商家名称：xxx<br />
+              具体位置：2F-213D<br />
+             商家类别：服装<br />
+             介绍：xx</p>
+
+              
+            </div>
+          </div>
+        </div>
+        <div className="panel halfPanel_2">
           <div className="panelHead">总体评价(雷达图)</div>
           <div className="panelBody">
             <div className="singleSellerRadarChart" ref="singleSellerRadarChart"></div>
           </div>
         </div>
-        <div className="panel halfPanel_2">
-          <div className="panelHead">驻店时长(柱状图)</div>
-          <div className="panelBody">
-            <div className="singleSellerStayBarChart" ref="singleSellerStayBarChart"></div>
-          </div>
-        </div>
-        <div className="panel halfPanel_3">
+        <div className="panel panel_table">{/*halfPanel_3*/}
           <div className="panelHead">新老顾客量+率(层叠柱状图？饼图)</div>
           <div className="panelBody">
             <div className="singleSellerOldOrNewChart" ref="singleSellerOldOrNewChart"></div>
+            <table>
+              <thead><tr><th>日期</th><th>新顾客占比</th><th>环比增幅</th></tr></thead>
+              <tbody>
+              <tr><th>2017-04-18</th><td>20%</td><td>5</td></tr>
+              <tr><th>2017-04-17</th><td>30%</td><td>5</td></tr>
+              <tr><th>2017-04-16</th><td>23%</td><td>5</td></tr>
+              <tr><th>2017-04-15</th><td>14%</td><td>5</td></tr>
+              <tr><th>2017-04-14</th><td>14%</td><td>5</td></tr>
+              <tr><th>2017-04-13</th><td>14%</td><td>5</td></tr>
+              </tbody>
+            </table>  
           </div>
         </div>
-        <div className="panel halfPanel_4">
+        <div className="panel halfPanel_3">
           <div className="panelHead">各时间段占比(柱状图)</div>
           <div className="panelBody">
             <div className="singleSellerTimeSectionChart" ref="singleSellerTimeSectionChart"></div>
           </div>
         </div>
-        <div className="panel halfPanel_3">
+        <div className="panel halfPanel_4">
           <div className="panelHead">深访率(柱状图)or--</div>
           <div className="panelBody">
             <div className="singleSellerDeepVisitChart" ref="singleSellerDeepVisitChart"></div>
           </div>
         </div>
-        <div className="panel halfPanel_4">
+        <div className="panel halfPanel_3">
           <div className="panelHead">来访周期(竖向 柱状图)+活跃度(饼图)</div>
           <div className="panelBody">
             <div className="singleSellerCycleAndActiveChart" ref="singleSellerCycleAndActiveChart"></div>
+          </div>
+        </div>
+        <div className="panel halfPanel_4">
+          <div className="panelHead">驻店时长(柱状图)</div>
+          <div className="panelBody">
+            <div className="singleSellerStayBarChart" ref="singleSellerStayBarChart"></div>
           </div>
         </div>
     	</div>

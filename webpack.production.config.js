@@ -16,16 +16,16 @@ module.exports = {
         path: path.join(__dirname, 'dist/'),
         publicPath: '',
         // filename: 'dev.js'
-        filename: '[name]-[chunkhash:5].js',
-        chunkFilename: '[name].js'  //路由对应文件
+        filename: '[name]-[chunkhash:8].js',
+        chunkFilename: '[name]-[chunkhash:8].js'  //路由对应文件
     },
 
     plugins: [
-      new ExtractTextPlugin('style-[contenthash:5].css'),
+      new ExtractTextPlugin('style-[contenthash:8].css'),
       // new webpack.optimize.OccurrenceOrderPlugin(),  //已被默认加载
       new webpack.optimize.CommonsChunkPlugin({
         names:'vendors',
-        filename: 'vendors-[chunkhash:5].js',  
+        filename: 'vendors-[chunkhash:8].js',  
         minChunks:Infinity
       }),
       new webpack.optimize.UglifyJsPlugin({
@@ -36,6 +36,7 @@ module.exports = {
           warnings:false
         }
       }),
+      // new webpack.NoErrorsPlugin(); //排除报错的插件
       new webpack.DefinePlugin({
         'process.env': {
             NODE_ENV: JSON.stringify('production'),
