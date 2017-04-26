@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
 import Immutable from 'immutable';
+import Calendar from '../calendar';
+import { Router, Route, IndexRoute, hashHistory, Link ,Redirect} from 'react-router';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/radar';
@@ -14,7 +16,7 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/dataZoom';
 
-// import CustomerFlow from './singleSellerChartHistory/customerFlow';
+import CustomerFlow from './singleSellerChartHistory/customerFlow';
 
 
 import sellersAction from '../../actions/sellersAction';
@@ -22,38 +24,18 @@ import sellersAction from '../../actions/sellersAction';
 class _singleHistory extends React.Component {
 
     static propTypes = {
-        params: React.PropTypes.object.isRequired,   //商店id，这里为数字
-        // singleSellerLineChartInit: React.PropTypes.func.isRequired,
-        singleSellerCustomerFlowInit:React.PropTypes.func.isRequired,
-        singleSellerRadar:React.PropTypes.func.isRequired,
-        singleSellerStayBar:React.PropTypes.func.isRequired,
-        singleSellerOldOrNew:React.PropTypes.func.isRequired,
-        singleSellerTimeSection:React.PropTypes.func.isRequired,
-        singleSellerDeepVisit:React.PropTypes.func.isRequired,
-        singleSellerCycleAndActive:React.PropTypes.func.isRequired,
-        customerFlow:React.PropTypes.instanceOf(Immutable.Map),
-        radar:React.PropTypes.instanceOf(Immutable.Map),
-        stayBar:React.PropTypes.instanceOf(Immutable.Map),
-        OldOrNew:React.PropTypes.instanceOf(Immutable.Map),
-        timeSection:React.PropTypes.instanceOf(Immutable.Map),
-        deepVisit:React.PropTypes.instanceOf(Immutable.Map),
-        cycleAndActive:React.PropTypes.instanceOf(Immutable.Map)
+        params: React.PropTypes.object.isRequired   //商店id，这里为数字
     };
     constructor(props){
         super(props);
-        this.adjusting=this.adjusting.bind(this);
+        // this.adjusting=this.adjusting.bind(this);
         this.state={
-					singleSellerCustomerFlowChart:'',    //顾客流动图表
-          singleSellerRadarChart:'',      //总体评价图表
-          singleSellerStayBarChart:'',    //驻店时长图表
-          singleSellerOldOrNewChart:'',   //新老顾客图表
-          singleSellerTimeSectionChart:'',  //各时间段占比图表
-          singleSellerDeepVisitChart:'',    //深访率图表
-          singleSellerCycleAndActiveChart:'',  //来访周期和活跃度图表
+					// singleSellerCustomerFlowChart:'',    //顾客流动图表
         	time:'day',
-          id:'',   //商家id
-          name:'',   //商家名
-          resizeHandler:null
+          selectTime:'day'
+          // id:'',   //商家id
+          // name:'',   //商家名
+          // resizeHandler:null
         }
 
     }
@@ -62,104 +44,18 @@ class _singleHistory extends React.Component {
     }
     componentDidMount(){
       console.log('componentDidMount  '+new Date().getTime());
-    	this.state.id = this.props.params.id  //获取该商店id
-      this.props.singleSellerCustomerFlowInit(this.state.id,this.state.time);
-      this.props.singleSellerRadar(this.state.id,this.state.time); //总评价雷达图
-      this.props.singleSellerStayBar(this.state.id,this.state.time); //总评价雷达图
-      this.props.singleSellerOldOrNew(this.state.id,this.state.time); //总评价雷达图
-      this.props.singleSellerTimeSection(this.state.id,this.state.time); //总评价雷达图
-      this.props.singleSellerDeepVisit(this.state.id,this.state.time); //总评价雷达图
-      this.props.singleSellerCycleAndActive(this.state.id,this.state.time); //总评价雷达图
+    	// this.state.id = this.props.params.id  //获取该商店id
 
-
-
-      //获取dom
-      let singleSellerCustomerFlowChart = ReactDOM.findDOMNode(this.refs.singleSellerCustomerFlowChart);
-      let singleSellerRadarChart = ReactDOM.findDOMNode(this.refs.singleSellerRadarChart);
-      let singleSellerStayBarChart = ReactDOM.findDOMNode(this.refs.singleSellerStayBarChart);
-      let singleSellerOldOrNewChart = ReactDOM.findDOMNode(this.refs.singleSellerOldOrNewChart);
-      let singleSellerTimeSectionChart = ReactDOM.findDOMNode(this.refs.singleSellerTimeSectionChart);
-      let singleSellerDeepVisitChart = ReactDOM.findDOMNode(this.refs.singleSellerDeepVisitChart);
-      let singleSellerCycleAndActiveChart = ReactDOM.findDOMNode(this.refs.singleSellerCycleAndActiveChart);
-
-
-
-      //初始化echarts 存入state
-      this.state.singleSellerCustomerFlowChart = echarts.init(singleSellerCustomerFlowChart);
-      this.state.singleSellerRadarChart = echarts.init(singleSellerRadarChart);
-      this.state.singleSellerStayBarChart = echarts.init(singleSellerStayBarChart);
-      this.state.singleSellerOldOrNewChart = echarts.init(singleSellerOldOrNewChart);
-      this.state.singleSellerTimeSectionChart = echarts.init(singleSellerTimeSectionChart);
-      this.state.singleSellerDeepVisitChart = echarts.init(singleSellerDeepVisitChart);
-      this.state.singleSellerCycleAndActiveChart = echarts.init(singleSellerCycleAndActiveChart);
-      
-      // 显示遮罩
-      this.state.singleSellerCustomerFlowChart.showLoading();
-      this.state.singleSellerRadarChart.showLoading();
-      this.state.singleSellerStayBarChart.showLoading();
-      this.state.singleSellerOldOrNewChart.showLoading();
-      this.state.singleSellerTimeSectionChart.showLoading();
-      this.state.singleSellerDeepVisitChart.showLoading();
-      this.state.singleSellerCycleAndActiveChart.showLoading();
-
-
-        //改变窗口，改变canvas大小
-      window.addEventListener('resize',this.resizeFun);
-    }
-    resizeFun=()=>{
-      if(this.state.resizeHandler){
-              clearTimeout(this.state.resizeHandler);
-          }
-          if(this.state.singleSellerCustomerFlowChart){
-              this.state.resizeHandler = setTimeout(function () {
-                 this.state.singleSellerCustomerFlowChart.resize();
-                 this.state.singleSellerRadarChart.resize();
-                 this.state.singleSellerStayBarChart.resize();
-                 this.state.singleSellerOldOrNewChart.resize();
-                 this.state.singleSellerTimeSectionChart.resize();
-                 this.state.singleSellerDeepVisitChart.resize();
-                 this.state.singleSellerCycleAndActiveChart.resize();
-              }.bind(this), 100)
-          }
     }
 		componentDidUpdate(){
       // debugger
-      //echarts渲染数据    setOption
 
-      this.state.singleSellerCustomerFlowChart.setOption(this.props.customerFlow.toJS());
-      this.state.singleSellerCustomerFlowChart.hideLoading();
-      this.state.singleSellerRadarChart.setOption(this.props.radar.toJS());
-      this.state.singleSellerRadarChart.hideLoading();
-      setTimeout(function(){
-
-      this.state.singleSellerStayBarChart.setOption(this.props.stayBar.toJS());
-      this.state.singleSellerOldOrNewChart.setOption(this.props.OldOrNew.toJS());
-      this.state.singleSellerTimeSectionChart.setOption(this.props.timeSection.toJS());
-      this.state.singleSellerDeepVisitChart.setOption(this.props.deepVisit.toJS());
-      this.state.singleSellerCycleAndActiveChart.setOption(this.props.cycleAndActive.toJS());
-        // this.state.singleSellerTimeSectionChart.setOption(this.props.timeSection.toJS());
-        // this.state.singleSellerDeepVisitChart.setOption(this.props.deepVisit.toJS());
-        // this.state.singleSellerCycleAndActiveChart.setOption(this.props.cycleAndActive.toJS());
-        // this.state.singleSellerTimeSectionChart.hideLoading();
-        // this.state.singleSellerDeepVisitChart.hideLoading();
-        // this.state.singleSellerCycleAndActiveChart.hideLoading();
-      
-      // console.log(this.props.OldOrNew.toJS());
-      // console.log(this.props.deepVisit.toJS());
-        //隐藏遮罩
-      this.state.singleSellerStayBarChart.hideLoading();
-      this.state.singleSellerOldOrNewChart.hideLoading();
-      this.state.singleSellerTimeSectionChart.hideLoading();
-      this.state.singleSellerDeepVisitChart.hideLoading();
-      this.state.singleSellerCycleAndActiveChart.hideLoading();
-
-      }.bind(this),0)
 
 		}
     componentWillUpdate(nextProps,nextState){
       //对应的名字写入
       // this.state.name=nextProps.customerFlow.get('name');
-      this.state.id=nextProps.params.id;
+      // this.state.id=nextProps.params.id;
     }
     componentWillReceiveProps(nextProps,nextState){
       //对应的名字写入
@@ -169,100 +65,128 @@ class _singleHistory extends React.Component {
       // })
     }
 		componentWillUnmount(){
-      //切换路由销毁echarts实例
-      this.state.singleSellerCustomerFlowChart.dispose();
-      this.state.singleSellerRadarChart.dispose();
-      this.state.singleSellerStayBarChart.dispose();
-      this.state.singleSellerOldOrNewChart.dispose();
-      this.state.singleSellerTimeSectionChart.dispose();
-      this.state.singleSellerDeepVisitChart.dispose();
-      this.state.singleSellerCycleAndActiveChart.dispose();
-      window.removeEventListener('resize',this.resizeFun);
 
 		}
-    //更改时间参数，存入state
-		adjusting = (e)=>{
-					 //点击当前项返回   点击到的可能是a或li
-           let node=e.target;
-           if(node.tagName == 'A'){
-              node=ReactDOM.findDOMNode(e.target).parentNode;
-           }
-           if(node.className === 'active'){
+    search=()=>{
+      let time1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
+      let time2=ReactDOM.findDOMNode(this.refs.selectTime2).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
+      //去除红色警示框ClassName
+      ReactDOM.findDOMNode(this.refs.selectTime1).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
+      ReactDOM.findDOMNode(this.refs.selectTime2).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
+      let ms1=new Date(time1).getTime();
+      let ms2=new Date(time2).getTime();
+      let now=Date.now();
+      let error=false;
+      if(ms1>now){  //选择时间超过当前时间，若选择的是今日，也不会超过当前时间
+        ReactDOM.findDOMNode(this.refs.selectTime1).className+=' selectTimeError'//添加红色警示框ClassName
+        error=true;
+      }
+      if(ms1>ms2){ //时间1大于时间2，错误
+        ReactDOM.findDOMNode(this.refs.selectTime2).className+=' selectTimeError'
+        error=true;
+      }
+      if(ms2>now){  //选择时间超过当前时间，若选择的是今日，也不会超过当前时间
+        ReactDOM.findDOMNode(this.refs.selectTime2).className+=' selectTimeError'//添加红色警示框ClassName
+        error=true;
+      }
+      if(error){
+        return false;
+      }
+      
+      this.setState({
+        time:time1+'|'+time2,
+        selectTime:''
+      })
+    }
+    changeTime=(e)=>{
+      if(e.target.className === 'active'){
                return;
-           }
-           switch(e.target.innerText){
-               case "时":
-                   this.state.time = 'hour';
-                   this.props.singleSellerCustomerFlowInit(this.state.id,this.state.time);
-                   this.props.singleSellerRadar(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerStayBar(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerOldOrNew(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerTimeSection(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerDeepVisit(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerCycleAndActive(this.state.id,this.state.time); //总评价雷达图
-                   break;
-               case "日":
-                   this.state.time = 'day';
-                   this.props.singleSellerCustomerFlowInit(this.state.id,this.state.time);
-                   this.props.singleSellerRadar(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerStayBar(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerOldOrNew(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerTimeSection(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerDeepVisit(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerCycleAndActive(this.state.id,this.state.time); //总评价雷达图
-                   break;
-               case "周":
-                   this.state.time = 'week';
-                   this.props.singleSellerCustomerFlowInit(this.state.id,this.state.time);
-                   this.props.singleSellerRadar(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerStayBar(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerOldOrNew(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerTimeSection(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerDeepVisit(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerCycleAndActive(this.state.id,this.state.time); //总评价雷达图
-                   break;
-               case "月":
-                   this.state.time = 'month';
-                   this.props.singleSellerCustomerFlowInit(this.state.id,this.state.time);
-                   this.props.singleSellerRadar(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerStayBar(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerOldOrNew(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerTimeSection(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerDeepVisit(this.state.id,this.state.time); //总评价雷达图
-                   this.props.singleSellerCycleAndActive(this.state.id,this.state.time); //总评价雷达图
-                   break;
-           }
-		}
+      }
+      switch(e.target.innerText){
+        case '时':
+          this.setState({
+            time:'hour',
+            selectTime:'hour'
+          })
+          return;
+        case '最近一日':
+          this.setState({
+            time:'day',
+            selectTime:'day'
+          })
+          return;
+        case '最近一周':
+          this.setState({
+            time:'week',
+            selectTime:'week'
+          })
+          return;
+        case '最近一月':
+          this.setState({
+            time:'month',
+            selectTime:'month'
+          })
+          return;
+      }
+    }
     render(){
+        console.log('render----------time')
+
+      let baseUrl=`sellers/${this.props.params.id}/history/`;
     	return <div className="panelWrapper">
               {/*<p>{this.state.name}</p>*/}
-              <div className='selectOption'>
-                指标选择：
-                <div className='sellersSelect1'>
-                  <select>
-                    <option value ="allsellers">客流量</option>
-                    <option value ="firstFloor">驻店时长</option>
-                    <option value="secondFloor">新老顾客</option>
-                    <option value="thirdFloor">各时间段占比</option>
-                    <option value="thirdFloor">深访率</option>
-                    <option value="thirdFloor">来访周期</option>
-                    <option value="thirdFloor">活跃度</option>
-                  </select>
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间参数：
-                <div className='sellersSelect2'>
-                  <select>
-                    <option value ="hour">时</option>
-                    <option value ="day">日</option>
-                    <option value="week">周</option>
-                    <option value="month">月</option>
-                    <option value="all">全部</option>
-                  </select>
-                </div>
-                <div className='selectClick'>
-                  <input type='button' value='查询'/>
+              <div className='selectOption inline'>
+              时间选择： 
+                <div className='quickSelect'>
+                  <ul>
+                  {/*<li><a className={this.state.selectTime=='hour'?'active':''} onClick={this.changeTime}>今天</a></li>*/}
+                  <li><a className={this.state.selectTime=='day'?'active':''} onClick={this.changeTime}>最近一日</a></li>
+                  <li><a className={this.state.selectTime=='week'?'active':''} onClick={this.changeTime}>最近一周</a></li>
+                  <li><a className={this.state.selectTime=='month'?'active':''} onClick={this.changeTime}>最近一月</a></li>
+                  </ul>
                 </div>
               </div>
+              <div className='selectOption inline'>
+                自定义时间：
+                <div className='selectTime1' ref='selectTime1'><Calendar/></div>
+                &nbsp;至&nbsp;
+                <div className='selectTime2' ref='selectTime2'><Calendar/></div>
+                {/*<div className='sellersSelect2'>
+                  <select>
+                    <option value ="yesterday">昨日</option>
+                    <option value ="lastWeek">近一周</option>
+                    <option value="lastMonth">近一月</option>
+                    <option value="all">全部</option>
+                  </select>
+                </div>*/}
+                  <div className='selectClick'>
+                    <input type='button' value='查询' onClick={this.search}/>
+                  </div>
+              </div>
+              
+                <div className='selectOption'>
+                指标选择：
+                <div className='quickSelect'>
+                  <ul>
+                      <li><Link to={baseUrl+'customerFlow'} activeClassName="active" draggable="false">客流量</Link></li>
+                      <li><Link to={baseUrl+'radar'} activeClassName="active" draggable="false">总体评价</Link></li>
+                      <li><Link to={baseUrl+'stayBar'} activeClassName="active" draggable="false">驻店时长</Link></li>
+                      <li><Link to={baseUrl+'OldOrNew'} activeClassName="active" draggable="false">新老顾客</Link></li>
+                      <li><Link to={baseUrl+'timeSection'} activeClassName="active" draggable="false">各时间段峰值</Link></li>
+                      <li><Link to={baseUrl+'deepVisit'} activeClassName="active" draggable="false">深访率</Link></li>
+                      <li><Link to={baseUrl+'cycle'} activeClassName="active" draggable="false">来访周期</Link></li>
+                      <li><Link to={baseUrl+'Active'} activeClassName="active" draggable="false">活跃度</Link></li>
+                    </ul>
+                </div>
+                    {/*快速选择：
+                    <ul>
+                      <li><a href='javascript:'>时</a></li>
+                      <li><a href='javascript:'>日</a></li>
+                      <li><a href='javascript:'>周</a></li>
+                      <li><a href='javascript:'>月</a></li>
+                      <li><a href='javascript:'>全部</a></li>
+                    </ul>*/}
+                </div>
     					{/*
               <ul ref="adjustingBar" className="adjustingBar">
                    <span>时间参数&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -275,15 +199,10 @@ class _singleHistory extends React.Component {
                </ul>
               */}
 
-    		<div className="panel">
-    			<div className="panelHead">顾客流动</div>
-    			<div className="panelBody">
-    				<div className="singleSellerCustomerFlowChart" ref="singleSellerCustomerFlowChart"></div>
-    			 {/*<CustomerFlow id={this.state.id}/>*/}
-          </div>
-    		</div>
-
-        <div className="panel halfPanel_1">
+    	
+            {this.props.children && React.cloneElement(this.props.children, {time:this.state.time})}
+        
+{/*<div className="panel halfPanel_1">
           <div className="panelHead">总体评价(雷达图)</div>
           <div className="panelBody">
             <div className="singleSellerRadarChart" ref="singleSellerRadarChart"></div>
@@ -318,38 +237,31 @@ class _singleHistory extends React.Component {
           <div className="panelBody">
             <div className="singleSellerCycleAndActiveChart" ref="singleSellerCycleAndActiveChart"></div>
           </div>
-        </div>
+        </div>*/}
+        
     	</div>
     }
 }
-/*
-        <div className="panel ">
-          <div className="panelHead">存留分析(跳出率和新增率)</div>
-          <div className="panelBody">
-            <div className="singleSellerLineChart" ref="singleSellerLineChart-----"></div>
-          </div>
-        </div>
-        
-*/
-const mapStateToProps = (state)=>{
-  // debugger;
-  // let fdd=state.getIn(['b','deepVisit'])
-  // let d=state.getIn(['b','deepVisit']).toJS()
-  return {
-    customerFlow:state.getIn(['b','customerFlow']),
-    radar:state.getIn(['b','radar']),
-    stayBar:state.getIn(['b','stayBar']),
-    OldOrNew:state.getIn(['b','OldOrNew']),
-    timeSection:state.getIn(['b','timeSection']),
-    deepVisit:state.getIn(['b','deepVisit']),
-    cycleAndActive:state.getIn(['b','cycleAndActive'])
-    }
-}
+
+// const mapStateToProps = (state)=>{
+//   // debugger;
+//   // let fdd=state.getIn(['b','deepVisit'])
+//   // let d=state.getIn(['b','deepVisit']).toJS()
+//   return {
+//     customerFlow:state.getIn(['b','customerFlow']),
+//     radar:state.getIn(['b','radar']),
+//     stayBar:state.getIn(['b','stayBar']),
+//     OldOrNew:state.getIn(['b','OldOrNew']),
+//     timeSection:state.getIn(['b','timeSection']),
+//     deepVisit:state.getIn(['b','deepVisit']),
+//     cycleAndActive:state.getIn(['b','cycleAndActive'])
+//     }
+// }
 /*
    
     
     cycleAndActive:state.getIn(['b','cycleAndActive']).toJS()*/
 
-let singleHistory=connect(mapStateToProps,sellersAction)(_singleHistory);
+// let singleHistory=connect(mapStateToProps,sellersAction)(_singleHistory);
 
-export default singleHistory;
+export default _singleHistory;

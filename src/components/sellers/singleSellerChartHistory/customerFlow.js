@@ -16,32 +16,78 @@ class _customerFlow extends React.Component {
 		super(props);
 		this.state={
 			singleSellerCustomerFlowChart:'',
-			id:0,
-			test:1
+			resizeHandler:'',
+			time:''
 		}
 	}
 	componentDidMount(){
-		// debugger
-		this.state.id = this.props.id  //获取该商店id
-    this.props.singleSellerCustomerFlowInit(this.state.id,this.state.time);
+		console.log('--=componentDidMount')
+		this.state.time=this.props.time;
+    this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
    
     let singleSellerCustomerFlowChart = ReactDOM.findDOMNode(this.refs.singleSellerCustomerFlowChart);
 	  this.state.singleSellerCustomerFlowChart = echarts.init(singleSellerCustomerFlowChart);
     this.state.singleSellerCustomerFlowChart.showLoading();
-
+    window.addEventListener('resize',this.resizeFun);
+	}
+	resizeFun=()=>{
+		if(this.state.resizeHandler){
+              clearTimeout(this.state.resizeHandler);
+          }
+    this.state.resizeHandler = setTimeout(()=>{
+       this.state.singleSellerCustomerFlowChart.resize();
+    }, 100)
 	}
 	componentWillReceiveProps(){
-		// debugger
+		console.log('--=componentWillReceiveProps')
+		// this.state.time=this.props.time;
+		
+	}
+	// changeTime = ()=>{
+	// 	this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
+	// }
+	componentWillUpdate(nextProps){
+		console.log('-=componentWillUpdate')
+		if(this.state.time!=nextProps.time){
+			this.state.time=nextProps.time
+			this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
+		}
 	}
 	componentDidUpdate(){
-		// debugger
+		console.log('-=componentDidUpdate')
 		this.state.singleSellerCustomerFlowChart.setOption(this.props.customerFlow.toJS());
 		this.state.singleSellerCustomerFlowChart.hideLoading();
 	}
-	render(){
-		console.log('子-----'+this.state.test++ +'   :'+new Date().getTime());
-		return <div className='singleSellerCustomerFlowChart' ref='singleSellerCustomerFlowChart'></div>
+	componentWillUnmount(){
+      //切换路由销毁echarts实例
+      this.state.singleSellerCustomerFlowChart.dispose();
+      window.removeEventListener('resize',this.resizeFun);
 	}
+	render(){
+		console.log('-=render')
+		return <div> 
+						<div className="panel">
+							<div className="panelHead">顾客客流量</div>
+			    			<div className="panelBody">
+								<div className='singleSellerCustomerFlowChart' ref='singleSellerCustomerFlowChart'></div>
+							</div>
+    			</div>
+    			<div className='panel'>
+    				<div className="panelHead">顾客客流量</div>
+			    			<div className="panelBody">
+			    				<table className="Table">
+            				<thead>
+            					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+            				</thead>
+            				<tbody>
+            				</tbody>
+            			</table>
+									<div>
+								</div>
+							</div>
+    			</div>
+    		</div>
+		}
 }
 
 const mapStateToProps = (state)=>{

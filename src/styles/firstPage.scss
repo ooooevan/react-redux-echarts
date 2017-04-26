@@ -11,7 +11,7 @@ $sidebarHeight:60px;
 body {
   padding: 0;
   margin: 0;
-  background-color: #eee;
+  background-color: #f1f1f1;
   // font-family: "Microsoft Yahei";
   font-family: 'Microsoft Yahei', 微软雅黑, "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
   // font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -256,7 +256,8 @@ nav {
 
   .sidebar_subNav {
     // height:0;
-    // transition:all .3s;
+    transition:all .3s;
+    // transform:translateY(-30px);
     display: none;
     &.active{
       // height:auto;
@@ -275,6 +276,10 @@ nav {
     &.active {
       color: #fff;
       background-color: #080808;
+    }
+    i{
+      line-height: 40px;
+      display:none;
     }
   }
 
@@ -487,11 +492,13 @@ nav {
 
   /*参数选择*/
 .selectOption{
-  width:100%;
   margin:10px 25px 0;
   font-size:13px;
   // line-height:23px;
     //select样式
+  &.inline{
+    display:inline-block;
+  }
   .sellersSelect1,.sellersSelect2,.selectClick,.quickSelect{
 
     display:inline-block;
@@ -514,23 +521,30 @@ nav {
     border: 1px solid #eee;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
     li{
-      padding: 10px 20px;
+      height:30px;
+      line-height:30px;
       background-color:white;
       display:inline-block;
       cursor:pointer;
       border-right:1px solid #eee;
-      transition:all .3s;
+      a{
+        display:block;
+        padding:0 25px;
+        color:#000;
+        transition:all .3s;
+      }
+      a.active{
+        color:#fff;
+        box-shadow: 1px 1px #ffbcbc;
+        background-color:#c23531;
+      }
     }
-    li:first-child{
-      border-radius:3px 0 0 3px;
-    }
-    li:last-child{
-      border-radius:0 3px 3px 0;
-    }
-    li.active{
-      background-color:#5db4e5;
-      color:white;
-    }
+    // a:first-child{
+    //   border-radius:4px 0 0 4px;
+    // }
+    // a:last-child{
+    //   border-radius:0 4px 4px 0;
+    // }
   }
 
   
@@ -573,7 +587,7 @@ nav {
 
 
 
-.allSellersTable{
+.Table{
   margin:30px auto;
   border:0;
   border-collapse:collapse;
@@ -670,40 +684,41 @@ nav {
 /*
 * 时间参数条,看情况可放到一个common的文件中
 */
-.adjustingBar {
-   position: absolute;
-   right:10px;
-   top:5px;
-   text-align: center;
-   line-height: 30px;
-  span{
-    float:left;
-    // margin-right: 10px;
-    // padding-left: 25%;
-  }
-  li{
-    float:left;
-    padding: 0 10px;
-    margin-left: 5px;
-    cursor: pointer;
-    transition: color .3s;
-    // background-color:#fff;
-    // height: 23px;
-    // border-radius:20%;
-    &:hover{
-      // background-color: #d82020;
-      color:#c23531;
-    }
-    &.active{
-      // background-color:#b3cde6;
-      color:#c23531;
-      border-bottom:2px solid #c23531;
-    }
-  }
-}
+// .adjustingBar {
+//    position: absolute;
+//    right:10px;
+//    top:5px;
+//    text-align: center;
+//    line-height: 30px;
+//   span{
+//     float:left;
+//     // margin-right: 10px;
+//     // padding-left: 25%;
+//   }
+//   li{
+//     float:left;
+//     padding: 0 10px;
+//     margin-left: 5px;
+//     cursor: pointer;
+//     transition: color .3s;
+//     // background-color:#fff;
+//     // height: 23px;
+//     // border-radius:20%;
+//     &:hover{
+//       // background-color: #d82020;
+//       color:#c23531;
+//     }
+//     &.active{
+//       // background-color:#b3cde6;
+//       color:#c23531;
+//       border-bottom:2px solid #c23531;
+//     }
+//   }
+// }
 /*单个商家 设置高度*/
 .singleSellerLineChart,.sellerIntroduce,.singleSellerCustomerNumChart,.singleSellerCustomerFlowChart,.singleSellerRadarChart,.singleSellerStayBarChart
-,.singleSellerOldOrNewChart,.singleSellerTimeSectionChart,.singleSellerDeepVisitChart,.singleSellerCycleAndActiveChart{
+,.singleSellerOldOrNewChart,.singleSellerTimeSectionChart,.singleSellerDeepVisitChart,.singleSellerActiveChart,.singleSellerCycleChart,
+.statisticsCustomerNumChart,.statisticsOldOrNewChart,.statisticsTimeSectionChart,.statisticsCycleChart,.statisticsActiveChart{
   height: 400px;
 }
 

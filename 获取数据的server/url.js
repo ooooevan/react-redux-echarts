@@ -70,7 +70,7 @@ http.createServer(function (req, res) {
         res.end();
         break;
         //res.end(util.inspect(urls.parse(req.url,true)));
-      case "/allsellers/1":
+      case "/allsellers/:time/:page":
       res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
         var sellers=`
       [{

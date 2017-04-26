@@ -20,7 +20,7 @@ import 'echarts/lib/component/dataZoom';
 
 
 
-class _customerNum extends React.Component {
+class _cycle extends React.Component {
 	constructor(props){
 		super(props);
 		this.state={
@@ -31,11 +31,11 @@ class _customerNum extends React.Component {
 	}
 	componentDidMount(){
 		this.state.time=this.props.time;
-    this.props.statisticsCustomerNumInit(this.state.time);
+    this.props.statisticsCycleInit(this.state.time);
    
-    let statisticsCustomerNumChart = ReactDOM.findDOMNode(this.refs.statisticsCustomerNumChart);
-	  this.state.statisticsCustomerNumChart = echarts.init(statisticsCustomerNumChart);
-    this.state.statisticsCustomerNumChart.showLoading();
+    let statisticsCycleChart = ReactDOM.findDOMNode(this.refs.statisticsCycleChart);
+	  this.state.statisticsCycleChart = echarts.init(statisticsCycleChart);
+    this.state.statisticsCycleChart.showLoading();
     window.addEventListener('resize',this.resizeFun);
 	}
 	resizeFun=()=>{
@@ -43,33 +43,33 @@ class _customerNum extends React.Component {
               clearTimeout(this.state.resizeHandler);
           }
     this.state.resizeHandler = setTimeout(()=>{
-       this.state.statisticsCustomerNumChart.resize();
+       this.state.statisticsCycleChart.resize();
     }, 100)
 	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
 		if(this.state.time!=nextProps.time){
 			this.state.time=nextProps.time
-			this.props.statisticsCustomerNumInit(this.state.time);
+			this.props.statisticsCycleInit(this.state.time);
 		}
 	}
 	componentDidUpdate(){
 		console.log('-=componentDidUpdate')
-		this.state.statisticsCustomerNumChart.setOption(this.props.customerNum.toJS());
-		this.state.statisticsCustomerNumChart.hideLoading();
+		this.state.statisticsCycleChart.setOption(this.props.cycle.toJS());
+		this.state.statisticsCycleChart.hideLoading();
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
-      this.state.statisticsCustomerNumChart.dispose();
+      this.state.statisticsCycleChart.dispose();
       this.props.stateDefault();
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
 		return	<div>
 				<div className="panel">
-		    			<div className="panelHead">顾客流动</div>
+		    			<div className="panelHead">来访周期</div>
 		    			<div className="panelBody">
-		    				<div className="statisticsCustomerNumChart" ref="statisticsCustomerNumChart"></div>
+		    				<div className="statisticsCycleChart" ref="statisticsCycleChart"></div>
 		          </div>
   				</div>
   				<div className='panel'>
@@ -93,7 +93,7 @@ class _customerNum extends React.Component {
 
 const mapStateToProps = (state)=>{
   return {
-    customerNum:state.getIn(['c','customerNum']),
+    cycle:state.getIn(['c','cycle']),
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar']),
     // OldOrNew:state.getIn(['b','OldOrNew']),
@@ -103,6 +103,6 @@ const mapStateToProps = (state)=>{
     }
 }
 
-let customerNum=connect(mapStateToProps,statisticsAction)(_customerNum);
+let cycle=connect(mapStateToProps,statisticsAction)(_cycle);
 
-export default customerNum;
+export default cycle;

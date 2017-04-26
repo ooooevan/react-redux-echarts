@@ -16,8 +16,24 @@ import ThirdFloorChart from './firstPage/thirdFloorChart';
 // import SingleSellerRoute from './singleSellerRoute';
 // import SingleSellerChartCurrent from './singleSellerChartCurrent';
 // import SingleSellerChartHistory from './singleSellerChartHistory';
+import CustomerFlow from './sellers/singleSellerChartHistory/customerFlow';
+import Radar from './sellers/singleSellerChartHistory/radar';
+import StayBar from './sellers/singleSellerChartHistory/stayBar';
+import OldOrNew from './sellers/singleSellerChartHistory/oldOrNew';
+import TimeSection from './sellers/singleSellerChartHistory/timeSection';
+import DeepVisit from './sellers/singleSellerChartHistory/deepVisit';
+import Cycle from './sellers/singleSellerChartHistory/cycle';
+import Active from './sellers/singleSellerChartHistory/active';
+
+
+
 import Statistics from './statistics/statistics';
-import CustomerNum from './statistics/customerNum';
+import StatCustomerNum from './statistics/customerNum';
+import StatOldOrNew from './statistics/oldOrNew';
+import StatTimeSection from './statistics/timeSection';
+import StatCycle from './statistics/cycle';
+import StatActive from './statistics/active';
+
 import Compare from './Compare/compare';
 
 import Calendar from './calendar';
@@ -88,24 +104,46 @@ ReactDOM.render(
 					<Route path=":id" getComponent={SingleSellerRoute}>
 						<IndexRoute getComponent={SingleSellerChartCurrent} />
 						<Route path='now' getComponent={SingleSellerChartCurrent}/>
-						<Route path='history' getComponent={SingleSellerChartHistory}/>
+						<Redirect from="history" to="history/customerFlow"/>
+						<Route path='history' getComponent={SingleSellerChartHistory}>
+							<IndexRoute component={CustomerFlow} />
+							<Route path="customerFlow" component={CustomerFlow}/>
+							<Route path="radar" component={Radar}/>
+							<Route path="stayBar" component={StayBar}/>
+							<Route path="OldOrNew" component={OldOrNew}/>
+							<Route path="timeSection" component={TimeSection}/>
+							<Route path="deepVisit" component={DeepVisit}/>
+							<Route path="cycle" component={Cycle}/>
+							<Route path="active" component={Active}/>
+						</Route>
 					</Route>
 				</Route>
 				<Redirect from="statistics" to="/statistics/total"/>
 				<Route path='statistics' component={Statistics}>
-						<IndexRoute component={CustomerNum} />
-						<Route path='total' component={CustomerNum}/>
-						<Route path='oldOrNew' component={Test}/>
-						<Route path='firstFloor' component={Test}/>
-						<Route path='secondFloor' component={Test}/>
-						<Route path='thirdFloor' component={Test}/>
+						<IndexRoute component={StatCustomerNum} />
+						<Route path='total' component={StatCustomerNum}/>
+						<Route path='oldOrNew' component={StatOldOrNew}/>
+						<Route path='timeSection' component={StatTimeSection}/>
+						<Route path='cycle' component={StatCycle}/>
+						<Route path='active' component={StatActive}/>
 				</Route>
+				<Redirect from="compare" to="/compare/wholeCustomerNum"/>
 				<Route path='compare' component={Compare}>
-						<Route path='total' component={Test}/>
-						<Route path='oldOrNew' component={Test}/>
-						<Route path='firstFloor' component={Test}/>
-						<Route path='secondFloor' component={Test}/>
-						<Route path='thirdFloor' component={Test}/>
+						<Route path='wholeCustomerNum' component={Test}/>
+						<Route path='wholeOldOrNew' component={Test}/>
+						<Route path='wholeDeep' component={Test}/>
+						<Route path='wholeOut' component={Test}/>
+						<Route path='wholeCycle' component={Test}/>
+						<Route path='wholeStay' component={Test}/>
+						<Route path='wholeActive' component={Test}/>
+						<Route path='sellerCustomerNum' component={Test}/>
+						<Route path='sellerOldOrNew' component={Test}/>
+						<Route path='sellerDeep' component={Test}/>
+						<Route path='sellerOut' component={Test}/>
+						<Route path='sellerStay' component={Test}/>
+						<Route path='sellerActive' component={Test}/>
+						<Route path='sellerTimeSection' component={Test}/>
+						<Route path='sellerCycle' component={Test}/>
 				</Route>
 				<Route path="*" component={NotFindPage} />
 			</Route>
@@ -114,9 +152,3 @@ ReactDOM.render(
 	,document.getElementById('app')
 	)
 
-/*
-				<Route path='statistics' component={Statistics}>
-					<IndexRoute path="total" component={Allsellers} />
-					<Route path="total" component={Allsellers}/>
-				</Route>
-*/

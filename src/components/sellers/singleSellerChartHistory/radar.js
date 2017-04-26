@@ -3,39 +3,31 @@ import ReactDOM from 'react-dom';
 import redux from 'redux';
 import {connect,Provider} from 'react-redux';
 import Immutable from 'immutable';
-import Calendar from '../calendar';
-import statisticsAction from '../../actions/statisticsAction';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
-import 'echarts/lib/chart/radar';
-import 'echarts/lib/chart/bar';
-import 'echarts/lib/chart/pie';
-import 'echarts/lib/component/grid';
-import 'echarts/lib/component/title';
-import 'echarts/lib/component/legend';
-import 'echarts/lib/component/tooltip';
-import 'echarts/lib/component/dataZoom';
+import sellersAction from '../../../actions/sellersAction';
 
-
-
-
-
-class _customerNum extends React.Component {
+class _radar extends React.Component {
+	static propTypes = {
+		singleSellerRadar:React.PropTypes.func.isRequired,
+		radar:React.PropTypes.instanceOf(Immutable.Map)
+	}
 	constructor(props){
 		super(props);
 		this.state={
-			statisticsCustomerNumInit:'',
+			singleSellerRadarChart:'',
 			resizeHandler:'',
 			time:''
 		}
 	}
 	componentDidMount(){
+		// debugger
 		this.state.time=this.props.time;
-    this.props.statisticsCustomerNumInit(this.state.time);
+    this.props.singleSellerRadar(this.props.params.id,this.state.time);
    
-    let statisticsCustomerNumChart = ReactDOM.findDOMNode(this.refs.statisticsCustomerNumChart);
-	  this.state.statisticsCustomerNumChart = echarts.init(statisticsCustomerNumChart);
-    this.state.statisticsCustomerNumChart.showLoading();
+    let singleSellerRadarChart = ReactDOM.findDOMNode(this.refs.singleSellerRadarChart);
+	  this.state.singleSellerRadarChart = echarts.init(singleSellerRadarChart);
+    this.state.singleSellerRadarChart.showLoading();
     window.addEventListener('resize',this.resizeFun);
 	}
 	resizeFun=()=>{
@@ -43,36 +35,38 @@ class _customerNum extends React.Component {
               clearTimeout(this.state.resizeHandler);
           }
     this.state.resizeHandler = setTimeout(()=>{
-       this.state.statisticsCustomerNumChart.resize();
+       this.state.singleSellerRadarChart.resize();
     }, 100)
+	}
+	componentWillReceiveProps(){
+		// debugger
 	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
 		if(this.state.time!=nextProps.time){
 			this.state.time=nextProps.time
-			this.props.statisticsCustomerNumInit(this.state.time);
+			this.props.singleSellerRadar(this.props.params.id,this.state.time);
 		}
 	}
 	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
-		this.state.statisticsCustomerNumChart.setOption(this.props.customerNum.toJS());
-		this.state.statisticsCustomerNumChart.hideLoading();
+		// debugger
+		this.state.singleSellerRadarChart.setOption(this.props.radar.toJS());
+		this.state.singleSellerRadarChart.hideLoading();
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
-      this.state.statisticsCustomerNumChart.dispose();
-      this.props.stateDefault();
+      this.state.singleSellerRadarChart.dispose();
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
-		return	<div>
-				<div className="panel">
-		    			<div className="panelHead">顾客流动</div>
-		    			<div className="panelBody">
-		    				<div className="statisticsCustomerNumChart" ref="statisticsCustomerNumChart"></div>
-		          </div>
-  				</div>
-  				<div className='panel'>
+		return <div>
+					<div className="panel">
+		          <div className="panelHead">总体评价</div>
+		         	 <div className="panelBody">
+								<div className='singleSellerRadarChart' ref='singleSellerRadarChart'></div>
+							</div>
+		        </div>
+		        	<div className='panel'>
   		    				<div className="panelHead">顾客客流量</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
@@ -88,13 +82,14 @@ class _customerNum extends React.Component {
 	}
 }
 
-
-
-
 const mapStateToProps = (state)=>{
+  // debugger;
+  // let ad=state.toJS()
+  // let fdd=state.getIn(['b','customerFlow'])
+  // let d=state.getIn(['b','customerFlow']).toJS()
   return {
-    customerNum:state.getIn(['c','customerNum']),
-    // radar:state.getIn(['b','radar']),
+    // customerFlow:state.getIn(['b','customerFlow'])
+    radar:state.getIn(['b','radar'])
     // stayBar:state.getIn(['b','stayBar']),
     // OldOrNew:state.getIn(['b','OldOrNew']),
     // timeSection:state.getIn(['b','timeSection']),
@@ -103,6 +98,5 @@ const mapStateToProps = (state)=>{
     }
 }
 
-let customerNum=connect(mapStateToProps,statisticsAction)(_customerNum);
 
-export default customerNum;
+export default connect(mapStateToProps,sellersAction)(_radar)

@@ -21,9 +21,9 @@ const actions = {
                 })
         }
     },
-    allSellersLineChartInit(chartPage){
+    allSellersLineChartInit(time,chartPage){
         return function(dispatch){
-            let url1=url.allSellersLineChartInit+chartPage;
+            let url1=url.allSellersLineChartInit+'?'+time+'&'+chartPage;
             fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
@@ -36,7 +36,7 @@ const actions = {
             })
         }
     },
-    allSellersTableInit(){
+    /*allSellersTableInit(){
         return function(dispatch){
             let url1=url.allSellersTableInit;
             fetch(url1).then((data) => data.json())
@@ -52,7 +52,7 @@ const actions = {
             })
 
             }
-    },
+    },*/
     singleSellerLineChartInit(id,param){
         return function(dispatch){
             let url1=url.singleSellerLineChartInit+id+"/"+param;
@@ -215,7 +215,38 @@ const actions = {
                     console.log(err)
             })
         }
+    },
+    singleSellerCycleInit(id,param){
+        let url1=url.singleSellerCycleInit+'?'+id+"&"+param;
+        return function(dispatch){
+            fetch(url1).then(data => data.json())
+                .then(data=>{
+                    dispatch({
+                        type:TYPE.singleSellerCycleInit,
+                        payload:data
+                    })
+                })
+                .catch(function(err){
+                    console.log(err)
+            })
+        }
+    },
+    singleSellerActiveInit(id,param){
+        let url1=url.singleSellerActiveInit+'?'+id+"&"+param;
+        return function(dispatch){
+            fetch(url1).then(data => data.json())
+                .then(data=>{
+                    dispatch({
+                        type:TYPE.singleSellerActiveInit,
+                        payload:data
+                    })
+                })
+                .catch(function(err){
+                    console.log(err)
+            })
+        }
     }
+    
 
 }
 

@@ -5,8 +5,8 @@ export default {
 	},
 	sellers:{
 		sellersListInit:'http://localhost:3003',
-		allSellersLineChartInit:'http://localhost:3003/allsellers/',
-		allSellersTableInit:'http://localhost:3003/allsellers/allSellersTableInit',
+		allSellersLineChartInit:'http://localhost:3000/index/allsellers',
+		// allSellersTableInit:'http://localhost:3003/allsellers/allSellersTableInit',
 		singleSellerLineChartInit:'http://localhost:3000/hour/singleSeller/',
 		singleSellerCustomerNumInit:'http://localhost:3000/hour/singleSellerCustomerNumInit/',
 		singleSellerCustomerNumFetch:'http://localhost:3000/hour/singleSellerCustomerNumFetch/',
@@ -16,6 +16,15 @@ export default {
 		singleSellerOldOrNew:'http://localhost:3000/hour/singleSellerOldOrNew/',
 		singleSellerTimeSection:'http://localhost:3000/hour/singleSellerTimeSection/',
 		singleSellerDeepVisit:'http://localhost:3000/hour/singleSellerDeepVisit/',
-		singleSellerCycleAndActive:'http://localhost:3000/hour/singleSellerCycleAndActive/'
+		// singleSellerCycleAndActive:'http://localhost:3000/hour/singleSellerCycleAndActive/',
+		singleSellerCycleInit:'http://localhost:3000/index/statisticsCycleInit/',
+		singleSellerActiveInit:'http://localhost:3000/index/statisticsActiveInit/'
+	},
+	statistics:{
+		statisticsCustomerNumInit:'http://localhost:3000/index/statisticsCustomerNumInit',
+		statisticsOldOrNewInit:'http://localhost:3000/hour/singleSellerOldOrNew/',
+		statisticsTimeSectionInit:'http://localhost:3000/hour/singleSellerTimeSection/',
+		statisticsCycleInit:'http://localhost:3000/index/statisticsCycleInit/',
+		statisticsActiveInit:'http://localhost:3000/index/statisticsActiveInit/'
 	}
 }

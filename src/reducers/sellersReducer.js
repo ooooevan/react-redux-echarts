@@ -113,7 +113,7 @@ export default function sellersReducer(state=initialState,action){
                         return data.push(action.payload.percent).shift();
                       });
 
-        case TYPE.allSellersTableInit:
+        /*case TYPE.allSellersTableInit:
           // debugger
           let arr=[];
           // let obj5=Object.assign({},state);
@@ -122,7 +122,7 @@ export default function sellersReducer(state=initialState,action){
             arr.push(item);
               // obj5.table.push(item);
           });
-          return state.set('table',Immutable.List(arr));
+          return state.set('table',Immutable.List(arr));*/
 
         case TYPE.singleSellerCustomerFlowInit:
           // debugger
@@ -187,8 +187,15 @@ export default function sellersReducer(state=initialState,action){
           // obj8.OldOrNew.series[0].data[0].value = action.payload.old;
           // obj8.OldOrNew.series[0].data[1].value = action.payload.new;
           // return Object.assign({},state,obj8);
-          return state.setIn(['OldOrNew','series',0,'data',0,'value'],action.payload.old)
-                      .setIn(['OldOrNew','series',0,'data',1,'value'],action.payload.new);
+          let oldnew={time:[],old:[],new:[]};
+          action.payload.forEach(item=>{
+            oldnew.time.push(item.time);
+            oldnew.old.push(item.old);
+            oldnew.new.push(item.new);
+          })
+          return state.setIn(['oldOrNew','xAxis',0,'data'],Immutable.List(oldnew.time))
+                      .setIn(['oldOrNew','series',0,'data'],Immutable.List(oldnew.new))
+                      .setIn(['oldOrNew','series',1,'data'],Immutable.List(oldnew.old));
         case TYPE.singleSellerTimeSection:
           // debugger
           // let obj9=Object.assign({},state);
@@ -205,16 +212,20 @@ export default function sellersReducer(state=initialState,action){
           return state.setIn(['timeSection','xAxis',0,'data'],Immutable.List(timeSection.name))
                       .setIn(['timeSection','series',0,'data'],Immutable.List(timeSection.value))
         case TYPE.singleSellerDeepVisit:
+          let deep={time:[],deep:[]};
+          action.payload.forEach(item=>{
+            deep.time.push(item.time);
+            deep.deep.push(item.deep);
+          })
           // debugger
           // let obj10=Object.assign({},state);
           // obj10.deepVisit.series[0].data[0].value = action.payload.shallow;
           // obj10.deepVisit.series[0].data[1].value = action.payload.common;
           // obj10.deepVisit.series[0].data[2].value = action.payload.deep;
-          return state.setIn(['deepVisit','series',0,'data',0,'value'],action.payload.shallow)
-                      .setIn(['deepVisit','series',0,'data',1,'value'],action.payload.common)
-                      .setIn(['deepVisit','series',0,'data',2,'value'],action.payload.deep)
+          return state.setIn(['deepVisit','xAxis','data'],Immutable.List(deep.time))
+                      .setIn(['deepVisit','series','data'],Immutable.List(deep.deep));
           // return Object.assign({},state,obj10);
-        case TYPE.singleSellerCycleAndActive:
+        /*case TYPE.singleSellerCycleAndActive:
           // let obj11=Object.assign({},state);
           // let payLoadData1=action.payload.data1;
           // let payLoadData2=action.payload.data2;
@@ -242,7 +253,23 @@ export default function sellersReducer(state=initialState,action){
           // return Object.assign({},state,obj11);
           return state.setIn(['cycleAndActive','yAxis',0,'data'],Immutable.List(data1.time))
                       .setIn(['cycleAndActive','series',0,'data'],Immutable.List(data1.value))
-                      .setIn(['cycleAndActive','series',1,'data'],Immutable.List(data2))
+                      .setIn(['cycleAndActive','series',1,'data'],Immutable.List(data2))*/
+        case TYPE.singleSellerCycleInit:
+          let cycle={name:[],value:[]};
+          action.payload.forEach(item=>{
+            cycle.name.push(item.time);
+            cycle.value.push(item.value);
+          })
+          return state.setIn(['cycle','xAxis',0,'data'],Immutable.List(cycle.name))
+                  .setIn(['cycle','series',0,'data'],Immutable.List(cycle.value));
+        case TYPE.singleSellerActiveInit:
+          let active={name:[],value:[]};
+          action.payload.forEach(item=>{
+            active.name.push(item.time);
+            active.value.push(item.value);
+          })
+          return state.setIn(['active','xAxis',0,'data'],Immutable.List(active.name))
+                  .setIn(['active','series',0,'data'],Immutable.List(active.value));
         default:
             return state;
     }

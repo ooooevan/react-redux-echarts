@@ -6,7 +6,7 @@ export default {
 	sellers:{
 		sellersListInit:'sellersListInit',
 		allSellersLineChartInit:'allSellersLineChartInit',
-		allSellersTableInit:'allSellersTableInit',
+		// allSellersTableInit:'allSellersTableInit',
 		singleSellerLineChartInit:'singleSellerLineChartInit',
 		singleSellerCustomerNumInit:'singleSellerCustomerNumInit',
 		singleSellerCustomerNumFetch:'singleSellerCustomerNumFetch',
@@ -16,6 +16,15 @@ export default {
 		singleSellerOldOrNew:'singleSellerOldOrNew',
 		singleSellerTimeSection:'singleSellerTimeSection',
 		singleSellerDeepVisit:'singleSellerDeepVisit',
-		singleSellerCycleAndActive:'singleSellerCycleAndActive'
+		// singleSellerCycleAndActive:'singleSellerCycleAndActive',
+		singleSellerCycleInit:'singleSellerCycleInit',
+		singleSellerActiveInit:'singleSellerActiveInit'
+	},
+	statistics:{
+		statisticsCustomerNumInit:'statisticsCustomerNumInit',
+		statisticsOldOrNewInit:'statisticsOldOrNewInit',
+		statisticsTimeSectionInit:'statisticsTimeSectionInit',
+		statisticsCycleInit:'statisticsCycleInit',
+		statisticsActiveInit:'statisticsActiveInit'
 	}
 }

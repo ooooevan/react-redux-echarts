@@ -11,7 +11,7 @@ let data;
   let options = {
     lineAndBar:{
         title:{
-           text: "昨日/上月客流",
+           text: "各商家客流",
            show:false
         },
         tooltip: {
@@ -71,88 +71,12 @@ let data;
                 name:'环比增幅',
                 type:'line',
                 yAxisIndex: 1,
+                smooth:true,
                 data:data
             }
         ]
     },
     sellers:[],
-    // "lineAndLine":{
-    //         title:{
-    //            text: "商家入店量及入店率",
-    //            show:false
-    //         },
-    //         grid:{
-    //             left:'5%',
-    //             right:'5%'
-    //         },
-    //         tooltip: {
-    //             trigger: 'axis'
-    //             // formatter:'{a}: {b} {c1}<br />{a1}: {c1}'
-    //         },
-    //         // toolbox: {
-    //         //     feature: {
-    //         //         dataView: {show: true, readOnly: false},
-    //         //         magicType: {show: true, type: ['line', 'bar']},
-    //         //         restore: {show: true},
-    //         //         saveAsImage: {show: true}
-    //         //     }
-    //         // },
-    //         legend: {
-    //             data:['入店量','入店率']
-    //         },
-    //         xAxis:{
-    //                 type: 'category',
-    //                 data: data,
-    //                 boundaryGap: false
-    //         },
-    //         yAxis: [
-    //             {
-    //                 type: 'value',
-    //                 name: '入店量',
-    //                 axisLabel: {
-    //                     formatter: '{value}'
-    //                 }
-    //             },
-    //             {
-    //                 type: 'value',
-    //                 name: '入店率',
-    //                 position: 'right',
-
-    //                 min: 0,
-    //                 // max: 25,
-    //                 // interval: 0.9,
-    //                 axisLabel: {
-    //                     formatter: '{value} %'
-    //                 }
-    //             }
-    //         ],
-    //         dataZoom: [{
-    //             // startValue: '16:32:024'
-    //             }, {
-    //             //type: 'inside'          //这个可以设置滚轮放大
-    //             }
-    //         ],
-    //         series: [
-    //             {
-    //                 name:'入店量',
-    //                 type:'line',
-    //                 smooth:true,
-    //                 areaStyle:{
-    //                     normal:{
-    //                         color:'#b6d0e9'
-    //                     }
-    //                 },
-    //                 color:['#b6d0e9'],
-    //                 data:data
-    //             },{
-    //                 name:'入店率',
-    //                 type:'line',
-    //                 smooth:true,
-    //                 yAxisIndex: 1,
-    //                 data:data
-    //             }
-    //         ]
-    // },
     customerNum:{
         /*颜色是后面叠加前面的，要想某个颜色不被覆盖，要放到后面*/
         color:['#1165ee','#cfd9ee','#d14a61'],
@@ -444,7 +368,7 @@ let data;
             }
         ]
     },
-    OldOrNew:{
+    /*OldOrNew:{
         title : {
             text: '新老顾客',
             x:'center',
@@ -478,10 +402,63 @@ let data;
                 // }
             }
         ]
+    },*/
+    oldOrNew:{
+        title : {
+            text: '新老顾客',
+            x:'center',
+            show:false
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        legend: {
+            data: ['新顾客', '老顾客']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [{
+            type: 'category',
+            data: undefined
+        }],
+        yAxis: [{
+            type: 'value'
+        }],
+        series: [{
+            name: '新顾客',
+            type: 'bar',
+            stack: '顾客',
+            data: undefined,
+            label: {
+                normal: {
+                    show: true
+                }
+            },
+        }, {
+            name: '老顾客',
+            type: 'bar',
+            stack: '顾客',
+            data: undefined,
+            label: {
+                normal: {
+                    show: true
+                }
+            },
+        }, ]
     },
     timeSection:{
-
-
         title:{
            text: "各时间段占比",
            show:false
@@ -526,7 +503,7 @@ let data;
             }
         ]
     },
-    deepVisit:{
+    /*deepVisit:{
 
         title : {
             text: '深访率',
@@ -562,7 +539,153 @@ let data;
                 // }
             }
         ]
+    },*/
+    deepVisit:{
+        title: { 
+            text: '深访率',
+            show:false
+        },
+        grid:{
+            left:'5%',
+            right:'5%'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: {
+            data: undefined,
+            type: 'category',
+            name:'时间',
+            boundaryGap: true,
+            // onZero:'true',
+            axisTick:{
+                alignWithLabel:'true'
+            }
+            // yesterday:{}
+
+        },
+        yAxis: {
+            type: 'value',
+            name: '深访率',
+            splitLine: {
+                show: false
+            }
+        },
+        series: {
+            name: '客流量',
+            type: 'line',
+            data: undefined,
+            smooth:true
+            // color:['rgba(122,187,239,1)'],
+            // backgroundColor:'rgb(228, 228, 228)',
+            // backgroundColor: new echarts.graphic.RadialGradient(0.5, 0.5, 0.5,false),
+            // symbol: 'none',
+            // stack: 'a',
+        }
     },
+    cycle:{
+        title:{
+           text: "来访周期",
+           show:false
+        },
+        tooltip: {
+            // trigger: 'axis'
+        },
+        // toolbox: {
+        //     feature: {
+        //         dataView: {show: true, readOnly: false},
+        //         magicType: {show: true, type: ['line', 'bar']},
+        //         restore: {show: true},
+        //         saveAsImage: {show: true}
+        //     }
+        // },
+        legend: {
+            data:['来访周期']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisLabel:{interval:0},
+                data: undefined
+            }
+        ],
+        yAxis: {
+            //     type: 'value',
+            //     name: '店铺客流量',
+
+            //     // min: 0,
+            //     // max: 250,
+            //     // interval: 50,
+            //     axisLabel: {
+            //         formatter: '{value}'
+            //     }
+            // }
+        },
+        series: [{
+                name:'来访周期',
+                type:'bar',
+                label: {
+                normal: {
+                    position: 'top',
+                    show: false
+                    }
+                },
+                data:undefined
+            }
+        ]
+    },
+    active:{
+
+        title:{
+           text: "活跃度",
+           show:false
+        },
+        tooltip: {
+            // trigger: 'axis'
+        },
+        // toolbox: {
+        //     feature: {
+        //         dataView: {show: true, readOnly: false},
+        //         magicType: {show: true, type: ['line', 'bar']},
+        //         restore: {show: true},
+        //         saveAsImage: {show: true}
+        //     }
+        // },
+        legend: {
+            data:['活跃度']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisLabel:{interval:0},
+                data: undefined
+            }
+        ],
+        yAxis: {
+            //     type: 'value',
+            //     name: '店铺客流量',
+
+            //     // min: 0,
+            //     // max: 250,
+            //     // interval: 50,
+            //     axisLabel: {
+            //         formatter: '{value}'
+            //     }
+            // }
+        },
+        series: [{
+                name:'活跃度',
+                type:'bar',
+                label: {
+                normal: {
+                    position: 'top',
+                    show: false
+                    }
+                },
+                data:undefined
+            }
+        ]
+    }/*,
     cycleAndActive:{
         tooltip: {},
         title: [{
@@ -648,7 +771,7 @@ let data;
             center: ['75%', '45%'],
             data: data
         }]
-    }
+    }*/
 };
 
 

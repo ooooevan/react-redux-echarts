@@ -20,22 +20,22 @@ import 'echarts/lib/component/dataZoom';
 
 
 
-class _customerNum extends React.Component {
+class _oldOrNew extends React.Component {
 	constructor(props){
 		super(props);
 		this.state={
-			statisticsCustomerNumInit:'',
+			statisticsOldOrNewChart:'',
 			resizeHandler:'',
 			time:''
 		}
 	}
 	componentDidMount(){
 		this.state.time=this.props.time;
-    this.props.statisticsCustomerNumInit(this.state.time);
+    this.props.statisticsOldOrNewInit(this.state.time);
    
-    let statisticsCustomerNumChart = ReactDOM.findDOMNode(this.refs.statisticsCustomerNumChart);
-	  this.state.statisticsCustomerNumChart = echarts.init(statisticsCustomerNumChart);
-    this.state.statisticsCustomerNumChart.showLoading();
+    let statisticsOldOrNewChart = ReactDOM.findDOMNode(this.refs.statisticsOldOrNewChart);
+	  this.state.statisticsOldOrNewChart = echarts.init(statisticsOldOrNewChart);
+    this.state.statisticsOldOrNewChart.showLoading();
     window.addEventListener('resize',this.resizeFun);
 	}
 	resizeFun=()=>{
@@ -43,33 +43,33 @@ class _customerNum extends React.Component {
               clearTimeout(this.state.resizeHandler);
           }
     this.state.resizeHandler = setTimeout(()=>{
-       this.state.statisticsCustomerNumChart.resize();
+       this.state.statisticsOldOrNewChart.resize();
     }, 100)
 	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
 		if(this.state.time!=nextProps.time){
 			this.state.time=nextProps.time
-			this.props.statisticsCustomerNumInit(this.state.time);
+			this.props.statisticsOldOrNewInit(this.state.time);
 		}
 	}
 	componentDidUpdate(){
 		console.log('-=componentDidUpdate')
-		this.state.statisticsCustomerNumChart.setOption(this.props.customerNum.toJS());
-		this.state.statisticsCustomerNumChart.hideLoading();
+		this.state.statisticsOldOrNewChart.setOption(this.props.oldOrNew.toJS());
+		this.state.statisticsOldOrNewChart.hideLoading();
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
-      this.state.statisticsCustomerNumChart.dispose();
+      this.state.statisticsOldOrNewChart.dispose();
       this.props.stateDefault();
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
 		return	<div>
 				<div className="panel">
-		    			<div className="panelHead">顾客流动</div>
+		    			<div className="panelHead">新老顾客</div>
 		    			<div className="panelBody">
-		    				<div className="statisticsCustomerNumChart" ref="statisticsCustomerNumChart"></div>
+		    				<div className="statisticsOldOrNewChart" ref="statisticsOldOrNewChart"></div>
 		          </div>
   				</div>
   				<div className='panel'>
@@ -88,12 +88,9 @@ class _customerNum extends React.Component {
 	}
 }
 
-
-
-
 const mapStateToProps = (state)=>{
   return {
-    customerNum:state.getIn(['c','customerNum']),
+    oldOrNew:state.getIn(['c','oldOrNew']),
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar']),
     // OldOrNew:state.getIn(['b','OldOrNew']),
@@ -103,6 +100,6 @@ const mapStateToProps = (state)=>{
     }
 }
 
-let customerNum=connect(mapStateToProps,statisticsAction)(_customerNum);
+let oldOrNew=connect(mapStateToProps,statisticsAction)(_oldOrNew);
 
-export default customerNum;
+export default oldOrNew;
