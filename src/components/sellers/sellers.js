@@ -35,16 +35,15 @@ class _SidebarNav extends React.Component {
     }
     componentWillUpdate(nextProps,nextState){
             this.state.sellers=nextProps.sellers
-            // this.change();
 
         
     }
     shouldComponentUpdate(nextProps,nextState){
-        if(!Immutable.is(this.props.sellers,nextProps.sellers)){
+        if(!Immutable.is(this.props,nextProps)){
             console.log('shouldComponentUpdate--true');
             return true;
         }
-        else if(!Immutable.is(this.state.sellers,nextState.sellers)){
+        else if(!Immutable.is(this.state,nextState)){
         console.log('shouldComponentUpdate--true');
             return true;
         }else{
@@ -115,13 +114,12 @@ class _SidebarNav extends React.Component {
         this.props.sellers.forEach(function(seller){
 
             //seller是数值，不能indexOf，要转成string
-            if(seller.seller.indexOf(text.trim()) === -1){
+            if(seller.indexOf(text.trim()) === -1){
                 return;
             }else{
                 rows.push(seller);
             }
         });
-        // console.log(rows)
         this.setState({
             sellers:Immutable.List(rows)
         })
@@ -140,6 +138,8 @@ class _SidebarNav extends React.Component {
 
 
     render(){
+        // debugger
+        console.log('----this')
         //const usersdom = this.props.sellers.map(seller=><li>{seller.name}</li>);
         // console.log(this.state.sellers.toJS())
         let rows=[];
@@ -147,8 +147,8 @@ class _SidebarNav extends React.Component {
         rows.push(<li key="all" onClick={this.entireList}><Link to='sellers/allsellers' activeClassName="active" draggable="false">全部商家<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>);
         if(this.state.sellers){
             this.state.sellers.forEach(function(seller,index){
-                routeData+=seller.id;
-                rows.push(<li key={seller.id}><Link to={routeData} activeClassName="active" draggable="false">{seller.seller}<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>);
+                routeData+=seller;
+                rows.push(<li key={seller}><Link to={routeData} activeClassName="active" draggable="false">{seller}<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>);
                 routeData='sellers/';
             })
         }
@@ -167,11 +167,9 @@ class _SidebarNav extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
+const mapStateToProps = state => ({
         sellers:state.getIn(['b','sellers'])
-    }
-}
+})
 
 const SidebarNav=connect(mapStateToProps,sellersAction)(_SidebarNav);
 

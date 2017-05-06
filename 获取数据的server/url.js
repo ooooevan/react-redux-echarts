@@ -15,16 +15,16 @@ http.createServer(function (req, res) {
         //为true时query封装成一个对象
         // function randomString(len) {
         //     len = len || 32;
-        //     var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+        //     var $chars = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678";    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
         //     var maxPos = $chars.length;
-        //     var pwd = '';
+        //     var pwd = "";
         //     for (i = 0; i < len; i++) {
         //         pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
         //     }
         //     return pwd;
         // }
-        // var str='\\u'+(Math.round(Math.random() * 2090) + 1968+'').toString(16)+"";
-        // str = eval("'" + str + "'");
+        // var str="\\u"+(Math.round(Math.random() * 2090) + 1968+"").toString(16)+"";
+        // str = eval(""" + str + """);
 
         var sellers=`
         [{
@@ -64,9 +64,11 @@ http.createServer(function (req, res) {
 
                 }]
         `
+        let sellerss=`
+            ["商家一","商家二","商家三","商家四","商家五","商家六"]
+        `
 
-
-        res.write(sellers);
+        res.write(sellerss);
         res.end();
         break;
         //res.end(util.inspect(urls.parse(req.url,true)));

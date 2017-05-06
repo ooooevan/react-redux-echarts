@@ -91,8 +91,7 @@ class _cycle extends React.Component {
 
 
 
-const mapStateToProps = (state)=>{
-  return {
+const mapStateToProps = (state)=>({
     cycle:state.getIn(['c','cycle']),
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar']),
@@ -100,8 +99,7 @@ const mapStateToProps = (state)=>{
     // timeSection:state.getIn(['b','timeSection']),
     // deepVisit:state.getIn(['b','deepVisit']),
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
-    }
-}
+})
 
 let cycle=connect(mapStateToProps,statisticsAction)(_cycle);
 

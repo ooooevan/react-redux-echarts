@@ -13,742 +13,664 @@ router.get("/init", function(req, res, next) {
 		`
 	[{
 			"time": "16:32:00",
-			"value": 341
+			"value": 341,
+			"percent":2
 		}, {
 			"time": "16:32:03",
-			"value": 513
+			"value": 513,
+			"percent":2
 		}, {
 			"time": "16:32:06",
-			"value": 351
+			"value": 351,
+			"percent":2
 		}, {
 			"time": "16:32:09",
-			"value": 151
+			"value": 151,
+			"percent":2
 		}, {
 			"time": "16:32:012",
-			"value": 524
+			"value": 524,
+			"percent":2
 		}, {
 			"time": "16:32:015",
-			"value": 524
+			"value": 524,
+			"percent":2
 		}, {
 			"time": "16:32:018",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:021",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:024",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:027",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:30",
-			"value": 534
+			"value": 534,
+			"percent":5
 		}, {
 			"time": "16:32:33",
-			"value": 543
+			"value": 543,
+			"percent":6
 		}, {
 			"time": "16:32:36",
-			"value": 534
+			"value": 534,
+			"percent":6
 		}, {
 			"time": "16:32:39",
-			"value": 543
+			"value": 543,
+			"percent":6
 		}, {
 			"time": "16:32:42",
-			"value": 531
+			"value": 531,
+			"percent":6
 		}, {
 			"time": "16:32:45",
-			"value": 153
+			"value": 153,
+			"percent":6
 		}, {
 			"time": "16:32:48",
-			"value": 543
+			"value": 543,
+			"percent":6
 		}, {
 			"time": "16:32:51",
-			"value": 534
+			"value": 534,
+			"percent":6
 		}, {
 			"time": "16:32:54",
-			"value": 254
+			"value": 254,
+			"percent":2
 		}, {
 			"time": "16:32:57",
-			"value": 254
+			"value": 254,
+			"percent":2
 		}, {
 			"time": "16:32:60",
-			"value": 245
+			"value": 245,
+			"percent":2
 		}, {
 			"time": "16:32:63",
-			"value": 546
+			"value": 546,
+			"percent":2
 		}, {
 			"time": "16:32:66",
-			"value": 654
+			"value": 654,
+			"percent":2
 		}, {
 			"time": "16:32:69",
-			"value": 154
+			"value": 154,
+			"percent":2
 		}, {
 			"time": "16:32:72",
-			"value": 135
+			"value": 135,
+			"percent":2
 		}, {
 			"time": "16:32:75",
-			"value": 214
+			"value": 214,
+			"percent":2
 		}, {
 			"time": "16:32:78",
-			"value": 242
+			"value": 242,
+			"percent":2
 		}, {
 			"time": "16:32:81",
-			"value": 124
+			"value": 124,
+			"percent":2
 		}, {
 			"time": "16:32:84",
-			"value": 235
+			"value": 235,
+			"percent":2
 		}, {
 			"time": "16:32:87",
-			"value": 264
+			"value": 264,
+			"percent":2
 		}, {
 			"time": "16:32:90",
-			"value": 214
+			"value": 214,
+			"percent":2
 		}, {
 			"time": "16:32:93",
-			"value": 231
+			"value": 231,
+			"percent":2
 		}, {
 			"time": "16:32:96",
-			"value": 431
+			"value": 431,
+			"percent":2
 		}, {
 			"time": "16:32:99",
-			"value": 323
+			"value": 323,
+			"percent":2
 		}, {
 			"time": "16:32:102",
-			"value": 321
+			"value": 321,
+			"percent":2
 		}, {
 			"time": "16:32:105",
-			"value": 321
+			"value": 321,
+			"percent":2
 		}, {
 			"time": "16:32:03",
-			"value": 513
+			"value": 513,
+			"percent":2
 		}, {
 			"time": "16:32:06",
-			"value": 351
+			"value": 351,
+			"percent":2
 		}, {
 			"time": "16:32:09",
-			"value": 151
+			"value": 151,
+			"percent":6
 		}, {
 			"time": "16:32:012",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:015",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:018",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:021",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:024",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:027",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:30",
-			"value": 534
+			"value": 534,
+			"percent":6
 		}, {
 			"time": "16:32:33",
-			"value": 543
+			"value": 543,
+			"percent":6
 		}, {
 			"time": "16:32:36",
-			"value": 534
+			"value": 534,
+			"percent":6
 		}, {
 			"time": "16:32:39",
-			"value": 543
+			"value": 543,
+			"percent":6
 		}, {
 			"time": "16:32:42",
-			"value": 531
+			"value": 531,
+			"percent":6
 		}, {
 			"time": "16:32:45",
-			"value": 153
+			"value": 153,
+			"percent":6
 		}, {
 			"time": "16:32:48",
-			"value": 543
+			"value": 543,
+			"percent":6
 		}, {
 			"time": "16:32:51",
-			"value": 534
+			"value": 534,
+			"percent":6
 		}, {
 			"time": "16:32:54",
-			"value": 254
+			"value": 254,
+			"percent":6
 		}, {
 			"time": "16:32:57",
-			"value": 254
+			"value": 254,
+			"percent":6
 		}, {
 			"time": "16:32:60",
-			"value": 245
+			"value": 245,
+			"percent":6
 		}, {
 			"time": "16:32:63",
-			"value": 546
+			"value": 546,
+			"percent":6
 		}, {
 			"time": "16:32:66",
-			"value": 654
+			"value": 654,
+			"percent":6
 		}, {
 			"time": "16:32:69",
-			"value": 154
+			"value": 154,
+			"percent":6
 		}, {
 			"time": "16:32:72",
-			"value": 135
+			"value": 135,
+			"percent":6
 		}, {
 			"time": "16:32:75",
-			"value": 214
+			"value": 214,
+			"percent":6
 		}, {
 			"time": "16:32:78",
-			"value": 242
+			"value": 242,
+			"percent":6
 		}, {
 			"time": "16:32:81",
-			"value": 124
+			"value": 124,
+			"percent":6
 		}, {
 			"time": "16:32:84",
-			"value": 235
+			"value": 235,
+			"percent":6
 		}, {
 			"time": "16:32:87",
-			"value": 264
+			"value": 264,
+			"percent":6
 		}, {
 			"time": "16:32:90",
-			"value": 214
+			"value": 214,
+			"percent":6
 		}, {
 			"time": "16:32:93",
-			"value": 231
+			"value": 231,
+			"percent":6
 		}, {
 			"time": "16:32:96",
-			"value": 431
+			"value": 431,
+			"percent":6
 		}, {
 			"time": "16:32:99",
-			"value": 323
+			"value": 323,
+			"percent":6
 		}, {
 			"time": "16:32:102",
-			"value": 321
+			"value": 321,
+			"percent":6
 		}, {
 			"time": "16:32:105",
-			"value": 321
+			"value": 321,
+			"percent":6
 		}, {
 			"time": "16:32:03",
-			"value": 513
+			"value": 513,
+			"percent":6
 		}, {
 			"time": "16:32:06",
-			"value": 351
+			"value": 351,
+			"percent":6
 		}, {
 			"time": "16:32:09",
-			"value": 151
+			"value": 151,
+			"percent":6
 		}, {
 			"time": "16:32:012",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:015",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:018",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:021",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:024",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:027",
-			"value": 524
+			"value": 524,
+			"percent":6
 		}, {
 			"time": "16:32:30",
-			"value": 534
+			"value": 534,
+			"percent":6
 		}, {
 			"time": "16:32:33",
-			"value": 543
+			"value": 543,
+			"percent":6
 		}, {
 			"time": "16:32:36",
-			"value": 534
+			"value": 534,
+			"percent":6
 		}, {
 			"time": "16:32:39",
-			"value": 543
+			"value": 543,
+			"percent":6
 		}, {
 			"time": "16:32:42",
-			"value": 531
+			"value": 531,
+			"percent":6
 		}, {
 			"time": "16:32:45",
-			"value": 153
+			"value": 153,
+			"percent":6
 		}, {
 			"time": "16:32:48",
-			"value": 543
+			"value": 543,
+			"percent":6
 		}, {
 			"time": "16:32:51",
-			"value": 534
+			"value": 534,
+			"percent":6
 		}, {
 			"time": "16:32:54",
-			"value": 254
+			"value": 254,
+			"percent":6
 		}, {
 			"time": "16:32:57",
-			"value": 254
+			"value": 254,
+			"percent":6
 		}, {
 			"time": "16:32:60",
-			"value": 245
+			"value": 245,
+			"percent":6
 		}, {
 			"time": "16:32:63",
-			"value": 546
+			"value": 546,
+			"percent":6
 		}, {
 			"time": "16:32:66",
-			"value": 654
+			"value": 654,
+			"percent":6
 		}, {
 			"time": "16:32:69",
-			"value": 154
+			"value": 154,
+			"percent":6
 		}, {
 			"time": "16:32:72",
-			"value": 135
+			"value": 135,
+			"percent":6
 		}, {
 			"time": "16:32:75",
-			"value": 214
+			"value": 214,
+			"percent":6
 		}, {
 			"time": "16:32:78",
-			"value": 242
+			"value": 242,
+			"percent":6
 		}, {
 			"time": "16:32:81",
-			"value": 124
+			"value": 124,
+			"percent":6
 		}, {
 			"time": "16:32:84",
-			"value": 235
+			"value": 235,
+			"percent":5
 		}, {
 			"time": "16:32:87",
-			"value": 264
+			"value": 264,
+			"percent":5
 		}, {
 			"time": "16:32:90",
-			"value": 214
+			"value": 214,
+			"percent":5
 		}, {
 			"time": "16:32:93",
-			"value": 231
+			"value": 231,
+			"percent":5
 		}, {
 			"time": "16:32:96",
-			"value": 431
+			"value": 431,
+			"percent":5
 		}, {
 			"time": "16:32:99",
-			"value": 323
+			"value": 323,
+			"percent":5
 		}, {
 			"time": "16:32:102",
-			"value": 321
+			"value": 321,
+			"percent":5
 		}, {
 			"time": "16:32:105",
-			"value": 321
+			"value": 321,
+			"percent":5
 		}, {
 			"time": "16:32:03",
-			"value": 513
+			"value": 513,
+			"percent":5
 		}, {
 			"time": "16:32:06",
-			"value": 351
+			"value": 351,
+			"percent":5
 		}, {
 			"time": "16:32:09",
-			"value": 151
+			"value": 151,
+			"percent":5
 		}, {
 			"time": "16:32:012",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:015",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:018",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:021",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:024",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:027",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:30",
-			"value": 534
+			"value": 534,
+			"percent":5
 		}, {
 			"time": "16:32:33",
-			"value": 543
+			"value": 543,
+			"percent":5
 		}, {
 			"time": "16:32:36",
-			"value": 534
+			"value": 534,
+			"percent":5
 		}, {
 			"time": "16:32:39",
-			"value": 543
+			"value": 543,
+			"percent":5
 		}, {
 			"time": "16:32:42",
-			"value": 531
+			"value": 531,
+			"percent":5
 		}, {
 			"time": "16:32:45",
-			"value": 153
+			"value": 153,
+			"percent":5
 		}, {
 			"time": "16:32:48",
-			"value": 543
+			"value": 543,
+			"percent":5
 		}, {
 			"time": "16:32:51",
-			"value": 534
+			"value": 534,
+			"percent":5
 		}, {
 			"time": "16:32:54",
-			"value": 254
+			"value": 254,
+			"percent":5
 		}, {
 			"time": "16:32:57",
-			"value": 254
+			"value": 254,
+			"percent":5
 		}, {
 			"time": "16:32:60",
-			"value": 245
+			"value": 245,
+			"percent":5
 		}, {
 			"time": "16:32:63",
-			"value": 546
+			"value": 546,
+			"percent":5
 		}, {
 			"time": "16:32:66",
-			"value": 654
+			"value": 654,
+			"percent":5
 		}, {
 			"time": "16:32:69",
-			"value": 154
-		}, {
-			"time": "16:32:72",
-			"value": 135
-		}, {
-			"time": "16:32:75",
-			"value": 214
-		}, {
-			"time": "16:32:78",
-			"value": 242
-		}, {
-			"time": "16:32:81",
-			"value": 124
-		}, {
-			"time": "16:32:84",
-			"value": 235
-		}, {
-			"time": "16:32:87",
-			"value": 264
-		}, {
-			"time": "16:32:90",
-			"value": 214
-		}, {
-			"time": "16:32:93",
-			"value": 231
-		}, {
-			"time": "16:32:96",
-			"value": 431
-		}, {
-			"time": "16:32:99",
-			"value": 323
-		}, {
-			"time": "16:32:102",
-			"value": 321
-		}, {
-			"time": "16:32:105",
-			"value": 321
+			"value": 154,
+			"percent":5
 		}, {
 			"time": "16:32:03",
-			"value": 513
+			"value": 513,
+			"percent":5
 		}, {
 			"time": "16:32:06",
-			"value": 351
+			"value": 351,
+			"percent":5
 		}, {
 			"time": "16:32:09",
-			"value": 151
+			"value": 151,
+			"percent":5
 		}, {
 			"time": "16:32:012",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:015",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:018",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:021",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:024",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:027",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:30",
-			"value": 534
+			"value": 534,
+			"percent":5
 		}, {
 			"time": "16:32:33",
-			"value": 543
+			"value": 543,
+			"percent":5
 		}, {
 			"time": "16:32:36",
-			"value": 534
-		}, {
-			"time": "16:32:39",
-			"value": 543
-		}, {
-			"time": "16:32:42",
-			"value": 531
-		}, {
-			"time": "16:32:45",
-			"value": 153
-		}, {
-			"time": "16:32:48",
-			"value": 543
-		}, {
-			"time": "16:32:51",
-			"value": 534
-		}, {
-			"time": "16:32:54",
-			"value": 254
-		}, {
-			"time": "16:32:57",
-			"value": 254
-		}, {
-			"time": "16:32:60",
-			"value": 245
-		}, {
-			"time": "16:32:63",
-			"value": 546
-		}, {
-			"time": "16:32:66",
-			"value": 654
-		}, {
-			"time": "16:32:69",
-			"value": 154
-		}, {
-			"time": "16:32:72",
-			"value": 135
-		}, {
-			"time": "16:32:75",
-			"value": 214
-		}, {
-			"time": "16:32:78",
-			"value": 242
-		}, {
-			"time": "16:32:81",
-			"value": 124
-		}, {
-			"time": "16:32:84",
-			"value": 235
-		}, {
-			"time": "16:32:87",
-			"value": 264
-		}, {
-			"time": "16:32:90",
-			"value": 214
-		}, {
-			"time": "16:32:93",
-			"value": 231
-		}, {
-			"time": "16:32:96",
-			"value": 431
-		}, {
-			"time": "16:32:99",
-			"value": 323
-		}, {
-			"time": "16:32:102",
-			"value": 321
-		}, {
-			"time": "16:32:105",
-			"value": 321
-		}, {
+			"value": 534,
+			"percent":5
+		},{
 			"time": "16:32:03",
-			"value": 513
+			"value": 513,
+			"percent":5
 		}, {
 			"time": "16:32:06",
-			"value": 351
+			"value": 351,
+			"percent":5
 		}, {
 			"time": "16:32:09",
-			"value": 151
+			"value": 151,
+			"percent":5
 		}, {
 			"time": "16:32:012",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:015",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:018",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:021",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:024",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:027",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:30",
-			"value": 534
+			"value": 534,
+			"percent":5
 		}, {
 			"time": "16:32:33",
-			"value": 543
+			"value": 543,
+			"percent":5
 		}, {
 			"time": "16:32:36",
-			"value": 534
-		}, {
-			"time": "16:32:39",
-			"value": 543
-		}, {
-			"time": "16:32:42",
-			"value": 531
-		}, {
-			"time": "16:32:45",
-			"value": 153
-		}, {
-			"time": "16:32:48",
-			"value": 543
-		}, {
-			"time": "16:32:51",
-			"value": 534
-		}, {
-			"time": "16:32:54",
-			"value": 254
-		}, {
-			"time": "16:32:57",
-			"value": 254
-		}, {
-			"time": "16:32:60",
-			"value": 245
-		}, {
-			"time": "16:32:63",
-			"value": 546
-		}, {
-			"time": "16:32:66",
-			"value": 654
-		}, {
-			"time": "16:32:69",
-			"value": 154
-		}, {
-			"time": "16:32:72",
-			"value": 135
-		}, {
-			"time": "16:32:75",
-			"value": 214
-		}, {
-			"time": "16:32:78",
-			"value": 242
-		}, {
-			"time": "16:32:81",
-			"value": 124
-		}, {
-			"time": "16:32:84",
-			"value": 235
-		}, {
-			"time": "16:32:87",
-			"value": 264
-		}, {
-			"time": "16:32:90",
-			"value": 214
-		}, {
-			"time": "16:32:93",
-			"value": 231
-		}, {
-			"time": "16:32:96",
-			"value": 431
-		}, {
-			"time": "16:32:99",
-			"value": 323
-		}, {
-			"time": "16:32:102",
-			"value": 321
-		}, {
-			"time": "16:32:105",
-			"value": 321
-		}, {
+			"value": 534,
+			"percent":5
+		},{
 			"time": "16:32:03",
-			"value": 513
+			"value": 513,
+			"percent":5
 		}, {
 			"time": "16:32:06",
-			"value": 351
+			"value": 351,
+			"percent":5
 		}, {
 			"time": "16:32:09",
-			"value": 151
+			"value": 151,
+			"percent":5
 		}, {
 			"time": "16:32:012",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:015",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:018",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:021",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:024",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:027",
-			"value": 524
+			"value": 524,
+			"percent":5
 		}, {
 			"time": "16:32:30",
-			"value": 534
+			"value": 534,
+			"percent":5
 		}, {
 			"time": "16:32:33",
-			"value": 543
+			"value": 543,
+			"percent":5
 		}, {
 			"time": "16:32:36",
-			"value": 534
-		}, {
-			"time": "16:32:39",
-			"value": 543
-		}, {
-			"time": "16:32:42",
-			"value": 531
-		}, {
-			"time": "16:32:45",
-			"value": 153
-		}, {
-			"time": "16:32:48",
-			"value": 543
-		}, {
-			"time": "16:32:51",
-			"value": 534
-		}, {
-			"time": "16:32:54",
-			"value": 254
-		}, {
-			"time": "16:32:57",
-			"value": 254
-		}, {
-			"time": "16:32:60",
-			"value": 245
-		}, {
-			"time": "16:32:63",
-			"value": 546
-		}, {
-			"time": "16:32:66",
-			"value": 654
-		}, {
-			"time": "16:32:69",
-			"value": 154
-		}, {
-			"time": "16:32:72",
-			"value": 135
-		}, {
-			"time": "16:32:75",
-			"value": 214
-		}, {
-			"time": "16:32:78",
-			"value": 242
-		}, {
-			"time": "16:32:81",
-			"value": 124
-		}, {
-			"time": "16:32:84",
-			"value": 235
-		}, {
-			"time": "16:32:87",
-			"value": 264
-		}, {
-			"time": "16:32:90",
-			"value": 214
-		}, {
-			"time": "16:32:93",
-			"value": 231
-		}, {
-			"time": "16:32:96",
-			"value": 431
-		}, {
-			"time": "16:32:99",
-			"value": 323
-		}, {
-			"time": "16:32:102",
-			"value": 321
-		}, {
-			"time": "16:32:105",
-			"value": 321
+			"value": 534,
+			"percent":5
 		},{
 			"num":110,
 			"increase":true,
@@ -762,7 +684,7 @@ router.get("/init", function(req, res, next) {
 	res.end();
 });
 
-router.get("/firstPageFetch", function(req, res, next) {
+router.get("/fetch", function(req, res, next) {
 	res.writeHead(200, {
 		"Access-Control-Allow-Origin": "*"
 	});
@@ -771,9 +693,13 @@ router.get("/firstPageFetch", function(req, res, next) {
 	var value=parseInt(300+(Math.random() - 0.4 )*100);
 
 	var data =`
-	{"time":"${now}","value":"${value}"}
+	{"time":"${now}","value":"${value}","percent":2}
 `
-		
+		/*{
+			"time": "16:32:00",
+			"value": 341,
+			"percent":2
+		}*/
 		// console.log(data)
 		// console.log(JSON.stringify(data.toJSONString()))
 	res.write(data);
@@ -1131,7 +1057,7 @@ router.get("/singleSellerCycleAndActive/:id",function(req,res,next){
 	res.write(seller);
 	res.end();
 })
-router.get("/singleSellerCustomerFlowInit/:id",function(req,res,next){
+router.get("/singleSellerCustomerInInit/:id",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var id=req.params.id.substr(0,4);
 	var seller=`{
@@ -1209,6 +1135,77 @@ router.get("/singleSellerCustomerFlowInit/:id",function(req,res,next){
             "num":413,
             "percent1":2,
             "percent2":1
+        }]
+    }`
+	res.write(seller);
+	res.end();
+})
+router.get("/singleSellerCustomerFlowInit/:id",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var id=req.params.id.substr(0,4);
+	var seller=`{
+        "name":"淘宝${id}",
+        "value":[{
+            "time":"12:21:08",
+            "num":632,
+            "percent":7
+
+        },{
+            "time":"12:21:31",
+            "num":633,
+            "percent":5
+        },{
+            "time":"12:22:11",
+            "num":656,
+            "percent":5
+        }
+        ,{
+            "time":"12:23:31",
+            "num":563,
+            "percent":4
+        }
+        ,{
+            "time":"12:27:31",
+            "num":644,
+            "percent":2
+        }
+        ,{
+            "time":"12:31:31",
+            "num":662,
+            "percent":3
+        }
+        ,{
+            "time":"12:43:31",
+            "num":613,
+            "percent":1
+        },{
+            "time":"13:21:31",
+            "num":633,
+            "percent":4
+        },{
+            "time":"13:22:11",
+            "num":666,
+            "percent":2
+        }
+        ,{
+            "time":"13:23:31",
+            "num":533,
+            "percent":6
+        }
+        ,{
+            "time":"13:27:31",
+            "num":634,
+            "percent":2
+        }
+        ,{
+            "time":"13:31:31",
+            "num":532,
+            "percent":3
+        }
+        ,{
+            "time":"13:43:31",
+            "num":413,
+            "percent":5
         }]
     }`
 	res.write(seller);

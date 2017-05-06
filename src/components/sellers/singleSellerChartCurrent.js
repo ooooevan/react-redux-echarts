@@ -62,15 +62,15 @@ class _Chart extends React.Component {
     }
     componentWillUpdate(nextProps,nextState){
           // 判断请求回来时是否刚好换了商家，也就是防止上一个fetch数据合并到下一个商家里。这里处理还是ShouldComponentUpdate？
-        if(this.props.params !== nextProps.params){
-            return;
-        }else{
-            // this.setState({
-                //改变商家名字
+        // if(this.props.params !== nextProps.params){
+        //     return;
+        // }else{
+        //     // this.setState({
+        //         //改变商家名字
                 this.props.changeSellerName(nextProps.customerNum.get('name'));
-                // this.state.name=nextProps.customerNum.get('name');
-            // })
-        }
+        //         // this.state.name=nextProps.customerNum.get('name');
+        //     // })
+        // }
     }
 	componentDidUpdate(){
         // debugger;
@@ -152,11 +152,9 @@ class _Chart extends React.Component {
     	</div>
     }
 }
-const mapStateToProps = (state)=>{
-    return {
+const mapStateToProps = (state)=>({
         customerNum:state.getIn(['b','customerNum'])
-    }
-}
+})
 
 let Chart=connect(mapStateToProps,sellersAction)(_Chart);
 export default Chart;

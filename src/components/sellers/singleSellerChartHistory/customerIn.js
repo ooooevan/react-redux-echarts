@@ -7,15 +7,15 @@ import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import sellersAction from '../../../actions/sellersAction';
 
-class _customerFlow extends React.Component {
+class _customerIn extends React.Component {
 	static propTypes = {
-		singleSellerCustomerFlowInit:React.PropTypes.func.isRequired,
-		customerFlow:React.PropTypes.instanceOf(Immutable.Map)
+		singleSellerCustomerInInit:React.PropTypes.func.isRequired,
+		customerIn:React.PropTypes.instanceOf(Immutable.Map)
 	}
 	constructor(props){
 		super(props);
 		this.state={
-			singleSellerCustomerFlowChart:'',
+			singleSellerCustomerInChart:'',
 			resizeHandler:'',
 			time:''
 		}
@@ -23,11 +23,11 @@ class _customerFlow extends React.Component {
 	componentDidMount(){
 		console.log('--=componentDidMount')
 		this.state.time=this.props.time;
-    this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
+    this.props.singleSellerCustomerInInit(this.props.params.id,this.state.time);
    
-    let singleSellerCustomerFlowChart = ReactDOM.findDOMNode(this.refs.singleSellerCustomerFlowChart);
-	  this.state.singleSellerCustomerFlowChart = echarts.init(singleSellerCustomerFlowChart);
-    this.state.singleSellerCustomerFlowChart.showLoading();
+    let singleSellerCustomerInChart = ReactDOM.findDOMNode(this.refs.singleSellerCustomerInChart);
+	  this.state.singleSellerCustomerInChart = echarts.init(singleSellerCustomerInChart);
+    this.state.singleSellerCustomerInChart.showLoading();
     window.addEventListener('resize',this.resizeFun);
 	}
 	resizeFun=()=>{
@@ -35,7 +35,7 @@ class _customerFlow extends React.Component {
               clearTimeout(this.state.resizeHandler);
           }
     this.state.resizeHandler = setTimeout(()=>{
-       this.state.singleSellerCustomerFlowChart.resize();
+       this.state.singleSellerCustomerInChart.resize();
     }, 100)
 	}
 	componentWillReceiveProps(){
@@ -55,28 +55,25 @@ class _customerFlow extends React.Component {
 	}
 	componentDidUpdate(){
 		console.log('-=componentDidUpdate')
-		let customerFlow=this.props.customerFlow.toJS()
-		if(customerFlow.series[0].data){
-			this.state.singleSellerCustomerFlowChart.setOption(customerFlow);
-			this.state.singleSellerCustomerFlowChart.hideLoading();
-		}
+		this.state.singleSellerCustomerInChart.setOption(this.props.customerIn.toJS());
+		this.state.singleSellerCustomerInChart.hideLoading();
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
-      this.state.singleSellerCustomerFlowChart.dispose();
+      this.state.singleSellerCustomerInChart.dispose();
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
 		console.log('-=render')
 		return <div> 
 						<div className="panel">
-							<div className="panelHead">客流量</div>
+							<div className="panelHead">顾客客流量</div>
 			    			<div className="panelBody">
-								<div className='singleSellerCustomerFlowChart' ref='singleSellerCustomerFlowChart'></div>
+								<div className='singleSellerCustomerInChart' ref='singleSellerCustomerInChart'></div>
 							</div>
     			</div>
     			<div className='panel'>
-    				<div className="panelHead">客流量</div>
+    				<div className="panelHead">顾客客流量</div>
 			    			<div className="panelBody">
 			    				<table className="Table">
             				<thead>
@@ -99,7 +96,7 @@ const mapStateToProps = (state)=>{
   // let fdd=state.getIn(['b','customerFlow'])
   // let d=state.getIn(['b','customerFlow']).toJS()
   return {
-    customerFlow:state.getIn(['b','customerFlow'])
+    customerIn:state.getIn(['b','customerIn'])
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar']),
     // OldOrNew:state.getIn(['b','OldOrNew']),
@@ -110,4 +107,4 @@ const mapStateToProps = (state)=>{
 }
 
 
-export default connect(mapStateToProps,sellersAction)(_customerFlow)
+export default connect(mapStateToProps,sellersAction)(_customerIn)

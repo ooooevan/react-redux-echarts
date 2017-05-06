@@ -259,15 +259,13 @@ class _Chart extends React.Component {
         </div>
     }
 }
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state)=>({
     // console.log(state);
     // debugger
     // console.log(state.toJS());
-    return {
         lineAndBar:state.getIn(['b','lineAndBar'])
         // table:state.getIn(['b','table'])
-    }
-}
+})
 let Chart=connect(mapStateToProps,sellersAction)(_Chart);
 export default Chart;
 

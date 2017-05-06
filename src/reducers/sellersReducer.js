@@ -9,7 +9,7 @@ export default function sellersReducer(state=initialState,action){
     // if(typeof state === 'undefined') return {sellers:[]}
     switch(action.type){
         case TYPE.sellersListInit:
-          // debugger;
+
           //商家列表,action.payload是对象数组，用List
           return state.setIn(['sellers'],Immutable.List(action.payload));
         case TYPE.allSellersLineChartInit:
@@ -77,7 +77,7 @@ export default function sellersReducer(state=initialState,action){
           obj13.customerNum.series[0].data=[];
           obj13.customerNum.series[1].data=[];
           obj13.customerNum.series[2].data=[];*/
-          let customer={name:'',time:[],num1:[],num2:[],percent:[]}
+          let customer={name:'',time:[],num1:[]/*,num2:[]*/,percent:[]}
           //商家名
           customer.name =action.payload.name;
           //赋值
@@ -85,13 +85,13 @@ export default function sellersReducer(state=initialState,action){
             // debugger
             customer.time.push(item.time);
             customer.num1.push(item.num1);
-            customer.num2.push(item.num2);
+            // customer.num2.push(item.num2);
             customer.percent.push(item.percent);
           })
           return state.setIn(['customerNum','xAxis',0,'data'],Immutable.List(customer.time))
                       .setIn(['customerNum','series',0,'data'],Immutable.List(customer.num1))
-                      .setIn(['customerNum','series',1,'data'],Immutable.List(customer.num2))
-                      .setIn(['customerNum','series',2,'data'],Immutable.List(customer.percent))
+                      // .setIn(['customerNum','series',1,'data'],Immutable.List(customer.num2))
+                      .setIn(['customerNum','series',1,'data'],Immutable.List(customer.percent))
                       .setIn(['customerNum','name'],customer.name);
 
         case TYPE.singleSellerCustomerNumFetch:
@@ -100,17 +100,24 @@ export default function sellersReducer(state=initialState,action){
           //             .setIn(['customerNum','series',0,'data'],action.payload.num1)
           //             .setIn(['customerNum','series',1,'data'],action.payload.num2)
           //             .setIn(['customerNum','series',2,'data'],action.payload.percent)
-         return state.updateIn(['customerNum','xAxis',0,'data'],data=>{
-                        return data.push(action.payload.time).shift();
+         return state.updateIn(['customerNum','xAxis',0,'data'],list=>{
+                        return list.push(action.payload.time);
                       })
-                      .updateIn(['customerNum','series',0,'data'],data=>{
-                        return data.push(action.payload.num1).shift();
+                     .updateIn(['customerNum','xAxis',0,'data'],list=>{
+                        return list.shift();
                       })
-                      .updateIn(['customerNum','series',1,'data'],data=>{
+                      .updateIn(['customerNum','series',0,'data'],list=>{
+                        return list.push(action.payload.num1);
+                      })
+                      .updateIn(['customerNum','series',0,'data'],list=>{
+                        return list.shift();
+                      })
+                      /*.updateIn(['customerNum','series',1,'data'],data=>{
                         return data.push(action.payload.num2).shift();
-                      })
-                      .updateIn(['customerNum','series',2,'data'],data=>{
-                        return data.push(action.payload.percent).shift();
+                      })*/
+                      .updateIn(['customerNum','series',1,'data'],list=>{
+                        console.log(state.getIn(['customerNum']).toJS())
+                        return list.push(action.payload.percent).shift();
                       });
 
         /*case TYPE.allSellersTableInit:
@@ -123,34 +130,45 @@ export default function sellersReducer(state=initialState,action){
               // obj5.table.push(item);
           });
           return state.set('table',Immutable.List(arr));*/
-
         case TYPE.singleSellerCustomerFlowInit:
-          // debugger
-          let customerFlow={name:'',time:[],num:[],percent1:[],percent2:[]};
+          let CustomerFlow={name:'',time:[],num:[],percent:[]};
+          CustomerFlow.name =action.payload.name;
+          action.payload.value.forEach(item=>{
+            CustomerFlow.time.push(item.time);
+            CustomerFlow.num.push(item.num);
+            CustomerFlow.percent.push(item.percent);
+          })
+          return state.setIn(['customerFlow','xAxis','data'],Immutable.List(CustomerFlow.time))
+                        .setIn(['customerFlow','name'],CustomerFlow.name)
+                        .setIn(['customerFlow','series',0,'data'],Immutable.List(CustomerFlow.num))
+                        .setIn(['customerFlow','series',1,'data'],Immutable.List(CustomerFlow.percent));
+
+        case TYPE.singleSellerCustomerInInit:
+          let customerIn={name:'',time:[],num:[],percent1:[],percent2:[]};
           /*let obj12=Object.assign({},state);
           obj12.customerFlow.xAxis.data=[]
           obj12.customerFlow.series[0].data=[];
           obj12.customerFlow.series[1].data=[];
           obj12.customerFlow.series[2].data=[];*/
           //商家名
-          customerFlow.name =action.payload.name;
+          customerIn.name =action.payload.name;
           //赋值
           action.payload.value.forEach(item=>{
           /*  obj12.customerFlow.xAxis.data.push(item.time);
             obj12.customerFlow.series[0].data.push(item.num);
             obj12.customerFlow.series[1].data.push(item.percent1);
             obj12.customerFlow.series[2].data.push(item.percent2);*/
-            customerFlow.time.push(item.time);
-            customerFlow.num.push(item.num);
-            customerFlow.percent1.push(item.percent1);
-            customerFlow.percent2.push(item.percent2);
+            customerIn.time.push(item.time);
+            customerIn.num.push(item.num);
+            customerIn.percent1.push(item.percent1);
+            customerIn.percent2.push(item.percent2);
           })
           // return Object.assign({},state,obj12);
-            return state.setIn(['customerFlow','xAxis','data'],Immutable.List(customerFlow.time))
-                        .setIn(['customerFlow','name'],customerFlow.name)
-                        .setIn(['customerFlow','series',0,'data'],Immutable.List(customerFlow.num))
-                        .setIn(['customerFlow','series',1,'data'],Immutable.List(customerFlow.percent1))
-                        .setIn(['customerFlow','series',2,'data'],Immutable.List(customerFlow.percent2));
+            return state.setIn(['customerIn','xAxis','data'],Immutable.List(customerIn.time))
+                        .setIn(['customerIn','name'],customerIn.name)
+                        .setIn(['customerIn','series',0,'data'],Immutable.List(customerIn.num))
+                        .setIn(['customerIn','series',1,'data'],Immutable.List(customerIn.percent1))
+                        .setIn(['customerIn','series',2,'data'],Immutable.List(customerIn.percent2));
         
         case TYPE.singleSellerRadar:
           // debugger

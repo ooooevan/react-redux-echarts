@@ -61,7 +61,7 @@ class _stayBar extends React.Component {
 	render(){
 		return <div>
 							<div className="panel">
-				          <div className="panelHead">各时间段峰值</div>
+				          <div className="panelHead">各时间段人数</div>
 					          <div className="panelBody">
 											<div className='singleSellerTimeSectionChart' ref='singleSellerTimeSectionChart'></div>
 									</div>

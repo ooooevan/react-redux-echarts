@@ -8,38 +8,11 @@ const initialState = Immutable.Map({})
 export default function lineReducer(state=initialState,action){
     // if(typeof state === 'undefined') return {line:{},pie:{}};
     switch(action.type){
-        case TYPE.firstPageNumInit:{
+        case TYPE.numInit:{
 
-        // debugger
-
-            let time=[];
-            let value=[];
-            
+            let numInit={time:[],value:[],percent:[]};
             let yesterday={};
-            // let increase=false;
-            // let yesterday=0;
-            // let most=0;
-            // let timeSection='';
-/*var cloneObj = function(obj){
-    var str, newobj = obj.constructor === Array ? [] : {};
-    if(typeof obj !== 'object'){
-        return;
-    } else if(window.JSON){
-        str = JSON.stringify(obj), //系列化对象
-        newobj = JSON.parse(str); //还原
-    } else {
-        for(var i in obj){
-            newobj[i] = typeof obj[i] === 'object' ? 
-            cloneObj(obj[i]) : obj[i]; 
-        }
-    }
-    return newobj;
-};
 
-
-
-            var aaa=cloneObj(state.line);*/
-            // debugger
             action.payload.forEach(item=>{
                 if(item.increase){
                     yesterday.num=item.num;
@@ -48,53 +21,56 @@ export default function lineReducer(state=initialState,action){
                     yesterday.avg=item.avg;
                     yesterday.timeSection=item.timeSection;
                 }else{
-                    time.push(item.time)
-                    value.push(item.value)
+                    numInit.time.push(item.time);
+                    numInit.value.push(item.value);
+                    numInit.percent.push(item.percent);
                 }
             })
-            //aa是新obj，用于返回
             // debugger
-            // const  eeee=state.toJS();
-            /*var aaa = Object.assign({},state.line);
-            aaa.xAxis.data=time;
-            aaa.xAxis.yesterday=yesterday;
-            // aaa.xAxis.yesterday.yesterday=yesterday;
-            // aaa.xAxis.yesterday.most=most;
-            // aaa.xAxis.yesterday.timeSection=timeSection;
-            aaa.series.data=value;
-            return Object.assign({},state,{"line":aaa});*/
+            // const mapLine1 = state.updateIn(['line','xAxis','data'],data =>time);
+            // const mapLine2 = mapLine1.updateIn(['line','series','data'],data =>value);
+            // const mapLine3 = mapLine2.setIn(['line','xAxis','yesterday'],Immutable.fromJS(yesterday));
             // debugger
-            const mapLine1 = state.updateIn(['line','xAxis','data'],data =>time);
-            const mapLine2 = mapLine1.updateIn(['line','series','data'],data =>value);
-            const mapLine3 = mapLine2.setIn(['line','xAxis','yesterday'],Immutable.fromJS(yesterday));
-            let mapLine4 = mapLine3.toJS();
-            let mapLine5 = mapLine2.toJS();
-            // debugger
-            return mapLine3;
+            return state.setIn(['line','xAxis','data'],Immutable.List(numInit.time))
+                        .setIn(['line','series',0,'data'],Immutable.List(numInit.value))
+                        .setIn(['line','series',1,'data'],Immutable.List(numInit.percent))
+                        .setIn(['line','xAxis','yesterday'],Immutable.fromJS(yesterday));
+            // return mapLine3;
         }
-        case TYPE.firstPageFetch:{
+        case TYPE.fetch:{
             
-            // var aa = Object.assign({},state,{});
-            // var aa = state;
-            // aa.xAxis.data.push(action.payload.time);
-            // aa.series.data.push(parseInt(action.payload.value));
-
-
-            // console.log(action.payload.time)
-            var dataX = state.data.xAxis.data.concat(action.payload.time);
-            dataX.shift()
-            var dataY = state.data.series.data.concat(parseInt(action.payload.value));
-            dataY.shift()
-            /*新对象，用于返回*/
-            var aa=Object.assign({},state.data);
-            aa.xAxis.data = dataX;
-            aa.series.data = dataY;
+            // debugger
             // console.log(Object.assign({},state,aa))
+            return state.updateIn(['line','xAxis','data'],list=>{
+                        
+                        return list.push(action.payload.time);
+                    })
+                    .updateIn(['line','xAxis','data'],list=>{
+                        return list.shift();
+                    })
+                    .updateIn(['line','series',0,'data'],list=>{
+                        return list.push(parseInt(action.payload.value));
+                    })
+                    .updateIn(['line','series',0,'data'],list=>{
+                        return list.shift();
+                    })
+                    .updateIn(['line','series',1,'data'],list=>{
+                        return list.push(action.payload.percent);
+                    })
+                    .updateIn(['line','series',1,'data'],list=>{
+                        return list.shift();
+                    });
 
-
-            return aa;
         }
-        
+        case TYPE.sellersInit:{
+            let obj={sellers:[],num:[]}
+            action.payload.forEach((item)=>{
+                obj.sellers.push(item.seller);
+                obj.num.push(item.num);
+            })
+            return state.setIn(['sellers','xAxis',0,'data'],obj.sellers)
+                        .setIn(['sellers','series',0,'data'],obj.num);
+        }
         default:return state;
     }
 }

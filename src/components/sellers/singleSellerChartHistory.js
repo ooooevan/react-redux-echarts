@@ -16,7 +16,7 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/dataZoom';
 
-import CustomerFlow from './singleSellerChartHistory/customerFlow';
+import CustomerIn from './singleSellerChartHistory/customerIn';
 
 
 import sellersAction from '../../actions/sellersAction';
@@ -28,7 +28,6 @@ class _singleHistory extends React.Component {
     };
     constructor(props){
         super(props);
-        // this.adjusting=this.adjusting.bind(this);
         this.state={
 					// singleSellerCustomerFlowChart:'',    //顾客流动图表
         	time:'day',
@@ -169,10 +168,11 @@ class _singleHistory extends React.Component {
                 <div className='quickSelect'>
                   <ul>
                       <li><Link to={baseUrl+'customerFlow'} activeClassName="active" draggable="false">客流量</Link></li>
+                      <li><Link to={baseUrl+'customerIn'} activeClassName="active" draggable="false">入店量</Link></li>
                       <li><Link to={baseUrl+'radar'} activeClassName="active" draggable="false">总体评价</Link></li>
                       <li><Link to={baseUrl+'stayBar'} activeClassName="active" draggable="false">驻店时长</Link></li>
                       <li><Link to={baseUrl+'OldOrNew'} activeClassName="active" draggable="false">新老顾客</Link></li>
-                      <li><Link to={baseUrl+'timeSection'} activeClassName="active" draggable="false">各时间段峰值</Link></li>
+                      <li><Link to={baseUrl+'timeSection'} activeClassName="active" draggable="false">各时间段人数</Link></li>
                       <li><Link to={baseUrl+'deepVisit'} activeClassName="active" draggable="false">深访率</Link></li>
                       <li><Link to={baseUrl+'cycle'} activeClassName="active" draggable="false">来访周期</Link></li>
                       <li><Link to={baseUrl+'Active'} activeClassName="active" draggable="false">活跃度</Link></li>

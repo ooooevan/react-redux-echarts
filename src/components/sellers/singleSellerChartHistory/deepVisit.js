@@ -88,12 +88,12 @@ class _deepVisit extends React.Component {
 		}
 }
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state)=>({
   // debugger;
   // let ad=state.toJS()
   // let fdd=state.getIn(['b','customerFlow'])
   // let d=state.getIn(['b','customerFlow']).toJS()
-  return {
+  // return {
     // customerFlow:state.getIn(['b','customerFlow'])
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar'])
@@ -101,8 +101,8 @@ const mapStateToProps = (state)=>{
     // timeSection:state.getIn(['b','timeSection'])
     deepVisit:state.getIn(['b','deepVisit'])
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
-    }
-}
+    // }
+})
 
 
 export default connect(mapStateToProps,sellersAction)(_deepVisit)

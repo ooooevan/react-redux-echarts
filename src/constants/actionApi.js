@@ -1,7 +1,8 @@
 export default {
 	firstPage:{
-		firstPageNumInit:'http://localhost:3000/hour/init',
-		fetch:'http://localhost:3000/hour/change'
+		numInit:'http://localhost:3000/hour/init',
+		fetch:'http://localhost:3000/hour/fetch',
+		sellersInit:'http://localhost:3000/index/sellersInit'
 	},
 	sellers:{
 		sellersListInit:'http://localhost:3003',
@@ -10,6 +11,7 @@ export default {
 		singleSellerLineChartInit:'http://localhost:3000/hour/singleSeller/',
 		singleSellerCustomerNumInit:'http://localhost:3000/hour/singleSellerCustomerNumInit/',
 		singleSellerCustomerNumFetch:'http://localhost:3000/hour/singleSellerCustomerNumFetch/',
+		singleSellerCustomerInInit:'http://localhost:3000/hour/singleSellerCustomerInInit/',
 		singleSellerCustomerFlowInit:'http://localhost:3000/hour/singleSellerCustomerFlowInit/',
 		singleSellerRadar:'http://localhost:3000/hour/singleSellerRadar/',
 		singleSellerStayBar:'http://localhost:3000/hour/singleSellerStayBar/',
@@ -26,5 +28,23 @@ export default {
 		statisticsTimeSectionInit:'http://localhost:3000/hour/singleSellerTimeSection/',
 		statisticsCycleInit:'http://localhost:3000/index/statisticsCycleInit/',
 		statisticsActiveInit:'http://localhost:3000/index/statisticsActiveInit/'
+	},
+	compare:{
+		numInit:'http://localhost:3000/index/compareCustomerNum',
+		cycleInit:'http://localhost:3000/index/customerCycleInit',
+		activeInit:'http://localhost:3000/index/customerActiveInit',
+		oldOrNewInit:'http://localhost:3000/index/customerOldOrNewInit',
+		deepVisitInit:'http://localhost:3000/index/customerDeepVisitInit',
+		outInit:'http://localhost:3000/index/customerOutInit',
+		sellersNumInit:'http://localhost:3000/index/sellersNumInit',
+		sellersListInit:'http://localhost:3003',
+		sellersInInit:'http://localhost:3000/index/sellersInInit',
+		sellersOldOrNewInit:'http://localhost:3000/index/sellersOldOrNewInit',
+		sellersOutInit:'http://localhost:3000/index/sellersOut',
+		sellersDeepInit:'http://localhost:3000/index/sellersDeepInit',
+		sellersStayInit:'http://localhost:3000/index/sellersStayBarInit',
+		sellersActiveInit:'http://localhost:3000/index/sellersActiveInit',
+		sellersTimeSectionInit:'http://localhost:3000/index/sellersTimeSectionInit',
+		sellersCycleInit:'http://localhost:3000/index/sellersCycleInit'
 	}
 }

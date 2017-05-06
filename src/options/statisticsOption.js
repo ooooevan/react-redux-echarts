@@ -133,7 +133,7 @@ let options = {
     },
     timeSection:{
         title:{
-           text: "各时间段占比",
+           text: "各时间段人数",
            show:false
         },
         tooltip: {
@@ -148,7 +148,7 @@ let options = {
         //     }
         // },
         legend: {
-            data:['各时间段占比']
+            data:['各时间段人数']
         },
         xAxis: [
             {
@@ -170,7 +170,7 @@ let options = {
             // }
         },
         series: [{
-                name:'各时间段占比',
+                name:'各时间段人数',
                 type:'bar',
                 label: {
                 normal: {

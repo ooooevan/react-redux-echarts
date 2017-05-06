@@ -256,11 +256,16 @@ nav {
 
   .sidebar_subNav {
     // height:0;
-    transition:all .3s;
+    // transition:height 3s;
     // transform:translateY(-30px);
+    // height:0;
+    // overflow:hidden;
     display: none;
     &.active{
       // height:auto;
+    // transition:all 3s;
+
+      // overflow:hidden;
       display: block;
     }
   }
@@ -546,6 +551,9 @@ nav {
     //   border-radius:0 4px 4px 0;
     // }
   }
+  .quickSelect.defaultCursor ul li{
+    cursor:default;
+  }
 
   
   .selectClick input{
@@ -716,9 +724,10 @@ nav {
 //   }
 // }
 /*单个商家 设置高度*/
-.singleSellerLineChart,.sellerIntroduce,.singleSellerCustomerNumChart,.singleSellerCustomerFlowChart,.singleSellerRadarChart,.singleSellerStayBarChart
+.firstPageSellers,.singleSellerLineChart,.sellerIntroduce,.singleSellerCustomerNumChart,.singleSellerCustomerFlowChart,.singleSellerCustomerInChart,.singleSellerRadarChart,.singleSellerStayBarChart
 ,.singleSellerOldOrNewChart,.singleSellerTimeSectionChart,.singleSellerDeepVisitChart,.singleSellerActiveChart,.singleSellerCycleChart,
-.statisticsCustomerNumChart,.statisticsOldOrNewChart,.statisticsTimeSectionChart,.statisticsCycleChart,.statisticsActiveChart{
+.statisticsCustomerNumChart,.statisticsOldOrNewChart,.statisticsTimeSectionChart,.statisticsCycleChart,.statisticsActiveChart,.compareCustomerNumChart,.compareCycleChart,.compareActiveChart,.compareDeepVisitChart,.compareOutChart,.compareOldOrNewChart
+,.compareSellerNumChart,.compareSellerInChart,.compareSellerOldOrNewChart,.compareSellerOutChart,.compareSellerDeepChart,.compareSellerstayChart,.compareSellerActiveChart,.compareSellerTimeSectionChart,.compareSellerCycleChart{
   height: 400px;
 }
 
@@ -827,9 +836,25 @@ nav {
 /*统计结束*/
 
 
+/*数据对比开始*/
+  input.selectSeller2,input.selectSeller1{
+    width:100px;
+    border: 1px solid #d9d9d9;
+    height:25px;
+    transition:all .3s;
+    border-radius: 4px;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
+    outline:none;
+    text-indent: 5px;
+    &:hover{
+      border:1px solid rgba(0, 0, 0, 0.6);
+    }
+    &.selectTimeError{
+      border: 1px solid red;
+    }
+  }
 
-
-
+/*数据对比结束*/
 
 
 

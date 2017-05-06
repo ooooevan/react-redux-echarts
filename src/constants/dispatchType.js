@@ -1,7 +1,8 @@
 export default {
 	firstPage:{
-		firstPageNumInit:'firstPageNumInit',
-		firstPageFetch:'firstPageFetch'
+		numInit:'firstPageNumInit',
+		fetch:'firstPageFetch',
+		sellersInit:'firstPageSellers'
 	},
 	sellers:{
 		sellersListInit:'sellersListInit',
@@ -10,6 +11,7 @@ export default {
 		singleSellerLineChartInit:'singleSellerLineChartInit',
 		singleSellerCustomerNumInit:'singleSellerCustomerNumInit',
 		singleSellerCustomerNumFetch:'singleSellerCustomerNumFetch',
+		singleSellerCustomerInInit:'singleSellerCustomerInInit',
 		singleSellerCustomerFlowInit:'singleSellerCustomerFlowInit',
 		singleSellerRadar:'singleSellerRadar',
 		singleSellerStayBar:'singleSellerStayBar',
@@ -26,5 +28,23 @@ export default {
 		statisticsTimeSectionInit:'statisticsTimeSectionInit',
 		statisticsCycleInit:'statisticsCycleInit',
 		statisticsActiveInit:'statisticsActiveInit'
+	},
+	compare:{
+		numInit:'compareCustomerNum',
+		cycleInit:'compareCustomerCycle',
+		activeInit:'compareCustomerActive',
+		oldOrNewInit:'compareCustomerOldOrNew',
+		deepVisitInit:'compareCustomerDeepVisit',
+		outInit:'compareCustomerOutInit',
+		sellersNumInit:'compareSellersNum',
+		sellersListInit:'compareSellersList',
+		sellersInInit:'compareSellersIn',
+		sellersOldOrNewInit:'compareSellersOldOrNew',
+		sellersOutInit:'compareSellersOut',
+		sellersDeepInit:'compareSellersDeep',
+		sellersStayInit:'compareSellersStay',
+		sellersActiveInit:'compareSellersActive',
+		sellersTimeSectionInit:'compareSellersTimeSection',
+		sellersCycleInit:'compareSellersCycle'
 	}
 }

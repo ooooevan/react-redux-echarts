@@ -67,7 +67,7 @@ class _timeSection extends React.Component {
 	render(){
 		return	<div>
 				<div className="panel">
-		    			<div className="panelHead">各时间段峰值</div>
+		    			<div className="panelHead">各时间段人数</div>
 		    			<div className="panelBody">
 		    				<div className="statisticsTimeSectionChart" ref="statisticsTimeSectionChart"></div>
 		          </div>
@@ -91,8 +91,7 @@ class _timeSection extends React.Component {
 
 
 
-const mapStateToProps = (state)=>{
-  return {
+const mapStateToProps = (state)=>({
     // customerNum:state.getIn(['c','customerNum']),
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar']),
@@ -100,8 +99,7 @@ const mapStateToProps = (state)=>{
     timeSection:state.getIn(['c','timeSection'])
     // deepVisit:state.getIn(['b','deepVisit']),
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
-    }
-}
+})
 
 let timeSection=connect(mapStateToProps,statisticsAction)(_timeSection);
 

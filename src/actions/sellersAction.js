@@ -126,6 +126,21 @@ const actions = {
             })
         }
     },
+    singleSellerCustomerInInit(id,param){
+        let url1=url.singleSellerCustomerInInit+id+"&"+param;
+        return function(dispatch){
+            fetch(url1).then(data => data.json())
+                .then(data=>{
+                    dispatch({
+                        type:TYPE.singleSellerCustomerInInit,
+                        payload:data
+                    })
+                })
+                .catch(function(err){
+                     console.log(err)
+            })
+        }
+    },
     singleSellerRadar(id,param){
         let url1=url.singleSellerRadar+id+"&"+param;
         return function(dispatch){

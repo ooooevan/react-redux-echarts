@@ -9,24 +9,14 @@ let dataX,dataY;
         title: { 
             text: '万达商场客流量',
             show:false
-            // textAlign:'center',
-            // left:'50%',
-            // top:'5%',
-            // textStyle:{
-                // fontSize:'23'
-            // }
         },
         grid:{
             left:'5%',
             right:'5%'
         },
-        // legend:{
-        //     left:'10%'
-        // },
-        // gird:{
-        //     right:'10%',
-        //     padding:'0'
-        // },
+        legend:{
+            data: ['客流量', '入店率']
+        },
         tooltip: {
             trigger: 'axis'
         },
@@ -42,20 +32,36 @@ let dataX,dataY;
             yesterday:{}
 
         },
-        yAxis: {
+        yAxis: [{
             type: 'value',
             name: '客流量',
             splitLine: {
                 show: false
             }
-        },
+        },{
+            type: 'value',
+            name: '入店率',
+            position: 'right',
+
+            min: 0,
+            // max: 25,
+            // interval: 0.9,
+            axisLabel: {
+                formatter: '{value} %'
+            },
+            axisLine:{
+                lineStyle:{
+                    color:'#d14a61'
+                }
+            }   
+        }],
         dataZoom: [{
             // startValue: '16:32:024'
         }, {
             //type: 'inside'          //这个可以设置滚轮放大
         }
         ],
-        series: {
+        series: [{
             name: '客流量',
             type: 'line',
             data: dataY,
@@ -81,9 +87,63 @@ let dataX,dataY;
                     yAxis: 400
                 }]
             }
-        }
+        },{
+            name:"入店率",
+            type:'line',
+            smooth:true,
+            yAxisIndex:1,
+            data:undefined
+        }]
+    },
+    sellers:{
+        color: ['#78b3ee'],
+        title: {
+            text: '各商家客流',
+            show:false
         },
-
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : undefined
+                
+            }
+        ],
+        dataZoom: {
+            // startValue: '16:32:024'
+        },
+        yAxis : [
+            {
+                type : 'value',
+                name:'客流量'
+            }
+        ],
+        series : [
+            {
+                name:'客流量',
+                type:'bar',
+                barWidth: '60%',
+                data:undefined,
+                label: {
+                    normal: {
+                        show: true,
+                        position:'top'
+                    }
+                }
+            }
+        ]
+    }
 
     /*pie:{
         tooltip : {
@@ -233,7 +293,7 @@ let dataX,dataY;
             }
         ]
     }*/
-  }
+}
 
 
 export default options;

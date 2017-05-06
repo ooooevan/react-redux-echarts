@@ -79,7 +79,8 @@ let data;
     sellers:[],
     customerNum:{
         /*颜色是后面叠加前面的，要想某个颜色不被覆盖，要放到后面*/
-        color:['#1165ee','#cfd9ee','#d14a61'],
+        // color:['#1165ee','#cfd9ee','#d14a61'],
+        color:['#b6d0e9','#d14a61'],
         title: {
             text: '堆叠区域图',
             show:false
@@ -94,7 +95,8 @@ let data;
             // }
         },
         legend: {
-            data:['入店量','门前客流量','入店比例']
+            // data:['入店量','门前客流量','入店率']
+            data:['入店量','入店率']
         },
         // toolbox: {
         //     feature: {
@@ -124,7 +126,7 @@ let data;
             },
             {
                 type: 'value',
-                name: '入店比例',
+                name: '入店率',
                 position: 'right',
 
                 min: 0,
@@ -153,7 +155,7 @@ let data;
                         }},
                     data:data
                 },
-                {
+                /*{
                     name:'门前客流量',
                     type:'line',
                     // stack: '总量',
@@ -164,9 +166,9 @@ let data;
                         }
                     },
                     data:data
-                },
+                },*/
                 {
-                    name:'入店比例',
+                    name:'入店率',
                     type:'line',
                     smooth:true,
                     // areaStyle: {
@@ -181,6 +183,77 @@ let data;
     },
     table:[],
     customerFlow:{
+        color:['#b6d0e9','#d14a61'],
+        title:{
+           text: "客流量",
+           show:false
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        // toolbox: {
+        //     feature: {
+        //         dataView: {show: true, readOnly: false},
+        //         magicType: {show: true, type: ['line', 'bar']},
+        //         restore: {show: true},
+        //         saveAsImage: {show: true}
+        //     }
+        // },
+        legend: {
+            data:['客流量','入店率']
+        },
+        xAxis:{
+            type: 'category',
+            axisLabel:{interval:0},
+            boundaryGap : false,
+            data: undefined
+        },
+        yAxis: [{
+            type: 'value',
+            name: '客流量',
+
+            // min: 0,
+            // max: 250,
+            // interval: 50,
+            axisLabel: {
+                formatter: '{value}'
+            }
+        },{
+            type: 'value',
+            name: '入店率',
+            position: 'right',
+
+            min: 0,
+            // max: 9,
+            interval: 1,
+            axisLine:{
+                lineStyle:{
+                    color:'#d14a61'
+                }
+            },
+            axisLabel: {
+                formatter: '{value} %'
+            }
+        }],
+        series: [{
+            name:'客流量',
+            type:'line',
+            smooth:true,
+            areaStyle: {
+                normal: {
+                    // color:'#ccdef0'
+                    // color:'red'
+                }},
+            data:undefined
+        },{
+            name:'入店率',
+            type:'line',
+            smooth:true,
+            yAxisIndex: 1,
+            data:data
+        }]
+    },
+    customerIn:{
             color: ['#d14a61', '#5793f3'],
             title:{
                text: "商家顾客流动",
@@ -460,7 +533,7 @@ let data;
     },
     timeSection:{
         title:{
-           text: "各时间段占比",
+           text: "各时间段人数",
            show:false
         },
         tooltip: {
@@ -475,7 +548,7 @@ let data;
         //     }
         // },
         legend: {
-            data:['各时间段占比']
+            data:['各时间段人数']
         },
         xAxis: [
             {
@@ -497,7 +570,7 @@ let data;
             // }
         },
         series: [{
-                name:'各时间段占比',
+                name:'各时间段人数',
                 type:'bar',
                 data:data
             }
@@ -773,7 +846,6 @@ let data;
         }]
     }*/
 };
-
 
 
 

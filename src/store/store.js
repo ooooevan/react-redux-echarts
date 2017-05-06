@@ -22,8 +22,8 @@ const logger = store=>nextDispatch=>action=>{
 //);
  //const store=createStore(FirstPageLineReducer,lineOption,enhancer);
 
-const reducer = combineReducers({a:reducers.firstPage,b:reducers.sellers,c:reducers.statistics});
-const state=Immutable.fromJS({a:options.firstPage,b:options.sellers,c:options.statistics});
+const reducer = combineReducers({a:reducers.firstPage,b:reducers.sellers,c:reducers.statistics,d:reducers.compare});
+const state=Immutable.fromJS({a:options.firstPage,b:options.sellers,c:options.statistics,d:options.compare});
 // const state={a:FirstPageLineOption,b:sellersOption};
 const store=createStore(reducer,state,applyMiddleware(logger,thunk));
 //const store=createStore(combineReducers({a:FirstPageLineReducer}),{a:lineOption},applyMiddleware(thunk));

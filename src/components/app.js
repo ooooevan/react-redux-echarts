@@ -9,13 +9,13 @@ import General from './general';
 import FirstPage from './firstPage/firstPage';
 import store from '../store/store';
 import FirstPageChart from './firstPage/firstPageChart';
-import FirstFloorChart from './firstPage/firstFloorChart';
-import SecondFloorChart from './firstPage/secondFloorChart';
-import ThirdFloorChart from './firstPage/thirdFloorChart';
+import FirstPageSellers from './firstPage/allSellers';
+
 // import Allsellers from './allSellers';
 // import SingleSellerRoute from './singleSellerRoute';
 // import SingleSellerChartCurrent from './singleSellerChartCurrent';
 // import SingleSellerChartHistory from './singleSellerChartHistory';
+import CustomerIn from './sellers/singleSellerChartHistory/customerIn';
 import CustomerFlow from './sellers/singleSellerChartHistory/customerFlow';
 import Radar from './sellers/singleSellerChartHistory/radar';
 import StayBar from './sellers/singleSellerChartHistory/stayBar';
@@ -34,7 +34,25 @@ import StatTimeSection from './statistics/timeSection';
 import StatCycle from './statistics/cycle';
 import StatActive from './statistics/active';
 
-import Compare from './Compare/compare';
+import Compare from './compare/compare';
+import WholeCustomerNum from './compare/whole/customerNum';
+import WholeActive from './compare/whole/active';
+import WholeCycle from './compare/whole/cycle';
+import WholeDeepVisit from './compare/whole/deepVisit';
+import WholeOut from './compare/whole/out';
+import WholeOldOrNew from './compare/whole/oldOrNew';
+import SellersRoute from './compare/sellers/sellersRoute';
+import SellersCustomerNum from './compare/sellers/customerNum';
+import SellersCustomerIn from './compare/sellers/customerIn';
+import SellersOldOrNew from './compare/sellers/oldOrNew';
+import SellersOut from './compare/sellers/out';
+import SellersDeep from './compare/sellers/deep';
+import SellersStay from './compare/sellers/stay';
+import SellersActive from './compare/sellers/active';
+import SellersTimeSection from './compare/sellers/timeSection';
+import SellersCycle from './compare/sellers/cycle';
+
+
 
 import Calendar from './calendar';
 import NotFindPage from './notFindPage';
@@ -91,10 +109,10 @@ ReactDOM.render(
 				<Route path='firstPage' component={FirstPage}>
 					<IndexRoute component={FirstPageChart} />
 					<Route path="total" component={FirstPageChart}/>
-					<Route path="allSellers" component={FirstFloorChart}/>
-					<Route path="firstFloor" component={FirstFloorChart}/>
+					<Route path="allSellers" component={FirstPageSellers}/>
+					{/*<Route path="firstFloor" component={FirstFloorChart}/>
 					<Route path="secondFloor" component={SecondFloorChart}/>
-					<Route path="thirdFloor" component={ThirdFloorChart}/>
+					<Route path="thirdFloor" component={ThirdFloorChart}/>*/}
 				</Route>
 				<Redirect from="sellers" to="/sellers/allsellers"/>
 				<Route path='sellers' getComponent={Sellers}>
@@ -106,7 +124,8 @@ ReactDOM.render(
 						<Route path='now' getComponent={SingleSellerChartCurrent}/>
 						<Redirect from="history" to="history/customerFlow"/>
 						<Route path='history' getComponent={SingleSellerChartHistory}>
-							<IndexRoute component={CustomerFlow} />
+							<IndexRoute component={CustomerIn} />
+							<Route path="customerIn" component={CustomerIn}/>
 							<Route path="customerFlow" component={CustomerFlow}/>
 							<Route path="radar" component={Radar}/>
 							<Route path="stayBar" component={StayBar}/>
@@ -129,21 +148,43 @@ ReactDOM.render(
 				</Route>
 				<Redirect from="compare" to="/compare/wholeCustomerNum"/>
 				<Route path='compare' component={Compare}>
-						<Route path='wholeCustomerNum' component={Test}/>
-						<Route path='wholeOldOrNew' component={Test}/>
-						<Route path='wholeDeep' component={Test}/>
-						<Route path='wholeOut' component={Test}/>
-						<Route path='wholeCycle' component={Test}/>
-						<Route path='wholeStay' component={Test}/>
-						<Route path='wholeActive' component={Test}/>
-						<Route path='sellerCustomerNum' component={Test}/>
-						<Route path='sellerOldOrNew' component={Test}/>
-						<Route path='sellerDeep' component={Test}/>
-						<Route path='sellerOut' component={Test}/>
-						<Route path='sellerStay' component={Test}/>
-						<Route path='sellerActive' component={Test}/>
-						<Route path='sellerTimeSection' component={Test}/>
-						<Route path='sellerCycle' component={Test}/>
+						<Route path='wholeCustomerNum' component={WholeCustomerNum}/>
+						<Route path='wholeOldOrNew' component={WholeOldOrNew}/>
+						<Route path='wholeDeep' component={WholeDeepVisit}/>
+						<Route path='wholeOut' component={WholeOut}/>
+						<Route path='wholeCycle' component={WholeCycle}/>
+						<Route path='wholeActive' component={WholeActive}/>
+						{/*<Route path='seller*' component={SellersRoute}>
+							<Route path='' component={}/>
+
+						</Route>*/}
+						<Route path='sellerCustomerNum' component={SellersRoute}>
+							<IndexRoute component={SellersCustomerNum} />
+						</Route>
+						<Route path='sellerCustomerIn' component={SellersRoute}>
+							<IndexRoute component={SellersCustomerIn} />
+						</Route>
+						<Route path='sellerOldOrNew' component={SellersRoute}>
+							<IndexRoute component={SellersOldOrNew} />
+						</Route>
+						<Route path='sellerDeep' component={SellersRoute}>
+							<IndexRoute component={SellersDeep} />
+						</Route>
+						<Route path='sellerOut' component={SellersRoute}>
+							<IndexRoute component={SellersOut} />
+						</Route>
+						<Route path='sellerStay' component={SellersRoute}>
+							<IndexRoute component={SellersStay} />
+						</Route>
+						<Route path='sellerActive' component={SellersRoute}>
+							<IndexRoute component={SellersActive} />
+						</Route>
+						<Route path='sellerTimeSection' component={SellersRoute}>
+							<IndexRoute component={SellersTimeSection} />
+						</Route>
+						<Route path='sellerCycle' component={SellersRoute}>
+							<IndexRoute component={SellersCycle} />
+						</Route>
 				</Route>
 				<Route path="*" component={NotFindPage} />
 			</Route>

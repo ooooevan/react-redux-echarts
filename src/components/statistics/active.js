@@ -92,8 +92,7 @@ class _active extends React.Component {
 
 
 
-const mapStateToProps = (state)=>{
-  return {
+const mapStateToProps = (state)=>({
     active:state.getIn(['c','active']),
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar']),
@@ -101,8 +100,7 @@ const mapStateToProps = (state)=>{
     // timeSection:state.getIn(['b','timeSection']),
     // deepVisit:state.getIn(['b','deepVisit']),
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
-    }
-}
+})
 
 let active=connect(mapStateToProps,statisticsAction)(_active);
 
