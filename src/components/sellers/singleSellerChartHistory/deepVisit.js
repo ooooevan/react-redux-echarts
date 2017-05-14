@@ -18,7 +18,12 @@ class _deepVisit extends React.Component {
 		this.state={
 			singleSellerDeepVisitChart:'',
 			resizeHandler:'',
-			time:''
+			time:'',
+			timeList:'',
+			deepList:'',
+			deepPercentList:'',
+			outList:'',
+			outPercentList:''
 		}
 	}
 	componentDidMount(){
@@ -39,25 +44,32 @@ class _deepVisit extends React.Component {
        this.state.singleSellerDeepVisitChart.resize();
     }, 100)
 	}
-	componentWillReceiveProps(){
-		// debugger
-	}
-	componentDidUpdate(){
-		// debugger
-		let deep=this.props.deepVisit.toJS()
-		if(deep.series.data){
+	componentWillReceiveProps(nextProps,nextState){
+		let deep=nextProps.deepVisit.toJS()
+		if(this.state.time!=nextProps.time){
+			this.setState({time:nextProps.time});
+			this.props.singleSellerDeepVisit(nextProps.params.id,nextState.time);
+		}
+		// if(deep.series[0].data){
+			let timeList=deep.xAxis.data;
+			let deepList=deep.xAxis.deepNum;
+			let deepPercentList=deep.series[0].data;
+			let outList=deep.xAxis.outNum;
+			let outPercentList=deep.series[1].data;
+			this.setState({timeList,deepList,deepPercentList,outList,outPercentList});
 			this.state.singleSellerDeepVisitChart.setOption(deep);
 			this.state.singleSellerDeepVisitChart.hideLoading();
-		}
+		// }
+
+	}
+	componentDidUpdate(){
+		
 		
 	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
 		// debugger
-		if(this.state.time!=nextProps.time){
-			this.state.time=nextProps.time
-			this.props.singleSellerDeepVisit(this.props.params.id,this.state.time);
-		}
+		
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -65,6 +77,13 @@ class _deepVisit extends React.Component {
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
+		let {timeList,deepList,deepPercentList,outList,outPercentList} = this.state;
+    let rows=[];
+    if(timeList){
+        timeList.forEach((item,i)=>{
+          rows.push(<tr key={i}><td>{timeList[i]}</td><td>{deepList[i]}</td><td>{deepPercentList[i]}%</td><td>{outList[i]}</td><td>{outPercentList[i]}%</td></tr>)
+        })
+    }
 		return <div>
 		<div className="panel">
 			          <div className="panelHead">深访率</div>
@@ -77,9 +96,10 @@ class _deepVisit extends React.Component {
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
-              					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+              					<tr><th>时间</th><th>深访人数</th><th>深访率</th><th>跳出人数</th><th>深访率</th></tr>
               				</thead>
               				<tbody>
+              				{rows}
               				</tbody>
               			</table>
   								</div>

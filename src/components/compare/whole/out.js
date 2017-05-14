@@ -5,7 +5,7 @@ import {connect,Provider} from 'react-redux';
 import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import Calendar from '../../calendar';
-// import '../../styles/calendar.scss';
+import Tools from '../../tools';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
@@ -39,22 +39,22 @@ class _out extends React.Component {
 
     componentWillMount(){
         console.log('componentWillMount')
-        let time=this.getTime();  //获取昨天今天日期
-        this.props.outInit(time+'|day');   //默认无参，可选
+        
  //        this.props.compareCustomerNumInit(this.state.time,this.state.chartPage);
 
     }
-    getTime=()=>{
-        let year=new Date().getFullYear();
-        let month=new Date().getMonth() + 1;
-        let day=new Date().getDay();
-        this.state.time1=year+'-'+month+'-'+(day-1);
-        this.state.time2=year+'-'+month+'-'+day;
-        return this.state.time1+'|'+this.state.time2;
-    }
+
     componentDidMount(){
         console.log('componentDidMount');
     //  //this.props.allSellersTableInit();
+        let getTime=Tools.getTime();
+        this.state.time=getTime;
+        this.state.time1=getTime.split(',')[0];
+        this.state.time2=getTime.split(',')[1];
+        this.props.outInit(Tools.changeTime(this.state.time),this.state.selectTime);   //默认无参，可选
+        
+        let input1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0];
+        input1.value=this.state.time.split(',')[0];
         let dom = ReactDOM.findDOMNode(this.refs.compareOutChart);
 
         this.state.compareOutChart = echarts.init(dom);
@@ -131,6 +131,8 @@ class _out extends React.Component {
     search=()=>{
         let time1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
         let time2=ReactDOM.findDOMNode(this.refs.selectTime2).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
+        time1=Tools.changeTime(time1);
+        time2=Tools.changeTime(time2);
         //去除红色警示框ClassName
         ReactDOM.findDOMNode(this.refs.selectTime1).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
         ReactDOM.findDOMNode(this.refs.selectTime2).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
@@ -154,7 +156,7 @@ class _out extends React.Component {
           return false;
         }
         //日历选择没有错误，得到时间范围,发请求,并保存时间，放入图表legend
-        this.props.outInit(time1+'|'+time2+'|'+this.state.selectTime);
+        this.props.outInit(time1+','+time2,this.state.selectTime);
         this.state.time1=time1;
         this.state.time2=time2;
         return;

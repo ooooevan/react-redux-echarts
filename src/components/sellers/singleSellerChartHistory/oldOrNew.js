@@ -17,7 +17,11 @@ class _stayBar extends React.Component {
 		this.state={
 			singleSellerOldOrNewChart:'',
 			resizeHandler:'',
-			time:''
+			time:'',
+			timeList:'',
+			oldNumList:'',
+			newNumList:'',
+			percentList:''
 		}
 	}
 	componentDidMount(){
@@ -38,20 +42,28 @@ class _stayBar extends React.Component {
        this.state.singleSellerOldOrNewChart.resize();
     }, 100)
 	}
-	componentWillReceiveProps(){
-		// debugger
+	componentWillReceiveProps(nextProps,nextState){
+		let oldOrNew=nextProps.oldOrNew.toJS();
+		let timeList=oldOrNew.xAxis[0].data;
+		let newNumList=oldOrNew.series[0].data;
+		let oldNumList=oldOrNew.series[1].data;
+
+		this.setState({timeList,newNumList,oldNumList});
+		if(this.state.time!=nextProps.time){
+			this.setState({time:nextProps.time});
+			this.props.singleSellerOldOrNew(nextProps.params.id,nextState.time);
+		}
+
+		this.state.singleSellerOldOrNewChart.setOption(oldOrNew);
+		this.state.singleSellerOldOrNewChart.hideLoading();
 	}
 	componentDidUpdate(){
 		// debugger
-		this.state.singleSellerOldOrNewChart.setOption(this.props.oldOrNew.toJS());
-		this.state.singleSellerOldOrNewChart.hideLoading();
+		
 	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
-		if(this.state.time!=nextProps.time){
-			this.state.time=nextProps.time
-			this.props.singleSellerOldOrNew(this.props.params.id,this.state.time);
-		}
+		
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -59,6 +71,17 @@ class _stayBar extends React.Component {
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
+		let {timeList,oldNumList,newNumList} = this.state;
+    let rows=[];
+    let percent='';
+    if(timeList){
+        timeList.forEach((item,i)=>{
+        	console.log(newNumList[i])
+        	console.log(newNumList[i]+oldNumList[i])
+        	percent=parseInt(parseInt(newNumList[i])/(parseInt(newNumList[i])+parseInt(oldNumList[i]))*100);
+            rows.push(<tr key={i}><td>{timeList[i]}</td><td>{newNumList[i]}</td><td>{oldNumList[i]}</td><td>{percent}%</td></tr>)
+        })
+    }
 		return <div>
 					<div className="panel">
 		          <div className="panelHead">新老顾客</div>
@@ -71,9 +94,10 @@ class _stayBar extends React.Component {
 			        	<div className='panelBody'>
 			        		<table className="Table">
 			      				<thead>
-			      					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+			      					<tr><th>时间</th><th>新顾客</th><th>老顾客</th><th>新顾客比例</th></tr>
 			      				</thead>
 			      				<tbody>
+			      				{rows}
 			      				</tbody>
 			      			</table>
 			        	</div>

@@ -17,7 +17,11 @@ class _active extends React.Component {
 		this.state={
 			singleSellerActiveChart:'',
 			resizeHandler:'',
-			time:''
+			time:'',
+			timeList:'',
+      numList:'',
+      percentList:'',
+      tableSpace:1
 		}
 	}
 	componentDidMount(){
@@ -39,15 +43,23 @@ class _active extends React.Component {
 	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
+		
+	}
+	componentWillReceiveProps(nextProps,nextState){
+		let active=nextProps.active.toJS();
 		if(this.state.time!=nextProps.time){
-			this.state.time=nextProps.time
-			this.props.singleSellerActiveInit(this.props.params.id,this.state.time);
+			this.setState({time:nextProps.time});
+			this.props.singleSellerActiveInit(nextProps.params.id,nextState.time);
 		}
+		let timeList=active.xAxis[0].data.reverse();
+		let numList=active.series[0].data.reverse();
+		this.setState({timeList,numList});
+		this.state.singleSellerActiveChart.setOption(active);
+		this.state.singleSellerActiveChart.hideLoading();
 	}
 	componentDidUpdate(){
 		console.log('-=componentDidUpdate')
-		this.state.singleSellerActiveChart.setOption(this.props.active.toJS());
-		this.state.singleSellerActiveChart.hideLoading();
+		
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -55,6 +67,24 @@ class _active extends React.Component {
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
+
+		let {timeList,numList,time} = this.state;
+    let rows=[];
+    switch(time){
+    	case 'day':time='最近一天';break;
+    	case 'week':time='最近一周';break;
+    	case 'month':time='最近一月';break;
+    	case 'year':time='最近一年';break;
+    	case 'more':time='开店以来';break;
+    	default:let arr=time.split(',');
+    		time=arr.join(' 至 ');
+    }
+        if(timeList){
+            timeList.forEach((item,i)=>{
+              rows.push(<tr><td>{time}</td><td>{timeList[i]}</td><td>{numList[i]}</td></tr>)
+            })
+        }
+
 		return	<div>
 							<div className="panel">
 		    			<div className="panelHead">活跃度</div>
@@ -67,9 +97,10 @@ class _active extends React.Component {
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
-              					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+              					<tr><th>时间范围</th><th>活跃度</th><th>人数</th></tr>
               				</thead>
               				<tbody>
+              				{rows}
               				</tbody>
               			</table>
   								</div>

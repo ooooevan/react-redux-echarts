@@ -19,7 +19,7 @@ let options = {
         //     }
         // },
         legend: {
-            data:['客流量','入店率']
+            data:['入店量'/*,'入店率'*/]
         },
         xAxis: [
             {
@@ -32,7 +32,7 @@ let options = {
         yAxis: [
             {
                 type: 'value',
-                name: '客流量',
+                name: '入店量',
 
                 // min: 0,
                 // max: 250,
@@ -40,7 +40,7 @@ let options = {
                 axisLabel: {
                     formatter: '{value}'
                 }
-            },
+            }/*,
             {
                 type: 'value',
                 name: '入店率',
@@ -52,11 +52,11 @@ let options = {
                 axisLabel: {
                     formatter: '{value} %'
                 }
-            }
+            }*/
         ],
         series: [
             {
-                name:'客流量',
+                name:'入店量',
                 type:'line',
                 smooth:true,
                 areaStyle: {
@@ -65,13 +65,64 @@ let options = {
                         // color:'red'
                     }},
                 data:undefined
-            },
+            }/*,
             
             {
                 name:'入店率',
                 type:'line',
                 yAxisIndex: 1,
                 smooth:true,
+                data:undefined
+            }*/
+        ]
+    },
+    customerPeak:{
+        title:{
+           text: "客流峰值",
+           show:false
+        },
+        tooltip: {
+            // trigger: 'axis'
+        },
+        // toolbox: {
+        //     feature: {
+        //         dataView: {show: true, readOnly: false},
+        //         magicType: {show: true, type: ['line', 'bar']},
+        //         restore: {show: true},
+        //         saveAsImage: {show: true}
+        //     }
+        // },
+        legend: {
+            data:['客流峰值']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisLabel:{interval:0},
+                data: undefined
+            }
+        ],
+        yAxis: {
+            //     type: 'value',
+                name: '人数'
+
+            //     // min: 0,
+            //     // max: 250,
+            //     // interval: 50,
+            //     axisLabel: {
+            //         formatter: '{value}'
+            //     }
+            // }
+        },
+        series: [{
+                name:'客流峰值',
+                type:'bar',
+                label: {
+                normal: {
+                    position: 'top',
+                    show: false
+                    }
+                },
                 data:undefined
             }
         ]
@@ -148,7 +199,7 @@ let options = {
         //     }
         // },
         legend: {
-            data:['各时间段人数']
+            data:['各时间段人数峰值']
         },
         xAxis: [
             {
@@ -159,7 +210,7 @@ let options = {
         ],
         yAxis: {
             //     type: 'value',
-            //     name: '店铺客流量',
+                name: '人数'
 
             //     // min: 0,
             //     // max: 250,
@@ -170,7 +221,7 @@ let options = {
             // }
         },
         series: [{
-                name:'各时间段人数',
+                name:'各时间段人数峰值',
                 type:'bar',
                 label: {
                 normal: {

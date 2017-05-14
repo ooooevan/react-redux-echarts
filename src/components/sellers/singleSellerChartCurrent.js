@@ -25,20 +25,30 @@ class _Chart extends React.Component {
         super(props);
         this.state={
 		singleSellerCustomerNumChart:'',  //商家图表
-      	time:'hour',   //时间参数
+        now:{},
+        yesterday:{},
       	param:'',   //路由参数
       	name:'',  //商家名
       	timer:'',    //定时器
+        timeList:'',
+        numList:'',
+        percentList:'',
+        tableSpace:3,
       	timerTime:1000*5,       //时间间隔
         resizeHandler:null
         }
 
     }
-
+    componentWillMount(){
+        // debugger;
+        // 
+        let id=this.props.params.id  //根据路由获取该商店id
+        this.props.singleSellerCustomerNumInit(id);
+        this.props.changeSellerName(id);
+    }
     componentDidMount(){
-    	// debugger
-    	let id=this.props.params.id  //获取该商店id
-    	this.props.singleSellerCustomerNumInit(id,this.state.time);
+    	// let id=this.props.params.id  //根据路由获取该商店id
+    	// this.props.singleSellerCustomerNumInit(id);
 
     	let domLine = ReactDOM.findDOMNode(this.refs.singleSellerCustomerNumChart);
     	this.state.singleSellerCustomerNumChart = echarts.init(domLine);
@@ -67,30 +77,48 @@ class _Chart extends React.Component {
         // }else{
         //     // this.setState({
         //         //改变商家名字
-                this.props.changeSellerName(nextProps.customerNum.get('name'));
+        // debugger
+        
         //         // this.state.name=nextProps.customerNum.get('name');
         //     // })
         // }
     }
 	componentDidUpdate(){
-        // debugger;
-        let par=this.props.params;
-        
-		/*用上次存的路由和这次比较，不为空且不同的话表示在不同商家间跳转*/
-		if(this.state.param && this.state.param !== this.props.params.id){
-			clearInterval(this.state.timer);
-			this.props.singleSellerCustomerNumInit(this.props.params.id,this.state.time);
-			this.state.timer = setInterval(this.fetchData,this.state.timerTime);
-        }
-		this.state.param=this.props.params.id;
-
-
-		this.state.singleSellerCustomerNumChart.setOption(this.props.customerNum.toJS());
-        this.state.singleSellerCustomerNumChart.hideLoading();
         
 	}
     componentWillReceiveProps(nextProps,nextState){
-      
+      /*用上次存的路由和这次比较，不为空且不同的话表示在不同商家间跳转*/
+        if(this.state.param && this.state.param !== nextProps.params.id){
+            clearInterval(this.state.timer);
+            this.props.singleSellerCustomerNumInit(nextProps.params.id);
+            this.setState({timer:setInterval(this.fetchData,this.state.timerTime)});
+            this.props.changeSellerName(nextProps.params.id);
+        }
+        //根据服务器传回数据显示商家名，现在是以根据路由名字显示
+        // this.props.changeSellerName(this.props.customerNum.get('name'));
+        // debugger
+        // this.state.param=this.props.params.id;
+        let customerNum = nextProps.customerNum.toJS()
+        let now={numLen:'',num:'',doorNumLen:'',doorNum:'',percentLen:'',percent:''};
+        let yesterday=customerNum.xAxis[0].yesterday;
+        //四个分别是时间、客流量、门前客流、客流占比
+        let timeList=customerNum.xAxis[0].data.reverse();
+        let numList=customerNum.series[0].data.reverse();
+        let doorNumList=customerNum.series[1].data.reverse();
+        let percentList=customerNum.series[2].data.reverse();
+
+
+        now.numLen=numList.length;
+        now.num=numList[now.numLen-1];
+        now.doorNumLen=doorNumList.length;
+        now.doorNum=doorNumList[now.doorNumLen - 1];
+        now.percentLen=percentList.length;
+        now.percent=percentList[now.percentLen - 1];
+        this.setState({now,yesterday,timeList,numList,doorNumList,percentList});
+        
+        this.setState({param:nextProps.params.id})
+        this.state.singleSellerCustomerNumChart.setOption(customerNum);
+        this.state.singleSellerCustomerNumChart.hideLoading();
         
     }
 	componentWillUnmount(){
@@ -106,41 +134,51 @@ class _Chart extends React.Component {
 		this.props.singleSellerCustomerNumFetch(this.props.params.id)
 	}
     render(){
+        let {now,yesterday,timeList,numList,doorNumList,percentList,tableSpace} = this.state;
+        let rows=[];
+        if(timeList){
+            timeList.forEach((item,i)=>{
+                if(!(i%tableSpace)){
+                    rows.push(<tr key={i}><td>{timeList[i]}</td><td>{doorNumList[i]}</td><td>{numList[i]}</td><td>{percentList[i]}%</td></tr>)
+                }
+            })
+        }
+
+
     	return <div className="panelWrapper">
              {/*<p>{this.state.name}</p>*/}
              <div className='topMessage'>
                 <div className='message message1'><div>
-                    <p>当前人数：  {+''=='true'?<span className='up'>&nbsp;↑</span> :<span className='down'>&nbsp;↓</span>} </p>
+                    <p>当前人数：{now.num} {/* {+''=='true'?<span className='up'>&nbsp;↑</span> :<span className='down'>&nbsp;↓</span>} */}</p>
                     <p>昨日此时人数：</p>
                 </div></div>
                 <div className='message message2'><div>
-                    <p>昨日高峰客流：</p>
+                    <p>昨日高峰客流：{yesterday.num}</p>
                     <p>昨日平均客流：</p>
                 </div></div>
                 <div className='message message3'><div>
-                    <p>店铺地址：5F-542a</p>
-                    <p>店铺类型：服装类</p>
+                    <p>昨日高峰出现时间：{yesterday.time}</p>
                 </div></div>
             </div>
     		<div className="panel">
     			<div className="panelHead">门前客流量</div>
     			<div className="panelBody">
     				<div className="singleSellerCustomerNumChart" ref="singleSellerCustomerNumChart"></div>
-			         <p>
-                        当前实时客流数据
-                     </p>
-                     <table className="firstTable">
+                </div>
+    		</div>
+            <div className='panel'>
+                <div className='panelHead'>当前实时客流数据</div>
+                <div className='panelBody'>
+                     <table className="Table">
                         <thead>
-                            <tr><th>时间</th><th>8:00</th><th>9:00</th><th>10:00</th><th>11:00</th><th>12:00</th><th>13:00</th><th>14:00</th><th>15:00</th><th>16:00</th></tr>
+                            <tr><th>时间</th><th>门前客流量</th><th>店铺客流量</th><th>客流总体占比</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>门前客流量</td><td>654</td><td>754</td><td>654</td><td>654</td><td>754</td><td>654</td><td>654</td><td>754</td><td>654</td></tr>
-                            <tr><td>入店量</td><td>654</td><td>754</td><td>654</td><td>654</td><td>754</td><td>654</td><td>654</td><td>754</td><td>654</td></tr>
-                            <tr><td>入店率</td><td>654</td><td>754</td><td>654</td><td>654</td><td>754</td><td>654</td><td>654</td><td>754</td><td>654</td></tr>
+                            {rows}
                         </tbody>
                     </table>
                 </div>
-    		</div>
+            </div>
             {/*
             <div className="panel">
                 <div className="panelHead">商家简介</div>

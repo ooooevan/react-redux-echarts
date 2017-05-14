@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
@@ -6,6 +7,7 @@ import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import Calendar from '../../calendar';
 import Tools from '../../tools';
+// import '../../styles/calendar.scss';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
@@ -14,7 +16,7 @@ import 'echarts/lib/component/tooltip';
 
 import compareAction from '../../../actions/compareAction';
 
-class _active extends React.Component {
+class _customerIn extends React.Component {
 
     static propTypes = {
         // customerNum: React.PropTypes.func.isRequired,
@@ -26,18 +28,16 @@ class _active extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            compareActiveChart:'',
+            compareCustomerInChart:'',
             resizeHandler:null,
             Data:[],
             selectTime:'day',
             time:'',          //要请求的time参数，有多个
             time1:'',           //时间1，用于显示图表的legend
             time2:'',              //时间2,用于显示图表的legend
-            timeList:'',
+		    timeList:'',
             num1List:'',
-            num2List:'',
-            total1List:'',
-            total2List:''
+            num2List:''
         }
     }
 
@@ -45,88 +45,89 @@ class _active extends React.Component {
     componentWillMount(){
         console.log('componentWillMount')
         
-           //默认无参，可选
- //        this.props.compareCustomerNumInit(this.state.time,this.state.chartPage);
+ //        this.props.comparenumInit(this.state.time,this.state.chartPage);
 
     }
 
-    componentDidMount(){
-        console.log('componentDidMount');
-    //  //this.props.allSellersTableInit();
+	componentDidMount(){
+    	console.log('componentDidMount');
+	// 	//this.props.allSellersTableInit();
         let getTime=Tools.getTime();
         this.state.time=getTime;
         this.state.time1=getTime.split(',')[0];
         this.state.time2=getTime.split(',')[1];
-        this.props.activeInit(Tools.changeTime(this.state.time),this.state.selectTime);
+        this.props.numInInit(Tools.changeTime(this.state.time),this.state.selectTime);   //默认无参，可选
         
         let input1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0];
-        let time=this.state.time.split(',')[0]
         input1.value=this.state.time.split(',')[0];
-        let dom = ReactDOM.findDOMNode(this.refs.compareActiveChart);
+        let dom = ReactDOM.findDOMNode(this.refs.compareCustomerInChart);
 
-        this.state.compareActiveChart = echarts.init(dom);
-        this.state.compareActiveChart.showLoading();
+        this.state.compareCustomerInChart = echarts.init(dom);
+        this.state.compareCustomerInChart.showLoading();
 
         window.addEventListener('resize',this.resizeFun)
-    }
+	}
     resizeFun = ()=>{
         if(this.state.resizeHandler){
                 clearTimeout(this.state.resizeHandler);
             }
-            if(this.state.compareActiveChart){
+            if(this.state.compareCustomerInChart){
                 this.state.resizeHandler = setTimeout(function () {
-                   this.state.compareActiveChart.resize();
+                   this.state.compareCustomerInChart.resize();
                 }.bind(this), 100)
             }
     }
     componentWillReceiveProps(nextProps,nextState){
-        let active=nextProps.active.toJS();
-        if(active.series[0].data && active.series[0].data[0]){
-            let timeList=active.xAxis[0].data;
-            let num1List=active.series[0].data;
-            let num2List=active.series[1].data;
-            let total1List=num1List.reduce((x,y)=>(parseInt(x)+parseInt(y)));
-            let total2List=num2List.reduce((x,y)=>(parseInt(x)+parseInt(y)));
-            this.setState({timeList,num1List,num2List,total1List,total2List});
-            // active.legend.data.push(this.state.time1,this.state.time2);
-            // active.series[0].name = this.state.time1;
-            // active.series[1].name = this.state.time2;
-            active.legend.data.push('时间一','时间二');
-            active.series[0].name = '时间一';
-            active.series[1].name = '时间二';
-            this.state.compareActiveChart.setOption(active);
-            this.state.compareActiveChart.hideLoading();
+        if(nextProps!==this.props){  //当props改变时才触发。只改变selectTime不触发
+            let customerIn=nextProps.customerIn.toJS();
+            let timeList=customerIn.xAxis[0].data;
+            let num1List=customerIn.series[0].data;
+            let num2List=customerIn.series[1].data;
+            this.setState({timeList,num1List,num2List});
+            if(customerIn.series[0].data && customerIn.series[0].data[0]){
+                // 判断若是多天的，则legend不能为日期，直接写：时间一、时间二 ？
+                // if(this.state.selectTime!=='day' /*&& this.state.selectTime!=='hour'*/){
+                    customerIn.legend.data.push('时间一','时间二');
+                    customerIn.series[0].name = '时间一';
+                    customerIn.series[1].name = '时间二';
+                // }else{
+                //     customerIn.legend.data.push(this.state.time1,this.state.time2);
+                //     customerIn.series[0].name = this.state.time1;
+                //     customerIn.series[1].name = this.state.time2;
+                // }
+                this.state.compareCustomerInChart.setOption(customerIn);
+                this.state.compareCustomerInChart.hideLoading();
+            }
         }
     }
-    componentWillUnmount(){
-        console.log('componentWillUnmount');
-        this.state.compareActiveChart.dispose();
+	componentWillUnmount(){
+		console.log('componentWillUnmount');
+		this.state.compareCustomerInChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
-    // }
+	// }
  //   
     }
     componentWillUpdate(nextProps){
         console.log('-=componentWillUpdate')
     }
-    componentDidUpdate(){
+    componentDidUpdate(prevProps,prevInte){
         console.log('..componentDidUpdate')
         
-
  //      
     }
-    // componentWillReceiveProps(){
-    // }
+	// componentWillReceiveProps(){
+	// }
     changeTime=(e)=>{
         if(e.target.className === 'active'){
          return;
       }
       switch(e.target.innerText){
-        // case '时':
-        //   this.setState({
-        //     time:'hour',
-        //     selectTime:'hour'
-        //   })
-        //   return;
+        /*case '时':
+          this.setState({
+            time:'hour',
+            selectTime:'hour'
+          })
+          return;*/
         case '日':
           this.setState({
             time:'day',
@@ -163,7 +164,7 @@ class _active extends React.Component {
           ReactDOM.findDOMNode(this.refs.selectTime1).className+=' selectTimeError'//添加红色警示框ClassName
           error=true;
         }
-        if(ms1>=ms2){ //时间1大于时间2，错误
+        if(ms1>=ms2){ //时间1大于等于时间2，错误
           ReactDOM.findDOMNode(this.refs.selectTime2).className+=' selectTimeError'
           error=true;
         }
@@ -175,23 +176,42 @@ class _active extends React.Component {
           return false;
         }
         //日历选择没有错误，得到时间范围,发请求,并保存时间，放入图表legend
-        this.props.activeInit(time1+','+time2,this.state.selectTime);
+        this.props.numInInit(time1+','+time2,this.state.selectTime);
         this.state.time1=time1;
         this.state.time2=time2;
         return;
     }
 
     render(){
-        let {timeList,num1List,num2List,total1List,total2List} = this.state;
+		let {timeList,num1List,num2List} = this.state;
         let rows=[];
-        let percent1,percent2;
+        let time1,time2;
         if(timeList){
             timeList.forEach((item,i)=>{
-                percent1=parseInt((parseInt(num1List[i])/total1List)*100);
-                percent2=parseInt((parseInt(num1List[i])/total2List)*100);
-                rows.push(<tr key={i}><td>{timeList[i]}</td><td>{num1List[i]}</td><td>{percent1}%</td><td>{num2List[i]}</td><td>{percent2}%</td></tr>)
+                time1=timeList[i].split('/')[0];
+                time2=timeList[i].split('/')[1];
+              rows.push(<tr key={i}><td>{time1}</td><td>{num1List[i]}</td><td>{time2}</td><td>{num2List[i]}</td></tr>)
             })
         }
+        if(this.state.Data.series && this.state.Data.series[0].data){
+            let sellerName=this.state.Data.xAxis[0].data;
+            let sellerNum=this.state.Data.series[0].data;
+            let sellerPer=this.state.Data.series[1].data;
+            sellerName.forEach(function(item,index){
+                rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
+            })
+        }
+        console.log('...render');
+		if(this.state.Data.series && this.state.Data.series[0].data){
+            let sellerName=this.state.Data.xAxis[0].data;
+            let sellerNum=this.state.Data.series[0].data;
+            let sellerPer=this.state.Data.series[1].data;
+            // debugger
+			sellerName.forEach(function(item,index){
+				rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
+
+			})
+		}
 
         return <div className="chartWrapper">
              
@@ -215,35 +235,32 @@ class _active extends React.Component {
                     </div>
                 </div>
               
-                <div className="panel">
-                    <div className="panelHead">活跃度对比</div>
-                    <div className="panelBody">
-                    <div ref="compareActiveChart" className="compareActiveChart"></div>
-                    </div>
-                </div>
-                <div className="panel">
-                    <div className="panelHead">活跃度信息</div>
-                        <div className="panelBody">
-                        <table className="Table">
-                            <thead>
-                                <tr><th>活跃度</th><th>时间一人数</th><th>所占比例</th><th>时间二人数</th><th>所占比例</th></tr>
-                            </thead>
-                            <tbody>
-                            {rows}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            	<div className="panel">
+            		<div className="panelHead">入店量量对比</div>
+            		<div className="panelBody">
+        			<div ref="compareCustomerInChart" className="compareCustomerInChart"></div>
+            		</div>
+            	</div>
+            	<div className="panel">
+            		<div className="panelHead">入店量信息</div>
+						<div className="panelBody">
+        			    <table className="Table">
+            				<thead>
+            					<tr><th>时间一</th><th>客流量</th><th>时间二</th><th>客流量</th></tr>
+            				</thead>
+            				<tbody>
+    						{rows}
+            				</tbody>
+            			</table>
+            		</div>
+            	</div>
         </div>
     }
 }
 const mapStateToProps = (state)=>({
-    // console.log(state);
-    // debugger
-    // console.log(state.toJS());
-        active:state.getIn(['d','active'])
+    customerIn:state.getIn(['d','customerIn'])
         // table:state.getIn(['b','table'])
-})
-let active=connect(mapStateToProps,compareAction)(_active);
-export default active;
+});
+let customerIn=connect(mapStateToProps,compareAction)(_customerIn);
+export default customerIn;
 

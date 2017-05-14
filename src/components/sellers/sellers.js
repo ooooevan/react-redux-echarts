@@ -8,7 +8,8 @@ import {connect,Provider} from 'react-redux';
 import Immutable from 'immutable';
 import { Router, Route, IndexRoute, hashHistory, Link ,Redirect} from 'react-router';
 import sellersAction from '../../actions/sellersAction';
-
+const FaAngleDoubleRight = require('react-icons/lib/fa/angle-double-right');
+const FaSearch = require('react-icons/lib/fa/search');
 class _SidebarNav extends React.Component {
     static propTypes = {
         sellersListInit: React.PropTypes.func.isRequired, 
@@ -30,6 +31,7 @@ class _SidebarNav extends React.Component {
     }
     componentDidMount(){
         console.log('componentDidMount...')
+        scrollTo(0,0);
         // debugger
         // this.props.sellersInit();
     }
@@ -144,11 +146,11 @@ class _SidebarNav extends React.Component {
         // console.log(this.state.sellers.toJS())
         let rows=[];
         let routeData='sellers/';
-        rows.push(<li key="all" onClick={this.entireList}><Link to='sellers/allsellers' activeClassName="active" draggable="false">全部商家<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>);
+        rows.push(<li key="all" onClick={this.entireList}><Link to='sellers/allsellers' activeClassName="active" draggable="false">全部商家<FaAngleDoubleRight className='fa fa-angle-double-right'/></Link></li>);
         if(this.state.sellers){
             this.state.sellers.forEach(function(seller,index){
                 routeData+=seller;
-                rows.push(<li key={seller}><Link to={routeData} activeClassName="active" draggable="false">{seller}<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>);
+                rows.push(<li key={seller}><Link to={routeData} activeClassName="active" draggable="false">{seller}<FaAngleDoubleRight className='fa fa-angle-double-right'/></Link></li>);
                 routeData='sellers/';
             })
         }
@@ -159,7 +161,7 @@ class _SidebarNav extends React.Component {
         return <div id='sidebar_nav'>
             <ul>
                 <li key="search">
-                    <input type="text" ref="searchText" placeholder="搜索商家" onChange={this.change}/><i className="fa fa-search" aria-hidden="true"></i>
+                    <input type="text" ref="searchText" placeholder="搜索商家" onChange={this.change}/><FaSearch className="fa-search" />
                 </li>
                 {rows}
             </ul>

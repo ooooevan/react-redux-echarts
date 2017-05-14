@@ -25,13 +25,14 @@ class _Chart extends React.Component {
         this.state={
             myChartLine:"",       //chart实例对象line
             timer:"",           //定时器
-            param:'hour',       //不同时间阀值参数
             chartNum:'',     //显示当前人数
             chartTime:'',     //显示当前时间
             chartTitle:'',    //显示当前标题
-            yesterday:Immutable.fromJS({}),     //昨天的信息
-            test:1,
+            yesterday:'',     //昨天的信息
             resizeHandler:null,
+            timeList:'',
+            dataList:'',
+            tableSpace:3,
             timerTime:1000*2
         }
     }
@@ -45,12 +46,8 @@ class _Chart extends React.Component {
     }
     componentDidMount(){
         let domLine = ReactDOM.findDOMNode(this.refs.chartLine);
-        // let domPie = ReactDOM.findDOMNode(this.refs.chartPie);
-        // this.state.myChart = echarts.init(dom);
-        // this.props.init(this.state.myChart,this.state.param);
-        // this.state.timer = setInterval(this.start,2000);
         this.state.myChartLine = echarts.init(domLine);
-        this.state.myChartLine.showLoading();   //显是遮罩
+        this.state.myChartLine.showLoading();
 
         //定时刷新
         this.state.timer = setInterval(this.fetchData,this.state.timerTime)
@@ -73,99 +70,88 @@ class _Chart extends React.Component {
     }
     componentWillUnmount(){
         console.log('componentWillUnmount')
-        this.state.myChartLine.dispose()   //销毁实例
+        this.state.myChartLine.dispose();
         clearInterval(this.state.timer);
         window.removeEventListener('resize',this.resizeFun);
     }
 
     componentDidUpdate(){
-        if(this.props.line.getIn(['xAxis','data'])){
-            this.state.myChartLine.setOption(this.props.line.toJS());
-            this.state.myChartLine.hideLoading();
-            //debugger
-        }
         console.log('componentDidUpdate')
-        // console.log(this.props)
     }
-    // shouldComponentUpdate(){
-    //     return true;
-    // }
     componentWillUpdate(nextProps,nextState){
-        // debugger
-        let fd=nextProps.line.toJS();
-        if(nextProps.line.getIn(['series',0,'data'])){
-            // debugger
-            // let sa=nextProps.line.getIn(['series',0,'data']);
-            this.state.chartNum=nextProps.line.getIn(['series',0,'data'])[nextProps.line.getIn(['series',0,'data']).length - 1];
-            this.state.chartTime=nextProps.line.getIn(['xAxis','data'])[nextProps.line.getIn(['xAxis','data']).length - 1];
-            this.state.chartTitle=nextProps.line.getIn(['title','text']);
-            this.state.yesterday=nextProps.line.getIn(['xAxis','yesterday']);
-        }
+        console.log('componentWillUpdate')
+        
     }
     componentWillReceiveProps(nextProps,nextState){
-        // debugger;
-   
-        
-        console.log('componentWillReceiveProps '+new Date().getTime())
+        let line=nextProps.line.toJS();
+        if(line.xAxis.data){
+            this.state.myChartLine.setOption(line);
+            this.state.myChartLine.hideLoading();
+        }
+        if(line.series[0].data){
+            this.setState({
+                chartNum:line.series[0].data[line.series[0].data.length - 1],
+                chartTime:line.xAxis.data[line.xAxis.data.length - 1],
+                chartTitle:line.title.text,
+                yesterday:line.xAxis.yesterday,
+                timeList:line.xAxis.data.reverse(),
+                dataList:line.series[0].data.reverse()
+            })
+        }
 
      
 
     }
 
     render(){
-        // console.log('firstPageChart:'+this.state.test++ +',render,'+new Date().getTime())
-
-        // let rows=
-        // debugger
-
-
+        let rows=[];
+        let {yesterday,chartNum,chartTime,timeList,dataList,tableSpace} = this.state;
+        if(timeList){
+            timeList.forEach((item,i)=>{
+                if(!(i%tableSpace)){
+                    rows.push(<tr key={i}><td>{timeList[i]}</td><td>{dataList[i]}</td></tr>)
+                }
+            })
+        }
+        // console.log(yesterday);
         return <div className='chartWrapper'>
             {/*<div className='chartMessage'>
                 <p>当前人数：{this.state.chartNum}</p><p>昨日平均客流：2132</p><p>昨日高峰时段：16:30-21:00</p>
             </div>*/}
             <div className='topMessage'>
                 <div className='message message1'><div>
-                    <p>当前人数：{this.state.chartNum}  { this.state.yesterday.get('increase')+''=='true'?<span className='up'>&nbsp;↑</span> :<span className='down'>&nbsp;↓</span>} </p>
-                    <p>昨日此时人数：{this.state.yesterday.get('num')}</p>
+                    <p>当前人数：{chartNum}  {/* yesterday.get('increase')+''=='true'?<span className='up'>&nbsp;↑</span> :<span className='down'>&nbsp;↓</span>*/} </p>
+                    <p>当前时间：{chartTime}</p>
                 </div></div>
                 <div className='message message2'><div>
-                    <p>昨日高峰客流：{this.state.yesterday.get('most')}</p>
-                    <p>昨日平均客流：{this.state.yesterday.get('avg')}</p>
+                    <p>昨日高峰客流：{yesterday.num}</p>
+                    <p>昨日平均客流：{}</p>
                 </div></div>
                 <div className='message message3'><div>
-                    <p>昨日高峰时段：{this.state.yesterday.get('timeSection')}</p>
+                    <p>昨日高峰时间：{yesterday.countDate}</p>
                 </div></div>
             </div>
 
 
             <div className='panel'>
-                <div className='panelHead'>
-                    {this.state.chartTitle}</div>
+                <div className='panelHead'>{this.state.chartTitle}</div>
                 <div className='panelBody'>
                     <div ref="chartLine" className="chartLine" ></div>
-                    <p>
-                        当前实时客流数据
-                    </p>
-                    <table className="firstTable">
+                </div>
+            </div>
+            <div className='panel'>
+                <div className='panelHead'>当前实时客流数据</div>
+                    <div className='panelBody'>
+                    <table className=/*firstTable*/"Table">
                         <thead>
-                            <tr><th>时间</th><th>8:00</th><th>9:00</th><th>10:00</th><th>11:00</th><th>12:00</th><th>13:00</th><th>14:00</th><th>15:00</th><th>16:00</th></tr>
+                            <tr><th>时间</th><th>客流量</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>客流量</td><td>654</td><td>754</td><td>654</td><td>654</td><td>754</td><td>654</td><td>654</td><td>754</td><td>654</td></tr>
-                            <tr><td>其他实时数据</td><td>654</td><td>754</td><td>654</td><td>654</td><td>754</td><td>654</td><td>654</td><td>754</td><td>654</td></tr>
-
+                            {rows}
                         </tbody>
                     </table>
                 </div>
             </div>
-            {/*
-            <div className="panel">
-                <div className='panelHead'>适宜度</div>
-                <div className='panelBody'>
-                <div ref="chartPie" className="chartPie"></div>
-                    </div>
-            </div>
-            */}
         </div>
     }
 

@@ -11,7 +11,8 @@ import thunk from 'redux-thunk';
 //import lineAction from '../actions/lineAction';
 // import FirstPageLineReducer from '../reducers/firstPageLineReducer';
 import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router';
-
+const FaAngleDoubleRight = require('react-icons/lib/fa/angle-double-right');
+const FaAreaChart = require('react-icons/lib/fa/area-chart');
 // var echarts = require('echarts/lib/echarts'); //必须
 // require('echarts/lib/chart/pie'); //图表类型
 // require('echarts/lib/component/title'); //标题插件
@@ -51,12 +52,15 @@ import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router';
 
 class _FirstPage extends React.Component  {
 // const  _FirstPage = (props)=>{
+    componentDidMount(){
+        scrollTo(0,0);
+    }
     render(){
         return <div id="container">
                 <div id='sidebar_nav'>
                     <ul>
-                        <li><Link to='firstPage/total' activeClassName="active" draggable="false"><i className='fa fa-area-chart' aria-hidden="true"></i>当前总客流 <i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-                        <li><Link to='firstPage/allSellers' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>各商家客流<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
+                        <li><Link to='firstPage/total' activeClassName="active" draggable="false"><FaAreaChart />当前总客流 <FaAngleDoubleRight className='fa fa-angle-double-right'/></Link></li>
+                        <li><Link to='firstPage/allSellers' activeClassName="active" draggable="false"><FaAreaChart />各商家客流<FaAngleDoubleRight className='fa fa-angle-double-right'/></Link></li>
                         {/*<li><Link to='firstPage/firstFloor' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>一层客流<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
                         <li><Link to='firstPage/secondFloor' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>二层客流<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
                         <li><Link to='firstPage/thirdFloor' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>三层客流<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>*/}

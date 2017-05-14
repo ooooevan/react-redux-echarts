@@ -10,56 +10,45 @@ export default function lineReducer(state=initialState,action){
     switch(action.type){
         case TYPE.numInit:{
 
-            let numInit={time:[],value:[],percent:[]};
-            let yesterday={};
+            const numInit={time:[],value:[],percent:[]};
+            const yesterday={};
 
             action.payload.forEach(item=>{
-                if(item.increase){
-                    yesterday.num=item.num;
-                    yesterday.increase=true;
-                    yesterday.most=item.most;
-                    yesterday.avg=item.avg;
-                    yesterday.timeSection=item.timeSection;
+                if( item.yesterdayMaxNumber > 0 ){
+                    yesterday.num=item.yesterdayMaxNumber;
+                    yesterday.countDate=item.countDate.split(' ')[1];
                 }else{
-                    numInit.time.push(item.time);
-                    numInit.value.push(item.value);
-                    numInit.percent.push(item.percent);
+                    numInit.time.push(item.countDate.split(' ')[1]);
+                    numInit.value.push(item.customerNumber);
+                    // numInit.percent.push(item.percent);
                 }
             })
-            // debugger
-            // const mapLine1 = state.updateIn(['line','xAxis','data'],data =>time);
-            // const mapLine2 = mapLine1.updateIn(['line','series','data'],data =>value);
-            // const mapLine3 = mapLine2.setIn(['line','xAxis','yesterday'],Immutable.fromJS(yesterday));
-            // debugger
             return state.setIn(['line','xAxis','data'],Immutable.List(numInit.time))
                         .setIn(['line','series',0,'data'],Immutable.List(numInit.value))
-                        .setIn(['line','series',1,'data'],Immutable.List(numInit.percent))
+                        // .setIn(['line','series',1,'data'],Immutable.List(numInit.percent))
                         .setIn(['line','xAxis','yesterday'],Immutable.fromJS(yesterday));
             // return mapLine3;
         }
         case TYPE.fetch:{
-            
-            // debugger
-            // console.log(Object.assign({},state,aa))
             return state.updateIn(['line','xAxis','data'],list=>{
                         
-                        return list.push(action.payload.time);
+                        return list.push(action.payload.countDate.split(' ')[1]);
                     })
                     .updateIn(['line','xAxis','data'],list=>{
                         return list.shift();
                     })
                     .updateIn(['line','series',0,'data'],list=>{
-                        return list.push(parseInt(action.payload.value));
+                        return list.push(parseInt(action.payload.customerNumber));
                     })
                     .updateIn(['line','series',0,'data'],list=>{
                         return list.shift();
                     })
-                    .updateIn(['line','series',1,'data'],list=>{
+                    /*.updateIn(['line','series',1,'data'],list=>{
                         return list.push(action.payload.percent);
                     })
                     .updateIn(['line','series',1,'data'],list=>{
                         return list.shift();
-                    });
+                    });*/
 
         }
         case TYPE.sellersInit:{

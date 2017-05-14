@@ -17,7 +17,11 @@ class _customerIn extends React.Component {
 		this.state={
 			singleSellerCustomerInChart:'',
 			resizeHandler:'',
-			time:''
+			time:'',
+			timeList:'',
+      numList:'',
+      percentList:'',
+      tableSpace:1
 		}
 	}
 	componentDidMount(){
@@ -38,25 +42,33 @@ class _customerIn extends React.Component {
        this.state.singleSellerCustomerInChart.resize();
     }, 100)
 	}
-	componentWillReceiveProps(){
-		console.log('--=componentWillReceiveProps')
-		// this.state.time=this.props.time;
-		
-	}
+
 	// changeTime = ()=>{
 	// 	this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
 	// }
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
+		
+	}
+	componentWillReceiveProps(nextProps,nextState){
+		console.log('--=componentWillReceiveProps')
 		if(this.state.time!=nextProps.time){
-			this.state.time=nextProps.time
-			this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
+			this.setState({time:nextProps.time});
+			this.props.singleSellerCustomerFlowInit(nextProps.params.id,nextProps.time);
 		}
+		let customerIn=nextProps.customerIn.toJS();
+		let timeList=customerIn.xAxis.data;
+		let numList=customerIn.series[0].data;
+		let percentList=customerIn.series[1].data;
+		this.setState({timeList,numList,percentList});
+		// if(customerIn.series[0].data){
+			this.state.singleSellerCustomerInChart.setOption(customerIn);
+			this.state.singleSellerCustomerInChart.hideLoading();
+		// }
 	}
 	componentDidUpdate(){
 		console.log('-=componentDidUpdate')
-		this.state.singleSellerCustomerInChart.setOption(this.props.customerIn.toJS());
-		this.state.singleSellerCustomerInChart.hideLoading();
+		
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -64,7 +76,15 @@ class _customerIn extends React.Component {
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
-		console.log('-=render')
+		let {timeList,numList,percentList,tableSpace} = this.state;
+    let rows=[];
+    if(timeList){
+        timeList.forEach((item,i)=>{
+            if(!(i%tableSpace)){
+                rows.push(<tr key={i}><td>{timeList[i]}</td><td>{numList[i]}</td><td>{percentList[i]}%</td></tr>)
+            }
+        })
+    }
 		return <div> 
 						<div className="panel">
 							<div className="panelHead">顾客客流量</div>
@@ -77,9 +97,10 @@ class _customerIn extends React.Component {
 			    			<div className="panelBody">
 			    				<table className="Table">
             				<thead>
-            					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+            					<tr><th>时间</th><th>入店量</th><th>入店率</th></tr>
             				</thead>
             				<tbody>
+            				{rows}
             				</tbody>
             			</table>
 									<div>

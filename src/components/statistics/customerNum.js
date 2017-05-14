@@ -26,7 +26,11 @@ class _customerNum extends React.Component {
 		this.state={
 			statisticsCustomerNumInit:'',
 			resizeHandler:'',
-			time:''
+			time:'',
+			timeList:'',
+      numList:'',
+      tableSpace:1
+
 		}
 	}
 	componentDidMount(){
@@ -46,17 +50,26 @@ class _customerNum extends React.Component {
        this.state.statisticsCustomerNumChart.resize();
     }, 100)
 	}
+	componentWillReceiveProps(nextProps,nextState){
+		if(this.state.time!=nextProps.time){
+			this.setState({time:nextProps.time});
+			this.props.statisticsCustomerNumInit(nextState.time);
+			return;
+		}
+		let customerNum=nextProps.customerNum.toJS();
+		let timeList=customerNum.xAxis[0].data;
+		let numList=customerNum.series[0].data;
+		this.setState({timeList,numList});
+		this.state.statisticsCustomerNumChart.setOption(customerNum);
+		this.state.statisticsCustomerNumChart.hideLoading();
+	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
-		if(this.state.time!=nextProps.time){
-			this.state.time=nextProps.time
-			this.props.statisticsCustomerNumInit(this.state.time);
-		}
+		
 	}
 	componentDidUpdate(){
 		console.log('-=componentDidUpdate')
-		this.state.statisticsCustomerNumChart.setOption(this.props.customerNum.toJS());
-		this.state.statisticsCustomerNumChart.hideLoading();
+		
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -65,6 +78,15 @@ class _customerNum extends React.Component {
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
+		let {timeList,numList,tableSpace} = this.state;
+    let rows=[];
+    if(timeList){
+        timeList.forEach((item,i)=>{
+            if(!(i%tableSpace)){
+                rows.push(<tr key={i}><td>{timeList[i]}</td><td>{numList[i]}</td></tr>)
+            }
+        })
+    }
 		return	<div>
 				<div className="panel">
 		    			<div className="panelHead">顾客流动</div>
@@ -77,9 +99,10 @@ class _customerNum extends React.Component {
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
-              					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+              					<tr><th>时间</th><th>人数</th></tr>
               				</thead>
               				<tbody>
+              				{rows}
               				</tbody>
               			</table>
   								</div>

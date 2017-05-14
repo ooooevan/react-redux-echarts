@@ -32,7 +32,12 @@ class _cycle extends React.Component {
             selectTime:'day',
             // time:'',          //要请求的time参数，有多个
             seller1:'',           //商家1，用于显示图表的legend
-            seller2:''              //商家2,用于显示图表的legend
+            seller2:'',              //商家2,用于显示图表的legend
+            num1List:'',
+            num2List:'',
+            timeList:'',
+            total1:'',
+            total2:''
         }
     }
 
@@ -52,9 +57,10 @@ class _cycle extends React.Component {
 	     //    this.state.compareSellerCycleChart.showLoading();
     		// }
         if(this.props.sellersAndTime.length>1){
-            let arr=this.props.sellersAndTime.split('|');
-            this.state.seller1=arr[0];
-            this.state.seller2=arr[1];
+            let sellers=this.props.sellersAndTime.split('/')[0].split(',');
+
+            this.state.seller1=sellers[0];
+            this.state.seller2=sellers[1];
             
             this.props.sellersCycleInit(this.props.sellersAndTime);
             let dom = ReactDOM.findDOMNode(this.refs.compareSellerCycleChart);
@@ -82,33 +88,41 @@ class _cycle extends React.Component {
  //   
     }
     componentWillReceiveProps(nextProps,nextState){
-    	// this.state.sellersList=nextProps.sellersList;
-    }
-    componentWillUpdate(nextProps,nextState){
-        console.log('1-=componentWillUpdate')
-        //有参数传入，才发送请求渲染图表。防止无限循环发送请求，要两次props对比，不同才发
-        if(nextProps.sellersAndTime  && nextProps.sellersAndTime !==this.props.sellersAndTime){
-        	// 获取商家名存入state
-        	let arr=nextProps.sellersAndTime.split('|');
-        	this.state.seller1=arr[0];
-        	this.state.seller2=arr[1];
+    	if(nextProps.sellersAndTime  && nextProps.sellersAndTime !==this.props.sellersAndTime){
+            // 获取商家名存入state
+            let arr=nextProps.sellersAndTime.split('/');
+            let sellers=arr[0].split(',');
+            this.setState({seller1:sellers[0],seller2:sellers[1]});
 
-        	this.props.sellersCycleInit(nextProps.sellersAndTime);
-        	let dom = ReactDOM.findDOMNode(this.refs.compareSellerCycleChart);
-	        this.state.compareSellerCycleChart = echarts.init(dom);
-	        this.state.compareSellerCycleChart.showLoading();
+            this.props.sellersCycleInit(nextProps.sellersAndTime);
+            let dom = ReactDOM.findDOMNode(this.refs.compareSellerCycleChart);
+            this.state.compareSellerCycleChart = echarts.init(dom);
+            this.state.compareSellerCycleChart.showLoading();
         }
-    }
-    componentDidUpdate(){
-        console.log('1..componentDidUpdate')
-        let cycle=this.props.cycle.toJS();
+        let cycle=nextProps.cycle.toJS();
         if(cycle.series[0].data && cycle.series[0].data[0]){
+            let timeList=cycle.xAxis[0].data;
+            let num1List=cycle.series[0].data;
+            let num2List=cycle.series[1].data;
+            let total1=num1List.reduce((x,y)=>(parseInt(x)+parseInt(y)));
+            let total2=num2List.reduce((x,y)=>(parseInt(x)+parseInt(y)));
+            this.setState({timeList,num1List,num2List,total1,total2});
+
             cycle.legend.data.push(this.state.seller1,this.state.seller2);
             cycle.series[0].name = this.state.seller1;
             cycle.series[1].name = this.state.seller2;
             this.state.compareSellerCycleChart.setOption(cycle);
             this.state.compareSellerCycleChart.hideLoading();
         }
+    }
+    componentWillUpdate(nextProps,nextState){
+        console.log('1-=componentWillUpdate')
+        //有参数传入，才发送请求渲染图表。防止无限循环发送请求，要两次props对比，不同才发
+        
+    }
+    componentDidUpdate(){
+        console.log('1..componentDidUpdate')
+        
 
  //      
     }
@@ -117,18 +131,14 @@ class _cycle extends React.Component {
  
     render(){
 
-    	
-
-        let rows = [];
-        console.log('...render');
-        if(this.state.Data.series && this.state.Data.series[0].data){
-            let sellerName=this.state.Data.xAxis[0].data;
-            let sellerNum=this.state.Data.series[0].data;
-            let sellerPer=this.state.Data.series[1].data;
-            // debugger
-            sellerName.forEach(function(item,index){
-                rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
-
+    	let {timeList,num1List,num2List,total1,total2,seller1,seller2} = this.state;
+        let rows=[];
+        let percent1,percent2;
+        if(timeList){
+            timeList.forEach((item,i)=>{
+                percent1=parseInt((num1List[i]/total1)*100);
+                percent2=parseInt((num2List[i]/total1)*100);
+                rows.push(<tr key={i}><td>{timeList[i]}</td><td>{num1List[i]}</td><td>{percent1}%</td><td>{num2List[i]}</td><td>{percent2}%</td></tr>)
             })
         }
 
@@ -144,9 +154,10 @@ class _cycle extends React.Component {
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
-              					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+                                <tr><th>来访周期</th><th>{seller1}人数</th><th>所占比例</th><th>{seller2}人数</th><th>所占比例</th></tr>
               				</thead>
               				<tbody>
+                            {rows}
               				</tbody>
               			</table>
   								</div>

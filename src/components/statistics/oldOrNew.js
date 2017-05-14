@@ -26,7 +26,13 @@ class _oldOrNew extends React.Component {
 		this.state={
 			statisticsOldOrNewChart:'',
 			resizeHandler:'',
-			time:''
+			time:'',
+			timeList:'',
+			newNumList:'',
+			oldNumList:'',
+			percentList:'',
+			tableSpace:1
+
 		}
 	}
 	componentDidMount(){
@@ -46,17 +52,26 @@ class _oldOrNew extends React.Component {
        this.state.statisticsOldOrNewChart.resize();
     }, 100)
 	}
+	componentWillReceiveProps(nextProps,nextState){
+		if(this.state.time!=nextProps.time){
+			this.setState({time:nextProps.time});
+			this.props.statisticsOldOrNewInit(nextState.time);
+		}
+		let oldOrNew=nextProps.oldOrNew.toJS();
+		let timeList=oldOrNew.xAxis[0].data;
+		let newNumList=oldOrNew.series[0].data;
+		let oldNumList=oldOrNew.series[1].data;
+		this.setState({timeList,newNumList,oldNumList});
+		this.state.statisticsOldOrNewChart.setOption(oldOrNew);
+		this.state.statisticsOldOrNewChart.hideLoading();
+	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
-		if(this.state.time!=nextProps.time){
-			this.state.time=nextProps.time
-			this.props.statisticsOldOrNewInit(this.state.time);
-		}
+		
 	}
 	componentDidUpdate(){
 		console.log('-=componentDidUpdate')
-		this.state.statisticsOldOrNewChart.setOption(this.props.oldOrNew.toJS());
-		this.state.statisticsOldOrNewChart.hideLoading();
+		
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -65,6 +80,17 @@ class _oldOrNew extends React.Component {
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
+		let {timeList,newNumList,oldNumList,percentList,tableSpace} = this.state;
+    let rows=[];
+    let percent='';
+    if(timeList){
+        timeList.forEach((item,i)=>{
+        	percent=parseInt(parseInt(newNumList[i])/(parseInt(newNumList[i])+parseInt(oldNumList[i]))*100);
+            if(!(i%tableSpace)){
+                rows.push(<tr key={i}><td>{timeList[i]}</td><td>{newNumList[i]}</td><td>{oldNumList[i]}</td><td>{percent}%</td></tr>)
+            }
+        })
+    }
 		return	<div>
 				<div className="panel">
 		    			<div className="panelHead">新老顾客</div>
@@ -77,9 +103,10 @@ class _oldOrNew extends React.Component {
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
-              					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+              					<tr><th>时间</th><th>新顾客数量</th><th>老顾客数量</th><th>新顾客率</th></tr>
               				</thead>
               				<tbody>
+              				{rows}
               				</tbody>
               			</table>
   								</div>

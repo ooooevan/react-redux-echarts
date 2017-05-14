@@ -1,10 +1,5 @@
-/*
-* 调节y坐标虚线: 在line->series->markLine->data->yAxis
-* 调节标题：line->title->text
-*
-* */
-let dataX,dataY;
-  let options={
+
+export default {
     line:{
         title: { 
             text: '万达商场客流量',
@@ -15,13 +10,13 @@ let dataX,dataY;
             right:'5%'
         },
         legend:{
-            data: ['客流量', '入店率']
+            data: ['客流量']
         },
         tooltip: {
             trigger: 'axis'
         },
         xAxis: {
-            data: dataX,
+            data: undefined,
             type: 'category',
             name:'时间',
             boundaryGap: false,
@@ -38,7 +33,7 @@ let dataX,dataY;
             splitLine: {
                 show: false
             }
-        },{
+        }/*,{
             type: 'value',
             name: '入店率',
             position: 'right',
@@ -54,7 +49,7 @@ let dataX,dataY;
                     color:'#d14a61'
                 }
             }   
-        }],
+        }*/],
         dataZoom: [{
             // startValue: '16:32:024'
         }, {
@@ -64,7 +59,7 @@ let dataX,dataY;
         series: [{
             name: '客流量',
             type: 'line',
-            data: dataY,
+            data: undefined,
             smooth:true,
             // color:['rgba(122,187,239,1)'],
             color:['rgba(150,187,223,1)'],  //
@@ -87,13 +82,13 @@ let dataX,dataY;
                     yAxis: 400
                 }]
             }
-        },{
+        }/*,{
             name:"入店率",
             type:'line',
             smooth:true,
             yAxisIndex:1,
             data:undefined
-        }]
+        }*/]
     },
     sellers:{
         color: ['#78b3ee'],
@@ -296,4 +291,3 @@ let dataX,dataY;
 }
 
 
-export default options;

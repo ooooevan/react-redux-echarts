@@ -1,6 +1,24 @@
 var express = require("express");
 var Mock = require("mockjs");
 var router = express.Router();
+router.post("/init", function(req, res, next) {
+	res.writeHead(200, {
+		"Access-Control-Allow-Origin": "*"
+	});
+	// res.header("Access-Control-Allow-Origin", "*");  
+	console.log(req.params)
+	console.log(req.body)
+	console.log(req.query)
+	var now=new Date()
+	now = [now.getHours(), now.getMinutes() + 1, now.getSeconds()].join(':')
+	var value=parseInt(300+(Math.random() - 0.4 )*100);
+
+	var data =`
+	{"time":"${now}","value":"${value}","percent":2}
+`
+	res.write(data);
+	res.end();
+});
 router.get("/init", function(req, res, next) {
 	res.writeHead(200, {
 		"Access-Control-Allow-Origin": "*"
@@ -12,674 +30,137 @@ router.get("/init", function(req, res, next) {
 
 		`
 	[{
-			"time": "16:32:00",
-			"value": 341,
-			"percent":2
-		}, {
-			"time": "16:32:03",
-			"value": 513,
-			"percent":2
-		}, {
-			"time": "16:32:06",
-			"value": 351,
-			"percent":2
-		}, {
-			"time": "16:32:09",
-			"value": 151,
-			"percent":2
-		}, {
-			"time": "16:32:012",
-			"value": 524,
-			"percent":2
-		}, {
-			"time": "16:32:015",
-			"value": 524,
-			"percent":2
-		}, {
-			"time": "16:32:018",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:021",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:024",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:027",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:30",
-			"value": 534,
-			"percent":5
-		}, {
-			"time": "16:32:33",
-			"value": 543,
-			"percent":6
-		}, {
-			"time": "16:32:36",
-			"value": 534,
-			"percent":6
-		}, {
-			"time": "16:32:39",
-			"value": 543,
-			"percent":6
-		}, {
-			"time": "16:32:42",
-			"value": 531,
-			"percent":6
-		}, {
-			"time": "16:32:45",
-			"value": 153,
-			"percent":6
-		}, {
-			"time": "16:32:48",
-			"value": 543,
-			"percent":6
-		}, {
-			"time": "16:32:51",
-			"value": 534,
-			"percent":6
-		}, {
-			"time": "16:32:54",
-			"value": 254,
-			"percent":2
-		}, {
-			"time": "16:32:57",
-			"value": 254,
-			"percent":2
-		}, {
-			"time": "16:32:60",
-			"value": 245,
-			"percent":2
-		}, {
-			"time": "16:32:63",
-			"value": 546,
-			"percent":2
-		}, {
-			"time": "16:32:66",
-			"value": 654,
-			"percent":2
-		}, {
-			"time": "16:32:69",
-			"value": 154,
-			"percent":2
-		}, {
-			"time": "16:32:72",
-			"value": 135,
-			"percent":2
-		}, {
-			"time": "16:32:75",
-			"value": 214,
-			"percent":2
-		}, {
-			"time": "16:32:78",
-			"value": 242,
-			"percent":2
-		}, {
-			"time": "16:32:81",
-			"value": 124,
-			"percent":2
-		}, {
-			"time": "16:32:84",
-			"value": 235,
-			"percent":2
-		}, {
-			"time": "16:32:87",
-			"value": 264,
-			"percent":2
-		}, {
-			"time": "16:32:90",
-			"value": 214,
-			"percent":2
-		}, {
-			"time": "16:32:93",
-			"value": 231,
-			"percent":2
-		}, {
-			"time": "16:32:96",
-			"value": 431,
-			"percent":2
-		}, {
-			"time": "16:32:99",
-			"value": 323,
-			"percent":2
-		}, {
-			"time": "16:32:102",
-			"value": 321,
-			"percent":2
-		}, {
-			"time": "16:32:105",
-			"value": 321,
-			"percent":2
-		}, {
-			"time": "16:32:03",
-			"value": 513,
-			"percent":2
-		}, {
-			"time": "16:32:06",
-			"value": 351,
-			"percent":2
-		}, {
-			"time": "16:32:09",
-			"value": 151,
-			"percent":6
-		}, {
-			"time": "16:32:012",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:015",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:018",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:021",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:024",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:027",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:30",
-			"value": 534,
-			"percent":6
-		}, {
-			"time": "16:32:33",
-			"value": 543,
-			"percent":6
-		}, {
-			"time": "16:32:36",
-			"value": 534,
-			"percent":6
-		}, {
-			"time": "16:32:39",
-			"value": 543,
-			"percent":6
-		}, {
-			"time": "16:32:42",
-			"value": 531,
-			"percent":6
-		}, {
-			"time": "16:32:45",
-			"value": 153,
-			"percent":6
-		}, {
-			"time": "16:32:48",
-			"value": 543,
-			"percent":6
-		}, {
-			"time": "16:32:51",
-			"value": 534,
-			"percent":6
-		}, {
-			"time": "16:32:54",
-			"value": 254,
-			"percent":6
-		}, {
-			"time": "16:32:57",
-			"value": 254,
-			"percent":6
-		}, {
-			"time": "16:32:60",
-			"value": 245,
-			"percent":6
-		}, {
-			"time": "16:32:63",
-			"value": 546,
-			"percent":6
-		}, {
-			"time": "16:32:66",
-			"value": 654,
-			"percent":6
-		}, {
-			"time": "16:32:69",
-			"value": 154,
-			"percent":6
-		}, {
-			"time": "16:32:72",
-			"value": 135,
-			"percent":6
-		}, {
-			"time": "16:32:75",
-			"value": 214,
-			"percent":6
-		}, {
-			"time": "16:32:78",
-			"value": 242,
-			"percent":6
-		}, {
-			"time": "16:32:81",
-			"value": 124,
-			"percent":6
-		}, {
-			"time": "16:32:84",
-			"value": 235,
-			"percent":6
-		}, {
-			"time": "16:32:87",
-			"value": 264,
-			"percent":6
-		}, {
-			"time": "16:32:90",
-			"value": 214,
-			"percent":6
-		}, {
-			"time": "16:32:93",
-			"value": 231,
-			"percent":6
-		}, {
-			"time": "16:32:96",
-			"value": 431,
-			"percent":6
-		}, {
-			"time": "16:32:99",
-			"value": 323,
-			"percent":6
-		}, {
-			"time": "16:32:102",
-			"value": 321,
-			"percent":6
-		}, {
-			"time": "16:32:105",
-			"value": 321,
-			"percent":6
-		}, {
-			"time": "16:32:03",
-			"value": 513,
-			"percent":6
-		}, {
-			"time": "16:32:06",
-			"value": 351,
-			"percent":6
-		}, {
-			"time": "16:32:09",
-			"value": 151,
-			"percent":6
-		}, {
-			"time": "16:32:012",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:015",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:018",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:021",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:024",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:027",
-			"value": 524,
-			"percent":6
-		}, {
-			"time": "16:32:30",
-			"value": 534,
-			"percent":6
-		}, {
-			"time": "16:32:33",
-			"value": 543,
-			"percent":6
-		}, {
-			"time": "16:32:36",
-			"value": 534,
-			"percent":6
-		}, {
-			"time": "16:32:39",
-			"value": 543,
-			"percent":6
-		}, {
-			"time": "16:32:42",
-			"value": 531,
-			"percent":6
-		}, {
-			"time": "16:32:45",
-			"value": 153,
-			"percent":6
-		}, {
-			"time": "16:32:48",
-			"value": 543,
-			"percent":6
-		}, {
-			"time": "16:32:51",
-			"value": 534,
-			"percent":6
-		}, {
-			"time": "16:32:54",
-			"value": 254,
-			"percent":6
-		}, {
-			"time": "16:32:57",
-			"value": 254,
-			"percent":6
-		}, {
-			"time": "16:32:60",
-			"value": 245,
-			"percent":6
-		}, {
-			"time": "16:32:63",
-			"value": 546,
-			"percent":6
-		}, {
-			"time": "16:32:66",
-			"value": 654,
-			"percent":6
-		}, {
-			"time": "16:32:69",
-			"value": 154,
-			"percent":6
-		}, {
-			"time": "16:32:72",
-			"value": 135,
-			"percent":6
-		}, {
-			"time": "16:32:75",
-			"value": 214,
-			"percent":6
-		}, {
-			"time": "16:32:78",
-			"value": 242,
-			"percent":6
-		}, {
-			"time": "16:32:81",
-			"value": 124,
-			"percent":6
-		}, {
-			"time": "16:32:84",
-			"value": 235,
-			"percent":5
-		}, {
-			"time": "16:32:87",
-			"value": 264,
-			"percent":5
-		}, {
-			"time": "16:32:90",
-			"value": 214,
-			"percent":5
-		}, {
-			"time": "16:32:93",
-			"value": 231,
-			"percent":5
-		}, {
-			"time": "16:32:96",
-			"value": 431,
-			"percent":5
-		}, {
-			"time": "16:32:99",
-			"value": 323,
-			"percent":5
-		}, {
-			"time": "16:32:102",
-			"value": 321,
-			"percent":5
-		}, {
-			"time": "16:32:105",
-			"value": 321,
-			"percent":5
-		}, {
-			"time": "16:32:03",
-			"value": 513,
-			"percent":5
-		}, {
-			"time": "16:32:06",
-			"value": 351,
-			"percent":5
-		}, {
-			"time": "16:32:09",
-			"value": 151,
-			"percent":5
-		}, {
-			"time": "16:32:012",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:015",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:018",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:021",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:024",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:027",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:30",
-			"value": 534,
-			"percent":5
-		}, {
-			"time": "16:32:33",
-			"value": 543,
-			"percent":5
-		}, {
-			"time": "16:32:36",
-			"value": 534,
-			"percent":5
-		}, {
-			"time": "16:32:39",
-			"value": 543,
-			"percent":5
-		}, {
-			"time": "16:32:42",
-			"value": 531,
-			"percent":5
-		}, {
-			"time": "16:32:45",
-			"value": 153,
-			"percent":5
-		}, {
-			"time": "16:32:48",
-			"value": 543,
-			"percent":5
-		}, {
-			"time": "16:32:51",
-			"value": 534,
-			"percent":5
-		}, {
-			"time": "16:32:54",
-			"value": 254,
-			"percent":5
-		}, {
-			"time": "16:32:57",
-			"value": 254,
-			"percent":5
-		}, {
-			"time": "16:32:60",
-			"value": 245,
-			"percent":5
-		}, {
-			"time": "16:32:63",
-			"value": 546,
-			"percent":5
-		}, {
-			"time": "16:32:66",
-			"value": 654,
-			"percent":5
-		}, {
-			"time": "16:32:69",
-			"value": 154,
-			"percent":5
-		}, {
-			"time": "16:32:03",
-			"value": 513,
-			"percent":5
-		}, {
-			"time": "16:32:06",
-			"value": 351,
-			"percent":5
-		}, {
-			"time": "16:32:09",
-			"value": 151,
-			"percent":5
-		}, {
-			"time": "16:32:012",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:015",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:018",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:021",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:024",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:027",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:30",
-			"value": 534,
-			"percent":5
-		}, {
-			"time": "16:32:33",
-			"value": 543,
-			"percent":5
-		}, {
-			"time": "16:32:36",
-			"value": 534,
-			"percent":5
-		},{
-			"time": "16:32:03",
-			"value": 513,
-			"percent":5
-		}, {
-			"time": "16:32:06",
-			"value": 351,
-			"percent":5
-		}, {
-			"time": "16:32:09",
-			"value": 151,
-			"percent":5
-		}, {
-			"time": "16:32:012",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:015",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:018",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:021",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:024",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:027",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:30",
-			"value": 534,
-			"percent":5
-		}, {
-			"time": "16:32:33",
-			"value": 543,
-			"percent":5
-		}, {
-			"time": "16:32:36",
-			"value": 534,
-			"percent":5
-		},{
-			"time": "16:32:03",
-			"value": 513,
-			"percent":5
-		}, {
-			"time": "16:32:06",
-			"value": 351,
-			"percent":5
-		}, {
-			"time": "16:32:09",
-			"value": 151,
-			"percent":5
-		}, {
-			"time": "16:32:012",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:015",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:018",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:021",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:024",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:027",
-			"value": 524,
-			"percent":5
-		}, {
-			"time": "16:32:30",
-			"value": 534,
-			"percent":5
-		}, {
-			"time": "16:32:33",
-			"value": 543,
-			"percent":5
-		}, {
-			"time": "16:32:36",
-			"value": 534,
-			"percent":5
-		},{
-			"num":110,
-			"increase":true,
-			"most":1958,
-			"avg":789,
-			"timeSection":"17:00-21:30"
+			"countDate": "2017-05-10 16:32:00",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:00",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:01",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:03",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:04",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:05",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:06",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:00",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:07",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:10",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:15",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:16",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:11",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:20",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:21",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:14",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:00",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:15",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:00",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:53",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:25",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:25",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:00",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:23",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-10 16:32:10",
+			"customerNumber": 341,
+			"yesterdayMaxNumber":0,
+			"isNewRecord":false
+		}, {
+			"countDate": "2017-05-09 16:32:01",
+			"customerNumber": 0,
+			"yesterdayMaxNumber":210,
+			"isNewRecord":false
 		}]
 `
-		// console.log(data.toString())
 	res.write(data);
 	res.end();
 });
@@ -688,51 +169,18 @@ router.get("/fetch", function(req, res, next) {
 	res.writeHead(200, {
 		"Access-Control-Allow-Origin": "*"
 	});
-	var now=new Date()
-	now = [now.getHours(), now.getMinutes() + 1, now.getSeconds()].join(':')
+	// var now=new Date()
+	// now = [now.getHours(), now.getMinutes() + 1, now.getSeconds()].join(':')
 	var value=parseInt(300+(Math.random() - 0.4 )*100);
-
-	var data =`
-	{"time":"${now}","value":"${value}","percent":2}
-`
-		/*{
-			"time": "16:32:00",
-			"value": 341,
-			"percent":2
-		}*/
-		// console.log(data)
-		// console.log(JSON.stringify(data.toJSONString()))
-	res.write(data);
-	res.end();
-});
-router.get("/pie", function(req, res, next) {
-	res.writeHead(200, {
-		"Access-Control-Allow-Origin": "*"
-	});
-	function getVal(){
-	var _=(Math.random()>.5)?'+':'-';
-	var value;
-	if(_ == '-'){
-		value=parseInt(300+ -(Math.random())*100);
-	}else{
-		value=parseInt(300+ (Math.random())*100);
-	}
+	var fenzhong=parseInt(value/10);
 	// console.log(value)
-	return value
-	}
-	// console.log(getVal());
-	var data =`[
-	{"value":"${getVal()}","name":"视频广告"},
-	{"value":"${getVal()}","name":"联盟广告"},
-	{"value":"${getVal()}","name":"邮件营销"},
-	{"value":"${getVal()}","name":"直接访问"},
-	{"value":"${getVal()}","name":"搜索引擎"}]
+	var data =`
+	{"customerNumber":"${value}","yesterdayMaxNumber":0,"countDate":"2017-05-09 16:${fenzhong}:00","isNewRecord":false}
 `
-		console.log(data)
-		// console.log(JSON.stringify(data.toJSONString()))
 	res.write(data);
 	res.end();
 });
+
 router.get("/singleSeller/:id/:time",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
   var seller=`{
@@ -878,10 +326,12 @@ router.get("/singleSellerCustomerNumFetch/:id",function(req,res,next){
 	var num2=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
 	var seller=`{
-            "time":"12:21:08",
-            "num1":${num1},
-            "num2":${num2},
-            "percent":${percent}
+            "countDate":"2017-04-12 12:21:08",
+            "customerNumber":${num1},
+            "doorCustomerNumber":${num2},
+            "shopName":"wedf",
+            "customerRatio":${percent},
+            "yesterdayMaxNumber":0
 	}`
 	res.write(seller);
 	res.end();
@@ -892,102 +342,192 @@ router.get("/singleSellerRadar/:id",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
-	var seller=`[72,65,91,59,27]`
+	var seller=`[{
+		"indicators":"入店量",
+		"score":"64.0",
+		"isNewRecord":false
+	},{
+		"indicators":"新顾客",
+		"score":"42",
+		"isNewRecord":false
+	},{
+		"indicators":"老顾客",
+		"score":"47",
+		"isNewRecord":false
+	},{
+		"indicators":"深访量",
+		"score":"42",
+		"isNewRecord":false
+	},{
+		"indicators":"活跃度",
+		"score":"67",
+		"isNewRecord":false
+	}]`
 	res.write(seller);
 	res.end();
 })
-router.get("/singleSellerStayBar/:id",function(req,res,next){
+router.get("/singleSellerStayBar/:id/:time",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
 	var seller=`[{
-            "name":"少于5分钟",
+            "key":"少于5分钟",
             "value":"300"
         },{
-        		"name":"10分钟",
+        		"key":"10分钟",
             "value":"800"
         },{
-        		"name":"30分钟",
+        		"key":"30分钟",
             "value":"500"
         },{
-        		"name":"45分钟",
+        		"key":"45分钟",
             "value":"400"
         },{
-        		"name":"大于60分钟",
+        		"key":"大于60分钟",
             "value":"100"
         }]
 	`
 	res.write(seller);
 	res.end();
 })
-router.get("/singleSellerOldOrNew/:id",function(req,res,next){
+router.get("/singleSellerOldOrNew/:id/:time",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
 	var data=`[
 		{
-			"time":"2017-4-21",
-      "new":"200",
-      "old":"650"
+			"countDate":"2017-4-21",
+      "newCustomer":"200",
+      "shopName":"taboa",
+      "oldCustomer":"650"
 		},{
-			"time":"2017-4-22",
-			"new":"224",
-			"old":"610"
+			"countDate":"2017-4-22",
+			"newCustomer":"224",
+			"shopName":"taboa",
+			"oldCustomer":"610"
 		},{
-			"time":"2017-4-23",
-			"new":"190",
-			"old":"730"
+			"countDate":"2017-4-23",
+			"newCustomer":"190",
+			"shopName":"taboa",
+			"oldCustomer":"730"
 		}
 	]`
 	res.write(data);
 	res.end();
 })
-router.get("/singleSellerTimeSection/:id",function(req,res,next){
+router.get("/statisticsOldOrNewInit/:time",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var num=500 + parseInt(Math.random()*100);
+	var percent=1 + parseInt(Math.random()*10);
+	var data=`[
+		{
+			"countDate":"2017-4-21",
+      "newCustomer":"200",
+      "oldCustomer":"650"
+		},{
+			"countDate":"2017-4-22",
+			"newCustomer":"224",
+			"oldCustomer":"610"
+		},{
+			"countDate":"2017-4-23",
+			"newCustomer":"190",
+			"oldCustomer":"730"
+		}
+	]`
+	res.write(data);
+	res.end();
+})
+router.get("/singleSellerTimeSection/:id/:time",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
 	var seller=`[{
-            "name":"0-2",
+            "key":"0-2",
             "value":"50"
         },{
-        		"name":"2-4",
+        		"key":"2-4",
             "value":"10"
         },{
-        		"name":"4-6",
+        		"key":"4-6",
             "value":"7"
         },{
-        		"name":"6-8",
+        		"key":"6-8",
             "value":"400"
         },{
-        		"name":"8-10",
+        		"key":"8-10",
             "value":"800"
         },{
-            "name":"10-12",
+            "key":"10-12",
             "value":"792"
         },{
-        		"name":"12-14",
+        		"key":"12-14",
             "value":"1073"
         },{
-        		"name":"14-16",
+        		"key":"14-16",
             "value":"970"
         },{
-        		"name":"16-18",
+        		"key":"16-18",
             "value":"1421"
         },{
-        		"name":"18-20",
+        		"key":"18-20",
             "value":"1082"
         },{
-            "name":"20-22",
+            "key":"20-22",
             "value":"1181"
         },{
-        		"name":"22-24",
+        		"key":"22-24",
             "value":"2091"
         }]
 	`
 	res.write(seller);
 	res.end();
 })
-router.get("/singleSellerDeepVisit/:id",function(req,res,next){
+router.get("/statisticsTimeSectionInit/:id",function(req,res,next){
+	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
+	var num=500 + parseInt(Math.random()*100);
+	var percent=1 + parseInt(Math.random()*10);
+	var seller=`[{
+            "key":"0-2",
+            "value":"50"
+        },{
+        		"key":"2-4",
+            "value":"10"
+        },{
+        		"key":"4-6",
+            "value":"7"
+        },{
+        		"key":"6-8",
+            "value":"400"
+        },{
+        		"key":"8-10",
+            "value":"800"
+        },{
+            "key":"10-12",
+            "value":"792"
+        },{
+        		"key":"12-14",
+            "value":"1073"
+        },{
+        		"key":"14-16",
+            "value":"970"
+        },{
+        		"key":"16-18",
+            "value":"1421"
+        },{
+        		"key":"18-20",
+            "value":"1082"
+        },{
+            "key":"20-22",
+            "value":"1181"
+        },{
+        		"key":"22-24",
+            "value":"2091"
+        }]
+	`
+	res.write(seller);
+	res.end();
+})
+router.get("/singleSellerDeepVisit/:id/:time",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var num=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
@@ -1013,7 +553,48 @@ router.get("/singleSellerDeepVisit/:id",function(req,res,next){
         "deep":"19"
 			}
 	]`
-	res.write(seller);
+	var seller1=`[{
+		"jumpNum":10,
+		"jumpRatio":"1.0",
+		"deepNum":3,
+		"deepRatio":"0.8",
+		"shopName":"taoabo",
+		"countDate":"2017-01-12",
+		"isNewRecord":false
+	},{
+		"jumpNum":10,
+		"jumpRatio":"1.4",
+		"deepNum":3,
+		"deepRatio":"1.0",
+		"shopName":"taoabo",
+		"countDate":"2017-01-12",
+		"isNewRecord":false
+	},{
+		"jumpNum":10,
+		"jumpRatio":"1.2",
+		"deepNum":3,
+		"deepRatio":"0.4",
+		"shopName":"taoabo",
+		"countDate":"2017-01-12",
+		"isNewRecord":false
+	},{
+		"jumpNum":11,
+		"jumpRatio":"1.0",
+		"deepNum":3,
+		"deepRatio":"0.7",
+		"shopName":"taoabo",
+		"countDate":"2017-01-12",
+		"isNewRecord":false
+	},{
+		"jumpNum":10,
+		"jumpRatio":"0.4",
+		"deepNum":3,
+		"deepRatio":"1.0",
+		"shopName":"taoabo",
+		"countDate":"2017-01-12",
+		"isNewRecord":false
+	}]`
+	res.write(seller1);
 	res.end();
 })
 router.get("/singleSellerCycleAndActive/:id",function(req,res,next){
@@ -1057,7 +638,7 @@ router.get("/singleSellerCycleAndActive/:id",function(req,res,next){
 	res.write(seller);
 	res.end();
 })
-router.get("/singleSellerCustomerInInit/:id",function(req,res,next){
+router.get("/singleSellerCustomerInInit/:id/:time",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var id=req.params.id.substr(0,4);
 	var seller=`{
@@ -1137,10 +718,75 @@ router.get("/singleSellerCustomerInInit/:id",function(req,res,next){
             "percent2":1
         }]
     }`
-	res.write(seller);
+    var seller1 = `[{
+							    	"incrementNum":100,
+							    	"incrementRatio":"22.0",
+							    	"shopName":"taobao",
+							    	"countDate":"2017-02-11",
+							    	"isNewRecord":false
+							    },{
+							    	"incrementNum":100,
+							    	"incrementRatio":"22.0",
+							    	"shopName":"taobao",
+							    	"countDate":"2017-02-11",
+							    	"isNewRecord":false
+							    },{
+							    	"incrementNum":41,
+							    	"incrementRatio":"22.0",
+							    	"shopName":"taobao",
+							    	"countDate":"2017-02-11",
+							    	"isNewRecord":false
+							    },{
+							    	"incrementNum":43,
+							    	"incrementRatio":"22.0",
+							    	"shopName":"taobao",
+							    	"countDate":"2017-02-11",
+							    	"isNewRecord":false
+							    },{
+							    	"incrementNum":140,
+							    	"incrementRatio":"22.0",
+							    	"shopName":"taobao",
+							    	"countDate":"2017-02-11",
+							    	"isNewRecord":false
+    }]`
+    var seller2 = `[{
+							    	"incrementNum":100,
+							    	"incrementRatio":"22.0",
+							    	"shopName":"taobao",
+							    	"countDate":"2017-02-11 21:21:41",
+							    	"isNewRecord":false
+							    },{
+							    	"incrementNum":100,
+							    	"incrementRatio":"22.0",
+							    	"shopName":"taobao",
+							    	"countDate":"2017-02-11 21:21:41",
+							    	"isNewRecord":false
+							    },{
+							    	"incrementNum":41,
+							    	"incrementRatio":"22.0",
+							    	"shopName":"taobao",
+							    	"countDate":"2017-02-11 21:21:41",
+							    	"isNewRecord":false
+							    },{
+							    	"incrementNum":43,
+							    	"incrementRatio":"22.0",
+							    	"shopName":"taobao",
+							    	"countDate":"2017-02-11 21:21:41",
+							    	"isNewRecord":false
+							    },{
+							    	"incrementNum":140,
+							    	"incrementRatio":"22.0",
+							    	"shopName":"taobao",
+							    	"countDate":"2017-02-11 21:21:41",
+							    	"isNewRecord":false
+    }]`
+    if(Math.random() > 0.5){
+    	seller1=seller2;
+    }
+	res.write(seller1);
 	res.end();
 })
-router.get("/singleSellerCustomerFlowInit/:id",function(req,res,next){
+router.get("/singleSellerCustomerFlowInit/:id/:time",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var id=req.params.id.substr(0,4);
 	var seller=`{
@@ -1208,7 +854,112 @@ router.get("/singleSellerCustomerFlowInit/:id",function(req,res,next){
             "percent":5
         }]
     }`
-	res.write(seller);
+  var seller1=`[
+  			{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21",
+  				"isNewRecord":false
+  			}
+  ]`
+  var seller2=`[
+  			{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21 21:21:21",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21 08:29:32",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21 08:29:32",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21 08:29:32",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21 08:29:32",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21 08:29:32",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21 08:29:32",
+  				"isNewRecord":false
+  			},{
+  				"customerNumber":456,
+  				"customerRatio":"32.0",
+  				"shopName":"ew",
+  				"countDate":"2014-21-21 08:29:32",
+  				"isNewRecord":false
+  			}
+  ]`
+  if(Math.random() > 0.5){
+  	seller1=seller2;
+	}
+	res.write(seller1);
 	res.end();
 })
 router.get("/singleSellerCustomerNumInit/:id",function(req,res,next){
@@ -1231,49 +982,57 @@ router.get("/singleSellerCustomerNumInit/:id",function(req,res,next){
             "num1":632,
             "num2":722,
             "percent":88
-        },{
-            "time":"12:21:31",
-            "num1":633,
-            "num2":731,
-            "percent":85
-        },{
-            "time":"12:22:11",
-            "num1":646,
-            "num2":756,
-            "percent":70
-        },{
-            "time":"12:21:08",
-            "num1":632,
-            "num2":722,
-            "percent":88
-        },{
-            "time":"12:21:31",
-            "num1":633,
-            "num2":731,
-            "percent":85
-        },{
-            "time":"12:22:11",
-            "num1":646,
-            "num2":756,
-            "percent":70
-        },{
-            "time":"12:21:08",
-            "num1":632,
-            "num2":722,
-            "percent":88
-        },{
-            "time":"12:21:31",
-            "num1":633,
-            "num2":731,
-            "percent":85
-        },{
-            "time":"12:22:11",
-            "num1":646,
-            "num2":756,
-            "percent":70
         }]
     }`
-	res.write(seller);
+	var seller1=`[
+				{
+					"customerNumber":123,
+					"doorCustomerNumber":123,
+					"customerRatio":"50.0",
+					"yesterdayMaxNumber":0,
+					"shopName":"taobao",
+					"countDate":"2017-05-10 15:21:33",
+					"isNewRecord":false
+				},{
+					"customerNumber":123,
+					"doorCustomerNumber":123,
+					"customerRatio":"50.0",
+					"yesterdayMaxNumber":0,
+					"shopName":"taobao",
+					"countDate":"2017-05-10 15:21:33",
+					"isNewRecord":false
+				},{
+					"customerNumber":123,
+					"doorCustomerNumber":123,
+					"customerRatio":"50.0",
+					"yesterdayMaxNumber":0,
+					"shopName":"taobao",
+					"countDate":"2017-05-10 15:21:33",
+					"isNewRecord":false
+				},{
+					"customerNumber":123,
+					"doorCustomerNumber":123,
+					"customerRatio":"50.0",
+					"yesterdayMaxNumber":0,
+					"shopName":"taobao",
+					"countDate":"2017-05-10 15:21:33",
+					"isNewRecord":false
+				},{
+					"customerNumber":123,
+					"doorCustomerNumber":123,
+					"customerRatio":"50.0",
+					"yesterdayMaxNumber":0,
+					"shopName":"taobao",
+					"countDate":"2017-05-10 15:21:33",
+					"isNewRecord":false
+				},{
+					"customerNumber":0,
+					"doorCustomerNumber":0,
+					"yesterdayMaxNumber":678,
+					"maxNumberTime":"2017-05-10 15:21:33",
+					"isNewRecord":false
+				}]`
+	res.write(seller1);
 	res.end();
 })
 router.get("/login",function(req,res,next){

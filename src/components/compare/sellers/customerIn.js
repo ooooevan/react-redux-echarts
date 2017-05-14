@@ -39,22 +39,23 @@ class _sellersIn extends React.Component {
 
     componentWillMount(){
         console.log('componentWillMount')
-
+        // this.props.changeActiveRoute();
 
 
     }
     componentDidMount(){
         console.log('1componentDidMount');
-    //  //this.props.allSellersTableInit();
+         //    //this.props.allSellersTableInit();
     		// if(this.props.sellersAndTime){
     		// 	let dom = ReactDOM.findDOMNode(this.refs.compareSellerInChart);
 	     //    this.state.compareSellerInChart = echarts.init(dom);
 	     //    this.state.compareSellerInChart.showLoading();
     		// }
         if(this.props.sellersAndTime.length>1){
-            let arr=this.props.sellersAndTime.split('|');
-            this.state.seller1=arr[0];
-            this.state.seller2=arr[1];
+            let sellers=this.props.sellersAndTime.split('/')[0].split(',');
+
+            this.state.seller1=sellers[0];
+            this.state.seller2=sellers[1];
             
             this.props.sellersInInit(this.props.sellersAndTime);
             let dom = ReactDOM.findDOMNode(this.refs.compareSellerInChart);
@@ -82,33 +83,37 @@ class _sellersIn extends React.Component {
  //   
     }
     componentWillReceiveProps(nextProps,nextState){
-    	// this.state.sellersList=nextProps.sellersList;
-    }
-    componentWillUpdate(nextProps,nextState){
-        console.log('1-=componentWillUpdate')
-        //有参数传入，才发送请求渲染图表。防止无限循环发送请求，要两次props对比，不同才发
         if(nextProps.sellersAndTime  && nextProps.sellersAndTime !==this.props.sellersAndTime){
-        	// 获取商家名存入state
-        	let arr=nextProps.sellersAndTime.split('|');
-        	this.state.seller1=arr[0];
-        	this.state.seller2=arr[1];
-
-        	this.props.sellersInInit(nextProps.sellersAndTime);
-        	let dom = ReactDOM.findDOMNode(this.refs.compareSellerInChart);
-	        this.state.compareSellerInChart = echarts.init(dom);
-	        this.state.compareSellerInChart.showLoading();
+            // 获取商家名存入state
+            let arr=nextProps.sellersAndTime.split('/');
+            let sellers=arr[0].split(',');
+            this.setState({seller1:sellers[0],seller2:sellers[1]});
+            this.props.sellersInInit(nextProps.sellersAndTime);
+            let dom = ReactDOM.findDOMNode(this.refs.compareSellerInChart);
+            this.state.compareSellerInChart = echarts.init(dom);
+            this.state.compareSellerInChart.showLoading();
         }
-    }
-    componentDidUpdate(){
-        console.log('1..componentDidUpdate')
-        let sellersIn=this.props.sellersIn.toJS();
+        let sellersIn=nextProps.sellersIn.toJS();
         if(sellersIn.series[0].data && sellersIn.series[0].data[0]){
+            let timeList=sellersIn.xAxis[0].data;
+            let num1List=sellersIn.series[0].data;
+            let num2List=sellersIn.series[1].data;
+            this.setState({timeList,num1List,num2List});
             sellersIn.legend.data.push(this.state.seller1,this.state.seller2);
             sellersIn.series[0].name = this.state.seller1;
             sellersIn.series[1].name = this.state.seller2;
             this.state.compareSellerInChart.setOption(sellersIn);
             this.state.compareSellerInChart.hideLoading();
         }
+    }
+    componentWillUpdate(nextProps,nextState){
+        console.log('1-=componentWillUpdate')
+        //有参数传入，才发送请求渲染图表。防止无限循环发送请求，要两次props对比，不同才发
+        
+    }
+    componentDidUpdate(){
+        console.log('1..componentDidUpdate')
+        
 
  //      
     }
@@ -118,19 +123,11 @@ class _sellersIn extends React.Component {
 
 
     render(){
-
-    	
-
-        let rows = [];
-        console.log('...render');
-        if(this.state.Data.series && this.state.Data.series[0].data){
-            let sellerName=this.state.Data.xAxis[0].data;
-            let sellerNum=this.state.Data.series[0].data;
-            let sellerPer=this.state.Data.series[1].data;
-            // debugger
-            sellerName.forEach(function(item,index){
-                rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
-
+        let {timeList,num1List,num2List,seller1,seller2} = this.state;
+        let rows=[];
+        if(timeList){
+            timeList.forEach((item,i)=>{
+              rows.push(<tr key={i}><td>{timeList[i]}</td><td>{num1List[i]}</td><td>{num2List[i]}</td></tr>)
             })
         }
 
@@ -146,9 +143,10 @@ class _sellersIn extends React.Component {
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
-              					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+                                <tr><th>时间</th><th>{seller1}人数</th><th>{seller2}人数</th></tr>
               				</thead>
               				<tbody>
+                            {rows}
               				</tbody>
               			</table>
   								</div>

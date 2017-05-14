@@ -5,7 +5,7 @@ import {connect,Provider} from 'react-redux';
 import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import Calendar from '../../calendar';
-// import '../../styles/calendar.scss';
+import Tools from '../../tools';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
@@ -19,7 +19,7 @@ class _sellersRoute extends React.Component {
     };
     constructor(props){
         super(props);
-        this.changeSellerName=this.changeSellerName.bind(this);
+        // this.changeSellerName=this.changeSellerName.bind(this);
         this.state={
             // compareCustomerOldOrNewChart:'',
             // resizeHandler:null,
@@ -28,15 +28,26 @@ class _sellersRoute extends React.Component {
             selectTime:'day',
             time:'',          //要请求的time参数，有多个
             time1:'',           //时间1，用于显示图表的legend
-            time2:''              //时间2,用于显示图表的legend
+            time2:'',              //时间2,用于显示图表的legend
+            seller1:'',
+            seller2:''
         }
 
 
     }
-    changeSellerName(name){
+    // changeSellerName(name){
         // this.setState({
         //     sellerName:name
         // })
+    // }
+    getTodayTime=()=>{
+        let year=new Date().getFullYear();
+        let month=new Date().getMonth() + 1;
+        month=month>=10?month:'0'+month;
+        let day=new Date().getDate();
+        day=day>=10?day:'0'+day;
+        this.state.time2=year+'-'+month+'-'+day;
+        return this.state.time2;
     }
     componentWillMount(){
       // console.log('componentWillMount')
@@ -49,6 +60,20 @@ class _sellersRoute extends React.Component {
      this.props.changeActiveRoute()
 
     }
+    componentWillUpdate(nextProps,nextState){
+        if(nextProps.sellersList){
+            let seller1=ReactDOM.findDOMNode(this.refs.selectSeller1).getElementsByTagName('input')[0];
+            let seller2=ReactDOM.findDOMNode(this.refs.selectSeller2).getElementsByTagName('input')[0];
+            let time1 = this.getTodayTime();
+            //没有选择商家才默认选择第1、2个
+            if(!this.state.sellersAndTime){
+                seller1.value=nextProps.sellersList.get(0);
+                seller2.value=nextProps.sellersList.get(1);
+                this.state.sellersAndTime=seller1.value+','+seller2.value+'/'+time1+','+time1;
+            }
+        }
+         
+    }
     componentWillUnmount(){
         // console.log('componentWillUnmount');
     }
@@ -60,12 +85,12 @@ class _sellersRoute extends React.Component {
         return;
         }
         switch(e.target.innerText){
-        case '时':
+        /*case '时':
           this.setState({
             time:'hour',
             selectTime:'hour'
           })
-          return;
+          return;*/
         case '日':
           this.setState({
             time:'day',
@@ -89,6 +114,8 @@ class _sellersRoute extends React.Component {
     search=()=>{
         let time1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
         let time2=ReactDOM.findDOMNode(this.refs.selectTime2).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
+        time1=Tools.changeTime(time1);
+        time2=Tools.changeTime(time2);
         //去除红色警示框ClassName
         ReactDOM.findDOMNode(this.refs.selectTime1).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
         ReactDOM.findDOMNode(this.refs.selectTime2).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
@@ -131,7 +158,7 @@ class _sellersRoute extends React.Component {
         }
         // 向子组件发送参数
         this.setState({
-            sellersAndTime:seller1.value+'|'+seller2.value+'|'+time1+'|'+time2+'|'+this.state.selectTime
+            sellersAndTime:seller1.value+','+seller2.value+'/'+time1+','+time2/*+'|'+this.state.selectTime*/
         })
         // console.log('参数：'+seller1.value+'   '+seller2.value+'   '+time1+'   '+time2)
         // this.props.customerOldOrNewInit(time1+'|'+time2+'|'+this.state.selectTime);
@@ -150,7 +177,7 @@ class _sellersRoute extends React.Component {
         }
         return <div className="chartWrapper">
              
-                <div className='selectOption'>
+                <div className='selectOption inline'>
                     商家一：
                     <div className='selectSeller1 selectTime1' ref='selectSeller1'>
                     <input list='selectSeller1' className='selectSeller1'/>
@@ -170,9 +197,9 @@ class _sellersRoute extends React.Component {
                 <div className='selectOption inline'>
                     时间：&nbsp;&nbsp;&nbsp;
                     <div className='selectTime1' ref='selectTime1'><Calendar/></div>
-                    &nbsp;&nbsp;&nbsp;对比时间：&nbsp;
+                    &nbsp;&nbsp;至&nbsp;&nbsp;
                     <div className='selectTime1' ref='selectTime2'><Calendar/></div>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对比时间范围：
+                    {/*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对比时间范围：
                     <div className='quickSelect defaultCursor'>
                       <ul>
                             <li><a className={this.state.selectTime=='hour'?'active':''} onClick={this.changeTime}>时</a></li>
@@ -180,7 +207,7 @@ class _sellersRoute extends React.Component {
                             <li><a className={this.state.selectTime=='week'?'active':''} onClick={this.changeTime}>周</a></li>
                             <li><a className={this.state.selectTime=='month'?'active':''} onClick={this.changeTime}>月</a></li>
                         </ul>
-                    </div>
+                    </div>*/}
                     <div className='selectClick'>
                       <input type='button' value='查询' onClick={this.search} />
                     </div>

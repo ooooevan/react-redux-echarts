@@ -35,6 +35,49 @@ let options = {
         series: [{
             name: '时间一',
             type: 'bar',
+            barGap:0,
+            data: undefined
+        }, {
+            name: '时间二',
+            type: 'bar',
+            data: undefined
+        }]
+    },
+    customerIn:{
+        title: {
+            text: '入店量对比',
+            show:false
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { 
+                type: 'shadow'
+            }
+        },
+        legend: {
+            data: []
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [{
+            type: 'category',
+            data: undefined
+        }],
+        yAxis: [{
+            type: 'value',
+            name: '入店量',
+            axisLabel: {
+                formatter: '{value}'
+            }
+        }],
+        series: [{
+            name: '时间一',
+            type: 'bar',
+            barGap:0,
             data: undefined
         }, {
             name: '时间二',
@@ -138,7 +181,7 @@ let options = {
                 type: 'value',
                 name: '新顾客率',
                 axisLabel: {
-                    formatter: '{value}'
+                    formatter: '{value} %'
                 }
             }
             ],
@@ -147,6 +190,7 @@ let options = {
                 name:'1',
                 type:'line',
                 smooth:true,
+                
                 // stack: '总量',
                 // yAxisIndex: 2,
                 // areaStyle: {
@@ -204,6 +248,7 @@ let options = {
         series: [{
             name: '时间一',
             type: 'bar',
+            barGap:0,
             data: undefined
         }, {
             name: '时间二',
@@ -245,6 +290,7 @@ let options = {
         series: [{
             name: '时间一',
             type: 'bar',
+            barGap:0,
             data: undefined
         }, {
             name: '时间二',
@@ -440,6 +486,7 @@ let options = {
         series: [{
             name: '时间一',
             type: 'bar',
+            barGap:0,
             data: undefined
         }, {
             name: '时间二',
@@ -482,6 +529,7 @@ let options = {
         series: [{
             name: '时间一',
             type: 'bar',
+            barGap:0,
             data: undefined
         }, {
             name: '时间二',
@@ -542,6 +590,7 @@ let options = {
             {
                 name:'1',
                 type:'line',
+                barGap:0,
                 smooth:true,
                 // stack: '总量',
                 // yAxisIndex: 2,
@@ -754,6 +803,7 @@ let options = {
         series: [{
             name: '时间一',
             type: 'bar',
+            barGap:0,
             data: undefined
         }, {
             name: '时间二',
@@ -795,6 +845,7 @@ let options = {
         series: [{
             name: '时间一',
             type: 'bar',
+            barGap:0,
             data: undefined
         }, {
             name: '时间二',
@@ -836,6 +887,7 @@ let options = {
         series: [{
             name: '时间一',
             type: 'bar',
+            barGap:0,
             data: undefined
         }, {
             name: '时间二',
@@ -877,6 +929,7 @@ let options = {
         series: [{
             name: '时间一',
             type: 'bar',
+            barGap:0,
             data: undefined
         }, {
             name: '时间二',

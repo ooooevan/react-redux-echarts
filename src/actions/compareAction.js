@@ -4,9 +4,9 @@ const Api=actionApi.compare;
 const TYPE=dispatchType.compare;
 
 export default {
-	numInit(time) {
+	numInit(time,range) {
     return function(dispatch) {
-      let url=Api.numInit+'?'+time;
+      let url=Api.numInit+time+'/'+range;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -19,9 +19,24 @@ export default {
         })
     };
   },
-  oldOrNewInit(time){
+  numInInit(time,range) {
     return function(dispatch) {
-      let url=Api.oldOrNewInit+'?'+time;
+      let url=Api.numInInit+time+'/'+range;
+      fetch(url).then(data => data.json())
+          .then(data => {
+            dispatch({
+              type: TYPE.numInInit,
+              payload: data
+            });
+          })
+          .catch(function(err){
+            console.log(err)
+        })
+    };
+  },
+  oldOrNewInit(time,range){
+    return function(dispatch) {
+      let url=Api.oldOrNewInit+time+'/'+range;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -34,39 +49,39 @@ export default {
         })
     };
   },
-  deepVisitInit(time){
+  // deepVisitInit(time){
+  //   return function(dispatch) {
+  //     let url=Api.deepVisitInit+'?'+time;
+  //     fetch(url).then(data => data.json())
+  //         .then(data => {
+  //           dispatch({
+  //             type: TYPE.deepVisitInit,
+  //             payload: data
+  //           });
+  //         })
+  //         .catch(function(err){
+  //           console.log(err)
+  //       })
+  //   };
+  // },
+  // outInit(time){
+  //   return function(dispatch) {
+  //     let url=Api.outInit+'?'+time;
+  //     fetch(url).then(data => data.json())
+  //         .then(data => {
+  //           dispatch({
+  //             type: TYPE.outInit,
+  //             payload: data
+  //           });
+  //         })
+  //         .catch(function(err){
+  //           console.log(err)
+  //       })
+  //   };
+  // },
+  activeInit(time,range){
     return function(dispatch) {
-      let url=Api.deepVisitInit+'?'+time;
-      fetch(url).then(data => data.json())
-          .then(data => {
-            dispatch({
-              type: TYPE.deepVisitInit,
-              payload: data
-            });
-          })
-          .catch(function(err){
-            console.log(err)
-        })
-    };
-  },
-  outInit(time){
-    return function(dispatch) {
-      let url=Api.outInit+'?'+time;
-      fetch(url).then(data => data.json())
-          .then(data => {
-            dispatch({
-              type: TYPE.outInit,
-              payload: data
-            });
-          })
-          .catch(function(err){
-            console.log(err)
-        })
-    };
-  },
-  activeInit(time){
-    return function(dispatch) {
-      let url=Api.activeInit+'?'+time;
+      let url=Api.activeInit+time+'/'+range;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -79,9 +94,9 @@ export default {
         })
     };
   },
-  cycleInit(time){
+  cycleInit(time,range){
     return function(dispatch) {
-      let url=Api.cycleInit+'?'+time;
+      let url=Api.cycleInit+time+'/'+range;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -94,9 +109,9 @@ export default {
         })
     };
   },
-  sellersNumInit(time){
+  sellersNumInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersNumInit+'?'+time;
+      let url=Api.sellersNumInit+sellersAndTime;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -124,9 +139,9 @@ export default {
         })
     };
   },
-  sellersInInit(time){
+  sellersInInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersInInit+'?'+time;
+      let url=Api.sellersInInit+sellersAndTime;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -139,9 +154,9 @@ export default {
         })
     };
   },
-  sellersOldOrNewInit(time){
+  sellersOldOrNewInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersOldOrNewInit+'?'+time;
+      let url=Api.sellersOldOrNewInit+sellersAndTime;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -154,9 +169,9 @@ export default {
         })
     };
   },
-  sellersOutInit(time){
+  sellersOutInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersOutInit+'?'+time;
+      let url=Api.sellersOutInit+sellersAndTime;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -169,9 +184,9 @@ export default {
         })
     };
   },
-  sellersDeepInit(time){
+  sellersDeepInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersDeepInit+'?'+time;
+      let url=Api.sellersDeepInit+sellersAndTime;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -184,9 +199,9 @@ export default {
         })
     };
   },
-  sellersStayInit(time){
+  sellersStayInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersStayInit+'?'+time;
+      let url=Api.sellersStayInit+sellersAndTime;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -199,9 +214,9 @@ export default {
         })
     };
   },
-  sellersActiveInit(time){
+  sellersActiveInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersActiveInit+'?'+time;
+      let url=Api.sellersActiveInit+sellersAndTime;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -229,9 +244,9 @@ export default {
         })
     };
   },
-  sellersCycleInit(time){
+  sellersCycleInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersCycleInit+'?'+time;
+      let url=Api.sellersCycleInit+sellersAndTime;
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({

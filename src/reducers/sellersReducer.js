@@ -9,9 +9,13 @@ export default function sellersReducer(state=initialState,action){
     // if(typeof state === 'undefined') return {sellers:[]}
     switch(action.type){
         case TYPE.sellersListInit:
+          let list=[];
+          action.payload.forEach(item => {
+            list.push(item.shopName);
+          })
 
           //商家列表,action.payload是对象数组，用List
-          return state.setIn(['sellers'],Immutable.List(action.payload));
+          return state.setIn(['sellers'],Immutable.List(list));
         case TYPE.allSellersLineChartInit:
       		/*let obj2=Object.assign({},state);*/
           
@@ -20,17 +24,21 @@ export default function sellersReducer(state=initialState,action){
       		obj2.lineAndBar.series[0].data=[];
       		obj2.lineAndBar.series[1].data=[];*/
           // debugger
-          let obj={seller:[],num:[],percent:[],lastPage:false};
+          const obj={seller:[],num:[],percent:[],lastPage:false};
           // let lastPage=false;
           action.payload.forEach(item => {
-            if(item.lastPage){         //判断是否最后一页
+            if(item.isLastPage){         //判断是否最后一页
               obj.lastPage=true;
+              obj.seller.push(item.shopName);
+              obj.num.push(item.incrementNum);
+              obj.percent.push(item.momPercent);
             }else{
-              obj.seller.push(item.seller);
-              obj.num.push(item.num);
-              obj.percent.push(item.percent);
+              obj.seller.push(item.shopName);
+              obj.num.push(item.incrementNum);
+              obj.percent.push(item.momPercent);
             }
           })
+          // debugger
           //获取xAis对象,用链式调用
           return state.setIn(['lineAndBar','xAxis',0,'data'],Immutable.List(obj.seller))
                               .setIn(['lineAndBar','xAxis',0,'lastPage'],obj.lastPage)
@@ -49,50 +57,38 @@ export default function sellersReducer(state=initialState,action){
             // obj2.lineAndBar.xAxis[0].lastPage=lastPage;
             // let df=xAxis.toJS();
 					// return xAxis;
-        // case "singleSellerLineChartInit":
 
-
-
-          // let obj3=Object.assign({},state);
-          // obj3.lineAndLine.xAxis.data=[]
-          // obj3.lineAndLine.series[0].data=[];
-          // obj3.lineAndLine.series[1].data=[];
-          // //商家名
-          // obj3.lineAndLine.name =action.payload.name;
-          // //赋值
-          // action.payload.value.forEach(item=>{
-          //   obj3.lineAndLine.xAxis.data.push(item.time);
-          //   obj3.lineAndLine.series[0].data.push(item.num);
-          //   obj3.lineAndLine.series[1].data.push(item.percent);
-          // })
-
-
-
-
-          // return Object.assign({},state,obj3);
         case TYPE.singleSellerCustomerNumInit:
-          // debugger;
-          /*let obj13=Object.assign({},state);
-          obj13.customerNum.xAxis[0].data=[];
-          obj13.customerNum.series[0].data=[];
-          obj13.customerNum.series[1].data=[];
-          obj13.customerNum.series[2].data=[];*/
-          let customer={name:'',time:[],num1:[]/*,num2:[]*/,percent:[]}
+          const yesterday={};
+          const customer={name:action.payload[0].shopName,time:[],num1:[],num2:[],percent:[]}
+          action.payload.forEach(item=>{
+                if( item.yesterdayMaxNumber > 0 ){
+                    yesterday.num=item.yesterdayMaxNumber;
+                    yesterday.time=item.maxNumberTime.split(' ')[1];
+                }else{
+                    customer.time.push(item.countDate.split(' ')[1]);
+                    customer.num1.push(item.customerNumber);
+                    customer.num2.push(item.doorCustomerNumber);
+                    customer.percent.push(item.customerRatio);
+                }
+            })
           //商家名
-          customer.name =action.payload.name;
+          // customer.name =action.payload.name;
           //赋值
-          action.payload.value.forEach(item=>{
-            // debugger
-            customer.time.push(item.time);
-            customer.num1.push(item.num1);
-            // customer.num2.push(item.num2);
-            customer.percent.push(item.percent);
-          })
+          // action.payload.value.forEach(item=>{
+          //   // debugger
+          //   customer.time.push(item.time);
+          //   customer.num1.push(item.num1);
+          //   // customer.num2.push(item.num2);
+          //   customer.percent.push(item.percent);
+          // })
           return state.setIn(['customerNum','xAxis',0,'data'],Immutable.List(customer.time))
                       .setIn(['customerNum','series',0,'data'],Immutable.List(customer.num1))
-                      // .setIn(['customerNum','series',1,'data'],Immutable.List(customer.num2))
-                      .setIn(['customerNum','series',1,'data'],Immutable.List(customer.percent))
-                      .setIn(['customerNum','name'],customer.name);
+                      .setIn(['customerNum','series',1,'data'],Immutable.List(customer.num2))
+                      .setIn(['customerNum','series',2,'data'],Immutable.List(customer.percent))
+                      .setIn(['customerNum','name'],customer.name)
+                      .setIn(['customerNum','xAxis',0,'yesterday'],Immutable.Map(yesterday));
+
 
         case TYPE.singleSellerCustomerNumFetch:
           // let obj4=Object.assign({},state);
@@ -101,24 +97,36 @@ export default function sellersReducer(state=initialState,action){
           //             .setIn(['customerNum','series',1,'data'],action.payload.num2)
           //             .setIn(['customerNum','series',2,'data'],action.payload.percent)
          return state.updateIn(['customerNum','xAxis',0,'data'],list=>{
-                        return list.push(action.payload.time);
+                        return list.push(action.payload.countDate.split(' ')[1]);
                       })
                      .updateIn(['customerNum','xAxis',0,'data'],list=>{
                         return list.shift();
                       })
                       .updateIn(['customerNum','series',0,'data'],list=>{
-                        return list.push(action.payload.num1);
+                        return list.push(action.payload.customerNumber);
                       })
                       .updateIn(['customerNum','series',0,'data'],list=>{
+                        return list.shift();
+                      })
+                      .updateIn(['customerNum','series',1,'data'],list=>{
+                        return list.push(action.payload.doorCustomerNumber);
+                      })
+                      .updateIn(['customerNum','series',1,'data'],list=>{
+                        return list.shift();
+                      })
+                      .updateIn(['customerNum','series',2,'data'],list=>{
+                        return list.push(action.payload.customerRatio);
+                      })
+                      .updateIn(['customerNum','series',2,'data'],list=>{
                         return list.shift();
                       })
                       /*.updateIn(['customerNum','series',1,'data'],data=>{
                         return data.push(action.payload.num2).shift();
                       })*/
-                      .updateIn(['customerNum','series',1,'data'],list=>{
-                        console.log(state.getIn(['customerNum']).toJS())
-                        return list.push(action.payload.percent).shift();
-                      });
+                      // .updateIn(['customerNum','series',1,'data'],list=>{
+                      //   console.log(state.getIn(['customerNum']).toJS())
+                      //   return list.push(action.payload.percent).shift();
+                      // });
 
         /*case TYPE.allSellersTableInit:
           // debugger
@@ -131,12 +139,17 @@ export default function sellersReducer(state=initialState,action){
           });
           return state.set('table',Immutable.List(arr));*/
         case TYPE.singleSellerCustomerFlowInit:
-          let CustomerFlow={name:'',time:[],num:[],percent:[]};
-          CustomerFlow.name =action.payload.name;
-          action.payload.value.forEach(item=>{
-            CustomerFlow.time.push(item.time);
-            CustomerFlow.num.push(item.num);
-            CustomerFlow.percent.push(item.percent);
+          let CustomerFlow={name:action.payload[0].shopName,time:[],num:[],percent:[]};
+          action.payload.forEach(item=>{
+            if(item.countDate.split(' ')[1]){
+              CustomerFlow.time.push(item.countDate.split(' ')[1]);
+              CustomerFlow.num.push(item.customerNumber);
+              CustomerFlow.percent.push(item.customerRatio);
+            }else{
+              CustomerFlow.time.push(item.countDate);
+              CustomerFlow.num.push(item.customerNumber);
+              CustomerFlow.percent.push(item.customerRatio);
+            }
           })
           return state.setIn(['customerFlow','xAxis','data'],Immutable.List(CustomerFlow.time))
                         .setIn(['customerFlow','name'],CustomerFlow.name)
@@ -153,36 +166,48 @@ export default function sellersReducer(state=initialState,action){
           //商家名
           customerIn.name =action.payload.name;
           //赋值
-          action.payload.value.forEach(item=>{
+          action.payload.forEach(item=>{
           /*  obj12.customerFlow.xAxis.data.push(item.time);
             obj12.customerFlow.series[0].data.push(item.num);
             obj12.customerFlow.series[1].data.push(item.percent1);
             obj12.customerFlow.series[2].data.push(item.percent2);*/
-            customerIn.time.push(item.time);
-            customerIn.num.push(item.num);
-            customerIn.percent1.push(item.percent1);
-            customerIn.percent2.push(item.percent2);
+            if(item.countDate.split(' ')[1]){
+              customerIn.time.push(item.countDate.split(' ')[1]);
+              customerIn.num.push(item.incrementNum);
+              customerIn.percent1.push(item.incrementRatio);
+            }else{
+              customerIn.time.push(item.countDate);
+              customerIn.num.push(item.incrementNum);
+              customerIn.percent1.push(item.incrementRatio);
+            }
+            // customerIn.percent2.push(item.percent2);
           })
           // return Object.assign({},state,obj12);
             return state.setIn(['customerIn','xAxis','data'],Immutable.List(customerIn.time))
                         .setIn(['customerIn','name'],customerIn.name)
                         .setIn(['customerIn','series',0,'data'],Immutable.List(customerIn.num))
                         .setIn(['customerIn','series',1,'data'],Immutable.List(customerIn.percent1))
-                        .setIn(['customerIn','series',2,'data'],Immutable.List(customerIn.percent2));
+                        // .setIn(['customerIn','series',2,'data'],Immutable.List(customerIn.percent2));
         
         case TYPE.singleSellerRadar:
           // debugger
 
           // let obj6=Object.assign({},state);
-          let value=[];
+          let radar={name:[],value:[]};
           action.payload.forEach(item=>{
-            value.push(item)
+            radar.name.push(item.indicators);
+            radar.value.push(item.score);
           })
           // for(let item in payloadValue){
           //   value.push(payloadValue[item])
           // }
           // obj6.radar.series.data[0].value = value;
-          return state.setIn(['radar','series','data',0],Immutable.List(value));
+          return state.setIn(['radar','series','data',0],Immutable.List(radar.value))
+                      .setIn(['radar','radar','indicator',0,'name'],radar.name[0])
+                      .setIn(['radar','radar','indicator',1,'name'],radar.name[1])
+                      .setIn(['radar','radar','indicator',2,'name'],radar.name[2])
+                      .setIn(['radar','radar','indicator',3,'name'],radar.name[3])
+                      .setIn(['radar','radar','indicator',4,'name'],radar.name[4])
           // return Object.assign({},state,obj6);
         case TYPE.singleSellerStayBar:
           // debugger
@@ -191,7 +216,7 @@ export default function sellersReducer(state=initialState,action){
           // let name2=[];
           // let value2=[];
           action.payload.forEach(item=>{
-            staybar.name.push(item.name);
+            staybar.name.push(item.key);
             staybar.value.push(item.value);
           })
           return state.setIn(['stayBar','xAxis',0,'data'],Immutable.List(staybar.name))
@@ -207,9 +232,9 @@ export default function sellersReducer(state=initialState,action){
           // return Object.assign({},state,obj8);
           let oldnew={time:[],old:[],new:[]};
           action.payload.forEach(item=>{
-            oldnew.time.push(item.time);
-            oldnew.old.push(item.old);
-            oldnew.new.push(item.new);
+            oldnew.time.push(item.countDate);
+            oldnew.old.push(item.oldCustomer);
+            oldnew.new.push(item.newCustomer);
           })
           return state.setIn(['oldOrNew','xAxis',0,'data'],Immutable.List(oldnew.time))
                       .setIn(['oldOrNew','series',0,'data'],Immutable.List(oldnew.new))
@@ -221,7 +246,7 @@ export default function sellersReducer(state=initialState,action){
           // let name3=[];
           // let value3=[];
           action.payload.forEach(item=>{
-            timeSection.name.push(item.name);
+            timeSection.name.push(item.key);
             timeSection.value.push(item.value);
           })
           // obj9.timeSection.xAxis[0].data = name3;
@@ -230,18 +255,23 @@ export default function sellersReducer(state=initialState,action){
           return state.setIn(['timeSection','xAxis',0,'data'],Immutable.List(timeSection.name))
                       .setIn(['timeSection','series',0,'data'],Immutable.List(timeSection.value))
         case TYPE.singleSellerDeepVisit:
-          let deep={time:[],deep:[]};
+          let deep={time:[],deep:[],out:[],deepNum:[],outNum:[]};
           action.payload.forEach(item=>{
-            deep.time.push(item.time);
-            deep.deep.push(item.deep);
+            deep.time.push(item.countDate);
+            deep.deep.push(item.deepRatio);
+            deep.deepNum.push(item.deepNum);
+            deep.out.push(item.jumpRatio);
+            deep.outNum.push(item.jumpNum);
           })
-          // debugger
           // let obj10=Object.assign({},state);
           // obj10.deepVisit.series[0].data[0].value = action.payload.shallow;
           // obj10.deepVisit.series[0].data[1].value = action.payload.common;
           // obj10.deepVisit.series[0].data[2].value = action.payload.deep;
           return state.setIn(['deepVisit','xAxis','data'],Immutable.List(deep.time))
-                      .setIn(['deepVisit','series','data'],Immutable.List(deep.deep));
+                      .setIn(['deepVisit','series',0,'data'],Immutable.List(deep.deep))
+                      .setIn(['deepVisit','series',1,'data'],Immutable.List(deep.out))
+                      .setIn(['deepVisit','xAxis','deepNum'],Immutable.List(deep.deepNum))
+                      .setIn(['deepVisit','xAxis','outNum'],Immutable.List(deep.outNum))
           // return Object.assign({},state,obj10);
         /*case TYPE.singleSellerCycleAndActive:
           // let obj11=Object.assign({},state);
@@ -275,7 +305,7 @@ export default function sellersReducer(state=initialState,action){
         case TYPE.singleSellerCycleInit:
           let cycle={name:[],value:[]};
           action.payload.forEach(item=>{
-            cycle.name.push(item.time);
+            cycle.name.push(item.key);
             cycle.value.push(item.value);
           })
           return state.setIn(['cycle','xAxis',0,'data'],Immutable.List(cycle.name))
@@ -283,10 +313,10 @@ export default function sellersReducer(state=initialState,action){
         case TYPE.singleSellerActiveInit:
           let active={name:[],value:[]};
           action.payload.forEach(item=>{
-            active.name.push(item.time);
+            active.name.push(item.key);
             active.value.push(item.value);
           })
-          return state.setIn(['active','xAxis',0,'data'],Immutable.List(active.name))
+          return state.setIn(['active','xAxis',0,'data'],Immutable.List(active.name.reverse()))
                   .setIn(['active','series',0,'data'],Immutable.List(active.value));
         default:
             return state;

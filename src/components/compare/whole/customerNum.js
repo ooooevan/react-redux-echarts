@@ -6,7 +6,7 @@ import {connect,Provider} from 'react-redux';
 import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import Calendar from '../../calendar';
-// import '../../styles/calendar.scss';
+import Tools from '../../tools';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
@@ -33,29 +33,32 @@ class _customerNum extends React.Component {
             selectTime:'day',
             time:'',          //要请求的time参数，有多个
             time1:'',           //时间1，用于显示图表的legend
-            time2:''              //时间2,用于显示图表的legend
-		}
+            time2:'',              //时间2,用于显示图表的legend
+            timeList:'',
+            num1List:'',
+            num2List:''
+        }
     }
 
 
     componentWillMount(){
         console.log('componentWillMount')
-        let time=this.getTime();  //获取昨天今天日期
-        this.props.numInit(time+'|day');   //默认无参，可选
+        
  //        this.props.comparenumInit(this.state.time,this.state.chartPage);
 
     }
-    getTime=()=>{
-        let year=new Date().getFullYear();
-        let month=new Date().getMonth() + 1;
-        let day=new Date().getDay();
-        this.state.time1=year+'-'+month+'-'+(day-1);
-        this.state.time2=year+'-'+month+'-'+day;
-        return this.state.time1+'|'+this.state.time2;
-    }
+
 	componentDidMount(){
-    	console.log('componentDidMount');
-	// 	//this.props.allSellersTableInit();
+        console.log('componentDidMount');
+        // 	//this.props.allSellersTableInit();
+        let getTime=Tools.getTime();
+        this.state.time=getTime;
+        this.state.time1=getTime.split(',')[0];
+        this.state.time2=getTime.split(',')[1];
+        this.props.numInit(Tools.changeTime(this.state.time),this.state.selectTime);   //默认无参，可选
+
+        let input1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0];
+        input1.value=this.state.time.split(',')[0];
         let dom = ReactDOM.findDOMNode(this.refs.compareCustomerNumChart);
 
         this.state.compareCustomerNumChart = echarts.init(dom);
@@ -80,30 +83,37 @@ class _customerNum extends React.Component {
 	// }
  //   
     }
-    componentWillUpdate(nextProps){
-        console.log('-=componentWillUpdate')
-    }
-    componentDidUpdate(prevProps,prevState){
-        console.log('..componentDidUpdate')
-        if(prevProps!==this.props){  //当props改变时才触发。只改变selectTime不触发
+    componentWillReceiveProps(nextProps,nextState){
+        if(this.props!==nextProps){  //当props改变时才触发。只改变selectTime不触发
 
-            let customerNum=this.props.customerNum.toJS();
+            let customerNum=nextProps.customerNum.toJS();
+            let timeList=customerNum.xAxis[0].data;
+            let num1List=customerNum.series[0].data;
+            let num2List=customerNum.series[1].data;
+            this.setState({timeList,num1List,num2List});
             if(customerNum.series[0].data && customerNum.series[0].data[0]){
                 // 判断若是多天的，则legend不能为日期，直接写：时间一、时间二 ？
-                if(this.state.selectTime!=='day' && this.state.selectTime!=='hour'){
-                    customerNum.legend.data.push('已选时间','对比时间');
-                    customerNum.series[0].name = '已选时间';
-                    customerNum.series[1].name = '对比时间';
-                }else{
-                    customerNum.legend.data.push(this.state.time1,this.state.time2);
-                    customerNum.series[0].name = this.state.time1;
-                    customerNum.series[1].name = this.state.time2;
-                }
+                // if(this.state.selectTime!=='day' /*&& this.state.selectTime!=='hour'*/){
+                    customerNum.legend.data.push('时间一','时间二');
+                    customerNum.series[0].name = '时间一';
+                    customerNum.series[1].name = '时间二';
+                // }else{
+                //     customerNum.legend.data.push(this.state.time1,this.state.time2);
+                //     customerNum.series[0].name = this.state.time1;
+                //     customerNum.series[1].name = this.state.time2;
+                // }
                 this.state.compareCustomerNumChart.setOption(customerNum);
                 this.state.compareCustomerNumChart.hideLoading();
             }
 
         }
+    }
+    componentWillUpdate(nextProps){
+        console.log('-=componentWillUpdate')
+    }
+    componentDidUpdate(prevProps,prevState){
+        console.log('..componentDidUpdate')
+        
  //      
     }
 	// componentWillReceiveProps(){
@@ -113,12 +123,12 @@ class _customerNum extends React.Component {
          return;
       }
       switch(e.target.innerText){
-        case '时':
+        /*case '时':
           this.setState({
             time:'hour',
             selectTime:'hour'
           })
-          return;
+          return;*/
         case '日':
           this.setState({
             time:'day',
@@ -142,6 +152,8 @@ class _customerNum extends React.Component {
     search=()=>{
         let time1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
         let time2=ReactDOM.findDOMNode(this.refs.selectTime2).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
+        time1=Tools.changeTime(time1);
+        time2=Tools.changeTime(time2);
         //去除红色警示框ClassName
         ReactDOM.findDOMNode(this.refs.selectTime1).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
         ReactDOM.findDOMNode(this.refs.selectTime2).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
@@ -165,23 +177,29 @@ class _customerNum extends React.Component {
           return false;
         }
         //日历选择没有错误，得到时间范围,发请求,并保存时间，放入图表legend
-        this.props.numInit(time1+'|'+time2+'|'+this.state.selectTime);
+        this.props.numInit(time1+','+time2,this.state.selectTime);
         this.state.time1=time1;
         this.state.time2=time2;
         return;
     }
 
     render(){
-		let rows = [];
-        console.log('...render');
+		let {timeList,num1List,num2List} = this.state;
+        let rows=[];
+        let time1,time2;
+        if(timeList){
+            timeList.forEach((item,i)=>{
+                time1=timeList[i].split('/')[0];
+                time2=timeList[i].split('/')[1];
+              rows.push(<tr key={i}><td>{time1}</td><td>{num1List[i]}</td><td>{time2}</td><td>{num2List[i]}</td></tr>)
+            })
+        }
 		if(this.state.Data.series && this.state.Data.series[0].data){
             let sellerName=this.state.Data.xAxis[0].data;
             let sellerNum=this.state.Data.series[0].data;
             let sellerPer=this.state.Data.series[1].data;
-            // debugger
 			sellerName.forEach(function(item,index){
 				rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
-
 			})
 		}
 
@@ -196,7 +214,7 @@ class _customerNum extends React.Component {
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对比时间范围：
                     <div className='quickSelect defaultCursor'>
                       <ul>
-                            <li><a className={this.state.selectTime=='hour'?'active':''} onClick={this.changeTime}>时</a></li>
+                            {/*<li><a className={this.state.selectTime=='hour'?'active':''} onClick={this.changeTime}>时</a></li>*/}
                             <li><a className={this.state.selectTime=='day'?'active':''} onClick={this.changeTime}>日</a></li>
                             <li><a className={this.state.selectTime=='week'?'active':''} onClick={this.changeTime}>周</a></li>
                             <li><a className={this.state.selectTime=='month'?'active':''} onClick={this.changeTime}>月</a></li>
@@ -218,7 +236,7 @@ class _customerNum extends React.Component {
 						<div className="panelBody">
         			    <table className="Table">
             				<thead>
-            					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+            					<tr><th>时间一</th><th>客流量</th><th>时间二</th><th>客流量</th></tr>
             				</thead>
             				<tbody>
     						{rows}

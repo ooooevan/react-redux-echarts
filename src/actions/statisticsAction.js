@@ -7,7 +7,7 @@ const url=actionApi.statistics;
 export default {
 	statisticsCustomerNumInit(time){
     return function(dispatch){
-    	let _url=url.statisticsCustomerNumInit+'?'+time;
+    	let _url=url.statisticsCustomerNumInit+time;
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -20,9 +20,24 @@ export default {
         })
     }
   },
+  statisticsPeakInit(time){
+    return function(dispatch){
+      let _url=url.statisticsPeakInit+time;
+      fetch(_url).then(data=> data.json())
+        .then(data=>{
+          dispatch({
+            type: TYPE.statisticsPeakInit,
+            payload: data
+          })
+        })
+        .catch(function(err){
+            console.log(err)
+        })
+    }
+  },
   statisticsOldOrNewInit(time){
     return function(dispatch){
-    	let _url=url.statisticsOldOrNewInit+time+'&';
+    	let _url=url.statisticsOldOrNewInit+time;
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -37,7 +52,7 @@ export default {
   },
   statisticsTimeSectionInit(time){
   	return function(dispatch){
-    	let _url=url.statisticsTimeSectionInit+time+'&';
+    	let _url=url.statisticsTimeSectionInit+time;
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -52,7 +67,7 @@ export default {
   },
   statisticsCycleInit(time){
   	return function(dispatch){
-    	let _url=url.statisticsCycleInit+'?'+time+'&';
+    	let _url=url.statisticsCycleInit+time;
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -67,7 +82,7 @@ export default {
   },
   statisticsActiveInit(time){
   	return function(dispatch){
-    	let _url=url.statisticsActiveInit+'?'+time+'&';
+    	let _url=url.statisticsActiveInit+time;
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({

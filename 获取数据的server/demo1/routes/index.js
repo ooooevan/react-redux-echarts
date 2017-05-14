@@ -5,218 +5,393 @@ var router = express.Router();
 // router.get('/', function(req, res, next) {
 //      res.render('index', { title: 'Express' });
 // });
-router.get("/statisticsCustomerNumInit", function(req, res, next) {
+router.get("/statisticsCustomerNumInit/:time", function(req, res, next) {
 	res.writeHead(200, {
 		"Access-Control-Allow-Origin": "*"
 	});
 
 	var data =`
 				[{
-            "time":"12:21:08",
-            "num":652,
+            "countDate":"12:21:08",
+            "incrementNum":652,
             "percent":3
         },{
-            "time":"12:21:31",
-            "num":623,
+            "countDate":"12:21:31",
+            "incrementNum":623,
             "percent":2.4
         },{
-            "time":"12:22:11",
-            "num":626,
+            "countDate":"12:22:11",
+            "incrementNum":626,
             "percent":2.8
         },{
-            "time":"12:23:31",
-            "num":553,
+            "countDate":"12:23:31",
+            "incrementNum":553,
             "percent":2
         },{
-            "time":"12:27:31",
-            "num":674,
+            "countDate":"12:27:31",
+            "incrementNum":674,
             "percent":4
         },{
-            "time":"12:31:31",
-            "num":632,
+            "countDate":"12:31:31",
+            "incrementNum":632,
             "percent":2.4
         },{
-            "time":"12:43:31",
-            "num":613,
+            "countDate":"12:43:31",
+            "incrementNum":613,
             "percent":2
         },{
-            "time":"13:21:31",
-            "num":623,
+            "countDate":"13:21:31",
+            "incrementNum":623,
             "percent":2.4
         },{
-            "time":"13:22:11",
-            "num":626,
+            "countDate":"13:22:11",
+            "incrementNum":626,
             "percent":2.8
         },{
-            "time":"13:23:31",
-            "num":553,
-            "percent":2
-        },{
-            "time":"13:27:31",
-            "num":674,
-            "percent":4
-        },{
-            "time":"13:31:31",
-            "num":632,
-            "percent":2.4
-        },{
-            "time":"13:43:31",
-            "num":613,
+            "countDate":"13:23:31",
+            "incrementNum":553,
             "percent":2
         }]
 `
 	res.write(data);
 	res.end();
 });
-router.get("/statisticsCycleInit/", function(req, res, next) {
+router.get("/singleSellerCycleInit/:id/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`
         [{
-            "time":"初次",
+            "key":"初次",
+            "value":"414",
+            "isNewRecord":false
+        },{
+            "key":"昨日",
+            "value":"627",
+            "isNewRecord":false
+        },{
+            "key":"前日",
+            "value":"1449",
+            "isNewRecord":false
+        },{
+            "key":"一周前",
+            "value":"782",
+            "isNewRecord":false
+        },{
+            "key":"半月前",
+            "value":"582",
+            "isNewRecord":false
+        },{
+            "key":"一月前",
+            "value":"219",
+            "isNewRecord":false
+        }]
+`
+    res.write(data);
+    res.end();
+});
+router.get("/statisticsCycleInit/:time", function(req, res, next) {
+    res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*"
+    });
+
+    var data =`
+        [{
+            "key":"初次",
             "value":"414"
         },{
-            "time":"昨日",
+            "key":"昨日",
             "value":"627"
         },{
-            "time":"前日",
+            "key":"前日",
             "value":"1449"
         },{
-            "time":"一周前",
+            "key":"一周前",
             "value":"782"
         },{
-            "time":"半月前",
+            "key":"半月前",
             "value":"582"
         },{
-            "time":"一月前",
+            "key":"一月前",
             "value":"219"
         }]
 `
     res.write(data);
     res.end();
 });
-router.get("/statisticsActiveInit/", function(req, res, next) {
+router.get("/singleSellerActiveInit/:id/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`
         [{
-            "time":"沉睡活跃度",
-            "value":"414"
+            "key":"高活跃度",
+            "value":"782"
         },{
-            "time":"低活跃度",
-            "value":"627"
-        },{
-            "time":"中活跃度",
+            "key":"中活跃度",
             "value":"1449"
         },{
-            "time":"高活跃度",
-            "value":"782"
+            "key":"低活跃度",
+            "value":"627"
+        },{
+            "key":"沉睡活跃度",
+            "value":"414"
         }]
 `
     res.write(data);
     res.end();
 });
-router.get("/allsellers/", function(req, res, next) {
+router.get("/statisticsActiveInit/:time", function(req, res, next) {
+    res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*"
+    });
+    var data =`
+        [{
+            "key":"高活跃度",
+            "value":"782"
+        },{
+            "key":"中活跃度",
+            "value":"1449"
+        },{
+            "key":"低活跃度",
+            "value":"627"
+        },{
+            "key":"沉睡活跃度",
+            "value":"414"
+        }]
+`
+    res.write(data);
+    res.end();
+});
+router.get("/statisticsPeakInit/:time", function(req, res, next) {
+    res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*"
+    });
+    var data1 =`
+        [{
+            "countDate":"2017-04-12 04:32:42",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12 04:32:42",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12 04:32:42",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12 04:32:42",
+            "customerNumber":634,
+            "isNewRecord":false
+        }]
+`
+    var data2 =`
+        [{
+            "countDate":"2017-04-12",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12",
+            "customerNumber":634,
+            "isNewRecord":false
+        }]
+`
+    if(Math.random() > 0.5){
+        data1=data2
+    }
+    res.write(data1);
+    res.end();
+});
+router.get("/allsellers/:time/3", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`
             [{
-                    "seller":"一号店",
-                    "num":"4321",
-                    "percent":2
+                    "incrementNum":2311,
+                    "momPercent":"17",
+                    "shopName":"taobao"
                 },{
-                    "seller":"淘宝",
-                    "num":"2142",
-                    "percent":3
+                    "incrementNum":1341,
+                    "momPercent":"12",
+                    "shopName":"kfc"
+                },{
+                    "incrementNum":1321,
+                    "momPercent":"-4",
+                    "shopName":"987"
+                },{
+                    "shopName":"1222",
+                    "incrementNum":242,
+                    "momPercent":"1"
+                },{
+                    "shopName":"赶集网",
+                    "incrementNum":421,
+                    "momPercent":"-1"
+                },{
+                    "shopName":"987",
+                    "incrementNum":232,
+                    "momPercent":"-0.2"
+                },{
+                    "shopName":"q",
+                    "incrementNum":431,
+                    "momPercent":"-2"
+                },{
+                    "shopName":"GV",
+                    "incrementNum":1241,
+                    "momPercent":"0.2"
+                },{
+                    "shopName":"GV",
+                    "incrementNum":324,
+                    "momPercent":"1"
+                },{
+                    "shopName":"222",
+                    "incrementNum":465,
+                    "momPercent":"1"
+                },{
+                    "shopName":"赶集网",
+                    "incrementNum":421,
+                    "momPercent":"-1"
+                },{
+                    "shopName":"987",
+                    "incrementNum":1532,
+                    "isLastPage":"true",
+                    "momPercent":"-0.2"
+                }]
+`
+
+    res.write(data);
+    res.end();
+});
+router.get("/allsellers/:time/:page", function(req, res, next) {
+    res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*"
+    });
+    var data =`
+            [{
+                    "incrementNum":231,
+                    "momPercent":"7",
+                    "shopName":"taobao"
+                },{
+                    "incrementNum":341,
+                    "momPercent":"2",
+                    "shopName":"kfc"
 
                 },{
-                    "seller":"122",
-                    "num":"4351",
-                    "percent":-0.3
+                    "incrementNum":321,
+                    "momPercent":"-4",
+                    "shopName":"987"
 
                 },{
-                    "seller":"222",
-                    "num":"2142",
-                    "percent":1
+                    "shopName":"222",
+                    "incrementNum":242,
+                    "momPercent":"1"
 
                 },{
-                    "seller":"赶集网",
-                    "num":"1421",
-                    "percent":-1
+                    "shopName":"赶集网",
+                    "incrementNum":421,
+                    "momPercent":"-1"
 
                 },{
-                    "seller":"987",
-                    "num":"5232",
-                    "percent":-0.2
+                    "shopName":"987",
+                    "incrementNum":232,
+                    "momPercent":"-0.2"
 
                 },{
-                    "seller":"q",
-                    "num":"4314",
-                    "percent":-2
+                    "shopName":"q",
+                    "incrementNum":431,
+                    "momPercent":"-2"
 
                 },{
-                    "seller":"GV",
-                    "num":"3241",
-                    "percent":0.2
+                    "shopName":"GV",
+                    "incrementNum":241,
+                    "momPercent":"0.2"
 
                 },{
-                    "seller":"GV",
-                    "num":"4324",
-                    "percent":1
+                    "shopName":"GV",
+                    "incrementNum":324,
+                    "momPercent":"1"
 
                 },{
-                    "seller":"222",
-                    "num":"2142",
-                    "percent":1
+                    "shopName":"222",
+                    "incrementNum":465,
+                    "momPercent":"1"
 
                 },{
-                    "seller":"赶集网",
-                    "num":"1421",
-                    "percent":-1
+                    "shopName":"赶集网",
+                    "incrementNum":421,
+                    "momPercent":"-1"
 
                 },{
-                    "seller":"987",
-                    "num":"5232",
-                    "percent":-0.2
+                    "shopName":"987",
+                    "incrementNum":532,
+                    "momPercent":"-0.2"
 
+                }]
+`
+    var data =`
+            [{
+                    "incrementNum":2311,
+                    "momPercent":"17",
+                    "shopName":"taobao"
                 },{
-                    "seller":"q",
-                    "num":"4314",
-                    "percent":-2
-
+                    "incrementNum":1341,
+                    "momPercent":"12",
+                    "shopName":"kfc"
                 },{
-                    "seller":"GV",
-                    "num":"3241",
-                    "percent":0.2
-
+                    "incrementNum":1321,
+                    "momPercent":"-4",
+                    "shopName":"987"
                 },{
-                    "seller":"GV",
-                    "num":"4324",
-                    "percent":1
-
+                    "shopName":"1222",
+                    "incrementNum":242,
+                    "momPercent":"1"
                 },{
-                    "seller":"222",
-                    "num":"2142",
-                    "percent":1
-
+                    "shopName":"赶集网",
+                    "incrementNum":421,
+                    "momPercent":"-1"
                 },{
-                    "seller":"赶集网",
-                    "num":"1421",
-                    "percent":-1
-
+                    "shopName":"987",
+                    "incrementNum":232,
+                    "momPercent":"-0.2"
                 },{
-                    "seller":"987",
-                    "num":"5232",
-                    "percent":-0.2
-
+                    "shopName":"q",
+                    "incrementNum":431,
+                    "momPercent":"-2"
+                },{
+                    "shopName":"GV",
+                    "incrementNum":1241,
+                    "momPercent":"0.2"
+                },{
+                    "shopName":"GV",
+                    "incrementNum":324,
+                    "momPercent":"1"
+                },{
+                    "shopName":"222",
+                    "incrementNum":465,
+                    "momPercent":"1"
+                },{
+                    "shopName":"赶集网",
+                    "incrementNum":421,
+                    "momPercent":"-1"
+                },{
+                    "shopName":"987",
+                    "incrementNum":1532,
+                    "momPercent":"-0.2"
                 }]
 `
     res.write(data);
     res.end();
 });
+
 router.get("/allsellers?:time&3", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
@@ -318,112 +493,233 @@ router.get("/allsellers?:time&3", function(req, res, next) {
     res.write(data);
     res.end();
 });
-router.get("/compareCustomerNum/", function(req, res, next) {
+router.get("/numInInit/:time/:range", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
+    if(req.params.range === 'day'){
+
+    }
     var data =`{
-        "data1":[{
-            "time":"12:21:08",
-            "num":622
+        "2017-01-01":[{
+            "countDate":"2017-01-01",
+            "incrementNum":622,
+            "isNewRecord":false
             },{
-            "time":"12:21:11",
-            "num":632
+            "countDate":"2017-01-02",
+            "incrementNum":632,
+            "isNewRecord":false
             },{
-            "time":"12:21:15",
-            "num":612
+            "countDate":"2017-01-03",
+            "incrementNum":612,
+            "isNewRecord":false
             },{
-            "time":"12:21:22",
-            "num":632
+            "countDate":"2017-01-04",
+            "incrementNum":632,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-01",
+            "incrementNum":622,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-02",
+            "incrementNum":632,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-03",
+            "incrementNum":612,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-04",
+            "incrementNum":632,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-01",
+            "incrementNum":622,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-02",
+            "incrementNum":632,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-03",
+            "incrementNum":612,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-04",
+            "incrementNum":632,
+            "isNewRecord":false
             }],
-        "data2":[{
-            "time":"12:21:08",
-            "num":652
+        "2017-01-08":[{
+            "countDate":"2017-01-08",
+            "incrementNum":652,
+            "isNewRecord":false
             },{
-            "time":"12:21:11",
-            "num":612
+            "countDate":"2017-01-09",
+            "incrementNum":612,
+            "isNewRecord":false
             },{
-            "time":"12:21:15",
-            "num":652
+            "countDate":"2017-01-10",
+            "incrementNum":652,
+            "isNewRecord":false
             },{
-            "time":"12:21:22",
-            "num":642
+            "countDate":"2017-01-11",
+            "incrementNum":642,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-08",
+            "incrementNum":652,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-09",
+            "incrementNum":612,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-10",
+            "incrementNum":652,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-11",
+            "incrementNum":642,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-08",
+            "incrementNum":652,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-09",
+            "incrementNum":612,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-10",
+            "incrementNum":652,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-11",
+            "incrementNum":642,
+            "isNewRecord":false
             }]
     }`
     res.write(data);
     res.end();
 });
-router.get("/customerCycleInit/", function(req, res, next) {
+router.get("/compareCustomerNum/:time/:range", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
+    if(req.params.range === 'day'){
+
+    }
     var data =`{
-        "data1":[{
-            "time":"初次",
-            "num":622
+        "2017-01-01":[{
+            "countDate":"2017-01-01",
+            "customerNumber":622,
+            "isNewRecord":false
             },{
-            "time":"昨日",
-            "num":632
+            "countDate":"2017-01-02",
+            "customerNumber":632,
+            "isNewRecord":false
             },{
-            "time":"前日",
-            "num":612
+            "countDate":"2017-01-03",
+            "customerNumber":612,
+            "isNewRecord":false
             },{
-            "time":"一周前",
-            "num":632
-            },{
-            "time":"一月前",
-            "num":632
+            "countDate":"2017-01-04",
+            "customerNumber":632,
+            "isNewRecord":false
             }],
-        "data2":[{
-            "time":"初次",
-            "num":621
+        "2017-01-08":[{
+            "countDate":"2017-01-08",
+            "customerNumber":652,
+            "isNewRecord":false
             },{
-            "time":"昨日",
-            "num":652
+            "countDate":"2017-01-09",
+            "customerNumber":612,
+            "isNewRecord":false
             },{
-            "time":"前日",
-            "num":612
+            "countDate":"2017-01-10",
+            "customerNumber":652,
+            "isNewRecord":false
             },{
-            "time":"一周前",
-            "num":652
-            },{
-            "time":"一月前",
-            "num":642
+            "countDate":"2017-01-11",
+            "customerNumber":642,
+            "isNewRecord":false
             }]
     }`
     res.write(data);
     res.end();
 });
-router.get("/customerActiveInit/", function(req, res, next) {
+router.get("/customerCycleInit/:time/:range", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`{
-        "data1":[{
-            "time":"沉睡活跃度",
-            "num":622
+        "2017-02-01":[{
+            "key":"一天以内",
+            "value":322
             },{
-            "time":"低活跃度",
-            "num":632
+            "key":"三天以内",
+            "value":502
             },{
-            "time":"中活跃度",
-            "num":612
+            "key":"一周以内",
+            "value":732
             },{
-            "time":"高活跃度",
-            "num":632
+            "key":"一月以内",
+            "value":672
+            },{
+            "key":"一月以上",
+            "value":531
             }],
-        "data2":[{
-            "time":"沉睡活跃度",
-            "num":621
+        "2017-02-02":[{
+            "key":"一天以内",
+            "value":321
             },{
-            "time":"低活跃度",
-            "num":652
+            "key":"三天以内",
+            "value":552
             },{
-            "time":"中活跃度",
-            "num":612
+            "key":"一周以内",
+            "value":752
             },{
-            "time":"高活跃度",
-            "num":652
+            "key":"一月以内",
+            "value":642
+            },{
+            "key":"一月以上",
+            "value":549
+            }]
+    }`
+    res.write(data);
+    res.end();
+});
+router.get("/customerActiveInit/:id/:range", function(req, res, next) {
+    res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*"
+    });
+    var data =`{
+        "2017-02-12":[{
+            "key":"沉睡活跃度",
+            "value":622
+            },{
+            "key":"低活跃度",
+            "value":632
+            },{
+            "key":"中活跃度",
+            "value":612
+            },{
+            "key":"高活跃度",
+            "value":632
+            }],
+        "2017-02-15":[{
+            "key":"沉睡活跃度",
+            "value":621
+            },{
+            "key":"低活跃度",
+            "value":652
+            },{
+            "key":"中活跃度",
+            "value":612
+            },{
+            "key":"高活跃度",
+            "value":652
             }]
     }`
     res.write(data);
@@ -499,141 +795,213 @@ router.get("/customerOutInit/", function(req, res, next) {
     res.write(data);
     res.end();
 });
-router.get("/customerOldOrNewInit/", function(req, res, next) {
+router.get("/customerOldOrNewInit/:time/:range", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`{
-        "data1":[{
-            "time":"2014-2-1",
-            "percent":12
+        "2017-01-21":[{
+            "countDate":"2014-02-01",
+            "newCustomer":12,
+            "oldCustomer":32,
+            "isNewRecord":false
             },{
-            "time":"2014-3-1",
-            "percent":21
+            "countDate":"2014-03-02",
+            "newCustomer":11,
+            "oldCustomer":22,
+            "isNewRecord":false
             },{
-            "time":"2014-5-1",
-            "percent":12
+            "countDate":"2014-05-03",
+            "newCustomer":12,
+            "oldCustomer":32,
+            "isNewRecord":false
             },{
-            "time":"2015-1-2",
-            "percent":18
+            "countDate":"2015-01-04",
+            "newCustomer":18,
+            "oldCustomer":37,
+            "isNewRecord":false
             }],
-        "data2":[{
-            "time":"2014-2-1",
-            "percent":13
+        "2017-01-22":[{
+            "countDate":"2014-02-05",
+            "newCustomer":13,
+            "oldCustomer":31,
+            "isNewRecord":false
             },{
-            "time":"2014-3-1",
-            "percent":12
+            "countDate":"2014-03-06",
+            "newCustomer":12,
+            "oldCustomer":39,
+            "isNewRecord":false
             },{
-            "time":"2014-5-1",
-            "percent":15
+            "countDate":"2014-05-07",
+            "newCustomer":15,
+            "oldCustomer":42,
+            "isNewRecord":false
             },{
-            "time":"2015-1-2",
-            "percent":12
+            "countDate":"2015-01-08",
+            "newCustomer":12,
+            "oldCustomer":31,
+            "isNewRecord":false
             }]
     }`
     res.write(data);
     res.end();
 });
-router.get("/sellersNumInit/", function(req, res, next) {
+router.get("/sellersNumInit/:sellers/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`{
-        "seller1":[{
-            "time":"12:21:08",
-            "num":622
+        "taobao":[{
+            "countDate":"2017-01-21",
+            "customerNumber":622,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
             },{
-            "time":"12:21:11",
-            "num":632
+            "countDate":"2017-01-21",
+            "customerNumber":632,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
             },{
-            "time":"12:21:15",
-            "num":612
+            "countDate":"2017-01-21",
+            "customerNumber":612,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
             },{
-            "time":"12:21:22",
-            "num":632
+            "countDate":"2017-01-21",
+            "customerNumber":632,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
             }],
         "seller2":[{
-            "time":"12:21:08",
-            "num":652
+            "countDate":"2017-01-21",
+            "customerNumber":652,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
             },{
-            "time":"12:21:11",
-            "num":612
+            "countDate":"2017-01-21",
+            "customerNumber":612,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
             },{
-            "time":"12:21:15",
-            "num":652
+            "countDate":"2017-01-21",
+            "customerNumber":652,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
             },{
-            "time":"12:21:22",
-            "num":642
+            "countDate":"2017-01-21",
+            "customerNumber":642,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
             }]
     }`
     res.write(data);
     res.end();
 });
-router.get("/sellersInInit/", function(req, res, next) {
+router.get("/sellersInInit/:sellers/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`{
-        "seller1":[{
-            "time":"12:21:08",
-            "num":622
+        "rew":[{
+            "countDate":"2017-01-21",
+            "incrementNum":622,
+            "shopName":"ds"
             },{
-            "time":"12:21:11",
-            "num":635
+            "countDate":"2017-01-21",
+            "incrementNum":635,
+            "shopName":"ds"
             },{
-            "time":"12:21:15",
-            "num":612
+            "countDate":"2017-01-21",
+            "incrementNum":612,
+            "shopName":"ds"
             },{
-            "time":"12:21:22",
-            "num":632
+            "countDate":"2017-01-21",
+            "incrementNum":632,
+            "shopName":"ds"
             }],
-        "seller2":[{
-            "time":"12:21:08",
-            "num":652
+        "edd":[{
+            "countDate":"2017-01-21",
+            "incrementNum":652,
+            "shopName":"ds"
             },{
-            "time":"12:21:11",
-            "num":612
+            "countDate":"2017-01-21",
+            "incrementNum":612,
+            "shopName":"ds"
             },{
-            "time":"12:21:15",
-            "num":658
+            "countDate":"2017-01-21",
+            "incrementNum":658,
+            "shopName":"ds"
             },{
-            "time":"12:21:22",
-            "num":642
+            "countDate":"2017-01-21",
+            "incrementNum":642,
+            "shopName":"ds"
             }]
     }`
     res.write(data);
     res.end();
 });
-router.get("/sellersOldOrNewInit/", function(req, res, next) {
+router.get("/sellersOldOrNewInit/:sellers/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`{
         "seller1":[{
-            "time":"2014-2-1",
-            "percent":12
+            "countDate":"2014-2-1",
+            "newCustomer":12,
+            "oldCustomer":12,
+            "shopName":"ta",
+            "isNewRecord":false
             },{
-            "time":"2014-3-1",
-            "percent":21
+            "countDate":"2014-3-1",
+            "newCustomer":21,
+            "oldCustomer":12,
+            "shopName":"ta",
+            "isNewRecord":false
             },{
-            "time":"2014-5-1",
-            "percent":12
+            "countDate":"2014-5-1",
+            "newCustomer":12,
+            "oldCustomer":12,
+            "shopName":"ta",
+            "isNewRecord":false
             },{
-            "time":"2015-1-2",
-            "percent":18
+            "countDate":"2015-1-2",
+            "newCustomer":18,
+            "oldCustomer":12,
+            "shopName":"ta",
+            "isNewRecord":false
             }],
         "seller2":[{
-            "time":"2014-2-1",
-            "percent":13
+            "countDate":"2014-2-1",
+            "newCustomer":13,
+            "oldCustomer":12,
+            "shopName":"ta",
+            "isNewRecord":false
             },{
-            "time":"2014-3-1",
-            "percent":12
+            "countDate":"2014-3-1",
+            "newCustomer":12,
+            "oldCustomer":12,
+            "shopName":"ta",
+            "isNewRecord":false
             },{
-            "time":"2014-5-1",
-            "percent":15
+            "countDate":"2014-5-1",
+            "newCustomer":15,
+            "oldCustomer":12,
+            "shopName":"ta",
+            "isNewRecord":false
             },{
-            "time":"2015-1-2",
-            "percent":12
+            "countDate":"2015-1-2",
+            "newCustomer":12,
+            "oldCustomer":12,
+            "shopName":"ta",
+            "isNewRecord":false
             }]
     }`
     res.write(data);
@@ -674,106 +1042,142 @@ router.get("/sellersOut/", function(req, res, next) {
     res.write(data);
     res.end();
 });
-router.get("/sellersDeepInit/", function(req, res, next) {
+router.get("/sellersDeepInit/:sellers/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`{
-        "seller1":[{
-            "time":"2014-2-1",
-            "percent":112
+        "se21":[{
+            "countDate":"2014-2-1",
+            "jumpNum":112,
+            "deepNum":123,
+            "deepRatio":"19.0",
+            "jumpRatio":"12.0"
             },{
-            "time":"2014-3-1",
-            "percent":421
+            "countDate":"2014-3-1",
+            "jumpNum":421,
+            "deepNum":241,
+            "deepRatio":"11.0",
+            "jumpRatio":"43.0"
             },{
-            "time":"2014-5-1",
-            "percent":122
+            "countDate":"2014-5-1",
+            "jumpNum":122,
+            "deepNum":543,
+            "deepRatio":"12.0",
+            "jumpRatio":"11.0"
             },{
-            "time":"2015-1-2",
-            "percent":418
+            "countDate":"2015-1-2",
+            "jumpNum":418,
+            "deepNum":523,
+            "deepRatio":"51.0",
+            "jumpRatio":"8.0"
             }],
         "seller2":[{
-            "time":"2014-2-1",
-            "percent":113
+            "countDate":"2014-2-1",
+            "jumpNum":113,
+            "deepNum":412,
+            "deepRatio":"32.0",
+            "jumpRatio":"12.0"
             },{
-            "time":"2014-3-1",
-            "percent":142
+            "countDate":"2014-3-1",
+            "jumpNum":142,
+            "deepNum":231,
+            "deepRatio":"34.0",
+            "jumpRatio":"31.0"
             },{
-            "time":"2014-5-1",
-            "percent":135
+            "countDate":"2014-5-1",
+            "jumpNum":135,
+            "deepNum":123,
+            "deepRatio":"42.0",
+            "jumpRatio":"11.0"
             },{
-            "time":"2015-1-2",
-            "percent":312
+            "countDate":"2015-1-2",
+            "jumpNum":312,
+            "deepNum":423,
+            "deepRatio":"12.0",
+            "jumpRatio":"32.0"
             }]
     }`
     res.write(data);
     res.end();
 });
-router.get("/sellersStayBarInit/", function(req, res, next) {
+router.get("/sellersStayBarInit/:sellers/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`{
-        "seller1":[{
-            "time":"2014-2-1",
-            "num":12
+        "fds":[{
+            "key":"一分钟内",
+            "value":12
             },{
-            "time":"2014-3-1",
-            "num":21
+            "key":"10分钟内",
+            "value":21
             },{
-            "time":"2014-5-1",
-            "num":12
+            "key":"20分钟内",
+            "value":12
             },{
-            "time":"2015-1-2",
-            "num":18
+            "key":"30分钟内",
+            "value":18
+            },{
+            "key":"1小时内",
+            "value":12
+            },{
+            "key":"1小时以上",
+            "value":18
             }],
         "seller2":[{
-            "time":"2014-2-1",
-            "num":13
+            "key":"一分钟内",
+            "value":13
             },{
-            "time":"2014-3-1",
-            "num":12
+            "key":"10分钟内",
+            "value":12
             },{
-            "time":"2014-5-1",
-            "num":15
+            "key":"20分钟内",
+            "value":15
             },{
-            "time":"2015-1-2",
-            "num":12
+            "key":"30分钟内",
+            "value":12
+            },{
+            "key":"1小时内",
+            "value":12
+            },{
+            "key":"1小时以上",
+            "value":18
             }]
     }`
     res.write(data);
     res.end();
 });
-router.get("/sellersActiveInit/", function(req, res, next) {
+router.get("/sellersActiveInit/:sellers/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`{
-        "seller1":[{
-            "time":"2014-2-1",
-            "num":122
+        "f1":[{
+            "key":"高活跃度",
+            "value":122
             },{
-            "time":"2014-3-1",
-            "num":251
+            "key":"中活跃度",
+            "value":251
             },{
-            "time":"2014-5-1",
-            "num":122
+            "key":"低活跃度",
+            "value":122
             },{
-            "time":"2015-1-2",
-            "num":418
+            "key":"沉睡活跃度",
+            "value":418
             }],
-        "seller2":[{
-            "time":"2014-2-1",
-            "num":113
+        "21":[{
+            "key":"高活跃度",
+            "value":113
             },{
-            "time":"2014-3-1",
-            "num":142
+            "key":"中活跃度",
+            "value":142
             },{
-            "time":"2014-5-1",
-            "num":125
+            "key":"低活跃度",
+            "value":125
             },{
-            "time":"2015-1-2",
-            "num":412
+            "key":"沉睡活跃度",
+            "value":412
             }]
     }`
     res.write(data);
@@ -814,36 +1218,42 @@ router.get("/sellersTimeSectionInit/", function(req, res, next) {
     res.write(data);
     res.end();
 });
-router.get("/sellersCycleInit/", function(req, res, next) {
+router.get("/sellersCycleInit/:sellers/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`{
         "seller1":[{
-            "time":"初次",
-            "num":122
+            "key":"一天以内",
+            "value":122
             },{
-            "time":"昨日",
-            "num":251
+            "key":"三天以内",
+            "value":251
             },{
-            "time":"一周前",
-            "num":122
+            "key":"一周以内",
+            "value":122
             },{
-            "time":"一月前",
-            "num":418
+            "key":"一月以内",
+            "value":418
+            },{
+            "key":"一月以上",
+            "value":412
             }],
         "seller2":[{
-            "time":"初次",
-            "num":113
+            "key":"一天以内",
+            "value":113
             },{
-            "time":"昨日",
-            "num":142
+            "key":"三天以内",
+            "value":142
             },{
-            "time":"一周前",
-            "num":125
+            "key":"一周以内",
+            "value":125
             },{
-            "time":"一月前",
-            "num":412
+            "key":"一月以内",
+            "value":412
+            },{
+            "key":"一月以上",
+            "value":419
             }]
     }`
     res.write(data);

@@ -10,7 +10,8 @@ import Calendar from '../calendar';
 //import lineAction from '../actions/lineAction';
 // import FirstPageLineReducer from '../reducers/firstPageLineReducer';
 import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router';
-
+const FaAngleDoubleRight = require('react-icons/lib/fa/angle-double-right');
+const FaAreaChart = require('react-icons/lib/fa/area-chart');
 // var echarts = require('echarts/lib/echarts'); //必须
 // require('echarts/lib/chart/pie'); //图表类型
 // require('echarts/lib/component/title'); //标题插件
@@ -27,11 +28,12 @@ class SidebarNav extends React.Component {
     render(){
         return <div id='sidebar_nav'>
             <ul>
-                <li><Link to='statistics/total' activeClassName="active" draggable="false"><i className='fa fa-area-chart' aria-hidden="true"></i>客流量 <i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-                <li><Link to='statistics/oldOrNew' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>新老顾客<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-                <li><Link to='statistics/active' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>顾客活跃度<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-                <li><Link to='statistics/timeSection' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>各时间段人数<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-                <li><Link to='statistics/cycle' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>来访周期<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
+                <li><Link to='statistics/total' activeClassName="active" draggable="false"><FaAreaChart />入店量 <FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
+                <li><Link to='statistics/peak' activeClassName="active" draggable="false"><FaAreaChart />客流峰值 <FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
+                <li><Link to='statistics/oldOrNew' activeClassName="active" draggable="false"><FaAreaChart />新老顾客<FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
+                <li><Link to='statistics/active' activeClassName="active" draggable="false"><FaAreaChart />顾客活跃度<FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
+                <li><Link to='statistics/timeSection' activeClassName="active" draggable="false"><FaAreaChart />各时间段人数峰值<FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
+                <li><Link to='statistics/cycle' activeClassName="active" draggable="false"><FaAreaChart />来访周期<FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
             </ul>
         </div>
     }
@@ -48,15 +50,18 @@ class _statistics extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            selectTime:'yesterday',
-            time:'yesterday'
+            selectTime:'day',
+            time:'day'
         }
     }
     stateDefault=()=>{
       this.setState({
-        selectTime:'yesterday',
-        time:'yesterday'
+        selectTime:'day',
+        time:'day'
       })
+    }
+    componentDidMount(){
+      scrollTo(0,0);
     }
     changeTime=(e)=>{
       if(e.target.className === 'active'){
@@ -65,8 +70,8 @@ class _statistics extends React.Component {
       switch(e.target.innerText){
         case '昨天':
           this.setState({
-            time:'yesterday',
-            selectTime:'yesterday'
+            time:'day',
+            selectTime:'day'
           })
           return;
         case '最近一周':
@@ -81,10 +86,16 @@ class _statistics extends React.Component {
             selectTime:'month'
           })
           return;
+        case '最近一年':
+          this.setState({
+            time:'year',
+            selectTime:'year'
+          })
+          return;
         case '全部':
           this.setState({
-            time:'all',
-            selectTime:'all'
+            time:'more',
+            selectTime:'more'
           })
           return;
       }
@@ -116,7 +127,7 @@ class _statistics extends React.Component {
         }
         
         this.setState({
-          time:time1+'|'+time2,
+          time:time1+','+time2,
           selectTime:''
         })
     }
@@ -128,10 +139,11 @@ class _statistics extends React.Component {
                     时间选择：
                     <div className='quickSelect'>
                       <ul>
-                            <li><a className={this.state.selectTime=='yesterday'?'active':''} onClick={this.changeTime}>昨天</a></li>
+                            <li><a className={this.state.selectTime=='day'?'active':''} onClick={this.changeTime}>昨天</a></li>
                             <li><a className={this.state.selectTime=='week'?'active':''} onClick={this.changeTime}>最近一周</a></li>
                             <li><a className={this.state.selectTime=='month'?'active':''} onClick={this.changeTime}>最近一月</a></li>
-                            <li><a className={this.state.selectTime=='all'?'active':''} onClick={this.changeTime}>全部</a></li>
+                            <li><a className={this.state.selectTime=='year'?'active':''} onClick={this.changeTime}>最近一年</a></li>
+                            <li><a className={this.state.selectTime=='more'?'active':''} onClick={this.changeTime}>全部</a></li>
                         </ul>
                     </div>
                 </div>

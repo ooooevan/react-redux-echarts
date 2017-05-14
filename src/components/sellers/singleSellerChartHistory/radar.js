@@ -17,13 +17,15 @@ class _radar extends React.Component {
 		this.state={
 			singleSellerRadarChart:'',
 			resizeHandler:'',
-			time:''
+			time:'',
+			nameList:'',
+			numList:''
 		}
 	}
 	componentDidMount(){
 		// debugger
 		this.state.time=this.props.time;
-    this.props.singleSellerRadar(this.props.params.id,this.state.time);
+    this.props.singleSellerRadar(this.props.params.id);
    
     let singleSellerRadarChart = ReactDOM.findDOMNode(this.refs.singleSellerRadarChart);
 	  this.state.singleSellerRadarChart = echarts.init(singleSellerRadarChart);
@@ -38,20 +40,30 @@ class _radar extends React.Component {
        this.state.singleSellerRadarChart.resize();
     }, 100)
 	}
-	componentWillReceiveProps(){
+	componentWillReceiveProps(nextProps,nextState){
 		// debugger
+		let radar=nextProps.radar.toJS();
+		let nameList=[];
+		let numList=radar.series.data[0];
+		radar.radar.indicator.forEach(item=>{
+			nameList.push(item.name);
+		})
+		this.setState({numList,nameList});
+		if(this.state.time!=nextProps.time){
+			//不支持自定义时间，返回结果是开店以来的结果
+			// this.setState({time:nextProps.time});
+			// this.props.singleSellerRadar(nextProps.params.id);
+		}
+		this.state.singleSellerRadarChart.setOption(radar);
+		this.state.singleSellerRadarChart.hideLoading();
 	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
-		if(this.state.time!=nextProps.time){
-			this.state.time=nextProps.time
-			this.props.singleSellerRadar(this.props.params.id,this.state.time);
-		}
+		
 	}
 	componentDidUpdate(){
 		// debugger
-		this.state.singleSellerRadarChart.setOption(this.props.radar.toJS());
-		this.state.singleSellerRadarChart.hideLoading();
+		
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -59,6 +71,13 @@ class _radar extends React.Component {
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
+		let {numList,nameList}=this.state;
+		let rows=[];
+		if(numList){
+			numList.forEach((item,i)=>{
+				rows.push(<tr key={i}><td>开店以来</td><td>{nameList[i]}</td><td>{numList[i]}</td></tr>);
+			})
+		}
 		return <div>
 					<div className="panel">
 		          <div className="panelHead">总体评价</div>
@@ -71,9 +90,10 @@ class _radar extends React.Component {
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
-              					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+              					<tr><th>时间范围</th><th>指标</th><th>评价(百分制)</th></tr>
               				</thead>
               				<tbody>
+              				{rows}
               				</tbody>
               			</table>
   								</div>

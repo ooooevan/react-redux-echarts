@@ -28,39 +28,39 @@ http.createServer(function (req, res) {
 
         var sellers=`
         [{
-                    "seller":"一号店",
-                    "id":"1111"
+                    "shopName":"一号店1",
+                    "isNewRecord":false
                 },{
-                    "seller":"淘宝",
-                    "id":"2222"
+                    "shopName":"淘宝2",
+                    "isNewRecord":false
 
                 },{
-                    "seller":"122",
-                    "id":"333"
+                    "shopName":"1223",
+                    "isNewRecord":false
 
                 },{
-                    "seller":"222",
-                    "id":"44445"
+                    "shopName":"2224",
+                    "isNewRecord":false
 
                 },{
-                    "seller":"赶集网",
-                    "id":"555"
+                    "shopName":"赶集网5",
+                    "isNewRecord":false
 
                 },{
-                    "seller":"987",
-                    "id":"666"
+                    "shopName":"9876",
+                    "isNewRecord":false
 
                 },{
-                    "seller":"LVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV",
-                    "id":"77"
+                    "shopName":"LVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV7",
+                    "isNewRecord":false
 
                 },{
-                    "seller":"GV",
-                    "id":"88"
+                    "shopName":"GV8",
+                    "isNewRecord":false
 
                 },{
-                    "seller":"GV",
-                    "id":"99"
+                    "shopName":"GV9",
+                    "isNewRecord":false
 
                 }]
         `
@@ -68,7 +68,7 @@ http.createServer(function (req, res) {
             ["商家一","商家二","商家三","商家四","商家五","商家六"]
         `
 
-        res.write(sellerss);
+        res.write(sellers);
         res.end();
         break;
         //res.end(util.inspect(urls.parse(req.url,true)));

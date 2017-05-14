@@ -4,6 +4,7 @@ import redux from 'redux';
 import {connect,Provider} from 'react-redux';
 import Immutable from 'immutable';
 import Calendar from '../calendar';
+import Tools from '../tools';
 import { Router, Route, IndexRoute, hashHistory, Link ,Redirect} from 'react-router';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
@@ -69,6 +70,9 @@ class _singleHistory extends React.Component {
     search=()=>{
       let time1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
       let time2=ReactDOM.findDOMNode(this.refs.selectTime2).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
+      time1=Tools.changeTime(time1);
+      time2=Tools.changeTime(time2);
+
       //去除红色警示框ClassName
       ReactDOM.findDOMNode(this.refs.selectTime1).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
       ReactDOM.findDOMNode(this.refs.selectTime2).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
@@ -93,7 +97,7 @@ class _singleHistory extends React.Component {
       }
       
       this.setState({
-        time:time1+'|'+time2,
+        time:time1+','+time2,
         selectTime:''
       })
     }
@@ -126,6 +130,18 @@ class _singleHistory extends React.Component {
             selectTime:'month'
           })
           return;
+        case '最近一年':
+          this.setState({
+            time:'year',
+            selectTime:'year'
+          })
+        return;
+        case '全部':
+          this.setState({
+            time:'more',
+            selectTime:'more'
+          })
+        return;
       }
     }
     render(){
@@ -142,6 +158,8 @@ class _singleHistory extends React.Component {
                   <li><a className={this.state.selectTime=='day'?'active':''} onClick={this.changeTime}>最近一日</a></li>
                   <li><a className={this.state.selectTime=='week'?'active':''} onClick={this.changeTime}>最近一周</a></li>
                   <li><a className={this.state.selectTime=='month'?'active':''} onClick={this.changeTime}>最近一月</a></li>
+                  <li><a className={this.state.selectTime=='year'?'active':''} onClick={this.changeTime}>最近一年</a></li>
+                  <li><a className={this.state.selectTime=='more'?'active':''} onClick={this.changeTime}>全部</a></li>
                   </ul>
                 </div>
               </div>
@@ -167,13 +185,13 @@ class _singleHistory extends React.Component {
                 指标选择：
                 <div className='quickSelect'>
                   <ul>
-                      <li><Link to={baseUrl+'customerFlow'} activeClassName="active" draggable="false">客流量</Link></li>
+                      <li><Link to={baseUrl+'customerFlow'} activeClassName="active" draggable="false">客流量峰值</Link></li>
                       <li><Link to={baseUrl+'customerIn'} activeClassName="active" draggable="false">入店量</Link></li>
                       <li><Link to={baseUrl+'radar'} activeClassName="active" draggable="false">总体评价</Link></li>
                       <li><Link to={baseUrl+'stayBar'} activeClassName="active" draggable="false">驻店时长</Link></li>
                       <li><Link to={baseUrl+'OldOrNew'} activeClassName="active" draggable="false">新老顾客</Link></li>
-                      <li><Link to={baseUrl+'timeSection'} activeClassName="active" draggable="false">各时间段人数</Link></li>
-                      <li><Link to={baseUrl+'deepVisit'} activeClassName="active" draggable="false">深访率</Link></li>
+                      <li><Link to={baseUrl+'timeSection'} activeClassName="active" draggable="false">各时间段人数峰值</Link></li>
+                      <li><Link to={baseUrl+'deepVisit'} activeClassName="active" draggable="false">深访率与跳出率</Link></li>
                       <li><Link to={baseUrl+'cycle'} activeClassName="active" draggable="false">来访周期</Link></li>
                       <li><Link to={baseUrl+'Active'} activeClassName="active" draggable="false">活跃度</Link></li>
                     </ul>

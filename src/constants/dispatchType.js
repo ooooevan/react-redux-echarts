@@ -24,6 +24,7 @@ export default {
 	},
 	statistics:{
 		statisticsCustomerNumInit:'statisticsCustomerNumInit',
+		statisticsPeakInit:'statisticsPeakInit',
 		statisticsOldOrNewInit:'statisticsOldOrNewInit',
 		statisticsTimeSectionInit:'statisticsTimeSectionInit',
 		statisticsCycleInit:'statisticsCycleInit',
@@ -31,6 +32,7 @@ export default {
 	},
 	compare:{
 		numInit:'compareCustomerNum',
+		numInInit:'numInInit',
 		cycleInit:'compareCustomerCycle',
 		activeInit:'compareCustomerActive',
 		oldOrNewInit:'compareCustomerOldOrNew',

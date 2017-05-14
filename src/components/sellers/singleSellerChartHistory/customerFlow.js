@@ -17,7 +17,11 @@ class _customerFlow extends React.Component {
 		this.state={
 			singleSellerCustomerFlowChart:'',
 			resizeHandler:'',
-			time:''
+			time:'',
+			timeList:'',
+      numList:'',
+      percentList:'',
+      tableSpace:1
 		}
 	}
 	componentDidMount(){
@@ -38,28 +42,40 @@ class _customerFlow extends React.Component {
        this.state.singleSellerCustomerFlowChart.resize();
     }, 100)
 	}
-	componentWillReceiveProps(){
-		console.log('--=componentWillReceiveProps')
+	// componentWillReceiveProps(){
+		// console.log('--=componentWillReceiveProps')
 		// this.state.time=this.props.time;
 		
-	}
+	// }
 	// changeTime = ()=>{
 	// 	this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
 	// }
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
-		if(this.state.time!=nextProps.time){
-			this.state.time=nextProps.time
-			this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
-		}
+		// if(this.state.time!=nextProps.time){
+		// 	this.state.time=nextProps.time
+		// 	this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
+		// }
 	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
-		let customerFlow=this.props.customerFlow.toJS()
+	componentWillReceiveProps(nextProps,nextState){
+		if(this.state.time!=nextProps.time){
+			this.setState({time:nextProps.time})
+			this.props.singleSellerCustomerFlowInit(nextProps.params.id,nextState.time);
+		}
+
+		let customerFlow=nextProps.customerFlow.toJS();
+		let timeList=customerFlow.xAxis.data;
+		let numList=customerFlow.series[0].data;
+		let percentList=customerFlow.series[1].data;
+		this.setState({timeList,numList,percentList});
 		if(customerFlow.series[0].data){
 			this.state.singleSellerCustomerFlowChart.setOption(customerFlow);
 			this.state.singleSellerCustomerFlowChart.hideLoading();
 		}
+	}
+	componentDidUpdate(){
+		console.log('-=componentDidUpdate')
+		
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -67,10 +83,18 @@ class _customerFlow extends React.Component {
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
-		console.log('-=render')
+		let {timeList,numList,percentList,tableSpace} = this.state;
+    let rows=[];
+    if(timeList){
+        timeList.forEach((item,i)=>{
+            if(!(i%tableSpace)){
+                rows.push(<tr key={i}><td>{timeList[i]}</td><td>{numList[i]}</td><td>{percentList[i]}%</td></tr>)
+            }
+        })
+    }
 		return <div> 
 						<div className="panel">
-							<div className="panelHead">客流量</div>
+							<div className="panelHead">客流量峰值</div>
 			    			<div className="panelBody">
 								<div className='singleSellerCustomerFlowChart' ref='singleSellerCustomerFlowChart'></div>
 							</div>
@@ -80,9 +104,10 @@ class _customerFlow extends React.Component {
 			    			<div className="panelBody">
 			    				<table className="Table">
             				<thead>
-            					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+            					<tr><th>时间</th><th>客流量峰值</th><th>客流总体占比</th></tr>
             				</thead>
             				<tbody>
+            				{rows}
             				</tbody>
             			</table>
 									<div>

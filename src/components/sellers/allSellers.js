@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
@@ -6,13 +5,15 @@ import {connect,Provider} from 'react-redux';
 import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import Calendar from '../calendar';
+import Tools from '../tools';
 import '../../styles/calendar.scss';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
-
+const FaAngleRight = require('react-icons/lib/fa/angle-right');
+const FaAngleLeft = require('react-icons/lib/fa/angle-left');
 import sellersAction from '../../actions/sellersAction';
 
 class _Chart extends React.Component {
@@ -27,33 +28,33 @@ class _Chart extends React.Component {
     constructor(props){
         super(props);
         this.state={
-			allSellersLineChart:'',  //全部商家图表
+            allSellersLineChart:'',  //全部商家图表
             chartPage:1,       //按页分开商家数据，第一页
             lastPage:false,
             resizeHandler:null,
             Data:[],
-            selectTime:'yesterday',
-            time:'yesterday'
-		}
+            selectTime:'day',
+            time:'day'
+        }
     }
 
 
     componentWillMount(){
       console.log('componentWillMount')
-		// this.props.allSellersTableInit(this.state.time);
+        // this.props.allSellersTableInit(this.state.time);
         this.props.allSellersLineChartInit(this.state.time,this.state.chartPage);
 
     }
-	componentDidMount(){
-    	console.log('componentDidMount');
-		//this.props.allSellersTableInit();
+    componentDidMount(){
+        console.log('componentDidMount');
+        //this.props.allSellersTableInit();
         let domLine = ReactDOM.findDOMNode(this.refs.allSellersLineChart);
 
         this.state.allSellersLineChart = echarts.init(domLine);
         this.state.allSellersLineChart.showLoading();
 
         window.addEventListener('resize',this.resizeFun)
-	}
+    }
     resizeFun = ()=>{
         if(this.state.resizeHandler){
                 clearTimeout(this.state.resizeHandler);
@@ -64,14 +65,14 @@ class _Chart extends React.Component {
                 }.bind(this), 100)
             }
     }
-	componentWillUnmount(){
-		console.log('componentWillUnmount');
-		this.state.allSellersLineChart.dispose();
+    componentWillUnmount(){
+        console.log('componentWillUnmount');
+        this.state.allSellersLineChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
-	}
+    }
     componentWillUpdate(nextProps,nextState){
         console.log('..componentWillUpdate');
-
+        //点击day、week、month等请求，或点击查询
         if(this.state.time!==nextState.time){
             this.props.allSellersLineChartInit(nextState.time,nextState.chartPage);
         }
@@ -82,12 +83,14 @@ class _Chart extends React.Component {
         let rightBtn=ReactDOM.findDOMNode(this.refs.rightBtn);
         // debugger
         if(this.state.Data.xAxis[0].lastPage){
+            // debugger
             this.state.lastPage =  true;
-            // rightBtn.style.backgroundColor='black';   //可改变按钮颜色，还没写
+            rightBtn.style.backgroundColor='#fff';   //可改变按钮颜色，还没写
             // rightBtn.disabled=true;
             // this.state.chartPage-=1;
         }else{
-            // rightBtn.disabled=false;
+            // rightBtn.disabled=false;background-color:#eee;
+            rightBtn.style.backgroundColor='#eee';
             this.state.lastPage =  false;
         }
     }
@@ -110,8 +113,8 @@ class _Chart extends React.Component {
             this.state.lastPage =  false;
         }*/
     }
-	componentWillReceiveProps(){
-	}
+    componentWillReceiveProps(){
+    }
     changeTime=(e)=>{
         if(e.target.className === 'active'){
          return;
@@ -119,8 +122,8 @@ class _Chart extends React.Component {
       switch(e.target.innerText){
         case '昨天':
           this.setState({
-            time:'yesterday',
-            selectTime:'yesterday',
+            time:'day',
+            selectTime:'day',
             chartPage:1
           })
           return;
@@ -138,10 +141,17 @@ class _Chart extends React.Component {
             chartPage:1
           })
           return;
+        case '最近一年':
+          this.setState({
+            time:'year',
+            selectTime:'year',
+            chartPage:1
+          })
+          return;
         case '全部':
           this.setState({
-            time:'all',
-            selectTime:'all',
+            time:'more',
+            selectTime:'more',
             chartPage:1
           })
           return;
@@ -150,6 +160,8 @@ class _Chart extends React.Component {
     search=()=>{
         let time1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
         let time2=ReactDOM.findDOMNode(this.refs.selectTime2).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
+        time1=Tools.changeTime(time1);
+        time2=Tools.changeTime(time2);
         //去除红色警示框ClassName
         ReactDOM.findDOMNode(this.refs.selectTime1).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
         ReactDOM.findDOMNode(this.refs.selectTime2).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
@@ -174,7 +186,7 @@ class _Chart extends React.Component {
         }
         
         this.setState({
-          time:time1+'|'+time2,
+          time:time1+','+time2,
           selectTime:'',
           chartPage:1
         })
@@ -197,18 +209,18 @@ class _Chart extends React.Component {
     }
 
     render(){
-		let rows = [];
+        let rows = [];
         console.log('..render')
-		if(this.state.Data.series && this.state.Data.series[0].data){
+        if(this.state.Data.series && this.state.Data.series[0].data){
             let sellerName=this.state.Data.xAxis[0].data;
             let sellerNum=this.state.Data.series[0].data;
             let sellerPer=this.state.Data.series[1].data;
             // debugger
-			sellerName.forEach(function(item,index){
-				rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
+            sellerName.forEach(function(item,index){
+                rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
 
-			})
-		}
+            })
+        }
 
         return <div className="chartWrapper">
              
@@ -216,10 +228,11 @@ class _Chart extends React.Component {
                     时间选择：
                     <div className='quickSelect'>
                       <ul>
-                            <li><a className={this.state.selectTime=='yesterday'?'active':''} onClick={this.changeTime}>昨天</a></li>
+                            <li><a className={this.state.selectTime=='day'?'active':''} onClick={this.changeTime}>昨天</a></li>
                             <li><a className={this.state.selectTime=='week'?'active':''} onClick={this.changeTime}>最近一周</a></li>
                             <li><a className={this.state.selectTime=='month'?'active':''} onClick={this.changeTime}>最近一月</a></li>
-                            <li><a className={this.state.selectTime=='all'?'active':''} onClick={this.changeTime}>全部</a></li>
+                            <li><a className={this.state.selectTime=='year'?'active':''} onClick={this.changeTime}>最近一年</a></li>
+                            <li><a className={this.state.selectTime=='more'?'active':''} onClick={this.changeTime}>全部</a></li>
                         </ul>
                     </div>
                 </div>
@@ -233,29 +246,29 @@ class _Chart extends React.Component {
                     </div>
                 </div>
               
-            	<div className="panel">
-            		<div className="panelHead">各商家客流</div>
-            		<div className="panelBody">
+                <div className="panel">
+                    <div className="panelHead">各商家客流</div>
+                    <div className="panelBody">
                     <div className="allSellersLineChartBtn">
-                        <button onClick={this.turnLeft}><i className="fa fa-chevron-left"></i></button>
-                        <button onClick={this.turnRight} ref='rightBtn'><i className="fa fa-chevron-right"></i></button>
+                        <button onClick={this.turnLeft}><FaAngleLeft /></button>
+                        <button onClick={this.turnRight} ref='rightBtn'><FaAngleRight /></button>
                     </div>
-        			<div ref="allSellersLineChart" className="allSellersLineChart"></div>
-            		</div>
-            	</div>
-            	<div className="panel">
-            		<div className="panelHead">商家排名</div>
-						<div className="panelBody">
-        			    <table className="Table">
-            				<thead>
-            					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
-            				</thead>
-            				<tbody>
-    						{rows}
-            				</tbody>
-            			</table>
-            		</div>
-            	</div>
+                    <div ref="allSellersLineChart" className="allSellersLineChart"></div>
+                    </div>
+                </div>
+                <div className="panel">
+                    <div className="panelHead">商家排名明细</div>
+                        <div className="panelBody">
+                        <table className="Table">
+                            <thead>
+                                <tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+                            </thead>
+                            <tbody>
+                            {rows}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
         </div>
     }
 }

@@ -20,13 +20,14 @@ import 'echarts/lib/component/dataZoom';
 
 
 
-class _active extends React.Component {
+class _customerPeak extends React.Component {
 	constructor(props){
 		super(props);
 		this.state={
-			statisticsActiveInit:'',
+			statisticsPeakInit:'',
 			resizeHandler:'',
-			statisticsActiveChart:'',
+			statisticsPeakChart:'',
+			time:'',
 			time:'',
 			timeList:'',
       numList:'',
@@ -35,11 +36,10 @@ class _active extends React.Component {
 	}
 	componentDidMount(){
 		this.state.time=this.props.time;
-    this.props.statisticsActiveInit(this.state.time);
-   
-    let statisticsActiveChart = ReactDOM.findDOMNode(this.refs.statisticsActiveChart);
-	  this.state.statisticsActiveChart = echarts.init(statisticsActiveChart);
-    this.state.statisticsActiveChart.showLoading();
+    this.props.statisticsPeakInit(this.state.time);
+    let statisticsPeakChart = ReactDOM.findDOMNode(this.refs.statisticsPeakChart);
+	  this.state.statisticsPeakChart = echarts.init(statisticsPeakChart);
+    this.state.statisticsPeakChart.showLoading();
     window.addEventListener('resize',this.resizeFun);
 	}
 	resizeFun=()=>{
@@ -47,21 +47,21 @@ class _active extends React.Component {
               clearTimeout(this.state.resizeHandler);
           }
     this.state.resizeHandler = setTimeout(()=>{
-       this.state.statisticsActiveChart.resize();
+       this.state.statisticsPeakChart.resize();
     }, 100)
 	}
 	componentWillReceiveProps(nextProps,nextState){
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.statisticsActiveInit(nextState.time);
+			this.props.statisticsPeakInit(nextState.time);
 			return;
 		}
-		let active=nextProps.active.toJS();
-		let timeList=active.xAxis[0].data;
-		let numList=active.series[0].data;
+		let customerPeak=nextProps.customerPeak.toJS();
+		let timeList=customerPeak.xAxis[0].data;
+		let numList=customerPeak.series[0].data;
 		this.setState({timeList,numList});
-		this.state.statisticsActiveChart.setOption(active);
-		this.state.statisticsActiveChart.hideLoading();
+		this.state.statisticsPeakChart.setOption(customerPeak);
+		this.state.statisticsPeakChart.hideLoading();
 	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
@@ -73,32 +73,25 @@ class _active extends React.Component {
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
-      this.state.statisticsActiveChart.dispose();
+      this.state.statisticsPeakChart.dispose();
       this.props.stateDefault();
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
-		let {timeList,numList,time} = this.state;
+		let {timeList,numList,tableSpace} = this.state;
     let rows=[];
-    switch(time){
-    	case 'day':time='最近一天';break;
-    	case 'week':time='最近一周';break;
-    	case 'month':time='最近一月';break;
-    	case 'year':time='最近一年';break;
-    	case 'more':time='开店以来';break;
-    	default:let arr=time.split(',');
-    		time=arr.join(' 至 ');
-    }
     if(timeList){
         timeList.forEach((item,i)=>{
-          rows.push(<tr key={i}><td>{time}</td><td>{timeList[i]}</td><td>{numList[i]}</td></tr>)
+            if(!(i%tableSpace)){
+                rows.push(<tr key={i}><td>{timeList[i]}</td><td>{numList[i]}</td></tr>)
+            }
         })
     }
 		return	<div>
 			<div className="panel">
 			    			<div className="panelHead">活跃度</div>
 			    			<div className="panelBody">
-			    				<div className="statisticsActiveChart" ref="statisticsActiveChart"></div>
+			    				<div className="statisticsPeakChart" ref="statisticsPeakChart"></div>
 			          </div>
 	  				</div>
 	  				<div className='panel'>
@@ -106,7 +99,7 @@ class _active extends React.Component {
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
-              					<tr><th>时间范围</th><th>活跃度</th><th>人数</th></tr>
+              					<tr><th>时间</th><th>峰值人数</th></tr>
               				</thead>
               				<tbody>
               				{rows}
@@ -122,7 +115,7 @@ class _active extends React.Component {
 
 
 const mapStateToProps = (state)=>({
-    active:state.getIn(['c','active']),
+    customerPeak:state.getIn(['c','customerPeak'])
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar']),
     // OldOrNew:state.getIn(['b','OldOrNew']),
@@ -131,6 +124,6 @@ const mapStateToProps = (state)=>({
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
 })
 
-let active=connect(mapStateToProps,statisticsAction)(_active);
+let customerPeak=connect(mapStateToProps,statisticsAction)(_customerPeak);
 
-export default active;
+export default customerPeak;

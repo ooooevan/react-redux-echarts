@@ -17,7 +17,10 @@ class _stayBar extends React.Component {
 		this.state={
 			singleSellerStayBarChart:'',
 			resizeHandler:'',
-			time:''
+			time:'',
+      timeList:'',
+      numList:'',
+      tableSpace:1
 		}
 	}
 	componentDidMount(){
@@ -38,19 +41,24 @@ class _stayBar extends React.Component {
        this.state.singleSellerStayBarChart.resize();
     }, 100)
 	}
-	componentWillReceiveProps(){
-		// debugger
+	componentWillReceiveProps(nextProps,nextState){
+		let stayBar=nextProps.stayBar.toJS()
+		if(this.state.time!=nextProps.time){
+			this.setState({time:nextProps.time});
+			this.props.singleSellerStayBar(nextProps.params.id,nextState.time);
+		}
+		let timeList=stayBar.xAxis[0].data;
+		let numList=stayBar.series[0].data;
+		this.setState({timeList,numList});
+		this.state.singleSellerStayBarChart.setOption(stayBar);
+		this.state.singleSellerStayBarChart.hideLoading();
 	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
-		if(this.state.time!=nextProps.time){
-			this.state.time=nextProps.time
-			this.props.singleSellerStayBar(this.props.params.id,this.state.time);
-		}
+		
 	}
 	componentDidUpdate(){
-		this.state.singleSellerStayBarChart.setOption(this.props.stayBar.toJS());
-		this.state.singleSellerStayBarChart.hideLoading();
+		
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -58,6 +66,22 @@ class _stayBar extends React.Component {
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
+		let {timeList,numList,tableSpace,time} = this.state;
+    let rows=[];
+    switch(time){
+    	case 'day':time='最近一天';break;
+    	case 'week':time='最近一周';break;
+    	case 'month':time='最近一月';break;
+    	case 'year':time='最近一年';break;
+    	case 'more':time='开店以来';break;
+    	default:let arr=time.split(',');
+    		time=arr.join(' 至 ');
+    }
+    if(timeList){
+        timeList.forEach((item,i)=>{
+            rows.push(<tr key={i}><td>{time}</td><td>{timeList[i]}</td><td>{numList[i]}</td></tr>)
+        })
+    }
 		return <div>
 				<div className="panel">
 	          <div className="panelHead">驻店时长</div>
@@ -70,9 +94,10 @@ class _stayBar extends React.Component {
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
-              					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+              					<tr><th>时间范围</th><th>驻店时长</th><th>人数</th></tr>
               				</thead>
               				<tbody>
+              				{rows}
               				</tbody>
               			</table>
   								</div>

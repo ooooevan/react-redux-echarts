@@ -1,12 +1,12 @@
 @import url(reset.scss);
 /*主导航字体大小*/
-$navFontSize: 16px;
+$navFontSize: 15px;
 /*侧边栏字体大小*/
-$sidebarNavFontSize: 15px;
+$sidebarNavFontSize: 14px;
 /*侧边栏宽度*/
 $sidebarWidth: 230px;
 /*侧边栏li>a 的高度 */
-$sidebarHeight:60px;
+$sidebarHeight:55px;
 
 body {
   padding: 0;
@@ -179,10 +179,10 @@ nav {
     /*方向图标*/
     .fa-angle-double-right {
       position: absolute;
-      // float: right;
+      bottom: 21px;
       right: -20px;
       text-align: center;
-      line-height: $sidebarHeight;
+      // line-height: $sidebarHeight;
       transition: .1s all;
     }
     a {
@@ -212,7 +212,7 @@ nav {
       }
       .fa-angle-double-right {
         font-size: 16px;
-        right: 60px;
+        right: $sidebarHeight;
       }
       & > a {
         color: #fff;
@@ -237,21 +237,32 @@ nav {
   input:focus{
     outline: none;
   }
-  ul>li input+i{
+  ul>li .fa-search{
     color: #313131;
     position: absolute;
-    line-height: $sidebarHeight + 6px;
+    // line-height: $sidebarHeight + 6px;
     font-size: 17px;
-    left:170px;
+    // left:170px;
+    bottom: 24px;
+    right: 40px;
   }
+  // {
+  //     position:absolute;
+  //     right:-20px;
+  //   }
   //数据对比 分隔条
   .split{
     // height:35px;
     line-height:35px;
     font-size:13px;
     color:#e9e9e9;
+    cursor:default;
     // border-bottom:1px solid #5d5d5d;
     background-color: #404040;
+    transition:all 0.3s;
+    &:hover{
+      color:#fff;
+    }
   }
 
   .sidebar_subNav {
@@ -261,12 +272,22 @@ nav {
     // height:0;
     // overflow:hidden;
     display: none;
+    // .right{
+    //   position: absolute;
+    //   bottom: 23px;
+    //   right: -20px;
+    //   text-align: center;
+    //   transition: .1s all;
+    // }
     &.active{
       // height:auto;
     // transition:all 3s;
+      display: block;
 
       // overflow:hidden;
-      display: block;
+      // .right{
+      //   right: 60px;
+      // }
     }
   }
 
@@ -282,10 +303,11 @@ nav {
       color: #fff;
       background-color: #080808;
     }
-    i{
-      line-height: 40px;
-      display:none;
-    }
+
+    // i{
+      // line-height: 40px;
+      // display:none;
+    // }
   }
 
 }
@@ -338,7 +360,7 @@ nav {
       }
       .panelHead {
         height: 55px;
-        font-size: 19px;
+        font-size: 16px;
         text-align: left;
         text-indent: 1em;
         line-height: 55px;
@@ -497,7 +519,7 @@ nav {
 
   /*参数选择*/
 .selectOption{
-  margin:10px 25px 0;
+  margin:10px 21px 0;
   font-size:13px;
   // line-height:23px;
     //select样式
@@ -596,20 +618,24 @@ nav {
 
 
 .Table{
-  margin:30px auto;
+  // margin:30px auto;
   border:0;
   border-collapse:collapse;
   width: 100%;
   text-align: center;
   thead>tr>th,tbody tr th,tbody tr td{
-    border-bottom:1px solid #d8d8d8;
+    border-bottom:1px solid #f3f3f3;
+    // border-left:1px solid #f3f3f3;
     text-align: center;
-    font-size: 15px;
-    height: 47px;
+    font-size: 13px;
+    height: 40px;
+  }
+  tbody tr td{
+    border-left:1px solid #f3f3f3;
   }
   thead>tr{
-    background-color:#636363;
-    color:#fff;
+    background-color:#e7e7e7;
+    // color:#fff;
   }
   .up{
     color:red;
@@ -617,8 +643,14 @@ nav {
   .down{
     color:green;
   }
-  tbody tr:nth-child(even){
-    background:#efefef;
+  tbody tr{
+    transition:all .3s;
+  }
+  // tbody tr:nth-child(even){
+  //   background:#f9f9f9;
+  // }
+  tbody tr:hover{
+    background:#f7f6f6;
   }
 
 
@@ -726,8 +758,8 @@ nav {
 /*单个商家 设置高度*/
 .firstPageSellers,.singleSellerLineChart,.sellerIntroduce,.singleSellerCustomerNumChart,.singleSellerCustomerFlowChart,.singleSellerCustomerInChart,.singleSellerRadarChart,.singleSellerStayBarChart
 ,.singleSellerOldOrNewChart,.singleSellerTimeSectionChart,.singleSellerDeepVisitChart,.singleSellerActiveChart,.singleSellerCycleChart,
-.statisticsCustomerNumChart,.statisticsOldOrNewChart,.statisticsTimeSectionChart,.statisticsCycleChart,.statisticsActiveChart,.compareCustomerNumChart,.compareCycleChart,.compareActiveChart,.compareDeepVisitChart,.compareOutChart,.compareOldOrNewChart
-,.compareSellerNumChart,.compareSellerInChart,.compareSellerOldOrNewChart,.compareSellerOutChart,.compareSellerDeepChart,.compareSellerstayChart,.compareSellerActiveChart,.compareSellerTimeSectionChart,.compareSellerCycleChart{
+.statisticsCustomerNumChart,.statisticsPeakChart,.statisticsOldOrNewChart,.statisticsTimeSectionChart,.statisticsCycleChart,.statisticsActiveChart,.compareCustomerNumChart,.compareCycleChart,.compareActiveChart,.compareDeepVisitChart,.compareOutChart,.compareOldOrNewChart
+,.compareSellerNumChart,.compareCustomerInChart,.compareSellerInChart,.compareSellerOldOrNewChart,.compareSellerOutChart,.compareSellerDeepChart,.compareSellerstayChart,.compareSellerActiveChart,.compareSellerTimeSectionChart,.compareSellerCycleChart{
   height: 400px;
 }
 

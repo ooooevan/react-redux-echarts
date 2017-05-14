@@ -17,7 +17,9 @@ class _cycle extends React.Component {
 		this.state={
 			singleSellerCycleChart:'',
 			resizeHandler:'',
-			time:''
+			time:'',
+			timeList:'',
+			numList:''
 		}
 	}
 	componentDidMount(){
@@ -37,17 +39,25 @@ class _cycle extends React.Component {
        this.state.singleSellerCycleChart.resize();
     }, 100)
 	}
+	componentWillReceiveProps(nextProps,nextState){
+		let cycle=nextProps.cycle.toJS()
+		if(this.state.time!=nextProps.time){
+			this.setState({time:nextProps.time})
+			this.props.singleSellerCycleInit(nextProps.params.id,nextState.time);
+		}
+		let timeList=cycle.xAxis[0].data;
+		let numList=cycle.series[0].data;
+		this.setState({timeList,numList});
+		this.state.singleSellerCycleChart.setOption(cycle);
+		this.state.singleSellerCycleChart.hideLoading();
+	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
-		if(this.state.time!=nextProps.time){
-			this.state.time=nextProps.time
-			this.props.singleSellerCycleInit(this.props.params.id,this.state.time);
-		}
+		
 	}
 	componentDidUpdate(){
 		console.log('-=componentDidUpdate')
-		this.state.singleSellerCycleChart.setOption(this.props.cycle.toJS());
-		this.state.singleSellerCycleChart.hideLoading();
+		
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -55,6 +65,22 @@ class _cycle extends React.Component {
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
+		let {timeList,numList,time} = this.state;
+    let rows=[];
+    switch(time){
+    	case 'day':time='最近一天';break;
+    	case 'week':time='最近一周';break;
+    	case 'month':time='最近一月';break;
+    	case 'year':time='最近一年';break;
+    	case 'more':time='开店以来';break;
+    	default:let arr=time.split(',');
+    		time=arr.join(' 至 ');
+    }
+    if(timeList){
+        timeList.forEach((item,i)=>{
+            rows.push(<tr key={i}><td>{time}</td><td>{timeList[i]}</td><td>{numList[i]}</td></tr>)
+        })
+    }
 		return <div>
 							<div className="panel">
 			    			<div className="panelHead">来访周期</div>
@@ -67,9 +93,10 @@ class _cycle extends React.Component {
 						    			<div className="panelBody">
 						    				<table className="Table">
 	            				<thead>
-	            					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+	            					<tr><th>时间范围</th><th>来访周期</th><th>人数</th></tr>
 	            				</thead>
 	            				<tbody>
+	            				{rows}
 	            				</tbody>
 	            			</table>
 								</div>

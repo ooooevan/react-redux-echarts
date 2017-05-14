@@ -26,7 +26,10 @@ class _cycle extends React.Component {
 		this.state={
 			statisticsCustomerNumInit:'',
 			resizeHandler:'',
-			time:''
+			time:'',
+			timeList:'',
+			numList:'',
+			totalNum:''
 		}
 	}
 	componentDidMount(){
@@ -46,17 +49,27 @@ class _cycle extends React.Component {
        this.state.statisticsCycleChart.resize();
     }, 100)
 	}
+	componentWillReceiveProps(nextProps,nextState){
+		if(this.state.time!=nextProps.time){
+			this.setState({time:nextProps.time});
+			this.props.statisticsCycleInit(nextState.time);
+			return;
+		}
+		let cycle=nextProps.cycle.toJS();
+		let timeList=cycle.xAxis[0].data;
+		let numList=cycle.series[0].data;
+		let totalNum=numList.reduce((x,y)=>(parseInt(x)+parseInt(y)));
+		this.setState({timeList,numList,totalNum});
+		this.state.statisticsCycleChart.setOption(cycle);
+		this.state.statisticsCycleChart.hideLoading();
+	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
-		if(this.state.time!=nextProps.time){
-			this.state.time=nextProps.time
-			this.props.statisticsCycleInit(this.state.time);
-		}
+		
 	}
 	componentDidUpdate(){
 		console.log('-=componentDidUpdate')
-		this.state.statisticsCycleChart.setOption(this.props.cycle.toJS());
-		this.state.statisticsCycleChart.hideLoading();
+		
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
@@ -65,6 +78,24 @@ class _cycle extends React.Component {
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
+		let {timeList,numList,time,totalNum} = this.state;
+    let rows=[];
+    let percent='';
+    switch(time){
+    	case 'day':time='最近一天';break;
+    	case 'week':time='最近一周';break;
+    	case 'month':time='最近一月';break;
+    	case 'year':time='最近一年';break;
+    	case 'more':time='开店以来';break;
+    	default:let arr=time.split(',');
+    		time=arr.join(' 至 ');
+    }
+    if(timeList){
+        timeList.forEach((item,i)=>{
+    		percent=parseInt((parseInt(numList[i])/parseInt(totalNum))*100)
+          rows.push(<tr key={i}><td>{time}</td><td>{timeList[i]}</td><td>{numList[i]}</td><td>{percent}%</td></tr>)
+        })
+    }
 		return	<div>
 				<div className="panel">
 		    			<div className="panelHead">来访周期</div>
@@ -77,9 +108,10 @@ class _cycle extends React.Component {
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
-              					<tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+              					<tr><th>时间范围</th><th>来访周期</th><th>人数</th><th>所占比例</th></tr>
               				</thead>
               				<tbody>
+              				{rows}
               				</tbody>
               			</table>
   								</div>
