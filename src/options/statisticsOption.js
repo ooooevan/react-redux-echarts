@@ -10,14 +10,14 @@ let options = {
         tooltip: {
             trigger: 'axis'
         },
-        // toolbox: {
-        //     feature: {
-        //         dataView: {show: true, readOnly: false},
-        //         magicType: {show: true, type: ['line', 'bar']},
-        //         restore: {show: true},
-        //         saveAsImage: {show: true}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data:['入店量'/*,'入店率'*/]
         },
@@ -84,14 +84,14 @@ let options = {
         tooltip: {
             // trigger: 'axis'
         },
-        // toolbox: {
-        //     feature: {
-        //         dataView: {show: true, readOnly: false},
-        //         magicType: {show: true, type: ['line', 'bar']},
-        //         restore: {show: true},
-        //         saveAsImage: {show: true}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data:['客流峰值']
         },
@@ -127,6 +127,110 @@ let options = {
             }
         ]
     },
+    deep:{
+        title:{
+           text: "深访率",
+           show:false
+        },
+        tooltip: {
+            // trigger: 'axis'
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data:['深访率']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisLabel:{interval:0},
+                data: undefined
+            }
+        ],
+        yAxis: {
+            //     type: 'value',
+                name: '比率'
+
+            //     // min: 0,
+            //     // max: 250,
+            //     // interval: 50,
+            //     axisLabel: {
+            //         formatter: '{value}'
+            //     }
+            // }
+        },
+        series: [{
+                name:'深访率',
+                type:'line',
+                smooth:true,
+                label: {
+                normal: {
+                    position: 'top',
+                    show: false
+                    }
+                },
+                data:undefined
+            }
+        ]
+    },
+    out:{
+        title:{
+           text: "跳出率",
+           show:false
+        },
+        tooltip: {
+            // trigger: 'axis'
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data:['跳出率']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisLabel:{interval:0},
+                data: undefined
+            }
+        ],
+        yAxis: {
+            //     type: 'value',
+                name: '比率'
+
+            //     // min: 0,
+            //     // max: 250,
+            //     // interval: 50,
+            //     axisLabel: {
+            //         formatter: '{value}'
+            //     }
+            // }
+        },
+        series: [{
+                name:'跳出率',
+                type:'line',
+                smooth:true,
+                label: {
+                normal: {
+                    position: 'top',
+                    show: false
+                    }
+                },
+                data:undefined
+            }
+        ]
+    },
     oldOrNew:{
         title : {
             text: '新老顾客',
@@ -141,7 +245,10 @@ let options = {
         },
         toolbox: {
             feature: {
-                saveAsImage: {}
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
             }
         },
         legend: {
@@ -190,14 +297,14 @@ let options = {
         tooltip: {
             // trigger: 'axis'
         },
-        // toolbox: {
-        //     feature: {
-        //         dataView: {show: true, readOnly: false},
-        //         magicType: {show: true, type: ['line', 'bar']},
-        //         restore: {show: true},
-        //         saveAsImage: {show: true}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data:['各时间段人数峰值']
         },
@@ -241,14 +348,14 @@ let options = {
         tooltip: {
             // trigger: 'axis'
         },
-        // toolbox: {
-        //     feature: {
-        //         dataView: {show: true, readOnly: false},
-        //         magicType: {show: true, type: ['line', 'bar']},
-        //         restore: {show: true},
-        //         saveAsImage: {show: true}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data:['来访周期']
         },
@@ -292,14 +399,14 @@ let options = {
         tooltip: {
             // trigger: 'axis'
         },
-        // toolbox: {
-        //     feature: {
-        //         dataView: {show: true, readOnly: false},
-        //         magicType: {show: true, type: ['line', 'bar']},
-        //         restore: {show: true},
-        //         saveAsImage: {show: true}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data:['活跃度']
         },
@@ -334,7 +441,57 @@ let options = {
                 data:undefined
             }
         ]
-    
+    },
+    stay:{
+        title:{
+           text: "停留时长",
+           show:false
+        },
+        tooltip: {
+            // trigger: 'axis'
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data:['停留时长']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisLabel:{interval:0},
+                data: undefined
+            }
+        ],
+        yAxis: {
+            //     type: 'value',
+            //     name: '店铺客流量',
+
+            //     // min: 0,
+            //     // max: 250,
+            //     // interval: 50,
+            //     axisLabel: {
+            //         formatter: '{value}'
+            //     }
+            // }
+        },
+        series: [{
+                name:'停留时长',
+                type:'bar',
+                label: {
+                normal: {
+                    position: 'top',
+                    show: false
+                    }
+                },
+                data:undefined
+            }
+        ]
     }
 }
 

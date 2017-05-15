@@ -6,6 +6,7 @@ import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import sellersAction from '../../../actions/sellersAction';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 class _stayBar extends React.Component {
 	static propTypes = {
@@ -51,7 +52,7 @@ class _stayBar extends React.Component {
 		this.setState({timeList,newNumList,oldNumList});
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.singleSellerOldOrNew(nextProps.params.id,nextState.time);
+			this.props.singleSellerOldOrNew(nextProps.params.id,nextProps.time);
 		}
 
 		this.state.singleSellerOldOrNewChart.setOption(oldOrNew);
@@ -84,13 +85,14 @@ class _stayBar extends React.Component {
     }
 		return <div>
 					<div className="panel">
-		          <div className="panelHead">新老顾客</div>
+		          <div className="panelHead">新老顾客&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示在一定时间内店铺的新老顾客数量<br /><strong>新顾客</strong>：第一次进入店铺的顾客<br /><strong>老顾客</strong>：不是第一次进入店铺的顾客<br /></p></div></div>
 			          <div className="panelBody">
 									<div className='singleSellerOldOrNewChart' ref='singleSellerOldOrNewChart'></div>
 								</div>
 			        </div>
 			        <div className='panel'>
-			        	<div className='panelHead'></div>
+			        	<div className='panelHead'>新老顾客明细</div>
 			        	<div className='panelBody'>
 			        		<table className="Table">
 			      				<thead>

@@ -163,6 +163,34 @@ router.get("/statisticsActiveInit/:time", function(req, res, next) {
     res.write(data);
     res.end();
 });
+router.get("/statisticsStayInit/:time", function(req, res, next) {
+    res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*"
+    });
+    var data =`
+        [{
+            "key":"10分钟内",
+            "value":"782"
+        },{
+            "key":"30分钟内",
+            "value":"1449"
+        },{
+            "key":"一小时内",
+            "value":"627"
+        },{
+            "key":"2小时内",
+            "value":"414"
+        },{
+            "key":"3小时内",
+            "value":"414"
+        },{
+            "key":"3小时以上",
+            "value":"414"
+        }]
+`
+    res.write(data);
+    res.end();
+});
 router.get("/statisticsPeakInit/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
@@ -725,38 +753,142 @@ router.get("/customerActiveInit/:id/:range", function(req, res, next) {
     res.write(data);
     res.end();
 });
-router.get("/customerDeepVisitInit/", function(req, res, next) {
+router.get("/customerStayInit/:id/:range", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });
     var data =`{
-        "data1":[{
-            "time":"2014-2-1",
-            "percent":12
+        "2017-02-12":[{
+            "key":"10分钟内",
+            "value":622
             },{
-            "time":"2014-3-1",
-            "percent":21
+            "key":"30分钟内",
+            "value":632
             },{
-            "time":"2014-5-1",
-            "percent":12
+            "key":"1小时内",
+            "value":612
             },{
-            "time":"2015-1-2",
-            "percent":18
+            "key":"2小时内",
+            "value":632
+            },{
+            "key":"3小时内",
+            "value":652
+            },{
+            "key":"3小时以上",
+            "value":612
             }],
-        "data2":[{
-            "time":"2014-2-1",
-            "percent":13
+        "2017-02-15":[{
+            "key":"10分钟内",
+            "value":621
             },{
-            "time":"2014-3-1",
-            "percent":12
+            "key":"30分钟内",
+            "value":652
             },{
-            "time":"2014-5-1",
-            "percent":15
+            "key":"1小时内",
+            "value":612
             },{
-            "time":"2015-1-2",
-            "percent":12
+            "key":"2小时内",
+            "value":652
+            },{
+            "key":"3小时内",
+            "value":652
+            },{
+            "key":"3小时以上",
+            "value":612
             }]
     }`
+    res.write(data);
+    res.end();
+});
+router.get("/customerDeepVisitInit/:time/:range", function(req, res, next) {
+    res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*"
+    });
+    var data =`{
+        "fdsa":[{
+            "countDate":"2014-2-1",
+            "jumpNum":3,
+            "deepNum":2,
+            "deepRatio":"3.1",
+            "jumpRatio":"22"
+            },{
+            "countDate":"2014-3-1",
+            "jumpNum":3,
+            "deepNum":2,
+            "deepRatio":"3.1",
+            "jumpRatio":"14"
+            },{
+            "countDate":"2014-5-1",
+            "jumpNum":3,
+            "deepNum":2,
+            "deepRatio":"3.2",
+            "jumpRatio":"11"
+            },{
+            "countDate":"2015-1-2",
+            "jumpNum":3,
+            "deepNum":2,
+            "deepRatio":"3.4",
+            "jumpRatio":"12"
+            }],
+        "data2":[{
+            "countDate":"2014-2-1",
+            "jumpNum":34,
+            "deepNum":21,
+            "deepRatio":"3.3",
+            "jumpRatio":"14"
+            },{
+            "countDate":"2014-3-1",
+            "jumpNum":33,
+            "deepNum":42,
+            "deepRatio":"3.1",
+            "jumpRatio":"11"
+            },{
+            "countDate":"2014-5-1",
+            "jumpNum":33,
+            "deepNum":12,
+            "deepRatio":"3.5",
+            "jumpRatio":"22"
+            },{
+            "countDate":"2015-1-2",
+            "jumpNum":1,
+            "deepNum":5,
+            "deepRatio":"3.6",
+            "jumpRatio":"11"
+            }]
+    }`
+    res.write(data);
+    res.end();
+});
+router.get("/statisticsDeepInit/:time", function(req, res, next) {
+    res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*"
+    });
+    var data =`[{
+            "countDate":"2014-2-1",
+            "jumpNum":34,
+            "deepNum":21,
+            "deepRatio":"3.3",
+            "jumpRatio":"1.4"
+            },{
+            "countDate":"2014-3-1",
+            "jumpNum":33,
+            "deepNum":42,
+            "deepRatio":"3.1",
+            "jumpRatio":"11.1"
+            },{
+            "countDate":"2014-5-1",
+            "jumpNum":33,
+            "deepNum":12,
+            "deepRatio":"3.5",
+            "jumpRatio":"22.1"
+            },{
+            "countDate":"2015-1-2",
+            "jumpNum":1,
+            "deepNum":5,
+            "deepRatio":"3.6",
+            "jumpRatio":"11.1"
+            }]
+`
     res.write(data);
     res.end();
 });

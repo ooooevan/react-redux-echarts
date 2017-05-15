@@ -12,9 +12,11 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/toolbox';
 const FaAngleRight = require('react-icons/lib/fa/angle-right');
 const FaAngleLeft = require('react-icons/lib/fa/angle-left');
 import sellersAction from '../../actions/sellersAction';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 class _Chart extends React.Component {
 
@@ -210,12 +212,10 @@ class _Chart extends React.Component {
 
     render(){
         let rows = [];
-        console.log('..render')
         if(this.state.Data.series && this.state.Data.series[0].data){
             let sellerName=this.state.Data.xAxis[0].data;
             let sellerNum=this.state.Data.series[0].data;
             let sellerPer=this.state.Data.series[1].data;
-            // debugger
             sellerName.forEach(function(item,index){
                 rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
 
@@ -223,7 +223,6 @@ class _Chart extends React.Component {
         }
 
         return <div className="chartWrapper">
-             
               <div className='selectOption inline'>
                     时间选择：
                     <div className='quickSelect'>
@@ -247,7 +246,9 @@ class _Chart extends React.Component {
                 </div>
               
                 <div className="panel">
-                    <div className="panelHead">各商家客流</div>
+                    <div className="panelHead">各商家客流&nbsp;
+                    <FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城各商家一定时间的入店量及环比增幅<br /><strong>入店量</strong>：一定时间内进入商城的人数<br /><strong>环比增幅</strong>：指与历史同时期比较。环比增长速度=（本期数－上期数）/上期数*100% 反映本期比上期增长了多少 环比发展速度=本期数/上期数*100% 反映本期比上期增长多少</p></div></div>
                     <div className="panelBody">
                     <div className="allSellersLineChartBtn">
                         <button onClick={this.turnLeft}><FaAngleLeft /></button>

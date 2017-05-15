@@ -21,13 +21,12 @@ const FaQuestion = require('react-icons/lib/fa/question');
 
 
 
-class _active extends React.Component {
+class _stay extends React.Component {
 	constructor(props){
 		super(props);
 		this.state={
-			statisticsActiveInit:'',
+			statisticsStayChart:'',
 			resizeHandler:'',
-			statisticsActiveChart:'',
 			time:'',
 			timeList:'',
       numList:'',
@@ -36,11 +35,11 @@ class _active extends React.Component {
 	}
 	componentDidMount(){
 		this.state.time=this.props.time;
-    this.props.statisticsActiveInit(this.state.time);
+    this.props.statisticsStayInit(this.state.time);
    
-    let statisticsActiveChart = ReactDOM.findDOMNode(this.refs.statisticsActiveChart);
-	  this.state.statisticsActiveChart = echarts.init(statisticsActiveChart);
-    this.state.statisticsActiveChart.showLoading();
+    let statisticsStayChart = ReactDOM.findDOMNode(this.refs.statisticsStayChart);
+	  this.state.statisticsStayChart = echarts.init(statisticsStayChart);
+    this.state.statisticsStayChart.showLoading();
     window.addEventListener('resize',this.resizeFun);
 	}
 	resizeFun=()=>{
@@ -48,21 +47,21 @@ class _active extends React.Component {
               clearTimeout(this.state.resizeHandler);
           }
     this.state.resizeHandler = setTimeout(()=>{
-       this.state.statisticsActiveChart.resize();
+       this.state.statisticsStayChart.resize();
     }, 100)
 	}
 	componentWillReceiveProps(nextProps,nextState){
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.statisticsActiveInit(nextProps.time);
+			this.props.statisticsStayInit(nextProps.time);
 			return;
 		}
-		let active=nextProps.active.toJS();
-		let timeList=active.xAxis[0].data;
-		let numList=active.series[0].data;
+		let stay=nextProps.stay.toJS();
+		let timeList=stay.xAxis[0].data;
+		let numList=stay.series[0].data;
 		this.setState({timeList,numList});
-		this.state.statisticsActiveChart.setOption(active);
-		this.state.statisticsActiveChart.hideLoading();
+		this.state.statisticsStayChart.setOption(stay);
+		this.state.statisticsStayChart.hideLoading();
 	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
@@ -74,7 +73,7 @@ class _active extends React.Component {
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
-      this.state.statisticsActiveChart.dispose();
+      this.state.statisticsStayChart.dispose();
       this.props.stateDefault();
       window.removeEventListener('resize',this.resizeFun);
 	}
@@ -97,14 +96,14 @@ class _active extends React.Component {
     }
 		return	<div>
 			<div className="panel">
-			    			<div className="panelHead">活跃度&nbsp;<FaQuestion className='questionMark' />
-                <div className='messageMark'><p>展示商城在一定时间内顾客的活跃程度<br /><strong>高活跃度</strong>：<strong>中活跃度</strong>：<strong>低活跃度</strong>：<strong>沉睡活跃度</strong>：</p></div></div>
+			    			<div className="panelHead">停留时长&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在一定时间内的顾客的停留时长<br /></p></div></div>
 			    			<div className="panelBody">
-			    				<div className="statisticsActiveChart" ref="statisticsActiveChart"></div>
+			    				<div className="statisticsStayChart" ref="statisticsStayChart"></div>
 			          </div>
 	  				</div>
 	  				<div className='panel'>
-  		    				<div className="panelHead">活跃度明细</div>
+  		    				<div className="panelHead">停留时长明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
@@ -124,7 +123,7 @@ class _active extends React.Component {
 
 
 const mapStateToProps = (state)=>({
-    active:state.getIn(['c','active']),
+    stay:state.getIn(['c','stay']),
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar']),
     // OldOrNew:state.getIn(['b','OldOrNew']),
@@ -133,6 +132,6 @@ const mapStateToProps = (state)=>({
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
 })
 
-let active=connect(mapStateToProps,statisticsAction)(_active);
+let stay=connect(mapStateToProps,statisticsAction)(_stay);
 
-export default active;
+export default stay;

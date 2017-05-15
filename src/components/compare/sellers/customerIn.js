@@ -11,6 +11,7 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 import compareAction from '../../../actions/compareAction';
 
@@ -133,13 +134,14 @@ class _sellersIn extends React.Component {
 
         return <div>
       				<div className="panel">
-                  <div className="panelHead">顾客入店量对比</div>
+                  <div className="panelHead">顾客入店量对比&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示两个商家在同一时间段内的入店量对比<br /></p></div></div>
                   <div className="panelBody">
                   <div ref="compareSellerInChart" className="compareSellerInChart"></div>
                   </div>
               </div>
 							<div className='panel'>
-  		    				<div className="panelHead">顾客入店量信息</div>
+  		    				<div className="panelHead">顾客入店量对比明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

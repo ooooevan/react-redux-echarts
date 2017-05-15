@@ -6,7 +6,7 @@ import {connect,Provider} from 'react-redux';
 // import {Table } from 'react-bootstrap';
 import thunk from 'redux-thunk';
 import Calendar from '../calendar';
-// import echarts from 'echarts';  
+import Tools from '../tools';
 //import lineAction from '../actions/lineAction';
 // import FirstPageLineReducer from '../reducers/firstPageLineReducer';
 import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router';
@@ -31,6 +31,9 @@ class SidebarNav extends React.Component {
                 <li><Link to='statistics/total' activeClassName="active" draggable="false"><FaAreaChart />入店量 <FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
                 <li><Link to='statistics/peak' activeClassName="active" draggable="false"><FaAreaChart />客流峰值 <FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
                 <li><Link to='statistics/oldOrNew' activeClassName="active" draggable="false"><FaAreaChart />新老顾客<FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
+                <li><Link to='statistics/stay' activeClassName="active" draggable="false"><FaAreaChart />停留时长<FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
+                <li><Link to='statistics/deep' activeClassName="active" draggable="false"><FaAreaChart />深访率<FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
+                <li><Link to='statistics/out' activeClassName="active" draggable="false"><FaAreaChart />跳出率<FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
                 <li><Link to='statistics/active' activeClassName="active" draggable="false"><FaAreaChart />顾客活跃度<FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
                 <li><Link to='statistics/timeSection' activeClassName="active" draggable="false"><FaAreaChart />各时间段人数峰值<FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
                 <li><Link to='statistics/cycle' activeClassName="active" draggable="false"><FaAreaChart />来访周期<FaAngleDoubleRight className='fa-angle-double-right'/></Link></li>
@@ -103,6 +106,8 @@ class _statistics extends React.Component {
     search=()=>{
         let time1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
         let time2=ReactDOM.findDOMNode(this.refs.selectTime2).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
+        time1=Tools.changeTime(time1);
+        time2=Tools.changeTime(time2);
         //去除红色警示框ClassName
         ReactDOM.findDOMNode(this.refs.selectTime1).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');
         ReactDOM.findDOMNode(this.refs.selectTime2).className=ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError','');

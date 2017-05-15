@@ -11,6 +11,7 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 import compareAction from '../../../actions/compareAction';
 
@@ -143,13 +144,14 @@ class _active extends React.Component {
 
         return <div>
       				<div className="panel">
-                  <div className="panelHead">顾客活跃度对比</div>
+                  <div className="panelHead">顾客活跃度对比&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示两个商家在同一时间段内的活跃度对比<br /></p></div></div>
                   <div className="panelBody">
                   <div ref="compareSellerActiveChart" className="compareSellerActiveChart"></div>
                   </div>
               </div>
 							<div className='panel'>
-  		    				<div className="panelHead">顾客活跃度信息</div>
+  		    				<div className="panelHead">顾客活跃度对比明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

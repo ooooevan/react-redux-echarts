@@ -12,7 +12,9 @@ import 'echarts/lib/chart/gauge';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/grid';
 import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/toolbox';
 import 'echarts/lib/component/dataZoom';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 class _Chart extends React.Component {
 
@@ -134,13 +136,16 @@ class _Chart extends React.Component {
 
 
             <div className='panel'>
-                <div className='panelHead'>{this.state.chartTitle}</div>
+                <div className='panelHead'>当前实时客流&nbsp;
+                <FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城实时客流量<br />实时信息将自动更新，更新间隔为：{}分钟</p></div>
+                </div>
                 <div className='panelBody'>
                     <div ref="chartLine" className="chartLine" ></div>
                 </div>
             </div>
             <div className='panel'>
-                <div className='panelHead'>当前实时客流数据</div>
+                <div className='panelHead'>实时客流明细</div>
                     <div className='panelBody'>
                     <table className=/*firstTable*/"Table">
                         <thead>

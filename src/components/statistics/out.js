@@ -21,26 +21,27 @@ const FaQuestion = require('react-icons/lib/fa/question');
 
 
 
-class _active extends React.Component {
+class _out extends React.Component {
 	constructor(props){
 		super(props);
 		this.state={
-			statisticsActiveInit:'',
+			statisticsOutInit:'',
 			resizeHandler:'',
-			statisticsActiveChart:'',
+			statisticsOutChart:'',
+			time:'',
 			time:'',
 			timeList:'',
       numList:'',
+      percentList:'',
       tableSpace:1
 		}
 	}
 	componentDidMount(){
 		this.state.time=this.props.time;
-    this.props.statisticsActiveInit(this.state.time);
-   
-    let statisticsActiveChart = ReactDOM.findDOMNode(this.refs.statisticsActiveChart);
-	  this.state.statisticsActiveChart = echarts.init(statisticsActiveChart);
-    this.state.statisticsActiveChart.showLoading();
+    this.props.statisticsOutInit(this.state.time);
+    let statisticsOutChart = ReactDOM.findDOMNode(this.refs.statisticsOutChart);
+	  this.state.statisticsOutChart = echarts.init(statisticsOutChart);
+    this.state.statisticsOutChart.showLoading();
     window.addEventListener('resize',this.resizeFun);
 	}
 	resizeFun=()=>{
@@ -48,21 +49,22 @@ class _active extends React.Component {
               clearTimeout(this.state.resizeHandler);
           }
     this.state.resizeHandler = setTimeout(()=>{
-       this.state.statisticsActiveChart.resize();
+       this.state.statisticsOutChart.resize();
     }, 100)
 	}
 	componentWillReceiveProps(nextProps,nextState){
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.statisticsActiveInit(nextProps.time);
+			this.props.statisticsOutInit(nextProps.time);
 			return;
 		}
-		let active=nextProps.active.toJS();
-		let timeList=active.xAxis[0].data;
-		let numList=active.series[0].data;
-		this.setState({timeList,numList});
-		this.state.statisticsActiveChart.setOption(active);
-		this.state.statisticsActiveChart.hideLoading();
+		let out=nextProps.out.toJS();
+		let timeList=out.xAxis[0].data;
+		let percentList=out.series[0].data;
+		let numList=out.xAxis[0].num;
+		this.setState({timeList,numList,percentList});
+		this.state.statisticsOutChart.setOption(out);
+		this.state.statisticsOutChart.hideLoading();
 	}
 	componentWillUpdate(nextProps){
 		console.log('-=componentWillUpdate')
@@ -74,41 +76,34 @@ class _active extends React.Component {
 	}
 	componentWillUnmount(){
       //切换路由销毁echarts实例
-      this.state.statisticsActiveChart.dispose();
+      this.state.statisticsOutChart.dispose();
       this.props.stateDefault();
       window.removeEventListener('resize',this.resizeFun);
 	}
 	render(){
-		let {timeList,numList,time} = this.state;
+		let {timeList,numList,percentList,tableSpace} = this.state;
     let rows=[];
-    switch(time){
-    	case 'day':time='最近一天';break;
-    	case 'week':time='最近一周';break;
-    	case 'month':time='最近一月';break;
-    	case 'year':time='最近一年';break;
-    	case 'more':time='开店以来';break;
-    	default:let arr=time.split(',');
-    		time=arr.join(' 至 ');
-    }
     if(timeList){
         timeList.forEach((item,i)=>{
-          rows.push(<tr key={i}><td>{time}</td><td>{timeList[i]}</td><td>{numList[i]}</td></tr>)
+            if(!(i%tableSpace)){
+                rows.push(<tr key={i}><td>{timeList[i]}</td><td>{numList[i]}</td><td>{percentList[i]}%</td></tr>)
+            }
         })
     }
 		return	<div>
 			<div className="panel">
-			    			<div className="panelHead">活跃度&nbsp;<FaQuestion className='questionMark' />
-                <div className='messageMark'><p>展示商城在一定时间内顾客的活跃程度<br /><strong>高活跃度</strong>：<strong>中活跃度</strong>：<strong>低活跃度</strong>：<strong>沉睡活跃度</strong>：</p></div></div>
+			    			<div className="panelHead">跳出率&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在一定时间内的跳出的数量及比例<br /><strong>跳出</strong>：停留时长低于2分钟的顾客</p></div></div>
 			    			<div className="panelBody">
-			    				<div className="statisticsActiveChart" ref="statisticsActiveChart"></div>
+			    				<div className="statisticsOutChart" ref="statisticsOutChart"></div>
 			          </div>
 	  				</div>
 	  				<div className='panel'>
-  		    				<div className="panelHead">活跃度明细</div>
+  		    				<div className="panelHead">跳出率明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
-              					<tr><th>时间范围</th><th>活跃度</th><th>人数</th></tr>
+              					<tr><th>时间</th><th>跳出量</th><th>跳出率</th></tr>
               				</thead>
               				<tbody>
               				{rows}
@@ -124,7 +119,7 @@ class _active extends React.Component {
 
 
 const mapStateToProps = (state)=>({
-    active:state.getIn(['c','active']),
+    out:state.getIn(['c','out'])
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar']),
     // OldOrNew:state.getIn(['b','OldOrNew']),
@@ -133,6 +128,6 @@ const mapStateToProps = (state)=>({
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
 })
 
-let active=connect(mapStateToProps,statisticsAction)(_active);
+let out=connect(mapStateToProps,statisticsAction)(_out);
 
-export default active;
+export default out;

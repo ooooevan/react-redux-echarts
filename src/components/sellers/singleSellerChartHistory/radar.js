@@ -6,6 +6,7 @@ import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import sellersAction from '../../../actions/sellersAction';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 class _radar extends React.Component {
 	static propTypes = {
@@ -80,13 +81,14 @@ class _radar extends React.Component {
 		}
 		return <div>
 					<div className="panel">
-		          <div className="panelHead">总体评价</div>
+		          <div className="panelHead">总体评价&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商家开店以来的总体评价<br /><strong>评价标准</strong>：100分为满分，根据各项指标在全部商家的排名，再乘以相关系数得出<br /></p></div></div>
 		         	 <div className="panelBody">
 								<div className='singleSellerRadarChart' ref='singleSellerRadarChart'></div>
 							</div>
 		        </div>
 		        	<div className='panel'>
-  		    				<div className="panelHead">顾客客流量</div>
+  		    				<div className="panelHead">总体评价明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

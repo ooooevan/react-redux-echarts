@@ -15,6 +15,7 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/dataZoom';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 
 
@@ -51,7 +52,7 @@ class _timeSection extends React.Component {
 	componentWillReceiveProps(nextProps,nextState){
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.statisticsTimeSectionInit(nextState.time);
+			this.props.statisticsTimeSectionInit(nextProps.time);
 			return;
 		}
 		let timeSection=nextProps.timeSection.toJS();
@@ -94,13 +95,14 @@ class _timeSection extends React.Component {
     }
 		return	<div>
 				<div className="panel">
-		    			<div className="panelHead">各时间段人数</div>
+		    			<div className="panelHead">各时间段峰值&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在一天各时间段的最高人数<br /></p></div></div>
 		    			<div className="panelBody">
 		    				<div className="statisticsTimeSectionChart" ref="statisticsTimeSectionChart"></div>
 		          </div>
   				</div>
   				<div className='panel'>
-  		    				<div className="panelHead">顾客客流量</div>
+  		    				<div className="panelHead">各时间段峰值明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

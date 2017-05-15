@@ -10,7 +10,7 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/dataZoom';
-
+const FaQuestion = require('react-icons/lib/fa/question');
 import sellersAction from '../../actions/sellersAction';
 
 class _Chart extends React.Component {
@@ -98,27 +98,29 @@ class _Chart extends React.Component {
         // this.props.changeSellerName(this.props.customerNum.get('name'));
         // debugger
         // this.state.param=this.props.params.id;
-        let customerNum = nextProps.customerNum.toJS()
-        let now={numLen:'',num:'',doorNumLen:'',doorNum:'',percentLen:'',percent:''};
-        let yesterday=customerNum.xAxis[0].yesterday;
-        //四个分别是时间、客流量、门前客流、客流占比
-        let timeList=customerNum.xAxis[0].data.reverse();
-        let numList=customerNum.series[0].data.reverse();
-        let doorNumList=customerNum.series[1].data.reverse();
-        let percentList=customerNum.series[2].data.reverse();
+        let customerNum = nextProps.customerNum.toJS();
+        if(customerNum.series[0] && customerNum.series[0].data[0]){
+            let now={numLen:'',num:'',doorNumLen:'',doorNum:'',percentLen:'',percent:''};
+            let yesterday=customerNum.xAxis[0].yesterday;
+            //四个分别是时间、客流量、门前客流、客流占比
+            let timeList=customerNum.xAxis[0].data.reverse();
+            let numList=customerNum.series[0].data.reverse();
+            let doorNumList=customerNum.series[1].data.reverse();
+            let percentList=customerNum.series[2].data.reverse();
 
-
-        now.numLen=numList.length;
-        now.num=numList[now.numLen-1];
-        now.doorNumLen=doorNumList.length;
-        now.doorNum=doorNumList[now.doorNumLen - 1];
-        now.percentLen=percentList.length;
-        now.percent=percentList[now.percentLen - 1];
-        this.setState({now,yesterday,timeList,numList,doorNumList,percentList});
+            now.numLen=numList.length;
+            now.num=numList[now.numLen-1];
+            now.doorNumLen=doorNumList.length;
+            now.doorNum=doorNumList[now.doorNumLen - 1];
+            now.percentLen=percentList.length;
+            now.percent=percentList[now.percentLen - 1];
+            this.setState({now,yesterday,timeList,numList,doorNumList,percentList});
+            
+            this.setState({param:nextProps.params.id})
+            this.state.singleSellerCustomerNumChart.setOption(customerNum);
+            this.state.singleSellerCustomerNumChart.hideLoading();
+        }
         
-        this.setState({param:nextProps.params.id})
-        this.state.singleSellerCustomerNumChart.setOption(customerNum);
-        this.state.singleSellerCustomerNumChart.hideLoading();
         
     }
 	componentWillUnmount(){
@@ -161,7 +163,8 @@ class _Chart extends React.Component {
                 </div></div>
             </div>
     		<div className="panel">
-    			<div className="panelHead">门前客流量</div>
+    			<div className="panelHead">实时客流量&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商家实时客流量、门前客流量及客流总体占比<br /><strong>客流量</strong>：当前在店铺内的人数<br /><strong>门前客流量</strong>：经过店铺门口的人数<strong>客流总体占比</strong>：店铺内的人数占整个商城的人数比例</p></div></div>
     			<div className="panelBody">
     				<div className="singleSellerCustomerNumChart" ref="singleSellerCustomerNumChart"></div>
                 </div>

@@ -6,6 +6,7 @@ import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import sellersAction from '../../../actions/sellersAction';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 class _customerIn extends React.Component {
 	static propTypes = {
@@ -87,13 +88,14 @@ class _customerIn extends React.Component {
     }
 		return <div> 
 						<div className="panel">
-							<div className="panelHead">顾客客流量</div>
+							<div className="panelHead">商店入店量&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商家在一定时间内的入店量及入店率<br /><strong>入店量</strong>：时间段内进入商店的人数<br /><strong>入店率</strong>：时间段内，从进入店铺内的客流量与店铺门口经过的客流量的比率。</p></div></div>
 			    			<div className="panelBody">
 								<div className='singleSellerCustomerInChart' ref='singleSellerCustomerInChart'></div>
 							</div>
     			</div>
     			<div className='panel'>
-    				<div className="panelHead">顾客客流量</div>
+    				<div className="panelHead">商店入店量明细</div>
 			    			<div className="panelBody">
 			    				<table className="Table">
             				<thead>

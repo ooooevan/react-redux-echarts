@@ -15,6 +15,7 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/dataZoom';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 
 
@@ -52,7 +53,7 @@ class _cycle extends React.Component {
 	componentWillReceiveProps(nextProps,nextState){
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.statisticsCycleInit(nextState.time);
+			this.props.statisticsCycleInit(nextProps.time);
 			return;
 		}
 		let cycle=nextProps.cycle.toJS();
@@ -98,13 +99,14 @@ class _cycle extends React.Component {
     }
 		return	<div>
 				<div className="panel">
-		    			<div className="panelHead">来访周期</div>
+		    			<div className="panelHead">来访周期&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在一定时间内顾客距离上次来访的时间<br /></p></div></div>
 		    			<div className="panelBody">
 		    				<div className="statisticsCycleChart" ref="statisticsCycleChart"></div>
 		          </div>
   				</div>
   				<div className='panel'>
-  		    				<div className="panelHead">顾客客流量</div>
+  		    				<div className="panelHead">来访周期明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

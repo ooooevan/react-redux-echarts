@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import sellersAction from '../../../actions/sellersAction';
-
+const FaQuestion = require('react-icons/lib/fa/question');
 
 
 
@@ -43,7 +43,7 @@ class _cycle extends React.Component {
 		let cycle=nextProps.cycle.toJS()
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time})
-			this.props.singleSellerCycleInit(nextProps.params.id,nextState.time);
+			this.props.singleSellerCycleInit(nextProps.params.id,nextProps.time);
 		}
 		let timeList=cycle.xAxis[0].data;
 		let numList=cycle.series[0].data;
@@ -83,13 +83,14 @@ class _cycle extends React.Component {
     }
 		return <div>
 							<div className="panel">
-			    			<div className="panelHead">来访周期</div>
+			    			<div className="panelHead">来访周期&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示在一定时间内顾客距离上一次访问的时间<br /></p></div></div>
 			    			<div className="panelBody">
 			    				<div className="singleSellerCycleChart" ref="singleSellerCycleChart"></div>
 			          </div>
 			  				</div>
 			  				<div className='panel'>
-			    				<div className="panelHead">顾客客流量</div>
+			    				<div className="panelHead">来访周期明细</div>
 						    			<div className="panelBody">
 						    				<table className="Table">
 	            				<thead>

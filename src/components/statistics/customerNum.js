@@ -15,6 +15,7 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/dataZoom';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 
 
@@ -53,7 +54,7 @@ class _customerNum extends React.Component {
 	componentWillReceiveProps(nextProps,nextState){
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.statisticsCustomerNumInit(nextState.time);
+			this.props.statisticsCustomerNumInit(nextProps.time);
 			return;
 		}
 		let customerNum=nextProps.customerNum.toJS();
@@ -89,13 +90,14 @@ class _customerNum extends React.Component {
     }
 		return	<div>
 				<div className="panel">
-		    			<div className="panelHead">顾客流动</div>
+		    			<div className="panelHead">入店量&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示在一定时间内进入商城的人数<br /></p></div></div>
 		    			<div className="panelBody">
 		    				<div className="statisticsCustomerNumChart" ref="statisticsCustomerNumChart"></div>
 		          </div>
   				</div>
   				<div className='panel'>
-  		    				<div className="panelHead">顾客客流量</div>
+  		    				<div className="panelHead">入店量明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

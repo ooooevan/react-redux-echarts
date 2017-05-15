@@ -33,6 +33,28 @@ export default function lineReducer(state=initialState,action){
       })
       return state.setIn(['customerPeak','xAxis',0,'data'],Immutable.List(peak.time))
                   .setIn(['customerPeak','series',0,'data'],Immutable.List(peak.value));
+    case TYPE.statisticsDeepInit:
+    // debugger
+      let deep={time:[],deepNum:[],deepRatio:[]};
+      action.payload.forEach(item=>{
+        deep.time.push(item.countDate);
+        deep.deepNum.push(item.deepNum);
+        deep.deepRatio.push(item.deepRatio);
+      })
+      return state.setIn(['deep','xAxis',0,'data'],Immutable.List(deep.time))
+                  .setIn(['deep','series',0,'data'],Immutable.List(deep.deepRatio))
+                  .setIn(['deep','xAxis',0,'num'],Immutable.List(deep.deepNum));
+    case TYPE.statisticsOutInit:
+    // debugger
+      let out={time:[],jumpNum:[],jumpRatio:[]};
+      action.payload.forEach(item=>{
+        out.time.push(item.countDate);
+        out.jumpNum.push(item.jumpNum);
+        out.jumpRatio.push(item.jumpRatio);
+      })
+      return state.setIn(['out','xAxis',0,'data'],Immutable.List(out.time))
+                  .setIn(['out','series',0,'data'],Immutable.List(out.jumpRatio))
+                  .setIn(['out','xAxis',0,'num'],Immutable.List(out.jumpNum));
 		case TYPE.statisticsOldOrNewInit:
       let oldnew={time:[],old:[],new:[]};
       action.payload.forEach(item=>{
@@ -67,7 +89,14 @@ export default function lineReducer(state=initialState,action){
       })
       return state.setIn(['active','xAxis',0,'data'],Immutable.List(active.name.reverse()))
                   .setIn(['active','series',0,'data'],Immutable.List(active.value))
-
+    case TYPE.statisticsStayInit:
+      let stay={name:[],value:[]};
+      action.payload.forEach(item=>{
+        stay.name.push(item.key);
+        stay.value.push(item.value);
+      })
+      return state.setIn(['stay','xAxis',0,'data'],Immutable.List(stay.name.reverse()))
+                  .setIn(['stay','series',0,'data'],Immutable.List(stay.value))
 
 
     default:return state;

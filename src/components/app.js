@@ -143,6 +143,21 @@ const StatOldOrNew = (location, callback) => {
         callback(null, require('./statistics/oldOrNew').default)
     },'oldOrNew')
 }
+const StatDeep = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./statistics/deep').default)
+    },'deep')
+}
+const StatOut = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./statistics/out').default)
+    },'out')
+}
+const StatStay = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./statistics/stay').default)
+    },'stay')
+}
 const StatTimeSection = (location, callback) => {
     require.ensure([], require => {
         callback(null, require('./statistics/timeSection').default)
@@ -198,6 +213,22 @@ const WholeOldOrNew = (location, callback) => {
         callback(null, require('./compare/whole/oldOrNew').default)
     },'wholeOldOrNew')
 }
+const WholeStay = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./compare/whole/stay').default)
+    },'wholeStay')
+}
+const WholeDeepVisit = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./compare/whole/deepVisit').default)
+    },'wholeDeep')
+}
+const WholeOut = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./compare/whole/out').default)
+    },'wholeOut')
+}
+
 const SellersRoute = (location, callback) => {
     require.ensure([], require => {
         callback(null, require('./compare/sellers/sellersRoute').default)
@@ -284,6 +315,9 @@ ReactDOM.render(
 						<Route path='total' getComponent={StatCustomerNum}/>
 						<Route path='peak' getComponent={StatCustomerPeak}/>
 						<Route path='oldOrNew' getComponent={StatOldOrNew}/>
+						<Route path='deep' getComponent={StatDeep}/>
+						<Route path='out' getComponent={StatOut}/>
+						<Route path='stay' getComponent={StatStay}/>
 						<Route path='timeSection' getComponent={StatTimeSection}/>
 						<Route path='cycle' getComponent={StatCycle}/>
 						<Route path='active' getComponent={StatActive}/>
@@ -293,8 +327,9 @@ ReactDOM.render(
 						<Route path='wholeCustomerNum' getComponent={WholeCustomerNum}/>
 						<Route path='wholeCustomerIn' getComponent={WholeCustomerIn}/>
 						<Route path='wholeOldOrNew' getComponent={WholeOldOrNew}/>
-						{/*<Route path='wholeDeep' getComponent={WholeDeepVisit}/>
-						<Route path='wholeOut' getComponent={WholeOut}/>*/}
+						<Route path='wholeStay' getComponent={WholeStay}/>
+						<Route path='wholeDeep' getComponent={WholeDeepVisit}/>
+						<Route path='wholeOut' getComponent={WholeOut}/>
 						<Route path='wholeCycle' getComponent={WholeCycle}/>
 						<Route path='wholeActive' getComponent={WholeActive}/>
 						{/*<Route path='seller*' getComponent={SellersRoute}>
@@ -322,9 +357,9 @@ ReactDOM.render(
 						<Route path='sellerActive' getComponent={SellersRoute}>
 							<IndexRoute component={SellersActive} />
 						</Route>
-						<Route path='sellerTimeSection' getComponent={SellersRoute}>
+						{/*<Route path='sellerTimeSection' getComponent={SellersRoute}>
 							<IndexRoute component={SellersTimeSection} />
-						</Route>
+						</Route>*/}
 						<Route path='sellerCycle' getComponent={SellersRoute}>
 							<IndexRoute component={SellersCycle} />
 						</Route>

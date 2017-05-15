@@ -15,6 +15,7 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/dataZoom';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 
 
@@ -53,7 +54,7 @@ class _customerPeak extends React.Component {
 	componentWillReceiveProps(nextProps,nextState){
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.statisticsPeakInit(nextState.time);
+			this.props.statisticsPeakInit(nextProps.time);
 			return;
 		}
 		let customerPeak=nextProps.customerPeak.toJS();
@@ -89,13 +90,14 @@ class _customerPeak extends React.Component {
     }
 		return	<div>
 			<div className="panel">
-			    			<div className="panelHead">活跃度</div>
+			    			<div className="panelHead">客流量峰值&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在一定时间内的客流峰值<br /></p></div></div>
 			    			<div className="panelBody">
 			    				<div className="statisticsPeakChart" ref="statisticsPeakChart"></div>
 			          </div>
 	  				</div>
 	  				<div className='panel'>
-  		    				<div className="panelHead">顾客客流量</div>
+  		    				<div className="panelHead">客流量峰值明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

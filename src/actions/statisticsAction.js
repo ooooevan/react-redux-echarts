@@ -35,6 +35,36 @@ export default {
         })
     }
   },
+  statisticsDeepInit(time){
+    return function(dispatch){
+      let _url=url.statisticsDeepInit+time;
+      fetch(_url).then(data=> data.json())
+        .then(data=>{
+          dispatch({
+            type: TYPE.statisticsDeepInit,
+            payload: data
+          })
+        })
+        .catch(function(err){
+            console.log(err)
+        })
+    }
+  },
+  statisticsOutInit(time){
+    return function(dispatch){
+      let _url=url.statisticsOutInit+time;
+      fetch(_url).then(data=> data.json())
+        .then(data=>{
+          dispatch({
+            type: TYPE.statisticsOutInit,
+            payload: data
+          })
+        })
+        .catch(function(err){
+            console.log(err)
+        })
+    }
+  },
   statisticsOldOrNewInit(time){
     return function(dispatch){
     	let _url=url.statisticsOldOrNewInit+time;
@@ -87,6 +117,21 @@ export default {
         .then(data=>{
           dispatch({
             type: TYPE.statisticsActiveInit,
+            payload: data
+          })
+        })
+        .catch(function(err){
+            console.log(err)
+        })
+    }
+  },
+  statisticsStayInit(time){
+    return function(dispatch){
+      let _url=url.statisticsStayInit+time;
+      fetch(_url).then(data=> data.json())
+        .then(data=>{
+          dispatch({
+            type: TYPE.statisticsStayInit,
             payload: data
           })
         })

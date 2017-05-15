@@ -9,6 +9,15 @@ export default {
             left:'5%',
             right:'5%'
         },
+        toolbox: {
+            // y: 'bottom',
+            feature: {
+                dataView : {show: true, readOnly: false},
+                saveAsImage: {
+                    pixelRatio: 1
+                }
+            }
+        },
         legend:{
             data: ['客流量']
         },
@@ -100,6 +109,14 @@ export default {
             trigger: 'axis',
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {},
+                saveAsImage: {
+                    pixelRatio: 1
+                }
             }
         },
         grid: {

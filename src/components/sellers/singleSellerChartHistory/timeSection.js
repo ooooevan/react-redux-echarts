@@ -6,6 +6,7 @@ import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import sellersAction from '../../../actions/sellersAction';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 class _stayBar extends React.Component {
 	static propTypes = {
@@ -44,7 +45,7 @@ class _stayBar extends React.Component {
 		let timeSection=nextProps.timeSection.toJS()
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.singleSellerTimeSection(nextProps.params.id,nextState.time);
+			this.props.singleSellerTimeSection(nextProps.params.id,nextProps.time);
 		}
 		let timeList=timeSection.xAxis[0].data;
 		let numList=timeSection.series[0].data;
@@ -84,13 +85,14 @@ class _stayBar extends React.Component {
     }
 		return <div>
 							<div className="panel">
-				          <div className="panelHead">各时间段人数峰值</div>
+				          <div className="panelHead">各时间段人数峰值&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示在一定时间段中，一天某时间段内的人数之和</p></div></div>
 					          <div className="panelBody">
 											<div className='singleSellerTimeSectionChart' ref='singleSellerTimeSectionChart'></div>
 									</div>
 				        </div>
 				        <div className='panel'>
-	  		    				<div className="panelHead">顾客客流量</div>
+	  		    				<div className="panelHead">各时间段人数峰值明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

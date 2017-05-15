@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import sellersAction from '../../../actions/sellersAction';
-
+const FaQuestion = require('react-icons/lib/fa/question');
 
 
 
@@ -49,7 +49,7 @@ class _active extends React.Component {
 		let active=nextProps.active.toJS();
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.singleSellerActiveInit(nextProps.params.id,nextState.time);
+			this.props.singleSellerActiveInit(nextProps.params.id,nextProps.time);
 		}
 		let timeList=active.xAxis[0].data.reverse();
 		let numList=active.series[0].data.reverse();
@@ -87,13 +87,14 @@ class _active extends React.Component {
 
 		return	<div>
 							<div className="panel">
-		    			<div className="panelHead">活跃度</div>
+		    			<div className="panelHead">活跃度&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示在一定时间内店铺的活跃度<br /><strong>高活跃度</strong>：<br /><strong>中活跃度</strong>：<br /><strong>低活跃度</strong>：<br /><strong>沉睡活跃度</strong>：<br /></p></div></div>
 		    			<div className="panelBody">
 		    				<div className="singleSellerActiveChart" ref="singleSellerActiveChart"></div>
 		          </div>
 	  				</div>	
 	  				<div className='panel'>
-  		    				<div className="panelHead">顾客客流量</div>
+  		    				<div className="panelHead">活跃度明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

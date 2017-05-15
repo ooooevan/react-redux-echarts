@@ -5,6 +5,7 @@ import {connect,Provider} from 'react-redux';
 import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 import sellersAction from '../../../actions/sellersAction';
 
@@ -48,7 +49,7 @@ class _deepVisit extends React.Component {
 		let deep=nextProps.deepVisit.toJS()
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.singleSellerDeepVisit(nextProps.params.id,nextState.time);
+			this.props.singleSellerDeepVisit(nextProps.params.id,nextProps.time);
 		}
 		// if(deep.series[0].data){
 			let timeList=deep.xAxis.data;
@@ -86,13 +87,14 @@ class _deepVisit extends React.Component {
     }
 		return <div>
 		<div className="panel">
-			          <div className="panelHead">深访率</div>
+			          <div className="panelHead">深访率&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示在一定时间内深访店铺所占入店量的比例<br /><strong>深访定义</strong>：停留时长超过{}分钟的顾客<br /></p></div></div>
 				          <div className="panelBody">
 										<div className='singleSellerDeepVisitChart' ref='singleSellerDeepVisitChart'></div>
 									</div>
 									</div>
 				        <div className='panel'>
-  		    				<div className="panelHead">顾客客流量</div>
+  		    				<div className="panelHead">深访率明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

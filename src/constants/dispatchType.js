@@ -25,10 +25,13 @@ export default {
 	statistics:{
 		statisticsCustomerNumInit:'statisticsCustomerNumInit',
 		statisticsPeakInit:'statisticsPeakInit',
+		statisticsDeepInit:'statisticsDeepInit',
+		statisticsOutInit:'statisticsOutInit',
 		statisticsOldOrNewInit:'statisticsOldOrNewInit',
 		statisticsTimeSectionInit:'statisticsTimeSectionInit',
 		statisticsCycleInit:'statisticsCycleInit',
-		statisticsActiveInit:'statisticsActiveInit'
+		statisticsActiveInit:'statisticsActiveInit',
+		statisticsStayInit:'statisticsStayInit'
 	},
 	compare:{
 		numInit:'compareCustomerNum',
@@ -38,6 +41,7 @@ export default {
 		oldOrNewInit:'compareCustomerOldOrNew',
 		deepVisitInit:'compareCustomerDeepVisit',
 		outInit:'compareCustomerOutInit',
+		stayInit:'compareCustomerStayInit',
 		sellersNumInit:'compareSellersNum',
 		sellersListInit:'compareSellersList',
 		sellersInInit:'compareSellersIn',

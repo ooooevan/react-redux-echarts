@@ -49,36 +49,36 @@ export default {
         })
     };
   },
-  // deepVisitInit(time){
-  //   return function(dispatch) {
-  //     let url=Api.deepVisitInit+'?'+time;
-  //     fetch(url).then(data => data.json())
-  //         .then(data => {
-  //           dispatch({
-  //             type: TYPE.deepVisitInit,
-  //             payload: data
-  //           });
-  //         })
-  //         .catch(function(err){
-  //           console.log(err)
-  //       })
-  //   };
-  // },
-  // outInit(time){
-  //   return function(dispatch) {
-  //     let url=Api.outInit+'?'+time;
-  //     fetch(url).then(data => data.json())
-  //         .then(data => {
-  //           dispatch({
-  //             type: TYPE.outInit,
-  //             payload: data
-  //           });
-  //         })
-  //         .catch(function(err){
-  //           console.log(err)
-  //       })
-  //   };
-  // },
+  deepVisitInit(time,range){
+    return function(dispatch) {
+      let url=Api.deepVisitInit+time+'/'+range;
+      fetch(url).then(data => data.json())
+          .then(data => {
+            dispatch({
+              type: TYPE.deepVisitInit,
+              payload: data
+            });
+          })
+          .catch(function(err){
+            console.log(err)
+        })
+    };
+  },
+  outInit(time,range){
+    return function(dispatch) {
+      let url=Api.outInit+time+'/'+range;
+      fetch(url).then(data => data.json())
+          .then(data => {
+            dispatch({
+              type: TYPE.outInit,
+              payload: data
+            });
+          })
+          .catch(function(err){
+            console.log(err)
+        })
+    };
+  },
   activeInit(time,range){
     return function(dispatch) {
       let url=Api.activeInit+time+'/'+range;
@@ -101,6 +101,21 @@ export default {
           .then(data => {
             dispatch({
               type: TYPE.cycleInit,
+              payload: data
+            });
+          })
+          .catch(function(err){
+            console.log(err)
+        })
+    };
+  },
+  stayInit(time,range){
+    return function(dispatch) {
+      let url=Api.stayInit+time+'/'+range;
+      fetch(url).then(data => data.json())
+          .then(data => {
+            dispatch({
+              type: TYPE.stayInit,
               payload: data
             });
           })

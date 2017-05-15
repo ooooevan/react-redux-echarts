@@ -11,6 +11,7 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 import compareAction from '../../../actions/compareAction';
 
@@ -32,7 +33,12 @@ class _deepVisit extends React.Component {
             selectTime:'day',
             time:'',          //要请求的time参数，有多个
             time1:'',           //时间1，用于显示图表的legend
-            time2:''              //时间2,用于显示图表的legend
+            time2:'',              //时间2,用于显示图表的legend
+            timeList:'',
+            num1List:'',
+            num2List:'',
+            percent1List:'',
+            percent2List:''
         }
     }
 
@@ -46,7 +52,6 @@ class _deepVisit extends React.Component {
 
     componentDidMount(){
         console.log('componentDidMount');
-    //  //this.props.allSellersTableInit();
         let getTime=Tools.getTime();
         this.state.time=getTime;
         this.state.time1=getTime.split(',')[0];
@@ -79,19 +84,31 @@ class _deepVisit extends React.Component {
     // }
  //   
     }
+    componentWillReceiveProps(nextProps,nextState){
+        let deepVisit=nextProps.deepVisit.toJS();
+        if(deepVisit.series[0].data && deepVisit.series[0].data[0]){
+            let timeList=deepVisit.xAxis[0].data;
+            let num1List=deepVisit.xAxis[0].deep1Num;
+            let num2List=deepVisit.xAxis[0].deep2Num;
+            let percent1List=deepVisit.series[0].data;
+            let percent2List=deepVisit.series[1].data;
+            this.setState({timeList,num1List,num2List,percent1List,percent2List})
+            // deepVisit.legend.data.push(this.state.time1,this.state.time2);
+            // deepVisit.series[0].name = this.state.time1;
+            // deepVisit.series[1].name = this.state.time2;
+            deepVisit.legend.data.push('时间一','时间二');
+            deepVisit.series[0].name = '时间一';
+            deepVisit.series[1].name = '时间二';
+            this.state.compareDeepVisitChart.setOption(deepVisit);
+            this.state.compareDeepVisitChart.hideLoading();
+        }
+    }
     componentWillUpdate(nextProps){
         console.log('-=componentWillUpdate')
     }
     componentDidUpdate(){
         console.log('..componentDidUpdate')
-        let deepVisit=this.props.deepVisit.toJS();
-        if(deepVisit.series[0].data && deepVisit.series[0].data[0]){
-            deepVisit.legend.data.push(this.state.time1,this.state.time2);
-            deepVisit.series[0].name = this.state.time1;
-            deepVisit.series[1].name = this.state.time2;
-            this.state.compareDeepVisitChart.setOption(deepVisit);
-            this.state.compareDeepVisitChart.hideLoading();
-        }
+        
 
  //      
     }
@@ -163,16 +180,14 @@ class _deepVisit extends React.Component {
     }
 
     render(){
-        let rows = [];
-        console.log('...render');
-        if(this.state.Data.series && this.state.Data.series[0].data){
-            let sellerName=this.state.Data.xAxis[0].data;
-            let sellerNum=this.state.Data.series[0].data;
-            let sellerPer=this.state.Data.series[1].data;
-            // debugger
-            sellerName.forEach(function(item,index){
-                rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
-
+        let {timeList,num1List,percent1List,num2List,percent2List} = this.state;
+        let rows=[];
+        let time1,time2;
+        if(timeList){
+            timeList.forEach((item,i)=>{
+                time1=timeList[i].split('/')[0];
+                time2=timeList[i].split('/')[1];
+              rows.push(<tr key={i}><td>{time1}</td><td>{num1List[i]}</td><td>{percent1List[i]}%</td><td>{time2}</td><td>{num2List[i]}</td><td>{percent2List[i]}%</td></tr>)
             })
         }
 
@@ -199,17 +214,18 @@ class _deepVisit extends React.Component {
                 </div>
               
                 <div className="panel">
-                    <div className="panelHead">深访率对比</div>
+                    <div className="panelHead">深访率对比&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在两个时间段内的深访率对比<br /></p></div></div>
                     <div className="panelBody">
                     <div ref="compareDeepVisitChart" className="compareDeepVisitChart"></div>
                     </div>
                 </div>
                 <div className="panel">
-                    <div className="panelHead">深访率信息</div>
+                    <div className="panelHead">深访率对比明细</div>
                         <div className="panelBody">
                         <table className="Table">
                             <thead>
-                                <tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+                                <tr><th>时间一</th><th>深访量</th><th>深访率</th><th>时间二</th><th>深访量</th><th>深访率</th></tr>
                             </thead>
                             <tbody>
                             {rows}

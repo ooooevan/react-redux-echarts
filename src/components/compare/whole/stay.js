@@ -15,7 +15,7 @@ const FaQuestion = require('react-icons/lib/fa/question');
 
 import compareAction from '../../../actions/compareAction';
 
-class _active extends React.Component {
+class _stay extends React.Component {
 
     static propTypes = {
         // customerNum: React.PropTypes.func.isRequired,
@@ -27,7 +27,7 @@ class _active extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            compareActiveChart:'',
+            compareStayChart:'',
             resizeHandler:null,
             Data:[],
             selectTime:'day',
@@ -46,7 +46,6 @@ class _active extends React.Component {
     componentWillMount(){
         console.log('componentWillMount')
         
-           //默认无参，可选
  //        this.props.compareCustomerNumInit(this.state.time,this.state.chartPage);
 
     }
@@ -58,15 +57,14 @@ class _active extends React.Component {
         this.state.time=getTime;
         this.state.time1=getTime.split(',')[0];
         this.state.time2=getTime.split(',')[1];
-        this.props.activeInit(Tools.changeTime(this.state.time),this.state.selectTime);
-        
-        let input1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0];
-        let time=this.state.time.split(',')[0]
-        input1.value=this.state.time.split(',')[0];
-        let dom = ReactDOM.findDOMNode(this.refs.compareActiveChart);
+        this.props.stayInit(Tools.changeTime(this.state.time),this.state.selectTime);   //默认无参，可选
 
-        this.state.compareActiveChart = echarts.init(dom);
-        this.state.compareActiveChart.showLoading();
+        let input1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0];
+        input1.value=this.state.time.split(',')[0];
+        let dom = ReactDOM.findDOMNode(this.refs.compareStayChart);
+
+        this.state.compareStayChart = echarts.init(dom);
+        this.state.compareStayChart.showLoading();
 
         window.addEventListener('resize',this.resizeFun)
     }
@@ -74,37 +72,39 @@ class _active extends React.Component {
         if(this.state.resizeHandler){
                 clearTimeout(this.state.resizeHandler);
             }
-            if(this.state.compareActiveChart){
+            if(this.state.compareStayChart){
                 this.state.resizeHandler = setTimeout(function () {
-                   this.state.compareActiveChart.resize();
+                   this.state.compareStayChart.resize();
                 }.bind(this), 100)
             }
     }
-    componentWillReceiveProps(nextProps,nextState){
-        let active=nextProps.active.toJS();
-        if(active.series[0].data && active.series[0].data[0]){
-            let timeList=active.xAxis[0].data;
-            let num1List=active.series[0].data;
-            let num2List=active.series[1].data;
-            let total1List=num1List.reduce((x,y)=>(parseInt(x)+parseInt(y)));
-            let total2List=num2List.reduce((x,y)=>(parseInt(x)+parseInt(y)));
-            this.setState({timeList,num1List,num2List,total1List,total2List});
-            // active.legend.data.push(this.state.time1,this.state.time2);
-            // active.series[0].name = this.state.time1;
-            // active.series[1].name = this.state.time2;
-            active.legend.data.push('时间一','时间二');
-            active.series[0].name = '时间一';
-            active.series[1].name = '时间二';
-            this.state.compareActiveChart.setOption(active);
-            this.state.compareActiveChart.hideLoading();
-        }
-    }
     componentWillUnmount(){
         console.log('componentWillUnmount');
-        this.state.compareActiveChart.dispose();
+        this.state.compareStayChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     // }
  //   
+    }
+    componentWillReceiveProps(nextProps,nextState){
+        if(this.props!==nextProps){
+            let stay=nextProps.stay.toJS();
+            if(stay.series[0].data && stay.series[0].data[0]){
+                let timeList=stay.xAxis[0].data;
+                let num1List=stay.series[0].data;
+                let num2List=stay.series[1].data;
+                let total1List=num1List.reduce((x,y)=>(parseInt(x)+parseInt(y)));
+                let total2List=num2List.reduce((x,y)=>(parseInt(x)+parseInt(y)));
+                this.setState({timeList,num1List,num2List,total1List,total2List});
+                // stay.legend.data.push(this.state.time1,this.state.time2);
+                // stay.series[0].name = this.state.time1;
+                // stay.series[1].name = this.state.time2;
+                stay.legend.data.push('时间一','时间二');
+                stay.series[0].name = '时间一';
+                stay.series[1].name = '时间二';
+                this.state.compareStayChart.setOption(stay);
+                this.state.compareStayChart.hideLoading();
+            }
+        }
     }
     componentWillUpdate(nextProps){
         console.log('-=componentWillUpdate')
@@ -176,7 +176,7 @@ class _active extends React.Component {
           return false;
         }
         //日历选择没有错误，得到时间范围,发请求,并保存时间，放入图表legend
-        this.props.activeInit(time1+','+time2,this.state.selectTime);
+        this.props.stayInit(time1+','+time2,this.state.selectTime);
         this.state.time1=time1;
         this.state.time2=time2;
         return;
@@ -217,18 +217,18 @@ class _active extends React.Component {
                 </div>
               
                 <div className="panel">
-                    <div className="panelHead">活跃度对比&nbsp;<FaQuestion className='questionMark' />
-                <div className='messageMark'><p>展示商城在两个时间段内的活跃度对比<br /></p></div></div>
+                    <div className="panelHead">停留时长对比&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在两个时间段内的停留时长对比<br /></p></div></div>
                     <div className="panelBody">
-                    <div ref="compareActiveChart" className="compareActiveChart"></div>
+                    <div ref="compareStayChart" className="compareStayChart"></div>
                     </div>
                 </div>
                 <div className="panel">
-                    <div className="panelHead">活跃度对比明细</div>
+                    <div className="panelHead">停留时长对比明细</div>
                         <div className="panelBody">
                         <table className="Table">
                             <thead>
-                                <tr><th>活跃度</th><th>时间一人数</th><th>所占比例</th><th>时间二人数</th><th>所占比例</th></tr>
+                                <tr><th>停留时长</th><th>时间一人数</th><th>所占比例</th><th>时间二人数</th><th>所占比例</th></tr>
                             </thead>
                             <tbody>
                             {rows}
@@ -243,9 +243,9 @@ const mapStateToProps = (state)=>({
     // console.log(state);
     // debugger
     // console.log(state.toJS());
-        active:state.getIn(['d','active'])
+        stay:state.getIn(['d','stay'])
         // table:state.getIn(['b','table'])
 })
-let active=connect(mapStateToProps,compareAction)(_active);
-export default active;
+let stay=connect(mapStateToProps,compareAction)(_stay);
+export default stay;
 

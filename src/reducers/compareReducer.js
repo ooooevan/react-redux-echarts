@@ -85,32 +85,49 @@ export default function compareReducer(state=initialState,action){
                         .setIn(['oldOrNew','xAxis',0,'num2New'],obj.num2New);
         }
         case TYPE.deepVisitInit:{
-            let obj={time:[],percent1:[],percent2:[]};
-            action.payload.data1.forEach(item=>{
-                obj.time.push(item.time);
-                obj.percent1.push(item.percent);
+            let obj={time:[],deep1Num:[],deep2Num:[],deepRatio1:[],deepRatio2:[]};
+            let value=[];
+            for(let i in action.payload){
+                value.push(action.payload[i]);
+            }
+            value[0].forEach(item=>{
+                obj.time.push(item.countDate);
+                obj.deep1Num.push(item.deepNum);
+                obj.deepRatio1.push(item.deepRatio);
             })
-            action.payload.data2.forEach(item=>{
-                obj.percent2.push(item.percent);
+            value[1].forEach((item,index)=>{
+                obj.time[index] = obj.time[index]+'/'+item.countDate;
+                obj.deep2Num.push(item.deepNum);
+                obj.deepRatio2.push(item.deepRatio);
             })
             // debugger
             return state.setIn(['deepVisit','xAxis',0,'data'],obj.time)
-                        .setIn(['deepVisit','series',0,'data'],obj.percent1)
-                        .setIn(['deepVisit','series',1,'data'],obj.percent2);
+                        .setIn(['deepVisit','series',0,'data'],obj.deepRatio1)
+                        .setIn(['deepVisit','series',1,'data'],obj.deepRatio2)
+                        .setIn(['deepVisit','xAxis',0,'deep1Num'],obj.deep1Num)
+                        .setIn(['deepVisit','xAxis',0,'deep2Num'],obj.deep2Num);
         }
         case TYPE.outInit:{
-            let obj={time:[],percent1:[],percent2:[]};
-            action.payload.data1.forEach(item=>{
-                obj.time.push(item.time);
-                obj.percent1.push(item.percent);
+            let obj={time:[],out1Num:[],out2Num:[],outRatio1:[],outRatio2:[]};
+            let value=[];
+            for(let i in action.payload){
+                value.push(action.payload[i]);
+            }
+            value[0].forEach(item=>{
+                obj.time.push(item.countDate);
+                obj.out1Num.push(item.jumpNum);
+                obj.outRatio1.push(item.jumpRatio);
             })
-            action.payload.data2.forEach(item=>{
-                obj.percent2.push(item.percent);
+            value[1].forEach((item,index)=>{
+                obj.time[index] = obj.time[index]+'/'+item.countDate;
+                obj.out2Num.push(item.jumpNum);
+                obj.outRatio2.push(item.jumpRatio);
             })
-            // debugger
             return state.setIn(['out','xAxis',0,'data'],obj.time)
-                        .setIn(['out','series',0,'data'],obj.percent1)
-                        .setIn(['out','series',1,'data'],obj.percent2);
+                        .setIn(['out','series',0,'data'],obj.outRatio1)
+                        .setIn(['out','series',1,'data'],obj.outRatio2)
+                        .setIn(['out','xAxis',0,'out1Num'],obj.out1Num)
+                        .setIn(['out','xAxis',0,'out2Num'],obj.out2Num);
         }
         case TYPE.activeInit:{
             
@@ -151,6 +168,25 @@ export default function compareReducer(state=initialState,action){
             return state.setIn(['cycle','xAxis',0,'data'],obj.key)
                         .setIn(['cycle','series',0,'data'],obj.value1)
                         .setIn(['cycle','series',1,'data'],obj.value2);
+        }
+        case TYPE.stayInit:{
+            let obj={key:[],value1:[],value2:[]};
+            let value=[];
+            // debugger
+            for(let i in action.payload){
+                value.push(action.payload[i]);
+            }
+            value[0].forEach(item=>{
+                obj.key.push(item.key);
+                obj.value1.push(item.value);
+            })
+            value[1].forEach(item=>{
+                obj.value2.push(item.value);
+            })
+            // debugger
+            return state.setIn(['stay','xAxis',0,'data'],obj.key)
+                        .setIn(['stay','series',0,'data'],obj.value1)
+                        .setIn(['stay','series',1,'data'],obj.value2);
         }
         case TYPE.sellersNumInit:{
             let obj={time:[],num1:[],percent1:[],num2:[],percent2:[]};

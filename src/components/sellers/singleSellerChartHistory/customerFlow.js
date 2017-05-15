@@ -6,6 +6,7 @@ import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import sellersAction from '../../../actions/sellersAction';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 class _customerFlow extends React.Component {
 	static propTypes = {
@@ -60,7 +61,7 @@ class _customerFlow extends React.Component {
 	componentWillReceiveProps(nextProps,nextState){
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time})
-			this.props.singleSellerCustomerFlowInit(nextProps.params.id,nextState.time);
+			this.props.singleSellerCustomerFlowInit(nextProps.params.id,nextProps.time);
 		}
 
 		let customerFlow=nextProps.customerFlow.toJS();
@@ -94,13 +95,14 @@ class _customerFlow extends React.Component {
     }
 		return <div> 
 						<div className="panel">
-							<div className="panelHead">客流量峰值</div>
+							<div className="panelHead">客流量峰值&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商家在一定时间内的客流峰值及总体占比<br /><strong>客流峰值</strong>：时间段内客流最高的值<br /><strong>客流总体占比</strong>：时间段内客流占整个商城的比例</p></div></div>
 			    			<div className="panelBody">
 								<div className='singleSellerCustomerFlowChart' ref='singleSellerCustomerFlowChart'></div>
 							</div>
     			</div>
     			<div className='panel'>
-    				<div className="panelHead">客流量</div>
+    				<div className="panelHead">客流量峰值明细</div>
 			    			<div className="panelBody">
 			    				<table className="Table">
             				<thead>

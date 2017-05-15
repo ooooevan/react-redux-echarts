@@ -15,6 +15,7 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/dataZoom';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 
 
@@ -55,7 +56,7 @@ class _oldOrNew extends React.Component {
 	componentWillReceiveProps(nextProps,nextState){
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.statisticsOldOrNewInit(nextState.time);
+			this.props.statisticsOldOrNewInit(nextProps.time);
 		}
 		let oldOrNew=nextProps.oldOrNew.toJS();
 		let timeList=oldOrNew.xAxis[0].data;
@@ -93,13 +94,14 @@ class _oldOrNew extends React.Component {
     }
 		return	<div>
 				<div className="panel">
-		    			<div className="panelHead">新老顾客</div>
+		    			<div className="panelHead">新老顾客&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在一定时间内的新老顾客的数量<br /><strong>新顾客</strong>：第一次进入店铺的顾客<strong>新顾客</strong>：不是第一次进入店铺的顾客</p></div></div>
 		    			<div className="panelBody">
 		    				<div className="statisticsOldOrNewChart" ref="statisticsOldOrNewChart"></div>
 		          </div>
   				</div>
   				<div className='panel'>
-  		    				<div className="panelHead">顾客客流量</div>
+  		    				<div className="panelHead">新老顾客明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

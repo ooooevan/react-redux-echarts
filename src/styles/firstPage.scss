@@ -490,7 +490,8 @@ nav {
 /*左右调整商家的按钮*/
 .allSellersLineChartBtn{
   position: absolute;
-  right:20px;
+  right: 3px;
+  top: -34px;
   z-index: 2;
   button{
     width:45px;
@@ -758,7 +759,7 @@ nav {
 /*单个商家 设置高度*/
 .firstPageSellers,.singleSellerLineChart,.sellerIntroduce,.singleSellerCustomerNumChart,.singleSellerCustomerFlowChart,.singleSellerCustomerInChart,.singleSellerRadarChart,.singleSellerStayBarChart
 ,.singleSellerOldOrNewChart,.singleSellerTimeSectionChart,.singleSellerDeepVisitChart,.singleSellerActiveChart,.singleSellerCycleChart,
-.statisticsCustomerNumChart,.statisticsPeakChart,.statisticsOldOrNewChart,.statisticsTimeSectionChart,.statisticsCycleChart,.statisticsActiveChart,.compareCustomerNumChart,.compareCycleChart,.compareActiveChart,.compareDeepVisitChart,.compareOutChart,.compareOldOrNewChart
+.statisticsCustomerNumChart,.compareStayChart,.statisticsDeepChart,.statisticsOutChart,.statisticsStayChart,.statisticsPeakChart,.statisticsOldOrNewChart,.statisticsTimeSectionChart,.statisticsCycleChart,.statisticsActiveChart,.compareCustomerNumChart,.compareCycleChart,.compareActiveChart,.compareDeepVisitChart,.compareOutChart,.compareOldOrNewChart
 ,.compareSellerNumChart,.compareCustomerInChart,.compareSellerInChart,.compareSellerOldOrNewChart,.compareSellerOutChart,.compareSellerDeepChart,.compareSellerstayChart,.compareSellerActiveChart,.compareSellerTimeSectionChart,.compareSellerCycleChart{
   height: 400px;
 }
@@ -899,3 +900,32 @@ nav {
 
 
 
+/*问号提示*/
+.questionMark{
+  color: #5d5d5d;
+  font-size: 11px;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+.messageMark{
+  color:#fff;
+  vertical-align:top;
+  line-height:20px;
+  text-indent:0;
+  max-width:400px;
+  z-index:9;
+  // padding:0 4px;
+  display:none;
+  font-size: 13px;
+  transform: translateX(14px) translateY(14px);
+  background-color: rgba(0,0,0,0.7);
+  border-radius: 7px;
+  transition:all 0.3s;
+  p{
+    margin:7px 6px;
+  }
+}
+.questionMark:hover+.messageMark{
+  display:inline-block;
+}
+/*问号提示*/

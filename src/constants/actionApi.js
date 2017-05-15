@@ -26,10 +26,13 @@ export default {
 	statistics:{
 		statisticsCustomerNumInit:'http://localhost:3000/index/statisticsCustomerNumInit/',
 		statisticsPeakInit:'http://localhost:3000/index/statisticsPeakInit/',
+		statisticsDeepInit:'http://localhost:3000/index/statisticsDeepInit/',
+		statisticsOutInit:'http://localhost:3000/index/statisticsDeepInit/',
 		statisticsOldOrNewInit:'http://localhost:3000/hour/statisticsOldOrNewInit/',
 		statisticsTimeSectionInit:'http://localhost:3000/hour/statisticsTimeSectionInit/',
 		statisticsCycleInit:'http://localhost:3000/index/statisticsCycleInit/',
-		statisticsActiveInit:'http://localhost:3000/index/statisticsActiveInit/'
+		statisticsActiveInit:'http://localhost:3000/index/statisticsActiveInit/',
+		statisticsStayInit:'http://localhost:3000/index/statisticsStayInit/'
 	},
 	compare:{
 		numInit:'http://localhost:3000/index/compareCustomerNum/',
@@ -37,8 +40,9 @@ export default {
 		cycleInit:'http://localhost:3000/index/customerCycleInit/',
 		activeInit:'http://localhost:3000/index/customerActiveInit/',
 		oldOrNewInit:'http://localhost:3000/index/customerOldOrNewInit/',
-		deepVisitInit:'http://localhost:3000/index/customerDeepVisitInit',
-		// outInit:'http://localhost:3000/index/customerOutInit',
+		deepVisitInit:'http://localhost:3000/index/customerDeepVisitInit/',
+		stayInit:'http://localhost:3000/index/customerStayInit/',
+		outInit:'http://localhost:3000/index/customerDeepVisitInit/',
 		sellersNumInit:'http://localhost:3000/index/sellersNumInit/',
 		sellersListInit:'http://localhost:3003',
 		sellersInInit:'http://localhost:3000/index/sellersInInit/',

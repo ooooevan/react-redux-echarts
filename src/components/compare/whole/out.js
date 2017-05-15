@@ -11,6 +11,7 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 import compareAction from '../../../actions/compareAction';
 
@@ -32,7 +33,12 @@ class _out extends React.Component {
             selectTime:'day',
             time:'',          //要请求的time参数，有多个
             time1:'',           //时间1，用于显示图表的legend
-            time2:''              //时间2,用于显示图表的legend
+            time2:'',              //时间2,用于显示图表的legend
+            timeList:'',
+            num1List:'',
+            num2List:'',
+            percent1List:'',
+            percent2List:''
         }
     }
 
@@ -72,26 +78,36 @@ class _out extends React.Component {
                 }.bind(this), 100)
             }
     }
+    componentWillReceiveProps(nextProps,nextState){
+        let out=nextProps.out.toJS();
+        if(out.series[0].data && out.series[0].data[0]){
+            let timeList=out.xAxis[0].data;
+            let num1List=out.xAxis[0].out1Num;
+            let num2List=out.xAxis[0].out2Num;
+            let percent1List=out.series[0].data;
+            let percent2List=out.series[1].data;
+            this.setState({timeList,num1List,num2List,percent1List,percent2List});
+            // out.legend.data.push(this.state.time1,this.state.time2);
+            // out.series[0].name = this.state.time1;
+            // out.series[1].name = this.state.time2;
+            out.legend.data.push('时间一','时间二');
+            out.series[0].name = '时间一';
+            out.series[1].name = '时间二';
+            this.state.compareOutChart.setOption(out);
+            this.state.compareOutChart.hideLoading();
+        }
+    }
     componentWillUnmount(){
         console.log('componentWillUnmount');
         this.state.compareOutChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
-    // }
- //   
     }
     componentWillUpdate(nextProps){
         console.log('-=componentWillUpdate')
     }
     componentDidUpdate(){
         console.log('..componentDidUpdate')
-        let out=this.props.out.toJS();
-        if(out.series[0].data && out.series[0].data[0]){
-            out.legend.data.push(this.state.time1,this.state.time2);
-            out.series[0].name = this.state.time1;
-            out.series[1].name = this.state.time2;
-            this.state.compareOutChart.setOption(out);
-            this.state.compareOutChart.hideLoading();
-        }
+        
 
  //      
     }
@@ -102,12 +118,12 @@ class _out extends React.Component {
          return;
       }
       switch(e.target.innerText){
-        case '时':
-          this.setState({
-            time:'hour',
-            selectTime:'hour'
-          })
-          return;
+        // case '时':
+        //   this.setState({
+        //     time:'hour',
+        //     selectTime:'hour'
+        //   })
+        //   return;
         case '日':
           this.setState({
             time:'day',
@@ -163,16 +179,14 @@ class _out extends React.Component {
     }
 
     render(){
-        let rows = [];
-        console.log('...render');
-        if(this.state.Data.series && this.state.Data.series[0].data){
-            let sellerName=this.state.Data.xAxis[0].data;
-            let sellerNum=this.state.Data.series[0].data;
-            let sellerPer=this.state.Data.series[1].data;
-            // debugger
-            sellerName.forEach(function(item,index){
-                rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
-
+        let {timeList,num1List,percent1List,num2List,percent2List} = this.state;
+        let rows=[];
+        let time1,time2;
+        if(timeList){
+            timeList.forEach((item,i)=>{
+                time1=timeList[i].split('/')[0];
+                time2=timeList[i].split('/')[1];
+              rows.push(<tr key={i}><td>{time1}</td><td>{num1List[i]}</td><td>{percent1List[i]}%</td><td>{time2}</td><td>{num2List[i]}</td><td>{percent2List[i]}%</td></tr>)
             })
         }
 
@@ -199,17 +213,18 @@ class _out extends React.Component {
                 </div>
               
                 <div className="panel">
-                    <div className="panelHead">跳出率对比</div>
+                    <div className="panelHead">跳出率对比&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在两个时间段内的跳出率对比<br /></p></div></div>
                     <div className="panelBody">
                     <div ref="compareOutChart" className="compareOutChart"></div>
                     </div>
                 </div>
                 <div className="panel">
-                    <div className="panelHead">跳出率信息</div>
+                    <div className="panelHead">跳出率对比明细</div>
                         <div className="panelBody">
                         <table className="Table">
                             <thead>
-                                <tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
+                                <tr><th>时间一</th><th>跳出量</th><th>跳出率</th><th>时间二</th><th>跳出量</th><th>跳出率</th></tr>
                             </thead>
                             <tbody>
                             {rows}

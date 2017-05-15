@@ -11,6 +11,7 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
+const FaQuestion = require('react-icons/lib/fa/question');
 
 import compareAction from '../../../actions/compareAction';
 
@@ -215,13 +216,14 @@ class _oldOrNew extends React.Component {
                 </div>
               
                 <div className="panel">
-                    <div className="panelHead">新老顾客对比</div>
+                    <div className="panelHead">新老顾客对比&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在两个时间段内新老顾客对比<br /></p></div></div>
                     <div className="panelBody">
                     <div ref="compareOldOrNewChart" className="compareOldOrNewChart"></div>
                     </div>
                 </div>
                 <div className="panel">
-                    <div className="panelHead">新老顾客信息</div>
+                    <div className="panelHead">新老顾客对比明细</div>
                         <div className="panelBody">
                         <table className="Table">
                             <thead>

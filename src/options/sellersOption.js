@@ -17,14 +17,14 @@ let data;
         tooltip: {
             trigger: 'axis'
         },
-        // toolbox: {
-        //     feature: {
-        //         dataView: {show: true, readOnly: false},
-        //         magicType: {show: true, type: ['line', 'bar']},
-        //         restore: {show: true},
-        //         saveAsImage: {show: true}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data:['入店量','环比增幅']
         },
@@ -98,11 +98,13 @@ let data;
             data:['客流量','门前客流量','客流总体占比']
             // data:['入店量','入店率']
         },
-        // toolbox: {
-        //     feature: {
-        //         saveAsImage: {}
-        //     }
-        // },
+        toolbox: {
+            show : true,
+            feature : {
+                dataView : {show: true, readOnly: false},
+                saveAsImage : {show: true}
+            }
+        },
         grid: {
             left: '3%',
             right: '4%',
@@ -191,14 +193,13 @@ let data;
         tooltip: {
             trigger: 'axis'
         },
-        // toolbox: {
-        //     feature: {
-        //         dataView: {show: true, readOnly: false},
-        //         magicType: {show: true, type: ['line', 'bar']},
-        //         restore: {show: true},
-        //         saveAsImage: {show: true}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data:['客流量峰值','客流总体占比']
         },
@@ -269,14 +270,12 @@ let data;
                 //     type: 'cross'
                 // }
             },
-            // toolbox: {
-            //     feature: {
-            //         dataView: {show: true, readOnly: false},
-            //         magicType: {show: true, type: ['line', 'bar']},
-            //         restore: {show: true},
-            //         saveAsImage: {show: true}
-            //     }
-            // },
+            toolbox: {
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    saveAsImage: {show: true}
+                }
+            },
             legend: {
                 data:['入店量','入店率'/*,'跳出率'*/]
             },
@@ -405,14 +404,14 @@ let data;
         tooltip: {
             // trigger: 'axis'
         },
-        // toolbox: {
-        //     feature: {
-        //         dataView: {show: true, readOnly: false},
-        //         magicType: {show: true, type: ['line', 'bar']},
-        //         restore: {show: true},
-        //         saveAsImage: {show: true}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data:['驻店时长']
         },
@@ -491,7 +490,10 @@ let data;
         },
         toolbox: {
             feature: {
-                saveAsImage: {}
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
             }
         },
         legend: {
@@ -541,14 +543,14 @@ let data;
         tooltip: {
             // trigger: 'axis'
         },
-        // toolbox: {
-        //     feature: {
-        //         dataView: {show: true, readOnly: false},
-        //         magicType: {show: true, type: ['line', 'bar']},
-        //         restore: {show: true},
-        //         saveAsImage: {show: true}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data:['各时间段人数峰值']
         },
@@ -628,6 +630,12 @@ let data;
         tooltip: {
             trigger: 'axis'
         },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                saveAsImage: {show: true}
+            }
+        },
         xAxis: {
             data: undefined,
             type: 'category',
@@ -696,14 +704,14 @@ let data;
         tooltip: {
             // trigger: 'axis'
         },
-        // toolbox: {
-        //     feature: {
-        //         dataView: {show: true, readOnly: false},
-        //         magicType: {show: true, type: ['line', 'bar']},
-        //         restore: {show: true},
-        //         saveAsImage: {show: true}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data:['来访周期']
         },
@@ -748,14 +756,14 @@ let data;
         tooltip: {
             // trigger: 'axis'
         },
-        // toolbox: {
-        //     feature: {
-        //         dataView: {show: true, readOnly: false},
-        //         magicType: {show: true, type: ['line', 'bar']},
-        //         restore: {show: true},
-        //         saveAsImage: {show: true}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data:['活跃度']
         },

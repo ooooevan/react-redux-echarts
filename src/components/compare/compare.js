@@ -155,8 +155,9 @@ class _compare extends React.Component {
                         <li><Link to='compare/wholeCustomerNum' activeClassName="active" draggable="false">客流量峰值对比</Link></li>
                         <li><Link to='compare/wholeCustomerIn' activeClassName="active" draggable="false">入店量对比</Link></li>
                         <li><Link to='compare/wholeOldOrNew' activeClassName="active" draggable="false">新老顾客对比</Link></li>
-                        {/*<li><Link to='compare/wholeDeep' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>深访率<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
-                        <li><Link to='compare/wholeOut' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>跳出率<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>*/}
+                        <li><Link to='compare/wholeStay' activeClassName="active" draggable="false">停留时长对比</Link></li>
+                        <li><Link to='compare/wholeDeep' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>深访率对比<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
+                        <li><Link to='compare/wholeOut' activeClassName="active" draggable="false"><i className='fa fa-tachometer' aria-hidden="true"></i>跳出率对比<i className='fa fa-angle-double-right' aria-hidden='true'></i></Link></li>
                         <li><Link to='compare/wholeCycle' activeClassName="active" draggable="false">来访周期对比</Link></li>
                         <li><Link to='compare/wholeActive' activeClassName="active" draggable="false">活跃度对比</Link></li>
                     </ul>
@@ -170,7 +171,7 @@ class _compare extends React.Component {
                         <li><Link to='compare/sellerOut' activeClassName="active" draggable="false">跳出率对比</Link></li>
                         <li><Link to='compare/sellerStay' activeClassName="active" draggable="false">驻店时长对比</Link></li>
                         <li><Link to='compare/sellerActive' activeClassName="active" draggable="false">活跃度对比</Link></li>
-                        <li><Link to='compare/sellerTimeSection' activeClassName="active" draggable="false">各时间段人数对比</Link></li>
+                        {/*<li><Link to='compare/sellerTimeSection' activeClassName="active" draggable="false">各时间段人数对比</Link></li>*/}
                         <li><Link to='compare/sellerCycle' activeClassName="active" draggable="false">来访周期对比</Link></li>
                     </ul>
                 </li>

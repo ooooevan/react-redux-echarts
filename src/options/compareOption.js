@@ -12,6 +12,14 @@ let options = {
                 type: 'shadow'
             }
         },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data: []
         },
@@ -52,6 +60,14 @@ let options = {
             trigger: 'axis',
             axisPointer: { 
                 type: 'shadow'
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
             }
         },
         legend: {
@@ -158,11 +174,14 @@ let options = {
             // data:['入店量','门前客流量','入店率']
             data:[]
         },
-        // toolbox: {
-        //     feature: {
-        //         saveAsImage: {}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         grid: {
             left: '3%',
             right: '4%',
@@ -225,8 +244,66 @@ let options = {
                 type: 'shadow'
             }
         },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data: []
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [{
+            type: 'category',
+            data: undefined
+        }],
+        yAxis: [{
+            type: 'value',
+            name: '人数',
+            axisLabel: {
+                formatter: '{value}'
+            }
+        }],
+        series: [{
+            name: '时间一',
+            type: 'bar',
+            barGap:0,
+            data: undefined
+        }, {
+            name: '时间二',
+            type: 'bar',
+            data: undefined
+        }]
+    },
+    stay:{
+        title: {
+            text:'停留时长',
+            show:false
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { 
+                type: 'shadow'
+            }
+        },
+        legend: {
+            data: []
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
         },
         grid: {
             left: '3%',
@@ -265,6 +342,14 @@ let options = {
             trigger: 'axis',
             axisPointer: { 
                 type: 'shadow'
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
             }
         },
         legend: {
@@ -315,6 +400,14 @@ let options = {
             //         backgroundColor: '#6a7985'
             //     }
             // }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
         },
         legend: {
             // data:['入店量','门前客流量','入店率']
@@ -397,11 +490,14 @@ let options = {
             // data:['入店量','门前客流量','入店率']
             data:[]
         },
-        // toolbox: {
-        //     feature: {
-        //         saveAsImage: {}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         grid: {
             left: '3%',
             right: '4%',
@@ -463,6 +559,14 @@ let options = {
                 type: 'shadow'
             }
         },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         legend: {
             data: []
         },
@@ -504,6 +608,14 @@ let options = {
             trigger: 'axis',
             axisPointer: { 
                 type: 'shadow'
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
             }
         },
         legend: {
@@ -559,11 +671,14 @@ let options = {
             // data:['入店量','门前客流量','入店率']
             data:[]
         },
-        // toolbox: {
-        //     feature: {
-        //         saveAsImage: {}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         grid: {
             left: '3%',
             right: '4%',
@@ -637,11 +752,14 @@ let options = {
             // data:['入店量','门前客流量','入店率']
             data:[]
         },
-        // toolbox: {
-        //     feature: {
-        //         saveAsImage: {}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         grid: {
             left: '3%',
             right: '4%',
@@ -714,11 +832,14 @@ let options = {
             // data:['入店量','门前客流量','入店率']
             data:[]
         },
-        // toolbox: {
-        //     feature: {
-        //         saveAsImage: {}
-        //     }
-        // },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         grid: {
             left: '3%',
             right: '4%',
@@ -783,6 +904,14 @@ let options = {
         legend: {
             data: []
         },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
         grid: {
             left: '3%',
             right: '4%',
@@ -820,6 +949,14 @@ let options = {
             trigger: 'axis',
             axisPointer: { 
                 type: 'shadow'
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
             }
         },
         legend: {
@@ -862,6 +999,14 @@ let options = {
             trigger: 'axis',
             axisPointer: { 
                 type: 'shadow'
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
             }
         },
         legend: {
@@ -908,6 +1053,14 @@ let options = {
         },
         legend: {
             data: []
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
         },
         grid: {
             left: '3%',
