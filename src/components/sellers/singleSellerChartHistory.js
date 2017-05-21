@@ -17,7 +17,6 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/dataZoom';
 
-import CustomerIn from './singleSellerChartHistory/customerIn';
 
 
 import sellersAction from '../../actions/sellersAction';
@@ -39,34 +38,34 @@ class _singleHistory extends React.Component {
         }
 
     }
-    componentWillMount(){
-      console.log('componentWillMount  '+new Date().getTime());
-    }
-    componentDidMount(){
-      console.log('componentDidMount  '+new Date().getTime());
+    // componentWillMount(){
+      // console.log('componentWillMount  '+new Date().getTime());
+    // }
+    // componentDidMount(){
+      // console.log('componentDidMount  '+new Date().getTime());
     	// this.state.id = this.props.params.id  //获取该商店id
 
-    }
-		componentDidUpdate(){
+    // }
+		// componentDidUpdate(){
       // debugger
 
 
-		}
-    componentWillUpdate(nextProps,nextState){
+		// }
+    // componentWillUpdate(nextProps,nextState){
       //对应的名字写入
       // this.state.name=nextProps.customerFlow.get('name');
       // this.state.id=nextProps.params.id;
-    }
-    componentWillReceiveProps(nextProps,nextState){
+    // }
+    // componentWillReceiveProps(nextProps,nextState){
       //对应的名字写入
       // this.setState({
       //   name:nextProps.customerFlow.name,
       //   id:nextProps.params.id
       // })
-    }
-		componentWillUnmount(){
+    // }
+		// componentWillUnmount(){
 
-		}
+		// }
     search=()=>{
       let time1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
       let time2=ReactDOM.findDOMNode(this.refs.selectTime2).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
@@ -84,7 +83,7 @@ class _singleHistory extends React.Component {
         ReactDOM.findDOMNode(this.refs.selectTime1).className+=' selectTimeError'//添加红色警示框ClassName
         error=true;
       }
-      if(ms1>ms2){ //时间1大于时间2，错误
+      if(ms1>=ms2){ //时间1大于时间2，错误
         ReactDOM.findDOMNode(this.refs.selectTime2).className+=' selectTimeError'
         error=true;
       }
@@ -145,13 +144,13 @@ class _singleHistory extends React.Component {
       }
     }
     render(){
-        console.log('render----------time')
+        // console.log('render----------time')
 
       let baseUrl=`sellers/${this.props.params.id}/history/`;
     	return <div className="panelWrapper">
               {/*<p>{this.state.name}</p>*/}
               <div className='selectOption inline'>
-              时间选择： 
+              快速选择： 
                 <div className='quickSelect'>
                   <ul>
                   {/*<li><a className={this.state.selectTime=='hour'?'active':''} onClick={this.changeTime}>今天</a></li>*/}
@@ -185,12 +184,13 @@ class _singleHistory extends React.Component {
                 指标选择：
                 <div className='quickSelect'>
                   <ul>
+                      <li><Link to={baseUrl+'customerAvg'} activeClassName="active" draggable="false">客流量</Link></li>
                       <li><Link to={baseUrl+'customerFlow'} activeClassName="active" draggable="false">客流量峰值</Link></li>
                       <li><Link to={baseUrl+'customerIn'} activeClassName="active" draggable="false">入店量</Link></li>
                       <li><Link to={baseUrl+'radar'} activeClassName="active" draggable="false">总体评价</Link></li>
                       <li><Link to={baseUrl+'stayBar'} activeClassName="active" draggable="false">驻店时长</Link></li>
                       <li><Link to={baseUrl+'OldOrNew'} activeClassName="active" draggable="false">新老顾客</Link></li>
-                      <li><Link to={baseUrl+'timeSection'} activeClassName="active" draggable="false">各时间段人数峰值</Link></li>
+                      <li><Link to={baseUrl+'timeSection'} activeClassName="active" draggable="false">各时间段人数</Link></li>
                       <li><Link to={baseUrl+'deepVisit'} activeClassName="active" draggable="false">深访率与跳出率</Link></li>
                       <li><Link to={baseUrl+'cycle'} activeClassName="active" draggable="false">来访周期</Link></li>
                       <li><Link to={baseUrl+'Active'} activeClassName="active" draggable="false">活跃度</Link></li>

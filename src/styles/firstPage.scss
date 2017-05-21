@@ -47,10 +47,12 @@ body {
 nav {
   height: 60px;
   width: 100%;
-  background: linear-gradient(to bottom, #2c3742 0%, #28303a 100%);
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+  // background: linear-gradient(to bottom, #2c3742 0%, #28303a 100%);
+  background-color:#404040;
+  // box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
   z-index: 100;
   position: fixed;
+  box-shadow: 0px -2px #ff0000 inset;
   .brand {
     float: left;
     padding-left: 17px;
@@ -85,6 +87,8 @@ nav {
   }
   li {
     float: left;
+    transition:all .3s;
+    position:relative;
     a {
       padding: 0 30px;
       display: block;
@@ -92,15 +96,25 @@ nav {
     }
     .active {
       color: #ffffff;
-      background-color: rgb(30, 38, 48);
-    }
-    .active:hover {
-      color: #ffffff;
-      background-color: rgb(30, 38, 48);
+      &:after{
+        content:' ';
+        border:5px solid transparent;
+        border-bottom-color:red;
+        // top: 100%;
+        // left: 50%;
+        height: 0;
+        width: 0;
+        position: absolute;
+        right: 50%;
+        bottom: 0;
+        transform: translateX(50%) translateY(-10%);
+      }
+      // background-color: #313131;
+      // box-shadow: 0px -2px #ff0000 inset;
     }
     a:hover {
       color: #ffffff;
-      background-color: rgb(40, 48, 58);
+
     }
   }
 }
@@ -141,11 +155,13 @@ nav {
   // height:200px;
   width: $sidebarWidth;
   top: 60px;
-  background-color: #333333;
+  // background-color: #333333;
+  background-color:#404040;
   position: fixed;
   min-height: 70%;
   font-size: $sidebarNavFontSize;
   overflow-x: hidden;
+
 
   ///*滚动条样式*/
   //&::-webkit-scrollbar {
@@ -173,8 +189,9 @@ nav {
    //overflow-y:hidden;
   li {
     // padding:10px;
-    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.3);
+    // box-shadow: 0 0px 1px rgba(0, 0, 0, 0.3);
     position:relative;
+
     // height: 60px;
     /*方向图标*/
     .fa-angle-double-right {
@@ -190,26 +207,22 @@ nav {
       line-height: $sidebarHeight;
       color: #adadad;
       display: block;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap; 
       transition: .3s all;
       i {
         margin-right: 5px;
         top:0;
       }
     }
-
     a:hover {
-      background-color: #1b1717;
+      background-color: #1b1b1b;
       color: #fff;
     }
-    //当前活动菜单项
-
     .active {
-      background-color: #080808;
+      background-color: #1b1b1b;
       color:#fff;
-      &:hover{
-        background-color: #080808;
-        
-      }
       .fa-angle-double-right {
         font-size: 16px;
         right: $sidebarHeight;
@@ -262,6 +275,7 @@ nav {
     transition:all 0.3s;
     &:hover{
       color:#fff;
+      background-color:#505050;
     }
   }
 
@@ -380,12 +394,24 @@ nav {
           font-weight:600;
           // border-bottom:2px solid rgba(90,90,90,1);
         }
+        a{
+          color:#242424;
+          transition:all .3s;
+          &:hover{
+            color:#f00;
+          }
+        }
       }
       .chartLine{
         height: 430px;
       }
     }
-
+  }
+  //首页没有侧边导航，wrapper满屏
+  .firstWrapper{
+    left:0;
+    width:100%;
+    margin:0 auto;
   }
   .firstTable{
     margin:0 auto 25px;
@@ -469,7 +495,7 @@ nav {
     position:absolute;
     left:-7px;
     // top:0;
-    background-color:rgba(182,208,233,1);
+    background-color:#8eb4ff;
   }
   .message:first-child{
     margin-left:10px;
@@ -557,14 +583,17 @@ nav {
       border-right:1px solid #eee;
       a{
         display:block;
-        padding:0 25px;
+        padding:0 20px;
         color:#000;
         transition:all .3s;
       }
       a.active{
         color:#fff;
-        box-shadow: 1px 1px #ffbcbc;
-        background-color:#c23531;
+        // box-shadow: 1px 1px #ffbcbc;
+        // background-color:#c23531;
+        box-shadow: 1px 1px #ff4646;
+        background-color:#ff4646;
+
       }
     }
     // a:first-child{
@@ -580,20 +609,24 @@ nav {
 
   
   .selectClick input{
-    box-shadow:0px 1px 1px rgba(0,0,0,.1);
+    // box-shadow:0px 1px 1px rgba(0,0,0,.1);
     outline: none;
     margin-left:20px;
     padding:0 12px;
     height:30px;
-    border:1px solid #eee;
+    color:#fff;
+    // border:1px solid #eee;
     border-radius:3px;
     background-color:#fff;
+    border:1px solid #ff4646;
+    box-shadow: 0px 1px 1px #ff4646;
+    background-color:#ff4646;
     &:hover{
-      background-color:#f9f9f9;
+      cursor:pointer;
     }
-    &:active{
-      background-color:#f5f5f5;
-    }
+    // &:active{
+    //   background-color:#f5f5f5;
+    // }
   }
   // ul{
   //   display:inline-block;
@@ -688,9 +721,9 @@ nav {
         display: inline-block;
         color:#564848;
         // border-radius:5px;
-        &:hover{
-          color: #c23531;
-        }
+        // &:hover{
+        //   color: #c23531;
+        // }
       }
       // &:hover{
       //   color: #000;
@@ -699,8 +732,8 @@ nav {
         // background-color: #b3cde6;
       }
       .active{
-        color:#c23531;
-        border-bottom:2px solid #c23531;
+        color:#d90000;
+        border-bottom:2px solid #d90000;
         // background-color: #b3cde6;
       }
     }
@@ -759,8 +792,8 @@ nav {
 /*单个商家 设置高度*/
 .firstPageSellers,.singleSellerLineChart,.sellerIntroduce,.singleSellerCustomerNumChart,.singleSellerCustomerFlowChart,.singleSellerCustomerInChart,.singleSellerRadarChart,.singleSellerStayBarChart
 ,.singleSellerOldOrNewChart,.singleSellerTimeSectionChart,.singleSellerDeepVisitChart,.singleSellerActiveChart,.singleSellerCycleChart,
-.statisticsCustomerNumChart,.compareStayChart,.statisticsDeepChart,.statisticsOutChart,.statisticsStayChart,.statisticsPeakChart,.statisticsOldOrNewChart,.statisticsTimeSectionChart,.statisticsCycleChart,.statisticsActiveChart,.compareCustomerNumChart,.compareCycleChart,.compareActiveChart,.compareDeepVisitChart,.compareOutChart,.compareOldOrNewChart
-,.compareSellerNumChart,.compareCustomerInChart,.compareSellerInChart,.compareSellerOldOrNewChart,.compareSellerOutChart,.compareSellerDeepChart,.compareSellerstayChart,.compareSellerActiveChart,.compareSellerTimeSectionChart,.compareSellerCycleChart{
+.statisticsCustomerNumChart,.statisticsAvgChart,.compareStayChart,.statisticsDeepChart,.statisticsOutChart,.statisticsStayChart,.statisticsPeakChart,.statisticsOldOrNewChart,.statisticsTimeSectionChart,.statisticsCycleChart,.statisticsActiveChart,.compareCustomerNumChart,.compareCycleChart,.compareActiveChart,.compareDeepVisitChart,.compareOutChart,.compareOldOrNewChart
+,.compareSellerNumChart,.singleSellerCustomerAvgChart,.compareSellerAvgChart,.compareCustomerAvgChart,.compareCustomerInChart,.compareSellerInChart,.compareSellerOldOrNewChart,.compareSellerOutChart,.compareSellerDeepChart,.compareSellerstayChart,.compareSellerActiveChart,.compareSellerTimeSectionChart,.compareSellerCycleChart{
   height: 400px;
 }
 
@@ -913,8 +946,8 @@ nav {
   line-height:20px;
   text-indent:0;
   max-width:400px;
-  z-index:9;
-  // padding:0 4px;
+  z-index:1;
+  position:relative;
   display:none;
   font-size: 13px;
   transform: translateX(14px) translateY(14px);

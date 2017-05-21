@@ -21,26 +21,26 @@ const FaQuestion = require('react-icons/lib/fa/question');
 
 
 
-class _customerNum extends React.Component {
+class _customerAvg extends React.Component {
 	constructor(props){
 		super(props);
 		this.state={
-			statisticsCustomerNumInit:'',
+			statisticsAvgInit:'',
 			resizeHandler:'',
+			statisticsAvgChart:'',
+			time:'',
 			time:'',
 			timeList:'',
       numList:'',
       tableSpace:1
-
 		}
 	}
 	componentDidMount(){
 		this.state.time=this.props.time;
-    this.props.statisticsCustomerNumInit(this.state.time);
-   
-    let statisticsCustomerNumChart = ReactDOM.findDOMNode(this.refs.statisticsCustomerNumChart);
-	  this.state.statisticsCustomerNumChart = echarts.init(statisticsCustomerNumChart);
-    this.state.statisticsCustomerNumChart.showLoading();
+    this.props.statisticsAvgInit(this.state.time);
+    let statisticsAvgChart = ReactDOM.findDOMNode(this.refs.statisticsAvgChart);
+	  this.state.statisticsAvgChart = echarts.init(statisticsAvgChart);
+    this.state.statisticsAvgChart.showLoading();
     window.addEventListener('resize',this.resizeFun);
 	}
 	resizeFun=()=>{
@@ -48,22 +48,22 @@ class _customerNum extends React.Component {
               clearTimeout(this.state.resizeHandler);
           }
     this.state.resizeHandler = setTimeout(()=>{
-       this.state.statisticsCustomerNumChart.resize();
+       this.state.statisticsAvgChart.resize();
     }, 100)
 	}
 	componentWillReceiveProps(nextProps,nextState){
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
-			this.props.statisticsCustomerNumInit(nextProps.time);
+			this.props.statisticsAvgInit(nextProps.time);
 			return;
 		}
-		let customerNum=nextProps.customerNum.toJS();
-		if(customerNum.series && customerNum.series[0] && customerNum.series[0].data && customerNum.series[0].data[0]){
-			let timeList=customerNum.xAxis[0].data;
-			let numList=customerNum.series[0].data;
+		let customerAvg=nextProps.customerAvg.toJS();
+		if( customerAvg.series[0] && customerAvg.series[0].data && customerAvg.series[0].data[0]){
+			let timeList=customerAvg.xAxis[0].data;
+			let numList=customerAvg.series[0].data;
 			this.setState({timeList,numList});
-			this.state.statisticsCustomerNumChart.setOption(customerNum);
-			this.state.statisticsCustomerNumChart.hideLoading();
+			this.state.statisticsAvgChart.setOption(customerAvg);
+			this.state.statisticsAvgChart.hideLoading();
 		}
 	}
 	// componentWillUpdate(nextProps){
@@ -76,7 +76,7 @@ class _customerNum extends React.Component {
 	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
-      this.state.statisticsCustomerNumChart.dispose();
+      this.state.statisticsAvgChart.dispose();
       this.props.stateDefault();
       window.removeEventListener('resize',this.resizeFun);
 	}
@@ -91,15 +91,15 @@ class _customerNum extends React.Component {
         })
     }
 		return	<div>
-				<div className="panel">
-		    			<div className="panelHead">入店量&nbsp;<FaQuestion className='questionMark' />
-                <div className='messageMark'><p>展示在一定时间内进入商城的人数<br /></p></div></div>
-		    			<div className="panelBody">
-		    				<div className="statisticsCustomerNumChart" ref="statisticsCustomerNumChart"></div>
-		          </div>
-  				</div>
-  				<div className='panel'>
-  		    				<div className="panelHead">入店量明细</div>
+			<div className="panel">
+			    			<div className="panelHead">客流量&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在一定时间内的客流平均值<br /></p></div></div>
+			    			<div className="panelBody">
+			    				<div className="statisticsAvgChart" ref="statisticsAvgChart"></div>
+			          </div>
+	  				</div>
+	  				<div className='panel'>
+  		    				<div className="panelHead">客流量明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
@@ -119,7 +119,7 @@ class _customerNum extends React.Component {
 
 
 const mapStateToProps = (state)=>({
-    customerNum:state.getIn(['c','customerNum']),
+    customerAvg:state.getIn(['c','customerAvg'])
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar']),
     // OldOrNew:state.getIn(['b','OldOrNew']),
@@ -128,6 +128,6 @@ const mapStateToProps = (state)=>({
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
 })
 
-let customerNum=connect(mapStateToProps,statisticsAction)(_customerNum);
+let customerAvg=connect(mapStateToProps,statisticsAction)(_customerAvg);
 
-export default customerNum;
+export default customerAvg;

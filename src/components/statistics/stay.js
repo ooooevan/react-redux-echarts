@@ -57,20 +57,22 @@ class _stay extends React.Component {
 			return;
 		}
 		let stay=nextProps.stay.toJS();
-		let timeList=stay.xAxis[0].data;
-		let numList=stay.series[0].data;
-		this.setState({timeList,numList});
-		this.state.statisticsStayChart.setOption(stay);
-		this.state.statisticsStayChart.hideLoading();
+		if(stay.series && stay.series[0] && stay.series[0].data && stay.series[0].data[0]){
+			let timeList=stay.xAxis[0].data;
+			let numList=stay.series[0].data;
+			this.setState({timeList,numList});
+			this.state.statisticsStayChart.setOption(stay);
+			this.state.statisticsStayChart.hideLoading();
+		}
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
+	// }
+	// componentDidUpdate(){
+		// console.log('-=componentDidUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.statisticsStayChart.dispose();

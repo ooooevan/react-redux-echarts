@@ -40,25 +40,28 @@ class _cycle extends React.Component {
     }, 100)
 	}
 	componentWillReceiveProps(nextProps,nextState){
-		let cycle=nextProps.cycle.toJS()
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time})
 			this.props.singleSellerCycleInit(nextProps.params.id,nextProps.time);
+			return;
 		}
-		let timeList=cycle.xAxis[0].data;
-		let numList=cycle.series[0].data;
-		this.setState({timeList,numList});
-		this.state.singleSellerCycleChart.setOption(cycle);
-		this.state.singleSellerCycleChart.hideLoading();
+		let cycle=nextProps.cycle.toJS()
+		if(cycle.series && cycle.series[0] && cycle.series[0].data && cycle.series[0].data[0]){
+			let timeList=cycle.xAxis[0].data;
+			let numList=cycle.series[0].data;
+			this.setState({timeList,numList});
+			this.state.singleSellerCycleChart.setOption(cycle);
+			this.state.singleSellerCycleChart.hideLoading();
+		}
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
+	// }
+	// componentDidUpdate(){
+		// console.log('-=componentDidUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.singleSellerCycleChart.dispose();
@@ -109,8 +112,7 @@ class _cycle extends React.Component {
 
 
 
-const mapStateToProps = (state)=>{
-  return {
+const mapStateToProps = (state)=>({
     cycle:state.getIn(['b','cycle'])
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar']),
@@ -118,8 +120,7 @@ const mapStateToProps = (state)=>{
     // timeSection:state.getIn(['b','timeSection']),
     // deepVisit:state.getIn(['b','deepVisit']),
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
-    }
-}
+})
 
 let cycle=connect(mapStateToProps,sellersAction)(_cycle);
 

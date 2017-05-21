@@ -6,7 +6,7 @@ const TYPE=dispatchType.compare;
 export default {
 	numInit(time,range) {
     return function(dispatch) {
-      let url=Api.numInit+time+'/'+range;
+      let url=Api.numInit+time+'/'+range+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -21,7 +21,7 @@ export default {
   },
   numInInit(time,range) {
     return function(dispatch) {
-      let url=Api.numInInit+time+'/'+range;
+      let url=Api.numInInit+time+'/'+range+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -34,9 +34,24 @@ export default {
         })
     };
   },
+  numAvgInit(time,range) {
+    return function(dispatch) {
+      let url=Api.numAvgInit+time+'/'+range+'/';
+      fetch(url).then(data => data.json())
+          .then(data => {
+            dispatch({
+              type: TYPE.numAvgInit,
+              payload: data
+            });
+          })
+          .catch(function(err){
+            console.log(err)
+        })
+    };
+  },
   oldOrNewInit(time,range){
     return function(dispatch) {
-      let url=Api.oldOrNewInit+time+'/'+range;
+      let url=Api.oldOrNewInit+time+'/'+range+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -51,7 +66,7 @@ export default {
   },
   deepVisitInit(time,range){
     return function(dispatch) {
-      let url=Api.deepVisitInit+time+'/'+range;
+      let url=Api.deepVisitInit+time+'/'+range+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -66,7 +81,7 @@ export default {
   },
   outInit(time,range){
     return function(dispatch) {
-      let url=Api.outInit+time+'/'+range;
+      let url=Api.outInit+time+'/'+range+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -81,7 +96,7 @@ export default {
   },
   activeInit(time,range){
     return function(dispatch) {
-      let url=Api.activeInit+time+'/'+range;
+      let url=Api.activeInit+time+'/'+range+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -96,7 +111,7 @@ export default {
   },
   cycleInit(time,range){
     return function(dispatch) {
-      let url=Api.cycleInit+time+'/'+range;
+      let url=Api.cycleInit+time+'/'+range+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -111,7 +126,7 @@ export default {
   },
   stayInit(time,range){
     return function(dispatch) {
-      let url=Api.stayInit+time+'/'+range;
+      let url=Api.stayInit+time+'/'+range+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -124,9 +139,24 @@ export default {
         })
     };
   },
+  sellersAvgInit(sellersAndTime){
+    return function(dispatch) {
+      let url=Api.sellersAvgInit+sellersAndTime+'/';
+      fetch(url).then(data => data.json())
+          .then(data => {
+            dispatch({
+              type: TYPE.sellersAvgInit,
+              payload: data
+            });
+          })
+          .catch(function(err){
+            console.log(err)
+        })
+    };
+  },
   sellersNumInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersNumInit+sellersAndTime;
+      let url=Api.sellersNumInit+sellersAndTime+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -141,7 +171,7 @@ export default {
   },
   sellersListInit(){
     return function(dispatch) {
-      let url=Api.sellersListInit;
+      let url=Api.sellersListInit+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -156,7 +186,7 @@ export default {
   },
   sellersInInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersInInit+sellersAndTime;
+      let url=Api.sellersInInit+sellersAndTime+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -171,7 +201,7 @@ export default {
   },
   sellersOldOrNewInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersOldOrNewInit+sellersAndTime;
+      let url=Api.sellersOldOrNewInit+sellersAndTime+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -186,7 +216,7 @@ export default {
   },
   sellersOutInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersOutInit+sellersAndTime;
+      let url=Api.sellersOutInit+sellersAndTime+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -201,7 +231,7 @@ export default {
   },
   sellersDeepInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersDeepInit+sellersAndTime;
+      let url=Api.sellersDeepInit+sellersAndTime+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -216,7 +246,7 @@ export default {
   },
   sellersStayInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersStayInit+sellersAndTime;
+      let url=Api.sellersStayInit+sellersAndTime+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -231,7 +261,7 @@ export default {
   },
   sellersActiveInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersActiveInit+sellersAndTime;
+      let url=Api.sellersActiveInit+sellersAndTime+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({
@@ -244,24 +274,24 @@ export default {
         })
     };
   },
-  sellersTimeSectionInit(time){
-    return function(dispatch) {
-      let url=Api.sellersTimeSectionInit+'?'+time;
-      fetch(url).then(data => data.json())
-          .then(data => {
-            dispatch({
-              type: TYPE.sellersTimeSectionInit,
-              payload: data
-            });
-          })
-          .catch(function(err){
-            console.log(err)
-        })
-    };
-  },
+  // sellersTimeSectionInit(time){
+  //   return function(dispatch) {
+  //     let url=Api.sellersTimeSectionInit+'?'+time+'/';
+  //     fetch(url).then(data => data.json())
+  //         .then(data => {
+  //           dispatch({
+  //             type: TYPE.sellersTimeSectionInit,
+  //             payload: data
+  //           });
+  //         })
+  //         .catch(function(err){
+  //           console.log(err)
+  //       })
+  //   };
+  // },
   sellersCycleInit(sellersAndTime){
     return function(dispatch) {
-      let url=Api.sellersCycleInit+sellersAndTime;
+      let url=Api.sellersCycleInit+sellersAndTime+'/';
       fetch(url).then(data => data.json())
           .then(data => {
             dispatch({

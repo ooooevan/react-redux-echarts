@@ -42,14 +42,14 @@ class _sellersOut extends React.Component {
     }
 
 
-    componentWillMount(){
-        console.log('componentWillMount')
+    // componentWillMount(){
+        // console.log('componentWillMount')
 
 
 
-    }
+    // }
     componentDidMount(){
-        console.log('1componentDidMount');
+        // console.log('1componentDidMount');
     //  //this.props.allSellersTableInit();
     		// if(this.props.sellersAndTime){
     		// 	let dom = ReactDOM.findDOMNode(this.refs.compareSellerOutChart);
@@ -81,7 +81,7 @@ class _sellersOut extends React.Component {
             }
     }
     componentWillUnmount(){
-        console.log('1componentWillUnmount');
+        // console.log('1componentWillUnmount');
         this.state.compareSellerOutChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     // }
@@ -98,9 +98,10 @@ class _sellersOut extends React.Component {
             let dom = ReactDOM.findDOMNode(this.refs.compareSellerOutChart);
             this.state.compareSellerOutChart = echarts.init(dom);
             this.state.compareSellerOutChart.showLoading();
+            return;
         }
         let out=nextProps.out.toJS();
-        if(out.series[0].data && out.series[0].data[0]){
+        if(out.series[0].data && out.series[0].data && out.series[0].data[0]){
             let timeList=out.xAxis[0].data;
             let num1List=out.xAxis[0].jumpNum1;
             let num2List=out.xAxis[0].jumpNum2;
@@ -116,17 +117,17 @@ class _sellersOut extends React.Component {
         }
 
     }
-    componentWillUpdate(nextProps,nextState){
-        console.log('1-=componentWillUpdate')
+    // componentWillUpdate(nextProps,nextState){
+        // console.log('1-=componentWillUpdate')
         //有参数传入，才发送请求渲染图表。防止无限循环发送请求，要两次props对比，不同才发
         
-    }
-    componentDidUpdate(){
-        console.log('1..componentDidUpdate')
+    // }
+    // componentDidUpdate(){
+        // console.log('1..componentDidUpdate')
         
 
  //      
-    }
+    // }
     // componentWillReceiveProps(){
     // }
  

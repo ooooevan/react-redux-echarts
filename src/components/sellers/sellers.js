@@ -26,30 +26,28 @@ class _SidebarNav extends React.Component {
     componentWillMount(){
         this.props.sellersListInit();
     }
-    componentWillUpdate(){
-        console.log('componentWillUpdate..');
-    }
+    // componentWillUpdate(){
+    //     // console.log('componentWillUpdate..');
+    // }
     componentDidMount(){
-        console.log('componentDidMount...')
+        // console.log('componentDidMount...')
         scrollTo(0,0);
         // debugger
         // this.props.sellersInit();
     }
     componentWillUpdate(nextProps,nextState){
-            this.state.sellers=nextProps.sellers
-
-        
+        this.state.sellers=nextProps.sellers
     }
     shouldComponentUpdate(nextProps,nextState){
         if(!Immutable.is(this.props,nextProps)){
-            console.log('shouldComponentUpdate--true');
+            // console.log('shouldComponentUpdate--true');
             return true;
         }
         else if(!Immutable.is(this.state,nextState)){
-        console.log('shouldComponentUpdate--true');
+        // console.log('shouldComponentUpdate--true');
             return true;
         }else{
-        console.log('shouldComponentUpdate--false');
+        // console.log('shouldComponentUpdate--false');
             return false;
         }
 
@@ -78,8 +76,8 @@ class _SidebarNav extends React.Component {
           return false;*/
 
     }
-    componentWillReceiveProps(nextProps,nextState){
-        console.log('componentWillReceiveProps..');
+    // componentWillReceiveProps(nextProps,nextState){
+        // console.log('componentWillReceiveProps..');
         //debugger;
         /*获取商家名称，要是一个数组或对象*/
         //debugger;
@@ -105,7 +103,7 @@ class _SidebarNav extends React.Component {
         // console.log(this.props.b.sellers)
         // console.log(this.state.sellers)
         // this.state.sellers=['111','222','333','113','美宜佳','麦克风'];
-    }
+    // }
     change = ()=>{
         let text=ReactDOM.findDOMNode(this.refs.searchText).value;
         // if(text === ' ') return;  //输入中文时有空格
@@ -125,8 +123,6 @@ class _SidebarNav extends React.Component {
         this.setState({
             sellers:Immutable.List(rows)
         })
-
-
     }
     //回到整个商家列表
     entireList = ()=>{
@@ -137,11 +133,9 @@ class _SidebarNav extends React.Component {
         })
     }
 
-
-
     render(){
         // debugger
-        console.log('----this')
+        // console.log('----this')
         //const usersdom = this.props.sellers.map(seller=><li>{seller.name}</li>);
         // console.log(this.state.sellers.toJS())
         let rows=[];

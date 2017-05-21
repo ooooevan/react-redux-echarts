@@ -44,28 +44,30 @@ class _stayBar extends React.Component {
     }, 100)
 	}
 	componentWillReceiveProps(nextProps,nextState){
-		let oldOrNew=nextProps.oldOrNew.toJS();
-		let timeList=oldOrNew.xAxis[0].data;
-		let newNumList=oldOrNew.series[0].data;
-		let oldNumList=oldOrNew.series[1].data;
-
-		this.setState({timeList,newNumList,oldNumList});
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
 			this.props.singleSellerOldOrNew(nextProps.params.id,nextProps.time);
+			return;
 		}
-
-		this.state.singleSellerOldOrNewChart.setOption(oldOrNew);
-		this.state.singleSellerOldOrNewChart.hideLoading();
+		let oldOrNew=nextProps.oldOrNew.toJS();
+		if(oldOrNew.series && oldOrNew.series[0] && oldOrNew.series[0].data && oldOrNew.series[0].data[0]){
+			let timeList=oldOrNew.xAxis[0].data;
+			let newNumList=oldOrNew.series[0].data;
+			let oldNumList=oldOrNew.series[1].data;
+			this.setState({timeList,newNumList,oldNumList});
+			this.state.singleSellerOldOrNewChart.setOption(oldOrNew);
+			this.state.singleSellerOldOrNewChart.hideLoading();
+		}
+		
 	}
-	componentDidUpdate(){
+	// componentDidUpdate(){
 		// debugger
 		
-	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// }
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.singleSellerOldOrNewChart.dispose();
@@ -75,12 +77,16 @@ class _stayBar extends React.Component {
 		let {timeList,oldNumList,newNumList} = this.state;
     let rows=[];
     let percent='';
+    let total=0;
     if(timeList){
         timeList.forEach((item,i)=>{
-        	console.log(newNumList[i])
-        	console.log(newNumList[i]+oldNumList[i])
-        	percent=parseInt(parseInt(newNumList[i])/(parseInt(newNumList[i])+parseInt(oldNumList[i]))*100);
-            rows.push(<tr key={i}><td>{timeList[i]}</td><td>{newNumList[i]}</td><td>{oldNumList[i]}</td><td>{percent}%</td></tr>)
+        	total=parseInt(newNumList[i])+parseInt(oldNumList[i]);
+        	if(!total){
+        		percent=0;
+        	}else{
+        		percent=parseInt(parseInt(newNumList[i])/total * 100);
+        	}
+          rows.push(<tr key={i}><td>{timeList[i]}</td><td>{newNumList[i]}</td><td>{oldNumList[i]}</td><td>{percent}%</td></tr>)
         })
     }
 		return <div>
@@ -108,12 +114,11 @@ class _stayBar extends React.Component {
 	}
 }
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state)=>({
   // debugger;
   // let ad=state.toJS()
   // let fdd=state.getIn(['b','customerFlow'])
   // let d=state.getIn(['b','customerFlow']).toJS()
-  return {
     // customerFlow:state.getIn(['b','customerFlow'])
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar'])
@@ -121,8 +126,7 @@ const mapStateToProps = (state)=>{
     // timeSection:state.getIn(['b','timeSection']),
     // deepVisit:state.getIn(['b','deepVisit']),
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
-    }
-}
+})
 
 
 export default connect(mapStateToProps,sellersAction)(_stayBar)

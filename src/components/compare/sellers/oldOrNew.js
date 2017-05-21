@@ -45,14 +45,14 @@ class _sellersOldOrNew extends React.Component {
     }
 
 
-    componentWillMount(){
-        console.log('componentWillMount')
+    // componentWillMount(){
+        // console.log('componentWillMount')
 
 
 
-    }
+    // }
     componentDidMount(){
-        console.log('1componentDidMount');
+        // console.log('1componentDidMount');
     //  //this.props.allSellersTableInit();
     		// if(this.props.sellersAndTime){
     		// 	let dom = ReactDOM.findDOMNode(this.refs.compareSellerOldOrNewChart);
@@ -84,7 +84,7 @@ class _sellersOldOrNew extends React.Component {
             }
     }
     componentWillUnmount(){
-        console.log('1componentWillUnmount');
+        // console.log('1componentWillUnmount');
         this.state.compareSellerOldOrNewChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     // }
@@ -101,9 +101,10 @@ class _sellersOldOrNew extends React.Component {
             let dom = ReactDOM.findDOMNode(this.refs.compareSellerOldOrNewChart);
             this.state.compareSellerOldOrNewChart = echarts.init(dom);
             this.state.compareSellerOldOrNewChart.showLoading();
+            return;
         }
         let OldOrNew=nextProps.OldOrNew.toJS();
-        if(OldOrNew.series[0].data && OldOrNew.series[0].data[0]){
+        if(OldOrNew.series[0].data && OldOrNew.series[0].data && OldOrNew.series[0].data[0]){
             let timeList=OldOrNew.xAxis[0].data;
             let percent1List=OldOrNew.series[0].data;
             let percent2List=OldOrNew.series[1].data;
@@ -121,17 +122,17 @@ class _sellersOldOrNew extends React.Component {
         }
 
     }
-    componentWillUpdate(nextProps,nextState){
-        console.log('1-=componentWillUpdate')
+    // componentWillUpdate(nextProps,nextState){
+        // console.log('1-=componentWillUpdate')
         //有参数传入，才发送请求渲染图表。防止无限循环发送请求，要两次props对比，不同才发
         
-    }
-    componentDidUpdate(){
-        console.log('1..componentDidUpdate')
+    // }
+    // componentDidUpdate(){
+        // console.log('1..componentDidUpdate')
         
 
  //      
-    }
+    // }
     // componentWillReceiveProps(){
     // }
   

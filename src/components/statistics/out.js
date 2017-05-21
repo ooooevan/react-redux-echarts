@@ -59,21 +59,23 @@ class _out extends React.Component {
 			return;
 		}
 		let out=nextProps.out.toJS();
-		let timeList=out.xAxis[0].data;
-		let percentList=out.series[0].data;
-		let numList=out.xAxis[0].num;
-		this.setState({timeList,numList,percentList});
-		this.state.statisticsOutChart.setOption(out);
-		this.state.statisticsOutChart.hideLoading();
+		if(out.series && out.series[0] && out.series[0].data && out.series[0].data[0]){
+			let timeList=out.xAxis[0].data;
+			let percentList=out.series[0].data;
+			let numList=out.xAxis[0].num;
+			this.setState({timeList,numList,percentList});
+			this.state.statisticsOutChart.setOption(out);
+			this.state.statisticsOutChart.hideLoading();
+		}
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
+	// }
+	// componentDidUpdate(){
+		// console.log('-=componentDidUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.statisticsOutChart.dispose();

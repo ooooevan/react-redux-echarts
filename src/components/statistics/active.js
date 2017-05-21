@@ -58,20 +58,22 @@ class _active extends React.Component {
 			return;
 		}
 		let active=nextProps.active.toJS();
-		let timeList=active.xAxis[0].data;
-		let numList=active.series[0].data;
-		this.setState({timeList,numList});
-		this.state.statisticsActiveChart.setOption(active);
-		this.state.statisticsActiveChart.hideLoading();
+		if(active.series && active.series[0] && active.series[0].data && active.series[0].data[0]){
+			let timeList=active.xAxis[0].data;
+			let numList=active.series[0].data;
+			this.setState({timeList,numList});
+			this.state.statisticsActiveChart.setOption(active);
+			this.state.statisticsActiveChart.hideLoading();
+		}
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
+	// }
+	// componentDidUpdate(){
+		// console.log('-=componentDidUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.statisticsActiveChart.dispose();

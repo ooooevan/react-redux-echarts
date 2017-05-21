@@ -4,6 +4,9 @@
 	// margin-left: 700px;
 	// width:210px;
 	// height:300px;
+	-moz-user-select: none; 
+	-khtml-user-select: none; 
+	user-select: none; 
 	z-index:10;
 }
 
@@ -81,6 +84,7 @@
 .calendarDoubleLeft,.calendarLeft,.calendarRight,.calendarDoubleRight{
 	padding:0 5px;
 	cursor:pointer;
+	font-size:13px;
 	transition:all .2s;
 }
 .calendarDoubleLeft:hover,.calendarLeft:hover,.calendarDoubleRight:hover,.calendarRight:hover{

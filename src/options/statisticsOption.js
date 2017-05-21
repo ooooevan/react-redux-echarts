@@ -2,7 +2,8 @@
 
 let options = {
 	customerNum:{
-        color:['#b6d0e9','#d14a61'],
+        // color:['#b6d0e9','#d14a61'],
+        color:['#6699ff'],
         title:{
            text: "整体客流量",
            show:false
@@ -74,6 +75,58 @@ let options = {
                 smooth:true,
                 data:undefined
             }*/
+        ]
+    },
+    customerAvg:{
+        // colof:['#6699ff'],
+        title:{
+           text: "客流人数",
+           show:false
+        },
+        tooltip: {
+            // trigger: 'axis'
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data:['客流人数']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisLabel:{interval:0},
+                data: undefined
+            }
+        ],
+        yAxis: {
+            //     type: 'value',
+                name: '人数'
+
+            //     // min: 0,
+            //     // max: 250,
+            //     // interval: 50,
+            //     axisLabel: {
+            //         formatter: '{value}'
+            //     }
+            // }
+        },
+        series: [{
+                name:'客流人数',
+                type:'bar',
+                label: {
+                normal: {
+                    position: 'top',
+                    show: false
+                    }
+                },
+                data:undefined
+            }
         ]
     },
     customerPeak:{

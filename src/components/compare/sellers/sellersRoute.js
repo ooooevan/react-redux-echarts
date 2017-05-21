@@ -74,11 +74,11 @@ class _sellersRoute extends React.Component {
         }
          
     }
-    componentWillUnmount(){
+    // componentWillUnmount(){
         // console.log('componentWillUnmount');
-    }
-    componentWillReceiveProps(){
-    }
+    // }
+    // componentWillReceiveProps(){
+    // }
  
     changeTime=(e)=>{
       if(e.target.className === 'active'){

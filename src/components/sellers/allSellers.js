@@ -4,6 +4,7 @@ import redux from 'redux';
 import {connect,Provider} from 'react-redux';
 import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
+import { Link } from 'react-router';
 import Calendar from '../calendar';
 import Tools from '../tools';
 import '../../styles/calendar.scss';
@@ -42,13 +43,13 @@ class _Chart extends React.Component {
 
 
     componentWillMount(){
-      console.log('componentWillMount')
+      // console.log('componentWillMount')
         // this.props.allSellersTableInit(this.state.time);
         this.props.allSellersLineChartInit(this.state.time,this.state.chartPage);
 
     }
     componentDidMount(){
-        console.log('componentDidMount');
+        // console.log('componentDidMount');
         //this.props.allSellersTableInit();
         let domLine = ReactDOM.findDOMNode(this.refs.allSellersLineChart);
 
@@ -68,12 +69,12 @@ class _Chart extends React.Component {
             }
     }
     componentWillUnmount(){
-        console.log('componentWillUnmount');
+        // console.log('componentWillUnmount');
         this.state.allSellersLineChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     }
     componentWillUpdate(nextProps,nextState){
-        console.log('..componentWillUpdate');
+        // console.log('..componentWillUpdate');
         //点击day、week、month等请求，或点击查询
         if(this.state.time!==nextState.time){
             this.props.allSellersLineChartInit(nextState.time,nextState.chartPage);
@@ -96,8 +97,8 @@ class _Chart extends React.Component {
             this.state.lastPage =  false;
         }
     }
-    componentDidUpdate(){
-        console.log('..componentDidUpdate')
+    // componentDidUpdate(){
+        // console.log('..componentDidUpdate')
         // debugger
         /*let lineAndBarObj = this.props.lineAndBar.toJS();
         this.state.allSellersLineChart.setOption(lineAndBarObj);
@@ -114,9 +115,9 @@ class _Chart extends React.Component {
             // rightBtn.disabled=false;
             this.state.lastPage =  false;
         }*/
-    }
-    componentWillReceiveProps(){
-    }
+    // }
+    // componentWillReceiveProps(){
+    // }
     changeTime=(e)=>{
         if(e.target.className === 'active'){
          return;
@@ -175,7 +176,7 @@ class _Chart extends React.Component {
           ReactDOM.findDOMNode(this.refs.selectTime1).className+=' selectTimeError'//添加红色警示框ClassName
           error=true;
         }
-        if(ms1>ms2){ //时间1大于时间2，错误
+        if(ms1>=ms2){ //时间1大于时间2，错误
           ReactDOM.findDOMNode(this.refs.selectTime2).className+=' selectTimeError'
           error=true;
         }
@@ -212,19 +213,21 @@ class _Chart extends React.Component {
 
     render(){
         let rows = [];
+        //跳转到商家实时页面，不需要接口传递
+        let sellersUrl = 'sellers/'
         if(this.state.Data.series && this.state.Data.series[0].data){
             let sellerName=this.state.Data.xAxis[0].data;
             let sellerNum=this.state.Data.series[0].data;
             let sellerPer=this.state.Data.series[1].data;
-            sellerName.forEach(function(item,index){
-                rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
+            sellerName.forEach(function(item,index){ 
+                rows.push(<tr key={index}><th>{index+1}</th><td><Link to={sellersUrl+item}>{item}</Link></td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
 
             })
         }
 
         return <div className="chartWrapper">
               <div className='selectOption inline'>
-                    时间选择：
+                    快速选择：
                     <div className='quickSelect'>
                       <ul>
                             <li><a className={this.state.selectTime=='day'?'active':''} onClick={this.changeTime}>昨天</a></li>

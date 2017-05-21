@@ -56,20 +56,22 @@ class _timeSection extends React.Component {
 			return;
 		}
 		let timeSection=nextProps.timeSection.toJS();
-		let timeList=timeSection.xAxis[0].data;
-		let numList=timeSection.series[0].data;
-		this.setState({timeList,numList});
-		this.state.statisticsTimeSectionChart.setOption(timeSection);
-		this.state.statisticsTimeSectionChart.hideLoading();
+		if(timeSection.series && timeSection.series[0] && timeSection.series[0].data && timeSection.series[0].data[0]){
+			let timeList=timeSection.xAxis[0].data;
+			let numList=timeSection.series[0].data;
+			this.setState({timeList,numList});
+			this.state.statisticsTimeSectionChart.setOption(timeSection);
+			this.state.statisticsTimeSectionChart.hideLoading();
+		}
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
+	// }
+	// componentDidUpdate(){
+		// console.log('-=componentDidUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.statisticsTimeSectionChart.dispose();
@@ -95,14 +97,14 @@ class _timeSection extends React.Component {
     }
 		return	<div>
 				<div className="panel">
-		    			<div className="panelHead">各时间段峰值&nbsp;<FaQuestion className='questionMark' />
-                <div className='messageMark'><p>展示商城在一天各时间段的最高人数<br /></p></div></div>
+		    			<div className="panelHead">各时间段人数&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在一天各时间段的平均人数<br /></p></div></div>
 		    			<div className="panelBody">
 		    				<div className="statisticsTimeSectionChart" ref="statisticsTimeSectionChart"></div>
 		          </div>
   				</div>
   				<div className='panel'>
-  		    				<div className="panelHead">各时间段峰值明细</div>
+  		    				<div className="panelHead">各时间段人数明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>

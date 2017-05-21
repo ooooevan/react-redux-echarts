@@ -38,14 +38,14 @@ class _sellersIn extends React.Component {
     }
 
 
-    componentWillMount(){
-        console.log('componentWillMount')
+    // componentWillMount(){
+        // console.log('componentWillMount')
         // this.props.changeActiveRoute();
 
 
-    }
+    // }
     componentDidMount(){
-        console.log('1componentDidMount');
+        // console.log('1componentDidMount');
          //    //this.props.allSellersTableInit();
     		// if(this.props.sellersAndTime){
     		// 	let dom = ReactDOM.findDOMNode(this.refs.compareSellerInChart);
@@ -77,7 +77,7 @@ class _sellersIn extends React.Component {
             }
     }
     componentWillUnmount(){
-        console.log('1componentWillUnmount');
+        // console.log('1componentWillUnmount');
         this.state.compareSellerInChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     // }
@@ -93,6 +93,7 @@ class _sellersIn extends React.Component {
             let dom = ReactDOM.findDOMNode(this.refs.compareSellerInChart);
             this.state.compareSellerInChart = echarts.init(dom);
             this.state.compareSellerInChart.showLoading();
+            return;
         }
         let sellersIn=nextProps.sellersIn.toJS();
         if(sellersIn.series[0].data && sellersIn.series[0].data[0]){
@@ -107,17 +108,17 @@ class _sellersIn extends React.Component {
             this.state.compareSellerInChart.hideLoading();
         }
     }
-    componentWillUpdate(nextProps,nextState){
-        console.log('1-=componentWillUpdate')
+    // componentWillUpdate(nextProps,nextState){
+        // console.log('1-=componentWillUpdate')
         //有参数传入，才发送请求渲染图表。防止无限循环发送请求，要两次props对比，不同才发
         
-    }
-    componentDidUpdate(){
-        console.log('1..componentDidUpdate')
+    // }
+    // componentDidUpdate(){
+        // console.log('1..componentDidUpdate')
         
 
  //      
-    }
+    // }
     // componentWillReceiveProps(){
     // }
 

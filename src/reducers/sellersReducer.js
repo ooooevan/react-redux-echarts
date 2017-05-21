@@ -155,6 +155,23 @@ export default function sellersReducer(state=initialState,action){
                         .setIn(['customerFlow','name'],CustomerFlow.name)
                         .setIn(['customerFlow','series',0,'data'],Immutable.List(CustomerFlow.num))
                         .setIn(['customerFlow','series',1,'data'],Immutable.List(CustomerFlow.percent));
+        case TYPE.singleSellerCustomerAvgInit:
+          let CustomerAvg={name:action.payload[0].shopName,time:[],num:[],percent:[]};
+          action.payload.forEach(item=>{
+            if(item.countDate.split(' ')[1]){
+              CustomerAvg.time.push(item.countDate.split(' ')[1]);
+              CustomerAvg.num.push(item.customerNumber);
+              CustomerAvg.percent.push(item.customerRatio);
+            }else{
+              CustomerAvg.time.push(item.countDate);
+              CustomerAvg.num.push(item.customerNumber);
+              CustomerAvg.percent.push(item.customerRatio);
+            }
+          })
+          return state.setIn(['customerAvg','xAxis','data'],Immutable.List(CustomerAvg.time))
+                        .setIn(['customerAvg','name'],CustomerAvg.name)
+                        .setIn(['customerAvg','series',0,'data'],Immutable.List(CustomerAvg.num))
+                        .setIn(['customerAvg','series',1,'data'],Immutable.List(CustomerAvg.percent));
 
         case TYPE.singleSellerCustomerInInit:
           let customerIn={name:'',time:[],num:[],percent1:[],percent2:[]};

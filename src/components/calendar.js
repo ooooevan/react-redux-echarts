@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '../styles/calendar.scss';
+const FaAngleDoubleLeft = require('react-icons/lib/fa/angle-double-left');
+const FaAngleDoubleRight = require('react-icons/lib/fa/angle-double-right');
+const FaAngleLeft = require('react-icons/lib/fa/angle-left');
+const FaAngleRight = require('react-icons/lib/fa/angle-right');
 
 const displayDaysPerMonth = (year)=> {
   //定义每个月的天数，如果是闰年第二月改为29天
@@ -174,6 +178,14 @@ class Calendar extends React.Component {
 	  }
 	  show = (e)=>{
 	  	let timePicker = ReactDOM.findDOMNode(this.refs.timePicker);
+	  	let calendar=document.getElementsByClassName('calendar');
+	  	let timePicker1=calendar[0].getElementsByClassName('timePicker')[0];
+	  	let timePicker2=calendar[1].getElementsByClassName('timePicker')[0];
+  		timePicker1.style.display='none';
+  		timePicker2.style.display='none';
+	  	// if(calendar[0]){
+	  	// 	calendar.style.display = 'none';
+	  	// }
 	  	timePicker.style.display = 'block';
 
 	  	// //显示今日picked类名,用上一个保存的兄弟节点
@@ -263,7 +275,7 @@ class Calendar extends React.Component {
 	      <input placeholder='请选择日期' className='timeInput' ref='timeInput' onClick={this.show}/>
 	      <div className='timePicker' ref='timePicker'>
 	      	<div className='timePickerHeader'>
-	      		<span className='fa fa-angle-double-left floatLeft calendarDoubleLeft'  onClick={this.prevYear}></span> <span className='fa fa-angle-left floatLeft calendarLeft'  onClick={this.prevMonth}></span> {this.state.year}年{this.state.month+1}月{this.state.day}日  <span className='fa fa-angle-double-right floatRight calendarDoubleRight' onClick={this.nextYear}></span><span className='fa fa-angle-right floatRight calendarRight' onClick={this.nextMonth}></span>
+	      		<FaAngleDoubleLeft className='floatLeft calendarDoubleLeft'  onClick={this.prevYear} /> <FaAngleLeft className='floatLeft calendarLeft'  onClick={this.prevMonth} /> {this.state.year}年{this.state.month+1}月{this.state.day}日  <FaAngleDoubleRight className='floatRight calendarDoubleRight' onClick={this.nextYear} /><FaAngleRight className='floatRight calendarRight' onClick={this.nextMonth} />
 	      	</div>
 	      	<div className='timePickerBody'>
 	      		<table>

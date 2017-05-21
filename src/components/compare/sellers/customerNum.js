@@ -43,14 +43,14 @@ class _sellersNum extends React.Component {
     }
 
 
-    componentWillMount(){
-        console.log('componentWillMount-- ')
+    // componentWillMount(){
+        // console.log('componentWillMount-- ')
 
 
 
-    }
+    // }
     componentDidMount(){
-        console.log('1componentDidMount');
+        // console.log('1componentDidMount');
     //  //this.props.allSellersTableInit();
     		// if(this.props.sellersAndTime){
     		// 	let dom = ReactDOM.findDOMNode(this.refs.compareSellerNumChart);
@@ -82,7 +82,7 @@ class _sellersNum extends React.Component {
             }
     }
     componentWillUnmount(){
-        console.log('1componentWillUnmount');
+        // console.log('1componentWillUnmount');
         this.state.compareSellerNumChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     }
@@ -98,6 +98,7 @@ class _sellersNum extends React.Component {
             let dom = ReactDOM.findDOMNode(this.refs.compareSellerNumChart);
             this.state.compareSellerNumChart = echarts.init(dom);
             this.state.compareSellerNumChart.showLoading();
+            return;
         }
         let sellersNum=nextProps.sellersNum.toJS();
         if(sellersNum.series[0].data && sellersNum.series[0].data[0]){
@@ -115,17 +116,17 @@ class _sellersNum extends React.Component {
         }
         
     }
-    componentWillUpdate(nextProps,nextState){
-        console.log('1-=componentWillUpdate')
+    // componentWillUpdate(nextProps,nextState){
+        // console.log('1-=componentWillUpdate')
         
         
-    }
-    componentDidUpdate(){
-        console.log('1..componentDidUpdate')
+    // }
+    // componentDidUpdate(){
+        // console.log('1..componentDidUpdate')
         
 
  //      
-    }
+    // }
     // componentWillReceiveProps(nextProps,nextState){
 
     // }

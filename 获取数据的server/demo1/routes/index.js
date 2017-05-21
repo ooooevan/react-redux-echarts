@@ -191,6 +191,54 @@ router.get("/statisticsStayInit/:time", function(req, res, next) {
     res.write(data);
     res.end();
 });
+router.get("/statisticsAvgInit/:time", function(req, res, next) {
+    res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*"
+    });
+    var data1 =`
+        [{
+            "countDate":"2017-04-12 04:32:42",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12 04:32:42",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12 04:32:42",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12 04:32:42",
+            "customerNumber":634,
+            "isNewRecord":false
+        }]
+`
+    var data2 =`
+        [{
+            "countDate":"2017-04-12",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12",
+            "customerNumber":634,
+            "isNewRecord":false
+        },{
+            "countDate":"2017-04-12",
+            "customerNumber":634,
+            "isNewRecord":false
+        }]
+`
+    if(Math.random() > 0.5){
+        data1=data2
+    }
+    res.write(data1);
+    res.end();
+});
 router.get("/statisticsPeakInit/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
@@ -631,6 +679,116 @@ router.get("/numInInit/:time/:range", function(req, res, next) {
     res.write(data);
     res.end();
 });
+router.get("/numAvgInit/:time/:range", function(req, res, next) {
+    res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*"
+    });
+    if(req.params.range === 'day'){
+
+    }
+    var data =`{
+        "2017-01-01":[{
+            "countDate":"2017-01-01",
+            "customerNumber":622,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-02",
+            "customerNumber":632,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-03",
+            "customerNumber":612,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-04",
+            "customerNumber":632,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-01",
+            "customerNumber":622,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-02",
+            "customerNumber":632,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-03",
+            "customerNumber":612,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-04",
+            "customerNumber":632,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-01",
+            "customerNumber":622,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-02",
+            "customerNumber":632,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-03",
+            "customerNumber":612,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-04",
+            "customerNumber":632,
+            "isNewRecord":false
+            }],
+        "2017-01-08":[{
+            "countDate":"2017-01-08",
+            "customerNumber":652,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-09",
+            "customerNumber":612,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-10",
+            "customerNumber":652,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-11",
+            "customerNumber":642,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-08",
+            "customerNumber":652,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-09",
+            "customerNumber":612,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-10",
+            "customerNumber":652,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-11",
+            "customerNumber":642,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-08",
+            "customerNumber":652,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-09",
+            "customerNumber":612,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-10",
+            "customerNumber":652,
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-11",
+            "customerNumber":642,
+            "isNewRecord":false
+            }]
+    }`
+    res.write(data);
+    res.end();
+});
 router.get("/compareCustomerNum/:time/:range", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
@@ -979,6 +1137,65 @@ router.get("/customerOldOrNewInit/:time/:range", function(req, res, next) {
     res.end();
 });
 router.get("/sellersNumInit/:sellers/:time", function(req, res, next) {
+    res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*"
+    });
+    var data =`{
+        "taobao":[{
+            "countDate":"2017-01-21",
+            "customerNumber":622,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-21",
+            "customerNumber":632,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-21",
+            "customerNumber":612,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-21",
+            "customerNumber":632,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
+            }],
+        "seller2":[{
+            "countDate":"2017-01-21",
+            "customerNumber":652,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-21",
+            "customerNumber":612,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-21",
+            "customerNumber":652,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
+            },{
+            "countDate":"2017-01-21",
+            "customerNumber":642,
+            "shopName":"",
+            "customerRatio":"0.13",
+            "isNewRecord":false
+            }]
+    }`
+    res.write(data);
+    res.end();
+});
+router.get("/sellersAvgInit/:sellers/:time", function(req, res, next) {
     res.writeHead(200, {
         "Access-Control-Allow-Origin": "*"
     });

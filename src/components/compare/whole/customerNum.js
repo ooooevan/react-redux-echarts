@@ -42,15 +42,15 @@ class _customerNum extends React.Component {
     }
 
 
-    componentWillMount(){
-        console.log('componentWillMount')
+    // componentWillMount(){
+        // console.log('componentWillMount')
         
  //        this.props.comparenumInit(this.state.time,this.state.chartPage);
 
-    }
+    // }
 
 	componentDidMount(){
-        console.log('componentDidMount');
+        // console.log('componentDidMount');
         // 	//this.props.allSellersTableInit();
         let getTime=Tools.getTime();
         this.state.time=getTime;
@@ -78,7 +78,7 @@ class _customerNum extends React.Component {
             }
     }
 	componentWillUnmount(){
-		console.log('componentWillUnmount');
+		// console.log('componentWillUnmount');
 		this.state.compareCustomerNumChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
 	// }
@@ -92,7 +92,7 @@ class _customerNum extends React.Component {
             let num1List=customerNum.series[0].data;
             let num2List=customerNum.series[1].data;
             this.setState({timeList,num1List,num2List});
-            if(customerNum.series[0].data && customerNum.series[0].data[0]){
+            if(customerNum.series[0].data && customerNum.series[0].data && customerNum.series[0].data[0]){
                 // 判断若是多天的，则legend不能为日期，直接写：时间一、时间二 ？
                 // if(this.state.selectTime!=='day' /*&& this.state.selectTime!=='hour'*/){
                     customerNum.legend.data.push('时间一','时间二');
@@ -109,14 +109,14 @@ class _customerNum extends React.Component {
 
         }
     }
-    componentWillUpdate(nextProps){
-        console.log('-=componentWillUpdate')
-    }
-    componentDidUpdate(prevProps,prevState){
-        console.log('..componentDidUpdate')
+    // componentWillUpdate(nextProps){
+        // console.log('-=componentWillUpdate')
+    // }
+    // componentDidUpdate(prevProps,prevState){
+        // console.log('..componentDidUpdate')
         
  //      
-    }
+    // }
 	// componentWillReceiveProps(){
 	// }
     changeTime=(e)=>{

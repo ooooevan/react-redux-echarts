@@ -45,7 +45,7 @@ class _oldOrNew extends React.Component {
 
 
     componentWillMount(){
-        console.log('componentWillMount')
+        // console.log('componentWillMount')
     }
     componentWillReceiveProps(nextProps,nextState){
         if(this.props!==nextProps){
@@ -58,7 +58,7 @@ class _oldOrNew extends React.Component {
             let percent1List=oldOrNew.series[0].data;
             let percent2List=oldOrNew.series[1].data;
             this.setState({timeList,new1List,old1List,new2List,old2List,percent1List,percent2List});
-            if(oldOrNew.series[0].data && oldOrNew.series[0].data[0]){
+            if(oldOrNew.series[0].data && oldOrNew.series[0].data && oldOrNew.series[0].data[0]){
                 // oldOrNew.legend.data.push(this.state.time1,this.state.time2);
                 // oldOrNew.series[0].name = this.state.time1;
                 // oldOrNew.series[1].name = this.state.time2;
@@ -71,7 +71,7 @@ class _oldOrNew extends React.Component {
         }
     }
     componentDidMount(){
-        console.log('componentDidMount');
+        // console.log('componentDidMount');
     //  //this.props.allSellersTableInit();
         let getTime=Tools.getTime();
         this.state.time=getTime;
@@ -99,21 +99,21 @@ class _oldOrNew extends React.Component {
             }
     }
     componentWillUnmount(){
-        console.log('componentWillUnmount');
+        // console.log('componentWillUnmount');
         this.state.compareOldOrNewChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     // }
  //   
     }
-    componentWillUpdate(nextProps){
-        console.log('-=componentWillUpdate')
-    }
-    componentDidUpdate(){
-        console.log('..componentDidUpdate')
+    // componentWillUpdate(nextProps){
+        // console.log('-=componentWillUpdate')
+    // }
+    // componentDidUpdate(){
+        // console.log('..componentDidUpdate')
         
 
  //      
-    }
+    // }
     // componentWillReceiveProps(){
     // }
     changeTime=(e)=>{

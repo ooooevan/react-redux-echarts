@@ -40,7 +40,7 @@ class _Chart extends React.Component {
     }
     
     componentWillMount(){
-        console.log('componentWillMount');
+        // console.log('componentWillMount');
         // debugger;
         
         this.props.numInit();
@@ -71,26 +71,26 @@ class _Chart extends React.Component {
         this.props.fetch()
     }
     componentWillUnmount(){
-        console.log('componentWillUnmount')
+        // console.log('componentWillUnmount')
         this.state.myChartLine.dispose();
         clearInterval(this.state.timer);
         window.removeEventListener('resize',this.resizeFun);
     }
 
-    componentDidUpdate(){
-        console.log('componentDidUpdate')
-    }
-    componentWillUpdate(nextProps,nextState){
-        console.log('componentWillUpdate')
+    // componentDidUpdate(){
+    //     // console.log('componentDidUpdate')
+    // }
+    // componentWillUpdate(nextProps,nextState){
+    //     // console.log('componentWillUpdate')
         
-    }
+    // }
     componentWillReceiveProps(nextProps,nextState){
         let line=nextProps.line.toJS();
         if(line.xAxis.data){
             this.state.myChartLine.setOption(line);
             this.state.myChartLine.hideLoading();
         }
-        if(line.series[0].data){
+        if(line.series[0].data && line.series[0].data[0]){
             this.setState({
                 chartNum:line.series[0].data[line.series[0].data.length - 1],
                 chartTime:line.xAxis.data[line.xAxis.data.length - 1],
@@ -116,18 +116,18 @@ class _Chart extends React.Component {
             })
         }
         // console.log(yesterday);
-        return <div className='chartWrapper'>
+        return <div className='chartWrapper firstWrapper'>
             {/*<div className='chartMessage'>
                 <p>当前人数：{this.state.chartNum}</p><p>昨日平均客流：2132</p><p>昨日高峰时段：16:30-21:00</p>
             </div>*/}
             <div className='topMessage'>
                 <div className='message message1'><div>
-                    <p>当前人数：{chartNum}  {/* yesterday.get('increase')+''=='true'?<span className='up'>&nbsp;↑</span> :<span className='down'>&nbsp;↓</span>*/} </p>
+                    <p>当前客流：{chartNum}  {/* yesterday.get('increase')+''=='true'?<span className='up'>&nbsp;↑</span> :<span className='down'>&nbsp;↓</span>*/} </p>
                     <p>当前时间：{chartTime}</p>
                 </div></div>
                 <div className='message message2'><div>
                     <p>昨日高峰客流：{yesterday.num}</p>
-                    <p>昨日平均客流：{}</p>
+                    {/*<p>昨日平均客流：{}</p>*/}
                 </div></div>
                 <div className='message message3'><div>
                     <p>昨日高峰时间：{yesterday.countDate}</p>

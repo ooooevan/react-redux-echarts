@@ -41,26 +41,29 @@ class _active extends React.Component {
        this.state.singleSellerActiveChart.resize();
     }, 100)
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
+	// }
 	componentWillReceiveProps(nextProps,nextState){
-		let active=nextProps.active.toJS();
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
 			this.props.singleSellerActiveInit(nextProps.params.id,nextProps.time);
+      return;
 		}
-		let timeList=active.xAxis[0].data.reverse();
-		let numList=active.series[0].data.reverse();
-		this.setState({timeList,numList});
-		this.state.singleSellerActiveChart.setOption(active);
-		this.state.singleSellerActiveChart.hideLoading();
+    let active=nextProps.active.toJS();
+    if(active.series && active.series[0] && active.series[0].data && active.series[0].data[0]){
+      let timeList=active.xAxis[0].data.reverse();
+      let numList=active.series[0].data.reverse();
+      this.setState({timeList,numList});
+      this.state.singleSellerActiveChart.setOption(active);
+      this.state.singleSellerActiveChart.hideLoading();
+    }
 	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
+	// componentDidUpdate(){
+		// console.log('-=componentDidUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.singleSellerActiveChart.dispose();
@@ -81,7 +84,7 @@ class _active extends React.Component {
     }
         if(timeList){
             timeList.forEach((item,i)=>{
-              rows.push(<tr><td>{time}</td><td>{timeList[i]}</td><td>{numList[i]}</td></tr>)
+              rows.push(<tr key={i}><td>{time}</td><td>{timeList[i]}</td><td>{numList[i]}</td></tr>)
             })
         }
 

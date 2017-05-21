@@ -37,7 +37,7 @@ class _deep extends React.Component {
 		}
 	}
 	componentDidMount(){
-		console.log('componentDidMount')
+		// console.log('componentDidMount')
 		this.state.time=this.props.time;
     this.props.statisticsDeepInit(this.state.time);
     let statisticsDeepChart = ReactDOM.findDOMNode(this.refs.statisticsDeepChart);
@@ -60,9 +60,8 @@ class _deep extends React.Component {
 			return;
 		}
 		let deep=nextProps.deep.toJS();
-		console.log(deep)
-		if(deep.series[0].data && deep.series[0].data[0]){
-			console.log('-----....')
+		// console.log(deep)
+		if(deep.series && deep.series[0].data && deep.series[0].data && deep.series[0].data[0]){
 			let timeList=deep.xAxis[0].data;
 			let percentList=deep.series[0].data;
 			let numList=deep.xAxis[0].num;
@@ -72,14 +71,14 @@ class _deep extends React.Component {
 		}
 		
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
+	// }
+	// componentDidUpdate(){
+		// console.log('-=componentDidUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.statisticsDeepChart.dispose();

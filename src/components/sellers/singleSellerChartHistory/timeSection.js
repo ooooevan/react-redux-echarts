@@ -42,25 +42,28 @@ class _stayBar extends React.Component {
     }, 100)
 	}
 	componentWillReceiveProps(nextProps,nextState){
-		let timeSection=nextProps.timeSection.toJS()
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
 			this.props.singleSellerTimeSection(nextProps.params.id,nextProps.time);
+			return;
 		}
-		let timeList=timeSection.xAxis[0].data;
-		let numList=timeSection.series[0].data;
-		this.setState({timeList,numList});
-		this.state.singleSellerTimeSectionChart.setOption(timeSection);
-		this.state.singleSellerTimeSectionChart.hideLoading();
+		let timeSection=nextProps.timeSection.toJS()
+		if(timeSection.series[0] && timeSection.series[0].data && timeSection.series[0].data[0]){
+			let timeList=timeSection.xAxis[0].data;
+			let numList=timeSection.series[0].data;
+			this.setState({timeList,numList});
+			this.state.singleSellerTimeSectionChart.setOption(timeSection);
+			this.state.singleSellerTimeSectionChart.hideLoading();
+		}
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
+	// }
+	// componentDidUpdate(){
 		// debugger
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.singleSellerTimeSectionChart.dispose();
@@ -85,14 +88,14 @@ class _stayBar extends React.Component {
     }
 		return <div>
 							<div className="panel">
-				          <div className="panelHead">各时间段人数峰值&nbsp;<FaQuestion className='questionMark' />
-                <div className='messageMark'><p>展示在一定时间段中，一天某时间段内的人数之和</p></div></div>
+				          <div className="panelHead">各时间段人数&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示在一定时间段中，一天某时间段内的人数的平均数</p></div></div>
 					          <div className="panelBody">
 											<div className='singleSellerTimeSectionChart' ref='singleSellerTimeSectionChart'></div>
 									</div>
 				        </div>
 				        <div className='panel'>
-	  		    				<div className="panelHead">各时间段人数峰值明细</div>
+	  		    				<div className="panelHead">各时间段人数明细</div>
   					    			<div className="panelBody">
   					    				<table className="Table">
               				<thead>
@@ -108,12 +111,12 @@ class _stayBar extends React.Component {
 	}
 }
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state)=>({
   // debugger;
   // let ad=state.toJS()
   // let fdd=state.getIn(['b','customerFlow'])
   // let d=state.getIn(['b','customerFlow']).toJS()
-  return {
+  // return {
     // customerFlow:state.getIn(['b','customerFlow'])
     // radar:state.getIn(['b','radar']),
     // stayBar:state.getIn(['b','stayBar'])
@@ -121,8 +124,8 @@ const mapStateToProps = (state)=>{
     timeSection:state.getIn(['b','timeSection'])
     // deepVisit:state.getIn(['b','deepVisit']),
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
-    }
-}
+    // }
+})
 
 
 export default connect(mapStateToProps,sellersAction)(_stayBar)

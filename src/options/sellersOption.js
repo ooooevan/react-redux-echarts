@@ -10,6 +10,7 @@
 let data;
   let options = {
     lineAndBar:{
+        // color:['#c23531','#3b5054'],
         title:{
            text: "各商家入店量",
            show:false
@@ -184,8 +185,80 @@ let data;
             ]
     },
     table:[],
+    customerAvg:{
+        // color:['#b6d0e9','#d14a61'],
+        color:['#6699ff','#d14a61'],
+        title:{
+           text: "客流量",
+           show:false
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data:['客流量','客流总体占比']
+        },
+        xAxis:{
+            type: 'category',
+            axisLabel:{interval:0},
+            boundaryGap : false,
+            data: undefined
+        },
+        yAxis: [{
+            type: 'value',
+            name: '人数',
+
+            // min: 0,
+            // max: 250,
+            // interval: 50,
+            axisLabel: {
+                formatter: '{value}'
+            }
+        },{
+            type: 'value',
+            name: '比率',
+            position: 'right',
+
+            // min: 0,
+            // max: 9,
+            // interval: 1,
+            axisLine:{
+                lineStyle:{
+                    color:'#d14a61'
+                }
+            },
+            axisLabel: {
+                formatter: '{value} %'
+            }
+        }],
+        series: [{
+            name:'客流量',
+            type:'line',
+            smooth:true,
+            areaStyle: {
+                normal: {
+                    // color:'#ccdef0'
+                    // color:'red'
+                }},
+            data:undefined
+        },{
+            name:'客流总体占比',
+            type:'line',
+            smooth:true,
+            yAxisIndex: 1,
+            data:data
+        }]
+    },
     customerFlow:{
-        color:['#b6d0e9','#d14a61'],
+        // color:['#b6d0e9','#d14a61'],
+        color:['#6699ff','#d14a61'],
         title:{
            text: "客流量",
            show:false
@@ -255,7 +328,8 @@ let data;
         }]
     },
     customerIn:{
-            color: ['#d14a61', '#5793f3'],
+            color: ['#6699ff', '#d14a61'],
+            // color:['#6699ff','#d14a61'],
             title:{
                text: "商家顾客入店量",
                show:false
@@ -307,7 +381,7 @@ let data;
                     // interval: 1,
                     axisLine:{
                         lineStyle:{
-                            color:'#d14a61'
+                            // color:'#d14a61'
                         }
                     },
                     axisLabel: {
@@ -346,10 +420,10 @@ let data;
                     smooth:true,
                     areaStyle:{
                         normal:{
-                            color:'#b6d0e9'
+                            // color:'#b6d0e9'
                         }
                     },
-                    color:['#b6d0e9'],
+                    // color:['#b6d0e9'],
                     data:data
                 },{
                     name:'入店率',
@@ -477,6 +551,8 @@ let data;
         ]
     },*/
     oldOrNew:{
+        color:['#c23531','#2f4554'],
+        // color:['#c23531','#548dff'],
         title : {
             text: '新老顾客',
             x:'center',
@@ -626,6 +702,9 @@ let data;
         grid:{
             // left:'5%',
             // right:'5%'
+        },
+        legend: {
+            data:['深访率','跳出率']
         },
         tooltip: {
             trigger: 'axis'

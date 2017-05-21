@@ -44,28 +44,31 @@ class _radar extends React.Component {
 	componentWillReceiveProps(nextProps,nextState){
 		// debugger
 		let radar=nextProps.radar.toJS();
-		let nameList=[];
-		let numList=radar.series.data[0];
-		radar.radar.indicator.forEach(item=>{
-			nameList.push(item.name);
-		})
-		this.setState({numList,nameList});
-		if(this.state.time!=nextProps.time){
+		if(radar.series.data && radar.series.data[0] && radar.series.data[0][0]){
+			let nameList=[];
+			let numList=radar.series.data[0];
+			radar.radar.indicator.forEach(item=>{
+				nameList.push(item.name);
+			})
+			this.setState({numList,nameList});
+		}
+		
+		// if(this.state.time!=nextProps.time){
 			//不支持自定义时间，返回结果是开店以来的结果
 			// this.setState({time:nextProps.time});
 			// this.props.singleSellerRadar(nextProps.params.id);
-		}
+		// }
 		this.state.singleSellerRadarChart.setOption(radar);
 		this.state.singleSellerRadarChart.hideLoading();
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
+	// }
+	// componentDidUpdate(){
 		// debugger
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.singleSellerRadarChart.dispose();
@@ -104,12 +107,11 @@ class _radar extends React.Component {
 	}
 }
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state)=>({
   // debugger;
   // let ad=state.toJS()
   // let fdd=state.getIn(['b','customerFlow'])
   // let d=state.getIn(['b','customerFlow']).toJS()
-  return {
     // customerFlow:state.getIn(['b','customerFlow'])
     radar:state.getIn(['b','radar'])
     // stayBar:state.getIn(['b','stayBar']),
@@ -117,8 +119,7 @@ const mapStateToProps = (state)=>{
     // timeSection:state.getIn(['b','timeSection']),
     // deepVisit:state.getIn(['b','deepVisit']),
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
-    }
-}
+})
 
 
 export default connect(mapStateToProps,sellersAction)(_radar)

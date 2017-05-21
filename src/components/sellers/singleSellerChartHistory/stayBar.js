@@ -43,24 +43,27 @@ class _stayBar extends React.Component {
     }, 100)
 	}
 	componentWillReceiveProps(nextProps,nextState){
-		let stayBar=nextProps.stayBar.toJS()
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
 			this.props.singleSellerStayBar(nextProps.params.id,nextProps.time);
+      return;
 		}
-		let timeList=stayBar.xAxis[0].data;
-		let numList=stayBar.series[0].data;
-		this.setState({timeList,numList});
-		this.state.singleSellerStayBarChart.setOption(stayBar);
-		this.state.singleSellerStayBarChart.hideLoading();
+    let stayBar=nextProps.stayBar.toJS()
+    if(stayBar.series && stayBar.series[0] && stayBar.series[0].data && stayBar.series[0].data[0]){
+      let timeList=stayBar.xAxis[0].data;
+      let numList=stayBar.series[0].data;
+      this.setState({timeList,numList});
+      this.state.singleSellerStayBarChart.setOption(stayBar);
+      this.state.singleSellerStayBarChart.hideLoading();
+    }
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
+	// }
+	// componentDidUpdate(){
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.singleSellerStayBarChart.dispose();
@@ -108,12 +111,11 @@ class _stayBar extends React.Component {
 	}
 }
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state)=>({
   // debugger;
   // let ad=state.toJS()
   // let fdd=state.getIn(['b','customerFlow'])
   // let d=state.getIn(['b','customerFlow']).toJS()
-  return {
     // customerFlow:state.getIn(['b','customerFlow'])
     // radar:state.getIn(['b','radar']),
     stayBar:state.getIn(['b','stayBar'])
@@ -121,8 +123,7 @@ const mapStateToProps = (state)=>{
     // timeSection:state.getIn(['b','timeSection']),
     // deepVisit:state.getIn(['b','deepVisit']),
     // cycleAndActive:state.getIn(['b','cycleAndActive'])
-    }
-}
+})
 
 
 export default connect(mapStateToProps,sellersAction)(_stayBar)

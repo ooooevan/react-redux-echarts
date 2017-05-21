@@ -33,6 +33,23 @@ export default function lineReducer(state=initialState,action){
       })
       return state.setIn(['customerPeak','xAxis',0,'data'],Immutable.List(peak.time))
                   .setIn(['customerPeak','series',0,'data'],Immutable.List(peak.value));
+    case TYPE.statisticsAvgInit:
+    // debugger
+      let avg={time:[],value:[]};
+      action.payload.forEach(item=>{
+        //为day参数，时间格式只需要时分秒。其他只要日期
+        // debugger
+        if(item.countDate.split(' ')[1]){
+          avg.time.push(item.countDate.split(' ')[1]);
+          avg.value.push(item.customerNumber);
+        }else{
+          avg.time.push(item.countDate);
+          avg.value.push(item.customerNumber);
+        }
+        
+      })
+      return state.setIn(['customerAvg','xAxis',0,'data'],Immutable.List(avg.time))
+                  .setIn(['customerAvg','series',0,'data'],Immutable.List(avg.value));
     case TYPE.statisticsDeepInit:
     // debugger
       let deep={time:[],deepNum:[],deepRatio:[]};

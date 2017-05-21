@@ -58,20 +58,22 @@ class _customerPeak extends React.Component {
 			return;
 		}
 		let customerPeak=nextProps.customerPeak.toJS();
-		let timeList=customerPeak.xAxis[0].data;
-		let numList=customerPeak.series[0].data;
-		this.setState({timeList,numList});
-		this.state.statisticsPeakChart.setOption(customerPeak);
-		this.state.statisticsPeakChart.hideLoading();
+		if( customerPeak.series[0] && customerPeak.series[0].data && customerPeak.series[0].data[0]){
+			let timeList=customerPeak.xAxis[0].data;
+			let numList=customerPeak.series[0].data;
+			this.setState({timeList,numList});
+			this.state.statisticsPeakChart.setOption(customerPeak);
+			this.state.statisticsPeakChart.hideLoading();
+		}
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
+	// }
+	// componentDidUpdate(){
+		// console.log('-=componentDidUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.statisticsPeakChart.dispose();

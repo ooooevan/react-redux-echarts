@@ -43,15 +43,15 @@ class _out extends React.Component {
     }
 
 
-    componentWillMount(){
-        console.log('componentWillMount')
+    // componentWillMount(){
+        // console.log('componentWillMount')
         
  //        this.props.compareCustomerNumInit(this.state.time,this.state.chartPage);
 
-    }
+    // }
 
     componentDidMount(){
-        console.log('componentDidMount');
+        // console.log('componentDidMount');
     //  //this.props.allSellersTableInit();
         let getTime=Tools.getTime();
         this.state.time=getTime;
@@ -80,7 +80,7 @@ class _out extends React.Component {
     }
     componentWillReceiveProps(nextProps,nextState){
         let out=nextProps.out.toJS();
-        if(out.series[0].data && out.series[0].data[0]){
+        if(out.series[0].data && out.series[0].data && out.series[0].data[0]){
             let timeList=out.xAxis[0].data;
             let num1List=out.xAxis[0].out1Num;
             let num2List=out.xAxis[0].out2Num;
@@ -98,19 +98,19 @@ class _out extends React.Component {
         }
     }
     componentWillUnmount(){
-        console.log('componentWillUnmount');
+        // console.log('componentWillUnmount');
         this.state.compareOutChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     }
-    componentWillUpdate(nextProps){
-        console.log('-=componentWillUpdate')
-    }
-    componentDidUpdate(){
-        console.log('..componentDidUpdate')
+    // componentWillUpdate(nextProps){
+        // console.log('-=componentWillUpdate')
+    // }
+    // componentDidUpdate(){
+        // console.log('..componentDidUpdate')
         
 
  //      
-    }
+    // }
     // componentWillReceiveProps(){
     // }
     changeTime=(e)=>{
@@ -201,7 +201,7 @@ class _out extends React.Component {
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对比时间范围：
                     <div className='quickSelect defaultCursor'>
                       <ul>
-                            <li><a className={this.state.selectTime=='hour'?'active':''} onClick={this.changeTime}>时</a></li>
+                            {/*<li><a className={this.state.selectTime=='hour'?'active':''} onClick={this.changeTime}>时</a></li>*/}
                             <li><a className={this.state.selectTime=='day'?'active':''} onClick={this.changeTime}>日</a></li>
                             <li><a className={this.state.selectTime=='week'?'active':''} onClick={this.changeTime}>周</a></li>
                             <li><a className={this.state.selectTime=='month'?'active':''} onClick={this.changeTime}>月</a></li>

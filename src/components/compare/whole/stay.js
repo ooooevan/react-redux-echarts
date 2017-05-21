@@ -43,15 +43,15 @@ class _stay extends React.Component {
     }
 
 
-    componentWillMount(){
-        console.log('componentWillMount')
+    // componentWillMount(){
+        // console.log('componentWillMount')
         
  //        this.props.compareCustomerNumInit(this.state.time,this.state.chartPage);
 
-    }
+    // }
 
     componentDidMount(){
-        console.log('componentDidMount');
+        // console.log('componentDidMount');
     //  //this.props.allSellersTableInit();
         let getTime=Tools.getTime();
         this.state.time=getTime;
@@ -79,7 +79,7 @@ class _stay extends React.Component {
             }
     }
     componentWillUnmount(){
-        console.log('componentWillUnmount');
+        // console.log('componentWillUnmount');
         this.state.compareStayChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     // }
@@ -88,7 +88,7 @@ class _stay extends React.Component {
     componentWillReceiveProps(nextProps,nextState){
         if(this.props!==nextProps){
             let stay=nextProps.stay.toJS();
-            if(stay.series[0].data && stay.series[0].data[0]){
+            if(stay.series[0].data && stay.series[0].data && stay.series[0].data[0]){
                 let timeList=stay.xAxis[0].data;
                 let num1List=stay.series[0].data;
                 let num2List=stay.series[1].data;
@@ -106,15 +106,15 @@ class _stay extends React.Component {
             }
         }
     }
-    componentWillUpdate(nextProps){
-        console.log('-=componentWillUpdate')
-    }
-    componentDidUpdate(){
-        console.log('..componentDidUpdate')
+    // componentWillUpdate(nextProps){
+        // console.log('-=componentWillUpdate')
+    // }
+    // componentDidUpdate(){
+        // console.log('..componentDidUpdate')
         
 
  //      
-    }
+    // }
     // componentWillReceiveProps(){
     // }
     changeTime=(e)=>{
@@ -189,7 +189,7 @@ class _stay extends React.Component {
         if(timeList){
             timeList.forEach((item,i)=>{
                 percent1=parseInt((parseInt(num1List[i])/total1List)*100);
-                percent2=parseInt((parseInt(num1List[i])/total2List)*100);
+                percent2=parseInt((parseInt(num2List[i])/total2List)*100);
                 rows.push(<tr key={i}><td>{timeList[i]}</td><td>{num1List[i]}</td><td>{percent1}%</td><td>{num2List[i]}</td><td>{percent2}%</td></tr>)
             })
         }

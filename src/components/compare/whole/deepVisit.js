@@ -43,15 +43,15 @@ class _deepVisit extends React.Component {
     }
 
 
-    componentWillMount(){
-        console.log('componentWillMount')
+    // componentWillMount(){
+        // console.log('componentWillMount')
         
  //        this.props.compareCustomerNumInit(this.state.time,this.state.chartPage);
 
-    }
+    // }
 
     componentDidMount(){
-        console.log('componentDidMount');
+        // console.log('componentDidMount');
         let getTime=Tools.getTime();
         this.state.time=getTime;
         this.state.time1=getTime.split(',')[0];
@@ -78,7 +78,7 @@ class _deepVisit extends React.Component {
             }
     }
     componentWillUnmount(){
-        console.log('componentWillUnmount');
+        // console.log('componentWillUnmount');
         this.state.compareDeepVisitChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     // }
@@ -86,7 +86,7 @@ class _deepVisit extends React.Component {
     }
     componentWillReceiveProps(nextProps,nextState){
         let deepVisit=nextProps.deepVisit.toJS();
-        if(deepVisit.series[0].data && deepVisit.series[0].data[0]){
+        if(deepVisit.series[0].data && deepVisit.series[0].data && deepVisit.series[0].data[0]){
             let timeList=deepVisit.xAxis[0].data;
             let num1List=deepVisit.xAxis[0].deep1Num;
             let num2List=deepVisit.xAxis[0].deep2Num;
@@ -103,15 +103,15 @@ class _deepVisit extends React.Component {
             this.state.compareDeepVisitChart.hideLoading();
         }
     }
-    componentWillUpdate(nextProps){
-        console.log('-=componentWillUpdate')
-    }
-    componentDidUpdate(){
-        console.log('..componentDidUpdate')
+    // componentWillUpdate(nextProps){
+        // console.log('-=componentWillUpdate')
+    // }
+    // componentDidUpdate(){
+        // console.log('..componentDidUpdate')
         
 
  //      
-    }
+    // }
     // componentWillReceiveProps(){
     // }
     changeTime=(e)=>{

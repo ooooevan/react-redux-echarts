@@ -130,7 +130,7 @@ class _compare extends React.Component {
         const split2=ReactDOM.findDOMNode(this.refs.split2);
         this.removeSubActive(split1);
         this.removeSubActive(split2);
-        console.log(subDom)
+        // console.log(subDom)
         subDom.className = subDom.className +' active';
         
     }
@@ -152,6 +152,7 @@ class _compare extends React.Component {
             <ul>
                 <li className='split' ref='split1' onClick={this.changeActive}>&nbsp;<FaExchange />&nbsp;整体对比
                     <ul className='sidebar_subNav active'>
+                        <li><Link to='compare/wholeCustomerAvg' activeClassName="active" draggable="false">客流量对比</Link></li>
                         <li><Link to='compare/wholeCustomerNum' activeClassName="active" draggable="false">客流量峰值对比</Link></li>
                         <li><Link to='compare/wholeCustomerIn' activeClassName="active" draggable="false">入店量对比</Link></li>
                         <li><Link to='compare/wholeOldOrNew' activeClassName="active" draggable="false">新老顾客对比</Link></li>
@@ -164,6 +165,7 @@ class _compare extends React.Component {
                 </li>
                 <li className='split' ref='split2' onClick={this.changeActive}>&nbsp;<FaExchange />&nbsp;商家对比
                     <ul className='sidebar_subNav' ref='sidebar_subNav'>
+                        <li><Link to='compare/sellerCustomerAvg' activeClassName="active" draggable="false">客流量对比</Link></li>
                         <li><Link to='compare/sellerCustomerNum' activeClassName="active" draggable="false">客流量峰值对比</Link></li>
                         <li><Link to='compare/sellerCustomerIn' activeClassName="active" draggable="false">入店量对比</Link></li>
                         <li><Link to='compare/sellerOldOrNew' activeClassName="active" draggable="false">新老顾客对比</Link></li>

@@ -24,19 +24,19 @@ class Chart extends React.Component {
             sellerName:name
         })
     }
-    componentWillMount(){
+    // componentWillMount(){
       // console.log('componentWillMount')
-    }
-    componentDidMount(){
+    // }
+    // componentDidMount(){
          // console.log('componentDidMount');
-         console.log(this.props)
+         // console.log(this.props)
 
-    }
-    componentWillUnmount(){
+    // }
+    // componentWillUnmount(){
         // console.log('componentWillUnmount');
-    }
-    componentWillReceiveProps(){
-    }
+    // }
+    // componentWillReceiveProps(){
+    // }
  
 
 

@@ -59,21 +59,23 @@ class _oldOrNew extends React.Component {
 			this.props.statisticsOldOrNewInit(nextProps.time);
 		}
 		let oldOrNew=nextProps.oldOrNew.toJS();
-		let timeList=oldOrNew.xAxis[0].data;
-		let newNumList=oldOrNew.series[0].data;
-		let oldNumList=oldOrNew.series[1].data;
-		this.setState({timeList,newNumList,oldNumList});
-		this.state.statisticsOldOrNewChart.setOption(oldOrNew);
-		this.state.statisticsOldOrNewChart.hideLoading();
+		if(oldOrNew.series && oldOrNew.series[0] && oldOrNew.series[0].data && oldOrNew.series[0].data[0]){
+			let timeList=oldOrNew.xAxis[0].data;
+			let newNumList=oldOrNew.series[0].data;
+			let oldNumList=oldOrNew.series[1].data;
+			this.setState({timeList,newNumList,oldNumList});
+			this.state.statisticsOldOrNewChart.setOption(oldOrNew);
+			this.state.statisticsOldOrNewChart.hideLoading();
+		}
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
+	// }
+	// componentDidUpdate(){
+		// console.log('-=componentDidUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.statisticsOldOrNewChart.dispose();
@@ -84,9 +86,15 @@ class _oldOrNew extends React.Component {
 		let {timeList,newNumList,oldNumList,percentList,tableSpace} = this.state;
     let rows=[];
     let percent='';
+    let total=0;
     if(timeList){
         timeList.forEach((item,i)=>{
-        	percent=parseInt(parseInt(newNumList[i])/(parseInt(newNumList[i])+parseInt(oldNumList[i]))*100);
+        	total=parseInt(newNumList[i])+parseInt(oldNumList[i]);
+        	if(!total){
+        		percent=0;
+        	}else{
+        		percent=parseInt(parseInt(newNumList[i])/total * 100);
+        	}
             if(!(i%tableSpace)){
                 rows.push(<tr key={i}><td>{timeList[i]}</td><td>{newNumList[i]}</td><td>{oldNumList[i]}</td><td>{percent}%</td></tr>)
             }

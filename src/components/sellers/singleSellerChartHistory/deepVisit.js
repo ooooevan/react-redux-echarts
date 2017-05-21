@@ -46,12 +46,13 @@ class _deepVisit extends React.Component {
     }, 100)
 	}
 	componentWillReceiveProps(nextProps,nextState){
-		let deep=nextProps.deepVisit.toJS()
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time});
 			this.props.singleSellerDeepVisit(nextProps.params.id,nextProps.time);
+			return;
 		}
-		// if(deep.series[0].data){
+		let deep=nextProps.deepVisit.toJS()
+		if(deep.series && deep.series[0] && deep.series[0].data && deep.series[0].data[0]){
 			let timeList=deep.xAxis.data;
 			let deepList=deep.xAxis.deepNum;
 			let deepPercentList=deep.series[0].data;
@@ -60,18 +61,18 @@ class _deepVisit extends React.Component {
 			this.setState({timeList,deepList,deepPercentList,outList,outPercentList});
 			this.state.singleSellerDeepVisitChart.setOption(deep);
 			this.state.singleSellerDeepVisitChart.hideLoading();
-		// }
+		}
 
 	}
-	componentDidUpdate(){
+	// componentDidUpdate(){
 		
 		
-	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// }
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		// debugger
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.singleSellerDeepVisitChart.dispose();

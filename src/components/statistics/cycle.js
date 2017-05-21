@@ -57,21 +57,23 @@ class _cycle extends React.Component {
 			return;
 		}
 		let cycle=nextProps.cycle.toJS();
-		let timeList=cycle.xAxis[0].data;
-		let numList=cycle.series[0].data;
-		let totalNum=numList.reduce((x,y)=>(parseInt(x)+parseInt(y)));
-		this.setState({timeList,numList,totalNum});
-		this.state.statisticsCycleChart.setOption(cycle);
-		this.state.statisticsCycleChart.hideLoading();
+    if(cycle.series && cycle.series[0] && cycle.series[0].data && cycle.series[0].data[0]){
+      let timeList=cycle.xAxis[0].data;
+      let numList=cycle.series[0].data;
+      let totalNum=numList.reduce((x,y)=>(parseInt(x)+parseInt(y)));
+      this.setState({timeList,numList,totalNum});
+      this.state.statisticsCycleChart.setOption(cycle);
+      this.state.statisticsCycleChart.hideLoading();
+    }
 	}
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		
-	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
+	// }
+	// componentDidUpdate(){
+		// console.log('-=componentDidUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.statisticsCycleChart.dispose();
@@ -93,7 +95,11 @@ class _cycle extends React.Component {
     }
     if(timeList){
         timeList.forEach((item,i)=>{
-    		percent=parseInt((parseInt(numList[i])/parseInt(totalNum))*100)
+        if(!totalNum){
+        	percent=0;
+        }else{
+    			percent=parseInt((parseInt(numList[i])/parseInt(totalNum))*100)
+        }
           rows.push(<tr key={i}><td>{time}</td><td>{timeList[i]}</td><td>{numList[i]}</td><td>{percent}%</td></tr>)
         })
     }

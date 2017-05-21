@@ -9,7 +9,7 @@ const url=actionApi.sellers;
 const actions = {
     sellersListInit(){
         return function(dispatch){
-            fetch(url.sellersListInit).then(data=> data.json())
+            fetch(url.sellersListInit+'/').then(data=> data.json())
                 .then(data=>{
                     dispatch({
                         type: TYPE.sellersListInit,
@@ -23,7 +23,7 @@ const actions = {
     },
     allSellersLineChartInit(time,chartPage){
         return function(dispatch){
-            let url1=url.allSellersLineChartInit+time+'/'+chartPage;
+            let url1=url.allSellersLineChartInit+time+'/'+chartPage+'/';
             fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
@@ -55,7 +55,7 @@ const actions = {
     },*/
     singleSellerLineChartInit(id,param){
         return function(dispatch){
-            let url1=url.singleSellerLineChartInit+id+"/"+param;
+            let url1=url.singleSellerLineChartInit+id+"/"+param+'/';
             fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
@@ -70,7 +70,7 @@ const actions = {
     },
     singleSellerCustomerNumInit(name){
         return function(dispatch){
-            let url1=url.singleSellerCustomerNumInit+name;
+            let url1=url.singleSellerCustomerNumInit+name+'/';
             fetch(url1).then(data => data.json())
                 .then(data=>{
                     dispatch({
@@ -96,7 +96,7 @@ const actions = {
     //     }
     // },  
     singleSellerCustomerNumFetch(id){
-        let url1=url.singleSellerCustomerNumFetch+id;
+        let url1=url.singleSellerCustomerNumFetch+id+'/';
         return function(dispatch){
             fetch(url1).then(data => data.json())
                 .then(data=>{
@@ -110,8 +110,23 @@ const actions = {
                 })
         }
     }, 
+    singleSellerCustomerAvgInit(id,param){
+        let url1=url.singleSellerCustomerAvgInit+id+"/"+param+'/';
+        return function(dispatch){
+            fetch(url1).then(data => data.json())
+                .then(data=>{
+                    dispatch({
+                        type:TYPE.singleSellerCustomerAvgInit,
+                        payload:data
+                    })
+                })
+                .catch(function(err){
+                     console.log(err)
+            })
+        }
+    },
     singleSellerCustomerFlowInit(id,param){
-        let url1=url.singleSellerCustomerFlowInit+id+"/"+param;
+        let url1=url.singleSellerCustomerFlowInit+id+"/"+param+'/';
         return function(dispatch){
             fetch(url1).then(data => data.json())
                 .then(data=>{
@@ -126,7 +141,7 @@ const actions = {
         }
     },
     singleSellerCustomerInInit(id,param){
-        let url1=url.singleSellerCustomerInInit+id+"/"+param;
+        let url1=url.singleSellerCustomerInInit+id+"/"+param+'/';
         return function(dispatch){
             fetch(url1).then(data => data.json())
                 .then(data=>{
@@ -141,7 +156,7 @@ const actions = {
         }
     },
     singleSellerRadar(id){
-        let url1=url.singleSellerRadar+id;
+        let url1=url.singleSellerRadar+id+'/';
         return function(dispatch){
             fetch(url1).then(data => data.json())
                 .then(data=>{
@@ -156,7 +171,7 @@ const actions = {
         }
     },
     singleSellerStayBar(id,param){
-        let url1=url.singleSellerStayBar+id+"/"+param;
+        let url1=url.singleSellerStayBar+id+"/"+param+'/';
         return function(dispatch){
             fetch(url1).then(data => data.json())
                 .then(data=>{
@@ -171,7 +186,7 @@ const actions = {
         }
     },
     singleSellerOldOrNew(id,param){
-        let url1=url.singleSellerOldOrNew+id+"/"+param;
+        let url1=url.singleSellerOldOrNew+id+"/"+param+'/';
         return function(dispatch){
             fetch(url1).then(data => data.json())
                 .then(data=>{
@@ -186,7 +201,7 @@ const actions = {
         }
     },
     singleSellerTimeSection(id,param){
-        let url1=url.singleSellerTimeSection+id+"/"+param;
+        let url1=url.singleSellerTimeSection+id+"/"+param+'/';
         return function(dispatch){
             fetch(url1).then(data => data.json())
                 .then(data=>{
@@ -201,7 +216,7 @@ const actions = {
         }
     },
     singleSellerDeepVisit(id,param){
-        let url1=url.singleSellerDeepVisit+id+"/"+param;
+        let url1=url.singleSellerDeepVisit+id+"/"+param+'/';
         return function(dispatch){
             fetch(url1).then(data => data.json())
                 .then(data=>{
@@ -231,7 +246,7 @@ const actions = {
     //     }
     // },
     singleSellerCycleInit(id,param){
-        let url1=url.singleSellerCycleInit+id+"/"+param;
+        let url1=url.singleSellerCycleInit+id+"/"+param+'/';
         return function(dispatch){
             fetch(url1).then(data => data.json())
                 .then(data=>{
@@ -246,7 +261,7 @@ const actions = {
         }
     },
     singleSellerActiveInit(id,param){
-        let url1=url.singleSellerActiveInit+id+"/"+param;
+        let url1=url.singleSellerActiveInit+id+"/"+param+'/';
         return function(dispatch){
             fetch(url1).then(data => data.json())
                 .then(data=>{

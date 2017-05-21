@@ -41,7 +41,7 @@ class _Chart extends React.Component {
     }
     componentWillMount(){
         // debugger;
-        // 
+        scrollTo(0,0);
         let id=this.props.params.id  //根据路由获取该商店id
         this.props.singleSellerCustomerNumInit(id);
         this.props.changeSellerName(id);
@@ -70,7 +70,7 @@ class _Chart extends React.Component {
                 }.bind(this), 100)
             }
     }
-    componentWillUpdate(nextProps,nextState){
+    // componentWillUpdate(nextProps,nextState){
           // 判断请求回来时是否刚好换了商家，也就是防止上一个fetch数据合并到下一个商家里。这里处理还是ShouldComponentUpdate？
         // if(this.props.params !== nextProps.params){
         //     return;
@@ -82,10 +82,10 @@ class _Chart extends React.Component {
         //         // this.state.name=nextProps.customerNum.get('name');
         //     // })
         // }
-    }
-	componentDidUpdate(){
+    // }
+	// componentDidUpdate(){
         
-	}
+	// }
     componentWillReceiveProps(nextProps,nextState){
       /*用上次存的路由和这次比较，不为空且不同的话表示在不同商家间跳转*/
         if(this.state.param && this.state.param !== nextProps.params.id){
@@ -99,7 +99,7 @@ class _Chart extends React.Component {
         // debugger
         // this.state.param=this.props.params.id;
         let customerNum = nextProps.customerNum.toJS();
-        if(customerNum.series[0] && customerNum.series[0].data[0]){
+        if(customerNum.series[0] && customerNum.series[0].data && customerNum.series[0].data[0]){
             let now={numLen:'',num:'',doorNumLen:'',doorNum:'',percentLen:'',percent:''};
             let yesterday=customerNum.xAxis[0].yesterday;
             //四个分别是时间、客流量、门前客流、客流占比
@@ -124,7 +124,7 @@ class _Chart extends React.Component {
         
     }
 	componentWillUnmount(){
-		console.log('componentWillUnmount...')
+		// console.log('componentWillUnmount...')
 		clearInterval(this.state.timer);
 		this.state.singleSellerCustomerNumChart.dispose()
         window.removeEventListener('resize',this.resizeFun);
@@ -132,7 +132,6 @@ class _Chart extends React.Component {
 	}
 	fetchData = ()=>{
 		// debugger
-	
 		this.props.singleSellerCustomerNumFetch(this.props.params.id)
 	}
     render(){
@@ -151,14 +150,15 @@ class _Chart extends React.Component {
              {/*<p>{this.state.name}</p>*/}
              <div className='topMessage'>
                 <div className='message message1'><div>
-                    <p>当前人数：{now.num} {/* {+''=='true'?<span className='up'>&nbsp;↑</span> :<span className='down'>&nbsp;↓</span>} */}</p>
-                    <p>昨日此时人数：</p>
+                    <p>当前客流：{now.num} {/* {+''=='true'?<span className='up'>&nbsp;↑</span> :<span className='down'>&nbsp;↓</span>} */}</p>
+                    <p>当前时间：{timeList?timeList[timeList.length - 1]:''}</p>
                 </div></div>
                 <div className='message message2'><div>
-                    <p>昨日高峰客流：{yesterday.num}</p>
-                    <p>昨日平均客流：</p>
+                    <p>当前门前客流：{doorNumList?doorNumList[doorNumList.length - 1]:''}</p>
+                    <p>客流占比：{percentList?percentList[percentList.length - 1]:''}%</p>
                 </div></div>
                 <div className='message message3'><div>
+                    <p>昨日高峰客流：{yesterday.num}</p>
                     <p>昨日高峰出现时间：{yesterday.time}</p>
                 </div></div>
             </div>

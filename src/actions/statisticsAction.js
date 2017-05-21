@@ -7,7 +7,7 @@ const url=actionApi.statistics;
 export default {
 	statisticsCustomerNumInit(time){
     return function(dispatch){
-    	let _url=url.statisticsCustomerNumInit+time;
+    	let _url=url.statisticsCustomerNumInit+time+'/';
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -20,9 +20,24 @@ export default {
         })
     }
   },
+  statisticsAvgInit(time){
+    return function(dispatch){
+      let _url=url.statisticsAvgInit+time+'/';
+      fetch(_url).then(data=> data.json())
+        .then(data=>{
+          dispatch({
+            type: TYPE.statisticsAvgInit,
+            payload: data
+          })
+        })
+        .catch(function(err){
+            console.log(err)
+        })
+    }
+  },
   statisticsPeakInit(time){
     return function(dispatch){
-      let _url=url.statisticsPeakInit+time;
+      let _url=url.statisticsPeakInit+time+'/';
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -37,7 +52,7 @@ export default {
   },
   statisticsDeepInit(time){
     return function(dispatch){
-      let _url=url.statisticsDeepInit+time;
+      let _url=url.statisticsDeepInit+time+'/';
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -52,7 +67,7 @@ export default {
   },
   statisticsOutInit(time){
     return function(dispatch){
-      let _url=url.statisticsOutInit+time;
+      let _url=url.statisticsOutInit+time+'/';
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -67,7 +82,7 @@ export default {
   },
   statisticsOldOrNewInit(time){
     return function(dispatch){
-    	let _url=url.statisticsOldOrNewInit+time;
+    	let _url=url.statisticsOldOrNewInit+time+'/';
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -82,7 +97,7 @@ export default {
   },
   statisticsTimeSectionInit(time){
   	return function(dispatch){
-    	let _url=url.statisticsTimeSectionInit+time;
+    	let _url=url.statisticsTimeSectionInit+time+'/';
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -97,7 +112,7 @@ export default {
   },
   statisticsCycleInit(time){
   	return function(dispatch){
-    	let _url=url.statisticsCycleInit+time;
+    	let _url=url.statisticsCycleInit+time+'/';
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -112,7 +127,7 @@ export default {
   },
   statisticsActiveInit(time){
   	return function(dispatch){
-    	let _url=url.statisticsActiveInit+time;
+    	let _url=url.statisticsActiveInit+time+'/';
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({
@@ -127,7 +142,7 @@ export default {
   },
   statisticsStayInit(time){
     return function(dispatch){
-      let _url=url.statisticsStayInit+time;
+      let _url=url.statisticsStayInit+time+'/';
       fetch(_url).then(data=> data.json())
         .then(data=>{
           dispatch({

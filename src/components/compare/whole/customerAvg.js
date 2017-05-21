@@ -7,7 +7,6 @@ import Immutable from 'immutable';
 import echarts from 'echarts/lib/echarts';
 import Calendar from '../../calendar';
 import Tools from '../../tools';
-// import '../../styles/calendar.scss';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/title';
@@ -17,10 +16,10 @@ const FaQuestion = require('react-icons/lib/fa/question');
 
 import compareAction from '../../../actions/compareAction';
 
-class _customerIn extends React.Component {
+class _customerAvg extends React.Component {
 
     static propTypes = {
-        // customerNum: React.PropTypes.func.isRequired,
+        // customerAvg: React.PropTypes.func.isRequired,
         // // allSellersTableInit: React.PropTypes.func.isRequired,
         // lineAndBar:React.PropTypes.instanceOf(Immutable.Map),
         // table:React.PropTypes.instanceOf(Immutable.List)
@@ -29,14 +28,14 @@ class _customerIn extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            compareCustomerInChart:'',
+            compareCustomerAvgChart:'',
             resizeHandler:null,
             Data:[],
             selectTime:'day',
             time:'',          //要请求的time参数，有多个
             time1:'',           //时间1，用于显示图表的legend
             time2:'',              //时间2,用于显示图表的legend
-		    timeList:'',
+            timeList:'',
             num1List:'',
             num2List:''
         }
@@ -51,20 +50,20 @@ class _customerIn extends React.Component {
     // }
 
 	componentDidMount(){
-    	// console.log('componentDidMount');
-	// 	//this.props.allSellersTableInit();
+        // console.log('componentDidMount');
+        // 	//this.props.allSellersTableInit();
         let getTime=Tools.getTime();
         this.state.time=getTime;
         this.state.time1=getTime.split(',')[0];
         this.state.time2=getTime.split(',')[1];
-        this.props.numInInit(Tools.changeTime(this.state.time),this.state.selectTime);   //默认无参，可选
-        
+        this.props.numAvgInit(Tools.changeTime(this.state.time),this.state.selectTime);   //默认无参，可选
+
         let input1=ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0];
         input1.value=this.state.time.split(',')[0];
-        let dom = ReactDOM.findDOMNode(this.refs.compareCustomerInChart);
+        let dom = ReactDOM.findDOMNode(this.refs.compareCustomerAvgChart);
 
-        this.state.compareCustomerInChart = echarts.init(dom);
-        this.state.compareCustomerInChart.showLoading();
+        this.state.compareCustomerAvgChart = echarts.init(dom);
+        this.state.compareCustomerAvgChart.showLoading();
 
         window.addEventListener('resize',this.resizeFun)
 	}
@@ -72,46 +71,48 @@ class _customerIn extends React.Component {
         if(this.state.resizeHandler){
                 clearTimeout(this.state.resizeHandler);
             }
-            if(this.state.compareCustomerInChart){
+            if(this.state.compareCustomerAvgChart){
                 this.state.resizeHandler = setTimeout(function () {
-                   this.state.compareCustomerInChart.resize();
+                   this.state.compareCustomerAvgChart.resize();
                 }.bind(this), 100)
             }
     }
-    componentWillReceiveProps(nextProps,nextState){
-        if(nextProps!==this.props){  //当props改变时才触发。只改变selectTime不触发
-            let customerIn=nextProps.customerIn.toJS();
-            let timeList=customerIn.xAxis[0].data;
-            let num1List=customerIn.series[0].data;
-            let num2List=customerIn.series[1].data;
-            this.setState({timeList,num1List,num2List});
-            if(customerIn.series[0].data && customerIn.series[0].data && customerIn.series[0].data[0]){
-                // 判断若是多天的，则legend不能为日期，直接写：时间一、时间二 ？
-                // if(this.state.selectTime!=='day' /*&& this.state.selectTime!=='hour'*/){
-                    customerIn.legend.data.push('时间一','时间二');
-                    customerIn.series[0].name = '时间一';
-                    customerIn.series[1].name = '时间二';
-                // }else{
-                //     customerIn.legend.data.push(this.state.time1,this.state.time2);
-                //     customerIn.series[0].name = this.state.time1;
-                //     customerIn.series[1].name = this.state.time2;
-                // }
-                this.state.compareCustomerInChart.setOption(customerIn);
-                this.state.compareCustomerInChart.hideLoading();
-            }
-        }
-    }
 	componentWillUnmount(){
 		// console.log('componentWillUnmount');
-		this.state.compareCustomerInChart.dispose();
+		this.state.compareCustomerAvgChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
 	// }
  //   
     }
+    componentWillReceiveProps(nextProps,nextState){
+        if(this.props!==nextProps){  //当props改变时才触发。只改变selectTime不触发
+
+            let customerAvg=nextProps.customerAvg.toJS();
+            let timeList=customerAvg.xAxis[0].data;
+            let num1List=customerAvg.series[0].data;
+            let num2List=customerAvg.series[1].data;
+            this.setState({timeList,num1List,num2List});
+            if(customerAvg.series[0].data && customerAvg.series[0].data && customerAvg.series[0].data[0]){
+                // 判断若是多天的，则legend不能为日期，直接写：时间一、时间二 ？
+                // if(this.state.selectTime!=='day' /*&& this.state.selectTime!=='hour'*/){
+                    customerAvg.legend.data.push('时间一','时间二');
+                    customerAvg.series[0].name = '时间一';
+                    customerAvg.series[1].name = '时间二';
+                // }else{
+                //     customerAvg.legend.data.push(this.state.time1,this.state.time2);
+                //     customerAvg.series[0].name = this.state.time1;
+                //     customerAvg.series[1].name = this.state.time2;
+                // }
+                this.state.compareCustomerAvgChart.setOption(customerAvg);
+                this.state.compareCustomerAvgChart.hideLoading();
+            }
+
+        }
+    }
     // componentWillUpdate(nextProps){
         // console.log('-=componentWillUpdate')
     // }
-    // componentDidUpdate(prevProps,prevInte){
+    // componentDidUpdate(prevProps,prevState){
         // console.log('..componentDidUpdate')
         
  //      
@@ -177,7 +178,7 @@ class _customerIn extends React.Component {
           return false;
         }
         //日历选择没有错误，得到时间范围,发请求,并保存时间，放入图表legend
-        this.props.numInInit(time1+','+time2,this.state.selectTime);
+        this.props.numAvgInit(time1+','+time2,this.state.selectTime);
         this.state.time1=time1;
         this.state.time2=time2;
         return;
@@ -194,23 +195,12 @@ class _customerIn extends React.Component {
               rows.push(<tr key={i}><td>{time1}</td><td>{num1List[i]}</td><td>{time2}</td><td>{num2List[i]}</td></tr>)
             })
         }
-        if(this.state.Data.series && this.state.Data.series[0].data){
-            let sellerName=this.state.Data.xAxis[0].data;
-            let sellerNum=this.state.Data.series[0].data;
-            let sellerPer=this.state.Data.series[1].data;
-            sellerName.forEach(function(item,index){
-                rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
-            })
-        }
-        // console.log('...render');
 		if(this.state.Data.series && this.state.Data.series[0].data){
             let sellerName=this.state.Data.xAxis[0].data;
             let sellerNum=this.state.Data.series[0].data;
             let sellerPer=this.state.Data.series[1].data;
-            // debugger
 			sellerName.forEach(function(item,index){
 				rows.push(<tr key={index}><th>{index+1}</th><td>{item}</td><td>{sellerNum[index]}{sellerPer[index] > 0 ? <span className="up">&nbsp;↑</span>:<span className="down">&nbsp;↓</span>}</td><td className={sellerPer[index] > 0 ? 'up':'down'}>{sellerPer[index]}%</td></tr>);
-
 			})
 		}
 
@@ -237,14 +227,14 @@ class _customerIn extends React.Component {
                 </div>
               
             	<div className="panel">
-            		<div className="panelHead">入店量量对比&nbsp;<FaQuestion className='questionMark' />
-                <div className='messageMark'><p>展示商城在两个时间段内的入店量对比<br /></p></div></div>
+            		<div className="panelHead">客流量对比&nbsp;<FaQuestion className='questionMark' />
+                <div className='messageMark'><p>展示商城在两个时间段内的客流平均值对比<br /></p></div></div>
             		<div className="panelBody">
-        			<div ref="compareCustomerInChart" className="compareCustomerInChart"></div>
+        			<div ref="compareCustomerAvgChart" className="compareCustomerAvgChart"></div>
             		</div>
             	</div>
             	<div className="panel">
-            		<div className="panelHead">入店量对比明细</div>
+            		<div className="panelHead">客流量对比明细</div>
 						<div className="panelBody">
         			    <table className="Table">
             				<thead>
@@ -260,9 +250,9 @@ class _customerIn extends React.Component {
     }
 }
 const mapStateToProps = (state)=>({
-    customerIn:state.getIn(['d','customerIn'])
+    customerAvg:state.getIn(['d','customerAvg'])
         // table:state.getIn(['b','table'])
 });
-let customerIn=connect(mapStateToProps,compareAction)(_customerIn);
-export default customerIn;
+let customerAvg=connect(mapStateToProps,compareAction)(_customerAvg);
+export default customerAvg;
 

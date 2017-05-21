@@ -43,14 +43,14 @@ class _active extends React.Component {
     }
 
 
-    componentWillMount(){
-        console.log('componentWillMount')
+    // componentWillMount(){
+        // console.log('componentWillMount')
 
 
 
-    }
+    // }
     componentDidMount(){
-        console.log('1componentDidMount');
+        // console.log('1componentDidMount');
     //  //this.props.allSellersTableInit();
     		// if(this.props.sellersAndTime){
     		// 	let dom = ReactDOM.findDOMNode(this.refs.compareSellerActiveChart);
@@ -82,7 +82,7 @@ class _active extends React.Component {
             }
     }
     componentWillUnmount(){
-        console.log('1componentWillUnmount');
+        // console.log('1componentWillUnmount');
         this.state.compareSellerActiveChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     // }
@@ -99,6 +99,7 @@ class _active extends React.Component {
             let dom = ReactDOM.findDOMNode(this.refs.compareSellerActiveChart);
             this.state.compareSellerActiveChart = echarts.init(dom);
             this.state.compareSellerActiveChart.showLoading();
+            return;
         }
         let active=nextProps.active.toJS();
         if(active.series[0].data && active.series[0].data[0]){
@@ -115,17 +116,17 @@ class _active extends React.Component {
             this.state.compareSellerActiveChart.hideLoading();
         }
     }
-    componentWillUpdate(nextProps,nextState){
-        console.log('1-=componentWillUpdate')
+    // componentWillUpdate(nextProps,nextState){
+        // console.log('1-=componentWillUpdate')
         //有参数传入，才发送请求渲染图表。防止无限循环发送请求，要两次props对比，不同才发
 
-    }
-    componentDidUpdate(){
-        console.log('1..componentDidUpdate')
+    // }
+    // componentDidUpdate(){
+        // console.log('1..componentDidUpdate')
         
 
  //      
-    }
+    // }
     // componentWillReceiveProps(){
     // }
  
@@ -136,8 +137,16 @@ class _active extends React.Component {
         let percent1,percent2;
         if(timeList){
             timeList.forEach((item,i)=>{
-                percent1=parseInt((num1List[i]/total1)*100);
-                percent2=parseInt((num2List[i]/total1)*100);
+                if(!total1){
+                    percent1=0;
+                }else{
+                    percent1=parseInt((num1List[i]/total1)*100);
+                }
+                if(!total2){
+                    percent2=0;
+                }else{
+                    percent2=parseInt((num2List[i]/total2)*100);
+                }
                 rows.push(<tr key={i}><td>{timeList[i]}</td><td>{num1List[i]}</td><td>{percent1}%</td><td>{num2List[i]}</td><td>{percent2}%</td></tr>)
             })
         }

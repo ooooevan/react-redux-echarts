@@ -26,7 +26,7 @@ class _customerFlow extends React.Component {
 		}
 	}
 	componentDidMount(){
-		console.log('--=componentDidMount')
+		// console.log('--=componentDidMount')
 		this.state.time=this.props.time;
     this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
    
@@ -51,33 +51,33 @@ class _customerFlow extends React.Component {
 	// changeTime = ()=>{
 	// 	this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
 	// }
-	componentWillUpdate(nextProps){
-		console.log('-=componentWillUpdate')
+	// componentWillUpdate(nextProps){
+		// console.log('-=componentWillUpdate')
 		// if(this.state.time!=nextProps.time){
 		// 	this.state.time=nextProps.time
 		// 	this.props.singleSellerCustomerFlowInit(this.props.params.id,this.state.time);
 		// }
-	}
+	// }
 	componentWillReceiveProps(nextProps,nextState){
 		if(this.state.time!=nextProps.time){
 			this.setState({time:nextProps.time})
 			this.props.singleSellerCustomerFlowInit(nextProps.params.id,nextProps.time);
+			return;
 		}
-
 		let customerFlow=nextProps.customerFlow.toJS();
-		let timeList=customerFlow.xAxis.data;
-		let numList=customerFlow.series[0].data;
-		let percentList=customerFlow.series[1].data;
-		this.setState({timeList,numList,percentList});
-		if(customerFlow.series[0].data){
+		if(customerFlow.series && customerFlow.series[0] && customerFlow.series[0].data && customerFlow.series[0].data[0]){
+			let timeList=customerFlow.xAxis.data;
+			let numList=customerFlow.series[0].data;
+			let percentList=customerFlow.series[1].data;
+			this.setState({timeList,numList,percentList});
 			this.state.singleSellerCustomerFlowChart.setOption(customerFlow);
 			this.state.singleSellerCustomerFlowChart.hideLoading();
 		}
 	}
-	componentDidUpdate(){
-		console.log('-=componentDidUpdate')
+	// componentDidUpdate(){
+		// console.log('-=componentDidUpdate')
 		
-	}
+	// }
 	componentWillUnmount(){
       //切换路由销毁echarts实例
       this.state.singleSellerCustomerFlowChart.dispose();
@@ -120,21 +120,9 @@ class _customerFlow extends React.Component {
 		}
 }
 
-const mapStateToProps = (state)=>{
-  // debugger;
-  // let ad=state.toJS()
-  // let fdd=state.getIn(['b','customerFlow'])
-  // let d=state.getIn(['b','customerFlow']).toJS()
-  return {
+const mapStateToProps = (state)=>({
     customerFlow:state.getIn(['b','customerFlow'])
-    // radar:state.getIn(['b','radar']),
-    // stayBar:state.getIn(['b','stayBar']),
-    // OldOrNew:state.getIn(['b','OldOrNew']),
-    // timeSection:state.getIn(['b','timeSection']),
-    // deepVisit:state.getIn(['b','deepVisit']),
-    // cycleAndActive:state.getIn(['b','cycleAndActive'])
-    }
-}
+})
 
 
 export default connect(mapStateToProps,sellersAction)(_customerFlow)

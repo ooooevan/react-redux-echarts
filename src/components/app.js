@@ -27,9 +27,9 @@ class Test extends React.Component {
 	constructor(props){
 		super(props);
 	}
-	componentWillMount(){
-		console.log(this.props.params)
-	}
+	// componentWillMount(){
+	// 	console.log(this.props.params)
+	// }
 	render(){
 		return <div className="chartWrapper" style={{"paddingTop":"70px"}}> 404</div>
 	}
@@ -70,6 +70,11 @@ const CustomerFlow = (location, callback) => {
     require.ensure([], require => {
         callback(null, require('./sellers/singleSellerChartHistory/customerFlow').default)
     },'customerFlow')
+}
+const CustomerAvg = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./sellers/singleSellerChartHistory/customerAvg').default)
+    },'customerAvg')
 }
 const Radar = (location, callback) => {
     require.ensure([], require => {
@@ -138,6 +143,11 @@ const StatCustomerPeak = (location, callback) => {
         callback(null, require('./statistics/customerPeak').default)
     },'peak')
 }
+const StatCustomerAvg = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./statistics/customerAvg').default)
+    },'avg')
+}
 const StatOldOrNew = (location, callback) => {
     require.ensure([], require => {
         callback(null, require('./statistics/oldOrNew').default)
@@ -187,6 +197,11 @@ const Compare = (location, callback) => {
     require.ensure([], require => {
         callback(null, require('./compare/compare').default)
     },'compare')
+}
+const WholeCustomerAvg = (location, callback) => {
+    require.ensure([], require => {
+        callback(null, require('./compare/whole/customerAvg').default)
+    },'wholeCustomerAvg')
 }
 const WholeCustomerNum = (location, callback) => {
     require.ensure([], require => {
@@ -258,6 +273,7 @@ const SellersRoute = (location, callback) => {
    import WholeOut from './compare/whole/out';*/
 // import WholeOldOrNew from './compare/whole/oldOrNew';
 // import SellersRoute from './compare/sellers/sellersRoute';
+import SellersCustomerAvg from './compare/sellers/customerAvg';
 import SellersCustomerNum from './compare/sellers/customerNum';
 import SellersCustomerIn from './compare/sellers/customerIn';
 import SellersOldOrNew from './compare/sellers/oldOrNew';
@@ -294,10 +310,11 @@ ReactDOM.render(
 					<Route path=":id" getComponent={SingleSellerRoute}>
 						<IndexRoute getComponent={SingleSellerChartCurrent} />
 						<Route path='now' getComponent={SingleSellerChartCurrent}/>
-						<Redirect from="history" to="history/customerFlow"/>
+						<Redirect from="history" to="history/customerAvg"/>
 						<Route path='history' getComponent={SingleSellerChartHistory}>
-							<IndexRoute getComponent={CustomerIn} />
+							<IndexRoute getComponent={CustomerAvg} />
 							<Route path="customerIn" getComponent={CustomerIn}/>
+							<Route path="customerAvg" getComponent={CustomerAvg}/>
 							<Route path="customerFlow" getComponent={CustomerFlow}/>
 							<Route path="radar" getComponent={Radar}/>
 							<Route path="stayBar" getComponent={StayBar}/>
@@ -314,6 +331,7 @@ ReactDOM.render(
 						<IndexRoute getComponent={StatCustomerNum} />
 						<Route path='total' getComponent={StatCustomerNum}/>
 						<Route path='peak' getComponent={StatCustomerPeak}/>
+						<Route path='avg' getComponent={StatCustomerAvg}/>
 						<Route path='oldOrNew' getComponent={StatOldOrNew}/>
 						<Route path='deep' getComponent={StatDeep}/>
 						<Route path='out' getComponent={StatOut}/>
@@ -322,8 +340,9 @@ ReactDOM.render(
 						<Route path='cycle' getComponent={StatCycle}/>
 						<Route path='active' getComponent={StatActive}/>
 				</Route>
-				<Redirect from="compare" to="/compare/wholeCustomerNum"/>
+				<Redirect from="compare" to="/compare/wholeCustomerAvg"/>
 				<Route path='compare' getComponent={Compare}>
+						<Route path='wholeCustomerAvg' getComponent={WholeCustomerAvg}/>
 						<Route path='wholeCustomerNum' getComponent={WholeCustomerNum}/>
 						<Route path='wholeCustomerIn' getComponent={WholeCustomerIn}/>
 						<Route path='wholeOldOrNew' getComponent={WholeOldOrNew}/>
@@ -336,6 +355,9 @@ ReactDOM.render(
 							<Route path='' getComponent={}/>
 
 						</Route>*/}
+						<Route path='sellerCustomerAvg' getComponent={SellersRoute}>
+							<IndexRoute component={SellersCustomerAvg} />
+						</Route>
 						<Route path='sellerCustomerNum' getComponent={SellersRoute}>
 							<IndexRoute component={SellersCustomerNum} />
 						</Route>

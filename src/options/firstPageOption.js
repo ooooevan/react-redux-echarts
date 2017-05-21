@@ -1,6 +1,7 @@
 
 export default {
     line:{
+        color:['#6699ff'],
         title: { 
             text: '万达商场客流量',
             show:false
@@ -71,7 +72,7 @@ export default {
             data: undefined,
             smooth:true,
             // color:['rgba(122,187,239,1)'],
-            color:['rgba(150,187,223,1)'],  //
+            // color:['rgba(150,187,223,1)'],  //
             // backgroundColor:'rgb(228, 228, 228)',
             // backgroundColor: new echarts.graphic.RadialGradient(0.5, 0.5, 0.5,false),
             // symbol: 'none',

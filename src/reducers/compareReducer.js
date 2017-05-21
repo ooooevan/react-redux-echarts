@@ -29,6 +29,24 @@ export default function compareReducer(state=initialState,action){
                         .setIn(['customerNum','series',0,'data'],obj.num1)
                         .setIn(['customerNum','series',1,'data'],obj.num2);
         }
+        case TYPE.numAvgInit:{
+            let obj={time:[],num1:[],num2:[]};
+            let value=[];
+            for(let i in action.payload){
+                value.push(action.payload[i]);
+            }
+            value[0].forEach(item=>{
+                obj.time.push(item.countDate);
+                obj.num1.push(item.customerNumber);
+            })
+            value[1].forEach((item,index)=>{
+                obj.time[index] = obj.time[index]+'/'+item.countDate;
+                obj.num2.push(item.customerNumber);
+            })
+            return state.setIn(['customerAvg','xAxis',0,'data'],obj.time)
+                        .setIn(['customerAvg','series',0,'data'],obj.num1)
+                        .setIn(['customerAvg','series',1,'data'],obj.num2);
+        }
         case TYPE.numInInit:{
             let obj={time:[],num1:[],num2:[]};
             let value=[];
@@ -60,6 +78,7 @@ export default function compareReducer(state=initialState,action){
         case TYPE.oldOrNewInit:{
             let obj={time:[],num1Old:[],num1New:[],percent1:[],num2Old:[],num2New:[],percent2:[]};
             let value=[];
+            let total=0;
             for(let i in action.payload){
                 value.push(action.payload[i]);
             }
@@ -67,13 +86,23 @@ export default function compareReducer(state=initialState,action){
                 obj.time.push(item.countDate);
                 obj.num1Old.push(item.oldCustomer);
                 obj.num1New.push(item.newCustomer);
-                obj.percent1.push(parseInt(item.newCustomer/(item.oldCustomer+item.newCustomer)*100));
+                total= parseInt(item.oldCustomer)+parseInt(item.newCustomer);
+                if(!total){
+                    obj.percent1.push(0);
+                }else{
+                    obj.percent1.push(parseInt( item.newCustomer/total * 100 ));
+                }
             })
             value[1].forEach((item,index)=>{
                 obj.time[index] = obj.time[index]+'/'+item.countDate;
                 obj.num2Old.push(item.oldCustomer);
                 obj.num2New.push(item.newCustomer);
-                obj.percent2.push(parseInt(item.newCustomer/(item.oldCustomer+item.newCustomer)*100));
+                total= parseInt(item.oldCustomer)+parseInt(item.newCustomer);
+                if(!total){
+                    obj.percent2.push(0);
+                }else{
+                    obj.percent2.push(parseInt( item.newCustomer/total * 100 ));
+                }
             })
             // debugger
             return state.setIn(['oldOrNew','xAxis',0,'data'],obj.time)
@@ -212,6 +241,27 @@ export default function compareReducer(state=initialState,action){
                         .setIn(['sellersNum','xAxis',0,'percent2'],obj.percent2);
             // return mapLine3;
         }
+        case TYPE.sellersAvgInit:{
+            let obj={time:[],num1:[],percent1:[],num2:[],percent2:[]};
+            let value=[];
+            for(let i in action.payload){
+                value.push(action.payload[i]);
+            }
+            value[0].forEach(item=>{
+                obj.time.push(item.countDate);
+                obj.num1.push(item.customerNumber);
+                obj.percent1.push(item.customerRatio);
+            })
+            value[1].forEach(item=>{
+                obj.num2.push(item.customerNumber);
+                obj.percent2.push(item.customerRatio);
+            })
+            return state.setIn(['sellersAvg','xAxis',0,'data'],obj.time)
+                        .setIn(['sellersAvg','series',0,'data'],obj.num1)
+                        .setIn(['sellersAvg','series',1,'data'],obj.num2)
+                        .setIn(['sellersAvg','xAxis',0,'percent1'],obj.percent1)
+                        .setIn(['sellersAvg','xAxis',0,'percent2'],obj.percent2);
+        }
         case TYPE.sellersListInit:{
             let list=[];
             action.payload.forEach(item=>{
@@ -241,6 +291,7 @@ export default function compareReducer(state=initialState,action){
         case TYPE.sellersOldOrNewInit:{
             let obj={time:[],oldNum1:[],newNum1:[],newRatio1:[],oldNum2:[],newNum2:[],newRatio2:[]};
             let value=[];
+            let total=0;
             for(let i in action.payload){
                 value.push(action.payload[i]);
             }
@@ -248,15 +299,23 @@ export default function compareReducer(state=initialState,action){
                 obj.time.push(item.countDate);
                 obj.newNum1.push(item.newCustomer);
                 obj.oldNum1.push(item.oldCustomer);
-                // debugger
-                obj.newRatio1.push(parseInt(item.newCustomer/(item.oldCustomer+item.newCustomer)*100));
+                total=parseInt(item.newCustomer)+parseInt(item.oldCustomer);
+                if(!total){
+                    obj.newRatio1.push(0);
+                }else{
+                    obj.newRatio1.push(parseInt(item.newCustomer/total * 100));
+                }
             });
             value[1].forEach(item=>{
                 obj.newNum2.push(item.newCustomer);
                 obj.oldNum2.push(item.oldCustomer);
-                obj.newRatio2.push(parseInt(item.newCustomer/(item.oldCustomer+item.newCustomer)*100));
+                total=parseInt(item.newCustomer)+parseInt(item.oldCustomer);
+                if(!total){
+                    obj.newRatio2.push(0);
+                }else{
+                    obj.newRatio2.push(parseInt( item.newCustomer/total * 100));
+                }
             });
-            // debugger
             return state.setIn(['sellersOldOrNew','xAxis',0,'data'],obj.time)
                         .setIn(['sellersOldOrNew','series',0,'data'],obj.newRatio1)
                         .setIn(['sellersOldOrNew','series',1,'data'],obj.newRatio2)
@@ -346,12 +405,16 @@ export default function compareReducer(state=initialState,action){
         }
         case TYPE.sellersTimeSectionInit:{
             let obj={time:[],num1:[],num2:[]};
-            action.payload.seller1.forEach(item=>{
-                obj.time.push(item.time);
-                obj.num1.push(item.num);
+            let value=[];
+            for(let i in action.payload){
+                value.push(action.payload[i]);
+            }
+            value[0].forEach(item=>{
+                obj.time.push(item.key);
+                obj.num1.push(item.value);
             })
-            action.payload.seller2.forEach(item=>{
-                obj.num2.push(item.num);
+            value[1].forEach(item=>{
+                obj.num2.push(item.value);
             })
             // debugger
             return state.setIn(['sellersTimeSection','xAxis',0,'data'],obj.time)
@@ -368,7 +431,7 @@ export default function compareReducer(state=initialState,action){
                 obj.key.push(item.key);
                 obj.value1.push(item.value);
             })
-            value[0].forEach(item=>{
+            value[1].forEach(item=>{
                 obj.value2.push(item.value);
             })
             // debugger

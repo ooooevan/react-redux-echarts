@@ -39,9 +39,9 @@ class _stayBar extends React.Component {
        this.state.singleSellerCycleAndActiveChart.resize();
     }, 100)
 	}
-	componentWillReceiveProps(){
+	// componentWillReceiveProps(){
 		// debugger
-	}
+	// }
 	componentDidUpdate(){
 		// debugger
 		this.state.singleSellerCycleAndActiveChart.setOption(this.props.cycleAndActive.toJS());

@@ -37,14 +37,14 @@ class _timeSection extends React.Component {
     }
 
 
-    componentWillMount(){
-        console.log('componentWillMount')
+    // componentWillMount(){
+        // console.log('componentWillMount')
 
 
 
-    }
+    // }
     componentDidMount(){
-        console.log('1 componentDidMount');
+        // console.log('1 componentDidMount');
     //  //this.props.allSellersTableInit();
     		// if(this.props.sellersAndTime){
     		// 	let dom = ReactDOM.findDOMNode(this.refs.compareSellerTimeSectionChart);
@@ -76,7 +76,7 @@ class _timeSection extends React.Component {
             }
     }
     componentWillUnmount(){
-        console.log('1componentWillUnmount');
+        // console.log('1componentWillUnmount');
         this.state.compareSellerTimeSectionChart.dispose();
         window.removeEventListener('resize',this.resizeFun);
     // }
@@ -95,9 +95,10 @@ class _timeSection extends React.Component {
             let dom = ReactDOM.findDOMNode(this.refs.compareSellerTimeSectionChart);
             this.state.compareSellerTimeSectionChart = echarts.init(dom);
             this.state.compareSellerTimeSectionChart.showLoading();
+            return;
         }
         let timeSection=nextProps.timeSection.toJS();
-        if(timeSection.series[0].data && timeSection.series[0].data[0]){
+        if(timeSection.series[0].data && timeSection.series[0].data && timeSection.series[0].data[0]){
             let timeList=timeSection.xAxis[0].data;
             let num1List=timeSection.series[0].data;
             let num2List=timeSection.series[1].data;
@@ -112,16 +113,16 @@ class _timeSection extends React.Component {
             this.state.compareSellerTimeSectionChart.hideLoading();
         }
     }
-    componentWillUpdate(nextProps,nextState){
-        console.log('1-=componentWillUpdate')
+    // componentWillUpdate(nextProps,nextState){
+        // console.log('1-=componentWillUpdate')
         
-    }
-    componentDidUpdate(){
-        console.log('1..componentDidUpdate')
+    // }
+    // componentDidUpdate(){
+        // console.log('1..componentDidUpdate')
         
 
  //      
-    }
+    // }
     // componentWillReceiveProps(){
     // }
  
@@ -130,10 +131,19 @@ class _timeSection extends React.Component {
     	let {timeList,num1List,num2List,total1,total2,seller1,seller2} = this.state;
         let rows=[];
         let percent1,percent2;
+        // console.log(total1,total1);
         if(timeList){
             timeList.forEach((item,i)=>{
-                percent1=parseInt((num1List[i]/total1)*100);
-                percent2=parseInt((num2List[i]/total1)*100);
+                if(!total1){
+                    percent1=0;
+                }else{
+                    percent1=parseInt((num1List[i]/total1)*100);
+                }
+                if(!total2){
+                    percent2=0;
+                }else{
+                    percent2=parseInt((num2List[i]/total2)*100);
+                }
                 rows.push(<tr key={i}><td>{timeList[i]}</td><td>{num1List[i]}</td><td>{percent1}%</td><td>{num2List[i]}</td><td>{percent2}%</td></tr>)
             })
         }

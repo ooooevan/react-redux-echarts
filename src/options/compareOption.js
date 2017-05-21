@@ -2,6 +2,59 @@
 
 let options = {
 	customerNum:{
+        // color:['#c23531','#ff9a20'],
+        color:['#c23531','#de9a48'],
+        title: {
+            text: '客流量峰值对比',
+            show:false
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { 
+                type: 'shadow'
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data: []
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [{
+            type: 'category',
+            data: undefined
+        }],
+        yAxis: [{
+            type: 'value',
+            name: '客流量',
+            axisLabel: {
+                formatter: '{value}'
+            }
+        }],
+        series: [{
+            name: '时间一',
+            type: 'bar',
+            barGap:0,
+            data: undefined
+        }, {
+            name: '时间二',
+            type: 'bar',
+            data: undefined
+        }]
+    },
+    customerAvg:{
+        color:['#c23531','#de9a48'],
         title: {
             text: '客流量对比',
             show:false
@@ -52,6 +105,7 @@ let options = {
         }]
     },
     customerIn:{
+        color:['#c23531','#de9a48'],
         title: {
             text: '入店量对比',
             show:false
@@ -156,7 +210,8 @@ let options = {
 
         /*颜色是后面叠加前面的，要想某个颜色不被覆盖，要放到后面*/
         // color:['#1165ee','#cfd9ee','#d14a61'],
-        color:['#b6d0e9','#d14a61'],
+        // color:['#b6d0e9','#d14a61'],
+        color:['#c23531','#01494c'],
         title: {
             text: '新顾客率',
             show:false
@@ -234,6 +289,7 @@ let options = {
         ]
     },
     cycle:{
+        color:['#c23531','#de9a48'],
         title: {
             text:'来访周期',
             show:false
@@ -284,6 +340,7 @@ let options = {
         }]
     },
     stay:{
+        color:['#c23531','#de9a48'],
         title: {
             text:'停留时长',
             show:false
@@ -334,6 +391,7 @@ let options = {
         }]
     },
     active:{
+        color:['#c23531','#de9a48'],
         title: {
             text:'活跃度',
             show:false
@@ -384,10 +442,10 @@ let options = {
         }]
     },
     deepVisit:{
-
+        color:['#c23531','#01494c'],
         /*颜色是后面叠加前面的，要想某个颜色不被覆盖，要放到后面*/
         // color:['#1165ee','#cfd9ee','#d14a61'],
-        color:['#b6d0e9','#d14a61'],
+        // color:['#b6d0e9','#d14a61'],
         title: {
             text: '深访率对比',
             show:false
@@ -469,10 +527,10 @@ let options = {
         ]
     },
     out:{
-
+        color:['#c23531','#01494c'],
         /*颜色是后面叠加前面的，要想某个颜色不被覆盖，要放到后面*/
         // color:['#1165ee','#cfd9ee','#d14a61'],
-        color:['#b6d0e9','#d14a61'],
+        // color:['#b6d0e9','#d14a61'],
         title: {
             text: '跳出率对比',
             show:false
@@ -548,7 +606,8 @@ let options = {
             }
         ]
     },
-    sellersNum:{
+    sellersAvg:{
+        color:['#c23531','#de9a48'],
         title: {
             text: '客流量对比',
             show:false
@@ -598,8 +657,60 @@ let options = {
             data: undefined
         }]
     },
+    sellersNum:{
+        color:['#c23531','#de9a48'],
+        title: {
+            text: '客流量峰值对比',
+            show:false
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { 
+                type: 'shadow'
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data: []
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [{
+            type: 'category',
+            data: undefined
+        }],
+        yAxis: [{
+            type: 'value',
+            name: '客流量',
+            axisLabel: {
+                formatter: '{value}'
+            }
+        }],
+        series: [{
+            name: '时间一',
+            type: 'bar',
+            barGap:0,
+            data: undefined
+        }, {
+            name: '时间二',
+            type: 'bar',
+            data: undefined
+        }]
+    },
     sellersList:'',
     sellersIn:{
+        color:['#c23531','#de9a48'],
         title: {
             text: '入店量对比',
             show:false
@@ -653,7 +764,8 @@ let options = {
 
         /*颜色是后面叠加前面的，要想某个颜色不被覆盖，要放到后面*/
         // color:['#1165ee','#cfd9ee','#d14a61'],
-        color:['#b6d0e9','#d14a61'],
+        // color:['#b6d0e9','#d14a61'],
+        color:['#c23531','#01494c'],
         title: {
             text: '新顾客率',
             show:false
@@ -734,7 +846,8 @@ let options = {
 
         /*颜色是后面叠加前面的，要想某个颜色不被覆盖，要放到后面*/
         // color:['#1165ee','#cfd9ee','#d14a61'],
-        color:['#b6d0e9','#d14a61'],
+        // color:['#b6d0e9','#d14a61'],
+        color:['#c23531','#01494c'],
         title: {
             text: '跳出率对比',
             show:false
@@ -814,7 +927,8 @@ let options = {
 
         /*颜色是后面叠加前面的，要想某个颜色不被覆盖，要放到后面*/
         // color:['#1165ee','#cfd9ee','#d14a61'],
-        color:['#b6d0e9','#d14a61'],
+        // color:['#b6d0e9','#d14a61'],
+        color:['#c23531','#01494c'],
         title: {
             text: '深访率对比',
             show:false
@@ -891,6 +1005,7 @@ let options = {
         ]
     },
     sellersStay:{
+        color:['#c23531','#de9a48'],
         title: {
             text: '驻店时长对比',
             show:false
@@ -941,6 +1056,7 @@ let options = {
         }]
     },
     sellersActive:{
+        color:['#c23531','#de9a48'],
         title: {
             text: '活跃度对比',
             show:false
@@ -991,6 +1107,7 @@ let options = {
         }]
     },
     sellersTimeSection:{
+        color:['#c23531','#de9a48'],
         title: {
             text: '各时间段对比',
             show:false
@@ -1041,6 +1158,7 @@ let options = {
         }]
     },
     sellersCycle:{
+        color:['#c23531','#de9a48'],
         title: {
             text: '来访周期对比',
             show:false
