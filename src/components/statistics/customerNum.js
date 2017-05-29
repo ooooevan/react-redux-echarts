@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
-import {connect,Provider} from 'react-redux';
+import {connect, Provider} from 'react-redux';
 import Immutable from 'immutable';
 import Calendar from '../calendar';
 import statisticsAction from '../../actions/statisticsAction';
@@ -18,116 +18,103 @@ import 'echarts/lib/component/dataZoom';
 const FaQuestion = require('react-icons/lib/fa/question');
 
 
-
-
-
 class _customerNum extends React.Component {
-	constructor(props){
-		super(props);
-		this.state={
-			statisticsCustomerNumInit:'',
-			resizeHandler:'',
-			time:'',
-			timeList:'',
-      numList:'',
-      tableSpace:1
+  constructor(props) {
+    super(props);
+    this.state = {
+      statisticsCustomerNumInit: '',
+      resizeHandler: '',
+      time: '',
+      timeList: '',
+      numList: '',
+      tableSpace: 1
 
-		}
-	}
-	componentDidMount(){
-		this.state.time=this.props.time;
+    };
+  }
+  componentDidMount() {
+    this.state.time = this.props.time;
     this.props.statisticsCustomerNumInit(this.state.time);
-   
-    let statisticsCustomerNumChart = ReactDOM.findDOMNode(this.refs.statisticsCustomerNumChart);
+
+    const statisticsCustomerNumChart = ReactDOM.findDOMNode(this.refs.statisticsCustomerNumChart);
 	  this.state.statisticsCustomerNumChart = echarts.init(statisticsCustomerNumChart);
     this.state.statisticsCustomerNumChart.showLoading();
-    window.addEventListener('resize',this.resizeFun);
-	}
-	resizeFun=()=>{
-		if(this.state.resizeHandler){
-              clearTimeout(this.state.resizeHandler);
-          }
-    this.state.resizeHandler = setTimeout(()=>{
-       this.state.statisticsCustomerNumChart.resize();
-    }, 100)
-	}
-	componentWillReceiveProps(nextProps,nextState){
-		if(this.state.time!=nextProps.time){
-			this.setState({time:nextProps.time});
-			this.props.statisticsCustomerNumInit(nextProps.time);
-			return;
-		}
-		let customerNum=nextProps.customerNum.toJS();
-		if(customerNum.series && customerNum.series[0] && customerNum.series[0].data && customerNum.series[0].data[0]){
-			let timeList=customerNum.xAxis[0].data;
-			let numList=customerNum.series[0].data;
-			this.setState({timeList,numList});
-			this.state.statisticsCustomerNumChart.setOption(customerNum);
-			this.state.statisticsCustomerNumChart.hideLoading();
-		}
-	}
+    window.addEventListener('resize', this.resizeFun);
+  }
+  resizeFun=() => {
+    if (this.state.resizeHandler) {
+      clearTimeout(this.state.resizeHandler);
+    }
+    this.state.resizeHandler = setTimeout(() => {
+      this.state.statisticsCustomerNumChart.resize();
+    }, 100);
+  }
+  componentWillReceiveProps(nextProps, nextState) {
+    if (this.state.time != nextProps.time) {
+      this.setState({time: nextProps.time});
+      this.props.statisticsCustomerNumInit(nextProps.time);
+      return;
+    }
+    const customerNum = nextProps.customerNum.toJS();
+    if (customerNum.series && customerNum.series[0] && customerNum.series[0].data && customerNum.series[0].data[0]) {
+      const timeList = customerNum.xAxis[0].data;
+      const numList = customerNum.series[0].data;
+      this.setState({timeList, numList});
+      this.state.statisticsCustomerNumChart.setOption(customerNum);
+      this.state.statisticsCustomerNumChart.hideLoading();
+    }
+  }
 	// componentWillUpdate(nextProps){
 		// console.log('-=componentWillUpdate')
-		
+
 	// }
 	// componentDidUpdate(){
 		// console.log('-=componentDidUpdate')
-		
+
 	// }
-	componentWillUnmount(){
-      //切换路由销毁echarts实例
-      this.state.statisticsCustomerNumChart.dispose();
-      this.props.stateDefault();
-      window.removeEventListener('resize',this.resizeFun);
-	}
-	render(){
-		let {timeList,numList,tableSpace} = this.state;
-    let rows=[];
-    if(timeList){
-        timeList.forEach((item,i)=>{
-            if(!(i%tableSpace)){
-                rows.push(<tr key={i}><td>{timeList[i]}</td><td>{numList[i]}</td></tr>)
-            }
-        })
+  componentWillUnmount() {
+      // 切换路由销毁echarts实例
+    this.state.statisticsCustomerNumChart.dispose();
+    this.props.stateDefault();
+    window.removeEventListener('resize', this.resizeFun);
+  }
+  render() {
+    const {timeList, numList, tableSpace} = this.state;
+    const rows = [];
+    if (timeList) {
+      timeList.forEach((item, i) => {
+        if (!(i % tableSpace)) {
+          rows.push(<tr key={i}><td>{timeList[i]}</td><td>{numList[i]}</td></tr>);
+        }
+      });
     }
-		return	<div>
-				<div className="panel">
-		    			<div className="panelHead">入店量&nbsp;<FaQuestion className='questionMark' />
-                <div className='messageMark'><p>展示在一定时间内进入商城的人数<br /></p></div></div>
-		    			<div className="panelBody">
-		    				<div className="statisticsCustomerNumChart" ref="statisticsCustomerNumChart"></div>
-		          </div>
-  				</div>
-  				<div className='panel'>
-  		    				<div className="panelHead">入店量明细</div>
-  					    			<div className="panelBody">
-  					    				<table className="Table">
-              				<thead>
-              					<tr><th>时间</th><th>人数</th></tr>
-              				</thead>
-              				<tbody>
-              				{rows}
-              				</tbody>
-              			</table>
-  								</div>
-      			</div>
-			</div>
-	}
+    return	(<div>
+      <div className="panel">
+        <div className="panelHead">入店量&nbsp;<FaQuestion className="questionMark" />
+          <div className="messageMark"><p>展示在一定时间内进入商城的人数<br /></p></div></div>
+        <div className="panelBody">
+          <div className="statisticsCustomerNumChart" ref="statisticsCustomerNumChart" />
+        </div>
+      </div>
+      <div className="panel">
+        <div className="panelHead">入店量明细</div>
+        <div className="panelBody">
+          <table className="Table">
+            <thead>
+              <tr><th>时间</th><th>人数</th></tr>
+            </thead>
+            <tbody>
+              {rows}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>);
+  }
 }
 
 
+const mapStateToProps = state => ({
+  customerNum: state.getIn(['c', 'customerNum']),
+});
 
-
-const mapStateToProps = (state)=>({
-    customerNum:state.getIn(['c','customerNum']),
-    // radar:state.getIn(['b','radar']),
-    // stayBar:state.getIn(['b','stayBar']),
-    // OldOrNew:state.getIn(['b','OldOrNew']),
-    // timeSection:state.getIn(['b','timeSection']),
-    // deepVisit:state.getIn(['b','deepVisit']),
-    // cycleAndActive:state.getIn(['b','cycleAndActive'])
-})
-
-let customerNum=connect(mapStateToProps,statisticsAction)(_customerNum);
-
-export default customerNum;
+export default connect(mapStateToProps, statisticsAction)(_customerNum);

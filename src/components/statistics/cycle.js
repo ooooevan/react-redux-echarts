@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
-import {connect,Provider} from 'react-redux';
+import {connect, Provider} from 'react-redux';
 import Immutable from 'immutable';
 import Calendar from '../calendar';
 import statisticsAction from '../../actions/statisticsAction';
@@ -18,129 +18,116 @@ import 'echarts/lib/component/dataZoom';
 const FaQuestion = require('react-icons/lib/fa/question');
 
 
-
-
-
 class _cycle extends React.Component {
-	constructor(props){
-		super(props);
-		this.state={
-			statisticsCustomerNumInit:'',
-			resizeHandler:'',
-			time:'',
-			timeList:'',
-			numList:'',
-			totalNum:''
-		}
-	}
-	componentDidMount(){
-		this.state.time=this.props.time;
+  constructor(props) {
+    super(props);
+    this.state = {
+      statisticsCustomerNumInit: '',
+      resizeHandler: '',
+      time: '',
+      timeList: '',
+      numList: '',
+      totalNum: ''
+    };
+  }
+  componentDidMount() {
+    this.state.time = this.props.time;
     this.props.statisticsCycleInit(this.state.time);
-   
-    let statisticsCycleChart = ReactDOM.findDOMNode(this.refs.statisticsCycleChart);
+
+    const statisticsCycleChart = ReactDOM.findDOMNode(this.refs.statisticsCycleChart);
 	  this.state.statisticsCycleChart = echarts.init(statisticsCycleChart);
     this.state.statisticsCycleChart.showLoading();
-    window.addEventListener('resize',this.resizeFun);
-	}
-	resizeFun=()=>{
-		if(this.state.resizeHandler){
-              clearTimeout(this.state.resizeHandler);
-          }
-    this.state.resizeHandler = setTimeout(()=>{
-       this.state.statisticsCycleChart.resize();
-    }, 100)
-	}
-	componentWillReceiveProps(nextProps,nextState){
-		if(this.state.time!=nextProps.time){
-			this.setState({time:nextProps.time});
-			this.props.statisticsCycleInit(nextProps.time);
-			return;
-		}
-		let cycle=nextProps.cycle.toJS();
-    if(cycle.series && cycle.series[0] && cycle.series[0].data && cycle.series[0].data[0]){
-      let timeList=cycle.xAxis[0].data;
-      let numList=cycle.series[0].data;
-      let totalNum=numList.reduce((x,y)=>(parseInt(x)+parseInt(y)));
-      this.setState({timeList,numList,totalNum});
+    window.addEventListener('resize', this.resizeFun);
+  }
+  resizeFun=() => {
+    if (this.state.resizeHandler) {
+      clearTimeout(this.state.resizeHandler);
+    }
+    this.state.resizeHandler = setTimeout(() => {
+      this.state.statisticsCycleChart.resize();
+    }, 100);
+  }
+  componentWillReceiveProps(nextProps, nextState) {
+    if (this.state.time != nextProps.time) {
+      this.setState({time: nextProps.time});
+      this.props.statisticsCycleInit(nextProps.time);
+      return;
+    }
+    const cycle = nextProps.cycle.toJS();
+    if (cycle.series && cycle.series[0] && cycle.series[0].data && cycle.series[0].data[0]) {
+      const timeList = cycle.xAxis[0].data;
+      const numList = cycle.series[0].data;
+      const totalNum = numList.reduce((x, y) => (parseInt(x) + parseInt(y)));
+      this.setState({timeList, numList, totalNum});
       this.state.statisticsCycleChart.setOption(cycle);
       this.state.statisticsCycleChart.hideLoading();
     }
-	}
+  }
 	// componentWillUpdate(nextProps){
 		// console.log('-=componentWillUpdate')
-		
+
 	// }
 	// componentDidUpdate(){
 		// console.log('-=componentDidUpdate')
-		
+
 	// }
-	componentWillUnmount(){
-      //切换路由销毁echarts实例
-      this.state.statisticsCycleChart.dispose();
-      this.props.stateDefault();
-      window.removeEventListener('resize',this.resizeFun);
-	}
-	render(){
-		let {timeList,numList,time,totalNum} = this.state;
-    let rows=[];
-    let percent='';
-    switch(time){
-    	case 'day':time='最近一天';break;
-    	case 'week':time='最近一周';break;
-    	case 'month':time='最近一月';break;
-    	case 'year':time='最近一年';break;
-    	case 'more':time='开店以来';break;
-    	default:let arr=time.split(',');
-    		time=arr.join(' 至 ');
+  componentWillUnmount() {
+      // 切换路由销毁echarts实例
+    this.state.statisticsCycleChart.dispose();
+    this.props.stateDefault();
+    window.removeEventListener('resize', this.resizeFun);
+  }
+  render() {
+    let {timeList, numList, time, totalNum} = this.state;
+    const rows = [];
+    let percent = '';
+    switch (time) {
+    	case 'day':time = '最近一天'; break;
+    	case 'week':time = '最近一周'; break;
+    	case 'month':time = '最近一月'; break;
+    	case 'year':time = '最近一年'; break;
+    	case 'more':time = '开店以来'; break;
+    	default:const arr = time.split(',');
+    		time = arr.join(' 至 ');
     }
-    if(timeList){
-        timeList.forEach((item,i)=>{
-        if(!totalNum){
-        	percent=0;
-        }else{
-    			percent=parseInt((parseInt(numList[i])/parseInt(totalNum))*100)
+    if (timeList) {
+      timeList.forEach((item, i) => {
+        if (!totalNum) {
+        	percent = 0;
+        } else {
+    			percent = parseInt((parseInt(numList[i]) / parseInt(totalNum)) * 100);
         }
-          rows.push(<tr key={i}><td>{time}</td><td>{timeList[i]}</td><td>{numList[i]}</td><td>{percent}%</td></tr>)
-        })
+        rows.push(<tr key={i}><td>{time}</td><td>{timeList[i]}</td><td>{numList[i]}</td><td>{percent}%</td></tr>);
+      });
     }
-		return	<div>
-				<div className="panel">
-		    			<div className="panelHead">来访周期&nbsp;<FaQuestion className='questionMark' />
-                <div className='messageMark'><p>展示商城在一定时间内顾客距离上次来访的时间<br /></p></div></div>
-		    			<div className="panelBody">
-		    				<div className="statisticsCycleChart" ref="statisticsCycleChart"></div>
-		          </div>
-  				</div>
-  				<div className='panel'>
-  		    				<div className="panelHead">来访周期明细</div>
-  					    			<div className="panelBody">
-  					    				<table className="Table">
-              				<thead>
-              					<tr><th>时间范围</th><th>来访周期</th><th>人数</th><th>所占比例</th></tr>
-              				</thead>
-              				<tbody>
-              				{rows}
-              				</tbody>
-              			</table>
-  								</div>
-      			</div>
-			</div>
-	}
+    return	(<div>
+      <div className="panel">
+        <div className="panelHead">来访周期&nbsp;<FaQuestion className="questionMark" />
+          <div className="messageMark"><p>展示商城在一定时间内顾客距离上次来访的时间<br /></p></div></div>
+        <div className="panelBody">
+          <div className="statisticsCycleChart" ref="statisticsCycleChart" />
+        </div>
+      </div>
+      <div className="panel">
+        <div className="panelHead">来访周期明细</div>
+        <div className="panelBody">
+          <table className="Table">
+            <thead>
+              <tr><th>时间范围</th><th>来访周期</th><th>人数</th><th>所占比例</th></tr>
+            </thead>
+            <tbody>
+              {rows}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>);
+  }
 }
 
 
+const mapStateToProps = state => ({
+  cycle: state.getIn(['c', 'cycle']),
+});
 
-
-const mapStateToProps = (state)=>({
-    cycle:state.getIn(['c','cycle']),
-    // radar:state.getIn(['b','radar']),
-    // stayBar:state.getIn(['b','stayBar']),
-    // OldOrNew:state.getIn(['b','OldOrNew']),
-    // timeSection:state.getIn(['b','timeSection']),
-    // deepVisit:state.getIn(['b','deepVisit']),
-    // cycleAndActive:state.getIn(['b','cycleAndActive'])
-})
-
-let cycle=connect(mapStateToProps,statisticsAction)(_cycle);
-
-export default cycle;
+export default connect(mapStateToProps, statisticsAction)(_cycle);

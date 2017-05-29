@@ -37,6 +37,5 @@
 	},
 	"plugins": ["react"],
 
-
 	"ecmaFeatures": { "jsx": true }
 }

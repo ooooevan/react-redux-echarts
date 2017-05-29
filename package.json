@@ -9,7 +9,7 @@
     "dev1": "webpack-dev-server --history-api-fallback",
     "test": " mocha --compilers js:babel-core/register ",
     "deploy": "set NODE_ENV=production && webpack --progress -p --config webpack.production.config.js",
-    "eslint": "eslint src/"
+    "eslint": "eslint src/ --fix"
   },
   "author": "",
   "license": "ISC",
@@ -44,7 +44,7 @@
     "eslint-loader": "^1.6.3",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.0",
+    "eslint-plugin-react": "^7.0.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.28.0",

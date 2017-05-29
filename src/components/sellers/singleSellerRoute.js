@@ -2,58 +2,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
-import {connect,Provider} from 'react-redux';
-import { Router, Route, IndexRoute, hashHistory, Link ,Redirect} from 'react-router';
+import {connect, Provider} from 'react-redux';
+import { Router, Route, IndexRoute, hashHistory, Link, Redirect} from 'react-router';
 
 class Chart extends React.Component {
 
-    static propTypes = {
-        params: React.PropTypes.object.isRequired       //
+  static propTypes = {
+    params: React.PropTypes.object.isRequired       //
+  };
+  constructor(props) {
+    super(props);
+    this.changeSellerName = this.changeSellerName.bind(this);
+    this.state = {
+      sellerName: ''
     };
-    constructor(props){
-        super(props);
-        this.changeSellerName=this.changeSellerName.bind(this);
-        this.state = {
-            sellerName:''
-        }
+  }
+  changeSellerName(name) {
+    this.setState({
+      sellerName: name
+    });
+  }
+   
 
 
-    }
-    changeSellerName(name){
-        this.setState({
-            sellerName:name
-        })
-    }
-    // componentWillMount(){
-      // console.log('componentWillMount')
-    // }
-    // componentDidMount(){
-         // console.log('componentDidMount');
-         // console.log(this.props)
-
-    // }
-    // componentWillUnmount(){
-        // console.log('componentWillUnmount');
-    // }
-    // componentWillReceiveProps(){
-    // }
- 
-
-
-    render(){
-        let nowUrl='/sellers/'+this.props.params.id+'/now';
-        let historyUrl='/sellers/'+this.props.params.id+'/history';
-        return <div className="chartWrapper">
-            <div className="singleSellerRoute">
-                <ul>
-                    <li><Link to={nowUrl} activeClassName="active" draggable="false">当前客流</Link></li>
-                    <li><Link to={historyUrl} activeClassName="active" draggable="false">历史数据</Link></li>
-                </ul>
-                <p>{this.state.sellerName}</p>
-            </div>
-            {this.props.children && React.cloneElement(this.props.children, {changeSellerName:this.changeSellerName})}
-        </div>
-    }
+  render() {
+    const nowUrl = `/sellers/${this.props.params.id}/now`;
+    const historyUrl = `/sellers/${this.props.params.id}/history`;
+    return (<div className="chartWrapper">
+      <div className="singleSellerRoute">
+        <ul>
+          <li><Link to={nowUrl} activeClassName="active" draggable="false">当前客流</Link></li>
+          <li><Link to={historyUrl} activeClassName="active" draggable="false">历史数据</Link></li>
+        </ul>
+        <p>{this.state.sellerName}</p>
+      </div>
+      {this.props.children && React.cloneElement(this.props.children, {changeSellerName: this.changeSellerName})}
+    </div>);
+  }
 
 }
 export default Chart;

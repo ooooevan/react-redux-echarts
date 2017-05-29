@@ -6,137 +6,132 @@ const FaAngleDoubleRight = require('react-icons/lib/fa/angle-double-right');
 const FaAngleLeft = require('react-icons/lib/fa/angle-left');
 const FaAngleRight = require('react-icons/lib/fa/angle-right');
 
-const displayDaysPerMonth = (year)=> {
-  //定义每个月的天数，如果是闰年第二月改为29天
-  let daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+const displayDaysPerMonth = (year) => {
+  // 定义每个月的天数，如果是闰年第二月改为29天
+  const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
-    daysInMonth[1] = 29
+    daysInMonth[1] = 29;
   }
-  //以下为了获取一年中每一个月在日历选择器上显示的数据，
-  //从上个月开始，接着是当月，最后是下个月开头的几天
-  //定义一个数组，保存上一个月的天数
-  let daysInPreviousMonth = [].concat(daysInMonth)
-  daysInPreviousMonth.unshift(daysInPreviousMonth.pop())
-  //获取每一个月显示数据中需要补足上个月的天数
-  let addDaysFromPreMonth = new Array(12)
+  // 以下为了获取一年中每一个月在日历选择器上显示的数据，
+  // 从上个月开始，接着是当月，最后是下个月开头的几天
+  // 定义一个数组，保存上一个月的天数
+  const daysInPreviousMonth = [].concat(daysInMonth);
+  daysInPreviousMonth.unshift(daysInPreviousMonth.pop());
+  // 获取每一个月显示数据中需要补足上个月的天数
+  const addDaysFromPreMonth = new Array(12)
     .fill(null)
-    .map((item, index)=> {
-      let day = new Date(year, index, 1).getDay()
+    .map((item, index) => {
+      const day = new Date(year, index, 1).getDay();
       if (day === 0) {
-        return 6
-      } else {
-        return day - 1
+        return 6;
       }
-    })
-  //已数组形式返回一年中每个月的显示数据,每个数据为6行*7天
+      return day - 1;
+    });
+  // 已数组形式返回一年中每个月的显示数据,每个数据为6行*7天
   return new Array(12)
     .fill([])
-    .map((month, monthIndex)=> {
+    .map((month, monthIndex) => {
       let addDays = addDaysFromPreMonth[monthIndex],
         daysCount = daysInMonth[monthIndex],
         daysCountPrevious = daysInPreviousMonth[monthIndex],
-        monthData = []
-      //补足上一个月
+        monthData = [];
+      // 补足上一个月
       for (; addDays > 0; addDays--) {
-        monthData.unshift(daysCountPrevious--)
+        monthData.unshift(daysCountPrevious--);
       }
-      //添入当前月
+      // 添入当前月
       for (let i = 0; i < daysCount;) {
-        monthData.push(++i)
+        monthData.push(++i);
       }
-      //补足下一个月
+      // 补足下一个月
       for (let i = 42 - monthData.length, j = 0; j < i;) {
-        monthData.push(++j)
+        monthData.push(++j);
       }
-      return monthData
-    })
-}
-
-
+      return monthData;
+    });
+};
 
 
 class Calendar extends React.Component {
-		constructor(props){
-        super(props);
-        let now = new Date()
-        this.state={
-						year: now.getFullYear(),
+  constructor(props) {
+    super(props);
+    const now = new Date();
+    this.state = {
+      year: now.getFullYear(),
 			      month: now.getMonth(),
 			      day: now.getDate(),
-			      prevEl:''
-        }
-    }
-    componentDidMount(){
-    	window.addEventListener('click',e=>{
-    		let timePickerDOM=ReactDOM.findDOMNode(this.refs.timePicker);
-    		if(timePickerDOM){
+			      prevEl: ''
+    };
+  }
+  componentDidMount() {
+    	window.addEventListener('click', (e) => {
+    		const timePickerDOM = ReactDOM.findDOMNode(this.refs.timePicker);
+    		if (timePickerDOM) {
     			timePickerDOM.style.display = 'none';
     		}
     	});
-    	let timeInput=ReactDOM.findDOMNode(this.refs.timeInput); //input
-			timeInput.value=this.state.year+'-'+(this.state.month+1)+'-'+this.state.day;
-    	
-    }
-	  
-	  //切换到上一年
+    	const timeInput = ReactDOM.findDOMNode(this.refs.timeInput); // input
+    timeInput.value = `${this.state.year}-${this.state.month + 1}-${this.state.day}`;
+  }
+
+	  // 切换到上一年
 	  prevYear = (e) => {
 	      this.setState({
 	        year: --this.state.year
-	      })
+	      });
 	    e.stopPropagation();
 	  }
-	  //切换到下一年
+	  // 切换到下一年
 	  nextYear = (e) => {
 	      this.setState({
 	        year: ++this.state.year
-	      })
+	      });
 	    e.stopPropagation();
 	  }
-	  //切换到上一个月
+	  // 切换到上一个月
 	  prevMonth = (e) => {
 	    if (this.state.month === 0) {
 	      this.setState({
 	        year: --this.state.year,
 	        month: 11
-	      })
+	      });
 	    } else {
 	      this.setState({
 	        month: --this.state.month
-	      })
+	      });
 	    }
 	    e.stopPropagation();
 	  }
-	  //切换到下一个月
+	  // 切换到下一个月
 	  nextMonth = (e) => {
 	    if (this.state.month === 11) {
 	      this.setState({
 	        year: ++this.state.year,
 	        month: 0
-	      })
+	      });
 	    } else {
 	      this.setState({
 	        month: ++this.state.month
-	      })
+	      });
 	    }
 	    e.stopPropagation();
 	  }
-	  //选择日期
+	  // 选择日期
 	  datePick = (e) => {
-	  	//全部去掉picked类名
-	  	let allTr=e.target.parentNode.parentNode.children;
-	  	for(let i in allTr){
-	  		if(i == 'length') break;
-	  		let allTd=allTr[i].children;
-	  		for(let j in allTd){
-	  			if(j == 'length') break;
+	  	// 全部去掉picked类名
+	  	const allTr = e.target.parentNode.parentNode.children;
+	  	for (const i in allTr) {
+	  		if (i == 'length') break;
+	  		const allTd = allTr[i].children;
+	  		for (const j in allTd) {
+	  			if (j == 'length') break;
 	  			// console.log(allTd[j])
 	  			// console.log(allTd[j].className)
-	  			if(allTd[j].className.indexOf(' picked') !== -1){
-		  			allTd[j].className = allTd[j].className.replace(' picked','');
+	  			if (allTd[j].className.indexOf(' picked') !== -1) {
+		  			allTd[j].className = allTd[j].className.replace(' picked', '');
 	  			}
 	  		}
 	  	}
-
 
 
 	  	// e.target.parentNode.parentNode.children.forEach((tr)=>{
@@ -147,42 +142,40 @@ class Calendar extends React.Component {
 	  	// 		}
 	  	// 	})
 	  	// })
-	  	if(e.target.className.indexOf('thisMonth') !== -1){   //这个月
+	  	if (e.target.className.indexOf('thisMonth') !== -1) {   // 这个月
 	  		// if(e.target.className.indexOf('picked') !== -1) {return}
 	  			// if(this.state.prevEl){
 	  				// this.state.prevEl.className=this.state.prevEl.className.replace(' picked','');
 	  			// }
-	  		e.target.className = e.target.className+' picked';
-	  		this.state.prevEl = e.target
-				
-	  	}else if(e.target.innerText > 20){      //上个月
-				this.prevMonth(e)
-				this.state.prevEl = e.target;
-				let day=e.target.innerText;
-				ReactDOM.findDOMNode(this.refs.timePicker).style.display = 'none';
-				
-	  	}else{       //下个月
+	  		e.target.className = `${e.target.className} picked`;
 	  		this.state.prevEl = e.target;
-				this.nextMonth(e)
-				ReactDOM.findDOMNode(this.refs.timePicker).style.display = 'none';
+	  	} else if (e.target.innerText > 20) {      // 上个月
+    this.prevMonth(e);
+    this.state.prevEl = e.target;
+    const day = e.target.innerText;
+    ReactDOM.findDOMNode(this.refs.timePicker).style.display = 'none';
+	  	} else {       // 下个月
+	  		this.state.prevEl = e.target;
+    this.nextMonth(e);
+    ReactDOM.findDOMNode(this.refs.timePicker).style.display = 'none';
 	  	}
-			setTimeout(function (){
-				let timeInput=ReactDOM.findDOMNode(this.refs.timeInput); //input
-  			timeInput.value=this.state.year+'-'+(this.state.month+1)+'-'+this.state.day;
-			}.bind(this),0)
+    setTimeout(() => {
+      const timeInput = ReactDOM.findDOMNode(this.refs.timeInput); // input
+  			timeInput.value = `${this.state.year}-${this.state.month + 1}-${this.state.day}`;
+    }, 0);
 	    this.setState({
-	    	day:e.target.innerText
-	    })
+	    	day: e.target.innerText
+	    });
 
 	    // e.stopPropagation();
 	  }
-	  show = (e)=>{
-	  	let timePicker = ReactDOM.findDOMNode(this.refs.timePicker);
-	  	let calendar=document.getElementsByClassName('calendar');
-	  	let timePicker1=calendar[0].getElementsByClassName('timePicker')[0];
-	  	let timePicker2=calendar[1].getElementsByClassName('timePicker')[0];
-  		timePicker1.style.display='none';
-  		timePicker2.style.display='none';
+	  show = (e) => {
+	  	const timePicker = ReactDOM.findDOMNode(this.refs.timePicker);
+	  	const calendar = document.getElementsByClassName('calendar');
+	  	const timePicker1 = calendar[0].getElementsByClassName('timePicker')[0];
+	  	const timePicker2 = calendar[1].getElementsByClassName('timePicker')[0];
+  		timePicker1.style.display = 'none';
+  		timePicker2.style.display = 'none';
 	  	// if(calendar[0]){
 	  	// 	calendar.style.display = 'none';
 	  	// }
@@ -209,99 +202,94 @@ class Calendar extends React.Component {
 	  	e.stopPropagation();
 	  }
 
-	  //选择今天日期
-	  PickTOday = ()=>{
-	  	let now = new Date()
-        this.state={
-						year: now.getFullYear(),
+	  // 选择今天日期
+	  PickTOday = () => {
+	  	const now = new Date();
+    this.state = {
+      year: now.getFullYear(),
 			      month: now.getMonth(),
 			      day: now.getDate()
-        }
-        setTimeout(function (){
-					let timeInput=ReactDOM.findDOMNode(this.refs.timeInput); //input
-	  			timeInput.value=this.state.year+'-'+(this.state.month+1)+'-'+this.state.day;
-				}.bind(this),0)
-        //点击今天，picked的类名去掉
-				let allTr = ReactDOM.findDOMNode(this.refs.tbody).children;
-				for(let i in allTr){
-	  		if(i == 'length') break;
-	  		let allTd=allTr[i].children;
-	  		for(let j in allTd){
-	  			if(j == 'length') break;
-	  			if(allTd[j].className.indexOf(' picked') !== -1){
-		  			allTd[j].className = allTd[j].className.replace(' picked','');
+    };
+    setTimeout(() => {
+      const timeInput = ReactDOM.findDOMNode(this.refs.timeInput); // input
+	  			timeInput.value = `${this.state.year}-${this.state.month + 1}-${this.state.day}`;
+    }, 0);
+        // 点击今天，picked的类名去掉
+    const allTr = ReactDOM.findDOMNode(this.refs.tbody).children;
+    for (const i in allTr) {
+	  		if (i == 'length') break;
+	  		const allTd = allTr[i].children;
+	  		for (const j in allTd) {
+	  			if (j == 'length') break;
+	  			if (allTd[j].className.indexOf(' picked') !== -1) {
+		  			allTd[j].className = allTd[j].className.replace(' picked', '');
 	  			}
 	  		}
 	  	}
 	  }
 
 
-    render(){
-    	let month=this.state.month;  //当月序号
-    	let viewData=displayDaysPerMonth(this.state.year); //一年的数据
-    	let rowsInMonth=[[],[],[],[],[],[]];
-    	viewData[month] = viewData[month].map((item,index)=>{   //当月数值数据变成对象数据，用来保存className
-    		let data={};
-    		data.data=item;
-    		data.className='thisMonth';
+  render() {
+    	const month = this.state.month;  // 当月序号
+    	const viewData = displayDaysPerMonth(this.state.year); // 一年的数据
+    	const rowsInMonth = [[], [], [], [], [], []];
+    	viewData[month] = viewData[month].map((item, index) => {   // 当月数值数据变成对象数据，用来保存className
+    		const data = {};
+    		data.data = item;
+    		data.className = 'thisMonth';
     		return data;
     	});
     	let isThisMonth = false;
-    	viewData[month].forEach((item,index)=>{   //赋className是否当月的值
-    		if(item.data === 1){
-    			isThisMonth=!isThisMonth;
-    			item.className=isThisMonth?'thisMonth':'notThisMonth';
-    		}else if( !isThisMonth && item.data !== 1 ){
-    			item.className='notThisMonth';
-    		}else{
-    			item.className='thisMonth';
+    	viewData[month].forEach((item, index) => {   // 赋className是否当月的值
+    		if (item.data === 1) {
+    			isThisMonth = !isThisMonth;
+    			item.className = isThisMonth ? 'thisMonth' : 'notThisMonth';
+    		} else if (!isThisMonth && item.data !== 1) {
+    			item.className = 'notThisMonth';
+    		} else {
+    			item.className = 'thisMonth';
     		}
-    	})
-    	viewData[month].forEach((item,index)=>{   //赋行数的值
-    			let rowIndex=parseInt(index/7);
+    	});
+    	viewData[month].forEach((item, index) => {   // 赋行数的值
+    			const rowIndex = parseInt(index / 7);
     			rowsInMonth[rowIndex].push(item);
-    	})
-    	let showData = 
-			      		rowsInMonth.map((row,rowIndex)=>{
-			      		return	<tr key={rowIndex}>
-			      				 {
-			      					row.map((item,index)=>{
-			      						return  <td key={rowIndex+''+index} className={item.className} onClick={this.datePick}>{item.data}</td>
-			      					})
+    	});
+    	const showData =
+			      		rowsInMonth.map((row, rowIndex) => (<tr key={rowIndex}>
+  {
+			      					row.map((item, index) => <td key={`${rowIndex}${index}`} className={item.className} onClick={this.datePick}>{item.data}</td>)
 			      				}
-			      				</tr>
-			      			})
-    	return <div className='calendar'>
-	      <input placeholder='请选择日期' className='timeInput' ref='timeInput' onClick={this.show}/>
-	      <div className='timePicker' ref='timePicker'>
-	      	<div className='timePickerHeader'>
-	      		<FaAngleDoubleLeft className='floatLeft calendarDoubleLeft'  onClick={this.prevYear} /> <FaAngleLeft className='floatLeft calendarLeft'  onClick={this.prevMonth} /> {this.state.year}年{this.state.month+1}月{this.state.day}日  <FaAngleDoubleRight className='floatRight calendarDoubleRight' onClick={this.nextYear} /><FaAngleRight className='floatRight calendarRight' onClick={this.nextMonth} />
-	      	</div>
-	      	<div className='timePickerBody'>
-	      		<table>
-		      		<thead>
-		      			<tr>
-		      				<th>一</th>
-		      				<th>二</th>
-		      				<th>三</th>
-		      				<th>四</th>
-		      				<th>五</th>
-		      				<th>六</th>
-		      				<th>日</th>
-		      			</tr>
-		      		</thead>
-		      		<tbody ref='tbody'>
-			      			{showData}
-		      		</tbody>
-	      		</table>
-	      	</div>
-	      	<div className='timePickerFooter' onClick={this.PickTOday}>今天</div>
-	      </div>
-	      </div>
-    }
+			      				</tr>));
+    	return (<div className="calendar">
+      <input placeholder="请选择日期" className="timeInput" ref="timeInput" onClick={this.show} />
+      <div className="timePicker" ref="timePicker">
+        <div className="timePickerHeader">
+          <FaAngleDoubleLeft className="floatLeft calendarDoubleLeft" onClick={this.prevYear} /> <FaAngleLeft className="floatLeft calendarLeft" onClick={this.prevMonth} /> {this.state.year}年{this.state.month + 1}月{this.state.day}日                                                                                                               <FaAngleDoubleRight className="floatRight calendarDoubleRight" onClick={this.nextYear} /><FaAngleRight className="floatRight calendarRight" onClick={this.nextMonth} />
+        </div>
+        <div className="timePickerBody">
+          <table>
+            <thead>
+              <tr>
+                <th>一</th>
+                <th>二</th>
+                <th>三</th>
+                <th>四</th>
+                <th>五</th>
+                <th>六</th>
+                <th>日</th>
+              </tr>
+            </thead>
+            <tbody ref="tbody">
+              {showData}
+            </tbody>
+          </table>
+        </div>
+        <div className="timePickerFooter" onClick={this.PickTOday}>今天</div>
+      </div>
+    </div>);
+  }
 
 }
-
 
 
 /*

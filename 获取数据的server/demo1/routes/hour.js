@@ -645,7 +645,7 @@ router.get("/singleSellerCustomerInInit/:id/:time",function(req,res,next){
         "name":"淘宝${id}",
         "value":[{
             "time":"12:21:08",
-            "num":632,
+            "num":232,
             "percent1":3,
             "percent2":2
         },{
@@ -719,44 +719,44 @@ router.get("/singleSellerCustomerInInit/:id/:time",function(req,res,next){
         }]
     }`
     var seller1 = `[{
-							    	"incrementNum":100,
+							    	"incrementNum":120,
 							    	"incrementRatio":"22.0",
 							    	"shopName":"taobao",
 							    	"countDate":"2017-02-11",
 							    	"isNewRecord":false
 							    },{
-							    	"incrementNum":100,
+							    	"incrementNum":130,
 							    	"incrementRatio":"22.0",
 							    	"shopName":"taobao",
 							    	"countDate":"2017-02-11",
 							    	"isNewRecord":false
 							    },{
-							    	"incrementNum":41,
+							    	"incrementNum":11,
 							    	"incrementRatio":"22.0",
 							    	"shopName":"taobao",
 							    	"countDate":"2017-02-11",
 							    	"isNewRecord":false
 							    },{
-							    	"incrementNum":43,
+							    	"incrementNum":13,
 							    	"incrementRatio":"22.0",
 							    	"shopName":"taobao",
 							    	"countDate":"2017-02-11",
 							    	"isNewRecord":false
 							    },{
-							    	"incrementNum":140,
+							    	"incrementNum":40,
 							    	"incrementRatio":"22.0",
 							    	"shopName":"taobao",
 							    	"countDate":"2017-02-11",
 							    	"isNewRecord":false
     }]`
     var seller2 = `[{
-							    	"incrementNum":100,
+							    	"incrementNum":101,
 							    	"incrementRatio":"22.0",
 							    	"shopName":"taobao",
 							    	"countDate":"2017-02-11 21:21:41",
 							    	"isNewRecord":false
 							    },{
-							    	"incrementNum":100,
+							    	"incrementNum":102,
 							    	"incrementRatio":"22.0",
 							    	"shopName":"taobao",
 							    	"countDate":"2017-02-11 21:21:41",
@@ -768,13 +768,13 @@ router.get("/singleSellerCustomerInInit/:id/:time",function(req,res,next){
 							    	"countDate":"2017-02-11 21:21:41",
 							    	"isNewRecord":false
 							    },{
-							    	"incrementNum":43,
+							    	"incrementNum":143,
 							    	"incrementRatio":"22.0",
 							    	"shopName":"taobao",
 							    	"countDate":"2017-02-11 21:21:41",
 							    	"isNewRecord":false
 							    },{
-							    	"incrementNum":140,
+							    	"incrementNum":120,
 							    	"incrementRatio":"22.0",
 							    	"shopName":"taobao",
 							    	"countDate":"2017-02-11 21:21:41",
@@ -789,7 +789,7 @@ router.get("/singleSellerCustomerInInit/:id/:time",function(req,res,next){
 router.get("/singleSellerCustomerFlowInit/:id/:time",function(req,res,next){
 	res.writeHead(200,{"Access-Control-Allow-Origin":"*"});
 	var id=req.params.id.substr(0,4);
-	var seller=`{
+	/*var seller=`{
         "name":"淘宝${id}",
         "value":[{
             "time":"12:21:08",
@@ -852,8 +852,283 @@ router.get("/singleSellerCustomerFlowInit/:id/:time",function(req,res,next){
             "time":"13:43:31",
             "num":413,
             "percent":5
+        },{
+            "time":"12:21:08",
+            "num":632,
+            "percent":7
+
+        },{
+            "time":"12:21:31",
+            "num":633,
+            "percent":5
+        },{
+            "time":"12:22:11",
+            "num":656,
+            "percent":5
+        }
+        ,{
+            "time":"12:23:31",
+            "num":563,
+            "percent":4
+        }
+        ,{
+            "time":"12:27:31",
+            "num":644,
+            "percent":2
+        }
+        ,{
+            "time":"12:31:31",
+            "num":662,
+            "percent":3
+        }
+        ,{
+            "time":"12:43:31",
+            "num":613,
+            "percent":1
+        },{
+            "time":"13:21:31",
+            "num":633,
+            "percent":4
+        },{
+            "time":"13:22:11",
+            "num":666,
+            "percent":2
+        }
+        ,{
+            "time":"13:23:31",
+            "num":533,
+            "percent":6
+        }
+        ,{
+            "time":"13:27:31",
+            "num":634,
+            "percent":2
+        }
+        ,{
+            "time":"13:31:31",
+            "num":532,
+            "percent":3
+        },{
+            "time":"12:21:08",
+            "num":632,
+            "percent":7
+
+        },{
+            "time":"12:21:31",
+            "num":633,
+            "percent":5
+        },{
+            "time":"12:22:11",
+            "num":656,
+            "percent":5
+        }
+        ,{
+            "time":"12:23:31",
+            "num":563,
+            "percent":4
+        }
+        ,{
+            "time":"12:27:31",
+            "num":644,
+            "percent":2
+        }
+        ,{
+            "time":"12:31:31",
+            "num":662,
+            "percent":3
+        }
+        ,{
+            "time":"12:43:31",
+            "num":613,
+            "percent":1
+        },{
+            "time":"13:21:31",
+            "num":633,
+            "percent":4
+        },{
+            "time":"13:22:11",
+            "num":666,
+            "percent":2
+        }
+        ,{
+            "time":"13:23:31",
+            "num":533,
+            "percent":6
+        }
+        ,{
+            "time":"13:27:31",
+            "num":634,
+            "percent":2
+        }
+        ,{
+            "time":"13:31:31",
+            "num":532,
+            "percent":3
+        },{
+            "time":"12:21:31",
+            "num":633,
+            "percent":5
+        },{
+            "time":"12:22:11",
+            "num":656,
+            "percent":5
+        }
+        ,{
+            "time":"12:23:31",
+            "num":563,
+            "percent":4
+        }
+        ,{
+            "time":"12:27:31",
+            "num":644,
+            "percent":2
+        }
+        ,{
+            "time":"12:31:31",
+            "num":662,
+            "percent":3
+        }
+        ,{
+            "time":"12:43:31",
+            "num":613,
+            "percent":1
+        },{
+            "time":"13:21:31",
+            "num":633,
+            "percent":4
+        },{
+            "time":"13:22:11",
+            "num":666,
+            "percent":2
+        }
+        ,{
+            "time":"13:23:31",
+            "num":533,
+            "percent":6
+        }
+        ,{
+            "time":"13:27:31",
+            "num":634,
+            "percent":2
+        }
+        ,{
+            "time":"13:31:31",
+            "num":532,
+            "percent":3
+        }
+        ,{
+            "time":"13:43:31",
+            "num":413,
+            "percent":5
+        },{
+            "time":"12:21:08",
+            "num":632,
+            "percent":7
+
+        },{
+            "time":"12:21:31",
+            "num":633,
+            "percent":5
+        },{
+            "time":"12:22:11",
+            "num":656,
+            "percent":5
+        }
+        ,{
+            "time":"12:23:31",
+            "num":563,
+            "percent":4
+        }
+        ,{
+            "time":"12:27:31",
+            "num":644,
+            "percent":2
+        }
+        ,{
+            "time":"12:31:31",
+            "num":662,
+            "percent":3
+        }
+        ,{
+            "time":"12:43:31",
+            "num":613,
+            "percent":1
+        },{
+            "time":"13:21:31",
+            "num":633,
+            "percent":4
+        },{
+            "time":"13:22:11",
+            "num":666,
+            "percent":2
+        }
+        ,{
+            "time":"13:23:31",
+            "num":533,
+            "percent":6
+        }
+        ,{
+            "time":"13:27:31",
+            "num":634,
+            "percent":2
+        }
+        ,{
+            "time":"13:31:31",
+            "num":532,
+            "percent":3
+        },{
+            "time":"12:21:08",
+            "num":632,
+            "percent":7
+
+        },{
+            "time":"12:21:31",
+            "num":633,
+            "percent":5
+        },{
+            "time":"12:22:11",
+            "num":656,
+            "percent":5
+        }
+        ,{
+            "time":"12:23:31",
+            "num":563,
+            "percent":4
+        }
+        ,{
+            "time":"12:27:31",
+            "num":644,
+            "percent":2
+        }
+        ,{
+            "time":"12:31:31",
+            "num":662,
+            "percent":3
+        }
+        ,{
+            "time":"12:43:31",
+            "num":613,
+            "percent":1
+        },{
+            "time":"13:21:31",
+            "num":633,
+            "percent":4
+        },{
+            "time":"13:22:11",
+            "num":666,
+            "percent":2
+        }
+        ,{
+            "time":"13:23:31",
+            "num":533,
+            "percent":6
+        }
+        ,{
+            "time":"13:27:31",
+            "num":634,
+            "percent":2
         }]
-    }`
+    }`*/
   var seller1=`[
   			{
   				"customerNumber":456,
@@ -903,7 +1178,151 @@ router.get("/singleSellerCustomerFlowInit/:id/:time",function(req,res,next){
   				"shopName":"ew",
   				"countDate":"2014-21-21",
   				"isNewRecord":false
-  			}
+  			},{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },,{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },,{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },,{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21",
+          "isNewRecord":false
+        },
   ]`
   var seller2=`[
   			{
@@ -954,7 +1373,133 @@ router.get("/singleSellerCustomerFlowInit/:id/:time",function(req,res,next){
   				"shopName":"ew",
   				"countDate":"2014-21-21 08:29:32",
   				"isNewRecord":false
-  			}
+  			},{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        },{
+          "customerNumber":456,
+          "customerRatio":"32.0",
+          "shopName":"ew",
+          "countDate":"2014-21-21 08:29:32",
+          "isNewRecord":false
+        }
   ]`
   if(Math.random() > 0.5){
   	seller1=seller2;
