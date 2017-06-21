@@ -110,7 +110,6 @@ class _Chart extends React.Component {
         }
       });
     }
-        // console.log(yesterday);
     return (<div className="chartWrapper firstWrapper">
       {/* <div className='chartMessage'>
                 <p>当前人数：{this.state.chartNum}</p><p>昨日平均客流：2132</p><p>昨日高峰时段：16:30-21:00</p>
@@ -133,7 +132,7 @@ class _Chart extends React.Component {
       <div className="panel">
         <div className="panelHead">当前实时客流&nbsp;
                 <FaQuestion className="questionMark" />
-          <div className="messageMark"><p>展示商城实时客流量<br />实时信息将自动更新，更新间隔为：{}分钟</p></div>
+          <div className="messageMark"><p>展示商城实时客流量<br />实时信息将自动更新，更新间隔为：10秒钟</p></div>
         </div>
         <div className="panelBody">
           <div ref="chartLine" className="chartLine" />
@@ -157,22 +156,6 @@ class _Chart extends React.Component {
 
 }
 
-/* const mapStateToProps = (state)=>{
-    console.log(state);
-    debugger
-    console.log(state.get('line'));
-    console.log(state.get('a'));
-    var aadsaf = state.toJS();
-    return state.toJS();
-}*/
-
-// const mapStateToProps = state => {
-//     debugger
-//     // let fdsa=state.get('a');
-//     // let a=fdsa.toJS();
-//     let ppppeee=state.toJS();
-//     return ppppeee;
-// };
 const mapStateToProps = state => ({
   line: state.getIn(['a', 'line'])
 });
@@ -182,6 +165,5 @@ const Chart = connect(mapStateToProps, FrstPageAction)(_Chart);
 //   stuff: state.get('stuff'),
 //   otherStuff: state.get('otherStuff')
 // })
-
 
 export default Chart;

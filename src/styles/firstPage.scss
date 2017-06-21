@@ -56,8 +56,10 @@ nav {
   .brand {
     float: left;
     padding-left: 17px;
-
     display: inline-block;
+    a img{
+      vertical-align: middle;
+    }
   }
   a {
     font-size: $navFontSize;

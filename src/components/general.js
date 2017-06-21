@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import redux from 'redux';
+import path from 'path';
 import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router';
 const FaRedditAlien = require('react-icons/lib/fa/reddit-alien');
 import '../styles/firstPage.scss';
@@ -22,9 +23,10 @@ class General extends React.Component {
   }
 
   render() {
+    let imgSrc = path.dirname(__filename)+'../../lib/images/logo.50.png';
     return (<div>
       <nav className="nav">
-        <div className="brand"><a href="#"><FaRedditAlien />Old Pie</a></div>
+        <div className="brand"><Link to='/firstPage'><img src={imgSrc} /></Link></div>
         <ul className="navMenu">
           <li><Link to="/firstPage" activeClassName="active" draggable="false">概况</Link></li>
           <li><Link to="/sellers" activeClassName="active" draggable="false">商家</Link></li>
