@@ -28,9 +28,9 @@ class General extends React.Component {
       <nav className="nav">
         <div className="brand"><Link to='/firstPage'><img src={imgSrc} /></Link></div>
         <ul className="navMenu">
-          <li><Link to="/firstPage" activeClassName="active" draggable="false">概况</Link></li>
-          <li><Link to="/sellers" activeClassName="active" draggable="false">商家</Link></li>
-          <li><Link to="/statistics" activeClassName="active" draggable="false">统计分析</Link></li>
+          <li><Link to="/firstPage" activeClassName="active" draggable="false">产品介绍</Link></li>
+          <li><Link to="/statistics" activeClassName="active" draggable="false">商城统计</Link></li>
+          <li><Link to="/sellers" activeClassName="active" draggable="false">商家统计</Link></li>
           <li><Link to="/compare" activeClassName="active" draggable="false">数据对比</Link></li>
         </ul>
       </nav>

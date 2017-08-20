@@ -8,8 +8,10 @@
     "dev": "webpack-dev-server --progress",
     "dev1": "webpack-dev-server --history-api-fallback",
     "test": " mocha --compilers js:babel-core/register ",
+    "clean": "rm -rf dist/*",
     "deploy": "set NODE_ENV=production && webpack --progress -p --config webpack.production.config.js",
-    "eslint": "eslint src/ --fix"
+    "eslint": "eslint src/ --fix",
+    "Copy": "cp -r lib dist && cp favicon.ico dist"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +20,7 @@
     "echarts": "^3.4.0",
     "immutable": "^3.8.1",
     "react": "^15.4.2",
+    "react-addons-css-transition-group": "^15.6.0",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
     "react-icons": "^2.2.5",

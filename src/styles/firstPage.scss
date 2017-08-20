@@ -44,6 +44,180 @@ body {
   height: 100%;
 }
 
+.carousel {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    .introduction{
+      // height: 100%;
+      width: 90%;
+      margin:0 auto 50px;
+      > h2{
+        color: #508bff;
+        font-size: 42px;
+        text-align: center;
+        margin: 20px 0;
+      }
+      > p{
+        font-size: 17px;
+        line-height: 27px;
+        text-align:center;
+      }
+      
+    }
+    .introductionWall{
+      margin:30px auto;
+      display:flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      & li{
+        width: 30%;
+        & svg{
+          color: #6c9dff;
+
+        }
+        & p{
+          display:inline-block;
+          font-size:17px;
+          text-indent:10px;
+          transform: translateY(2px);
+        }
+        & span{
+          display:block;
+          font-size:14px;
+          margin:20px auto;
+          color: #7e7e7e;
+        }
+      }
+    }
+    .introductionTable{
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      & p{
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+      & span{
+        font-size: 15px;
+      }
+      & svg{
+        font-size: 90px;
+        color: #508bff;
+      }
+      > li{
+        text-align: center;
+        border: 1px solid #508bff;
+        padding: 15px 10px 10px;
+        border-radius: 10px;
+        box-sizing: border-box;
+        width: 20%;
+        height:200px;
+      }
+    }
+    .carousel-image {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        & h2{
+          position:absolute;
+
+          top:28%;
+          left:15%;
+          color:white;
+          font-size:49px;
+        }
+        & p{
+          position:absolute;
+          top:40%;
+          left:15%;
+          color:white;
+          font-size:26.6px;
+          font-style: italic;
+        }
+        .carousel-image-item {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            & img{
+              width:100%;
+              position:absolute;
+              bottom:0;
+            }
+            .carousel-image-item-enter {
+                position: absolute;
+                opacity: 0.01;
+                &.carousel-image-item-enter-active {
+                    opacity: 1;
+                    transition: 1.5s opacity ease-in-out;
+                }
+            }
+            .carousel-image-item-leave {
+                position: absolute;
+                opacity: 1;
+                &.carousel-image-item-leave-active {
+                    opacity: 0.01;
+                    transition: 1.5s opacity ease-in-out;
+                }
+            }
+        }
+    }
+    .carousel-nav {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        .carousel-nav-item {
+            list-style: none;
+            float: left;
+            margin-right: 5px;
+            width: 15px;
+            height: 15px;
+            background-color: #C0C0C0;
+            border-radius: 50%;
+            &.carousel-nav-item-active {
+                background-color: #EBEBEB;
+            }
+
+        }
+    }
+    .button-group {
+        span {
+            position: absolute;
+            width: 40px;
+            cursor: pointer;
+            font-size: 30px;
+            background-color: rgba(0, 0, 0, 0.05);
+            text-align: center;
+            line-height:60px; 
+            color: #fff;
+            top: 220px;
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+        }
+        .button-left {
+            left:10px;
+        }
+        .button-right {
+            right: 10px;
+        }
+    }
+}
+.introductionFooter{
+  height: 70px;
+  width: 100%;
+  background-color: #404040;
+  & p{
+    text-align: center;
+    line-height: 22px;
+    color:#ccc;
+    font-size: 15px;
+  }
+  & p:nth-child(1){
+    padding-top:20px;
+  }
+}
 nav {
   height: 60px;
   width: 100%;
@@ -411,9 +585,9 @@ nav {
   }
   //首页没有侧边导航，wrapper满屏
   .firstWrapper{
-    left:0;
-    width:100%;
-    margin:0 auto;
+    // left:0;
+    // width:100%;
+    // margin:0 auto;
   }
   .firstTable{
     margin:0 auto 25px;

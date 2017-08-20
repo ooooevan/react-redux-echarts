@@ -10,6 +10,7 @@ import FirstPage from './firstPage/firstPage';
 import store from '../store/store';
 import FirstPageChart from './firstPage/firstPageChart';
 import FirstPageSellers from './firstPage/allSellers';
+import Carousel from './firstPage/Carousel';
 
 
 import Calendar from './calendar';
@@ -288,8 +289,8 @@ ReactDOM.render(
         <IndexRedirect to="/firstPage/total" />
         <Redirect from="firstPage" to="/firstPage/total" />
         <Route path="firstPage" component={FirstPage}>
-          <IndexRoute component={FirstPageChart} />
-          <Route path="total" component={FirstPageChart} />
+          <IndexRoute component={Carousel} />
+          <Route path="total" component={Carousel} />
           <Route path="allSellers" component={FirstPageSellers} />
           {/* <Route path="firstFloor" component={FirstFloorChart}/>
           <Route path="secondFloor" component={SecondFloorChart}/>
@@ -319,9 +320,10 @@ ReactDOM.render(
             </Route>
           </Route>
         </Route>
-        <Redirect from="statistics" to="/statistics/total" />
+        <Redirect from="statistics" to="/statistics/index" />
         <Route path="statistics" getComponent={Statistics}>
-          <IndexRoute getComponent={StatCustomerNum} />
+          <IndexRoute component={FirstPageChart} />
+          <Route path="index" component={FirstPageChart} />
           <Route path="total" getComponent={StatCustomerNum} />
           <Route path="peak" getComponent={StatCustomerPeak} />
           <Route path="avg" getComponent={StatCustomerAvg} />

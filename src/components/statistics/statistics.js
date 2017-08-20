@@ -18,12 +18,15 @@ const FaAngleDoubleRight = require('react-icons/lib/fa/angle-double-right');
 class SidebarNav extends React.Component {
   constructor(props) {
     super(props);
+   
   }
+  
 
 
   render() {
     return (<div id="sidebar_nav">
       <ul>
+        <li><Link to='statistics/index' activeClassName="active" draggable="false">实时客流<FaAngleDoubleRight className="fa-angle-double-right" /></Link></li>
         <li><Link to="statistics/total" activeClassName="active" draggable="false">入店量 <FaAngleDoubleRight className="fa-angle-double-right" /></Link></li>
         <li><Link to="statistics/avg" activeClassName="active" draggable="false">客流量 <FaAngleDoubleRight className="fa-angle-double-right" /></Link></li>
         <li><Link to="statistics/peak" activeClassName="active" draggable="false">客流峰值 <FaAngleDoubleRight className="fa-angle-double-right" /></Link></li>
@@ -44,7 +47,8 @@ class _statistics extends React.Component {
     super(props);
     this.state = {
       selectTime: 'day',
-      time: 'day'
+      time: 'day',
+      index:false,
     };
   }
   stateDefault=() => {
@@ -53,13 +57,25 @@ class _statistics extends React.Component {
       time: 'day'
     });
   }
+  componentWillMount(){
+    if(location.href.indexOf('statistics/index') != -1){
+      this.setState({index:true});
+    }else{
+      this.setState({index:false});
+    }
+  }
   componentWillReceiveProps(nextProps, nextState) {
-    if (nextProps !== this.props) {
+    if (nextProps !== this.props && !this.state.index) {
         // 选择时间去掉红色框ClassName
       const time1 = ReactDOM.findDOMNode(this.refs.selectTime1).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
       const time2 = ReactDOM.findDOMNode(this.refs.selectTime2).getElementsByClassName('calendar')[0].getElementsByTagName('input')[0].value;
       ReactDOM.findDOMNode(this.refs.selectTime1).className = ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError', '');
       ReactDOM.findDOMNode(this.refs.selectTime2).className = ReactDOM.findDOMNode(this.refs.selectTime1).className.replace(' selectTimeError', '');
+    }
+    if(location.href.indexOf('statistics/index') != -1){
+      this.setState({index:true});
+    }else{
+      this.setState({index:false});
     }
   }
   componentDidMount() {
@@ -142,9 +158,10 @@ class _statistics extends React.Component {
     });
   }
   render() {
+    const {index} = this.state;
     return (<div id="container">
       <SidebarNav />
-      <div className="chartWrapper">
+      {!index && <div className="chartWrapper">
         <div className="selectOption inline">
                     快速选择：
                     <div className="quickSelect">
@@ -170,8 +187,12 @@ class _statistics extends React.Component {
         </div>
 
         {this.props.children && React.cloneElement(this.props.children, {time: this.state.time, stateDefault: this.stateDefault})}
-      </div>
-
+      </div>}
+      {index && 
+        <div>
+          {this.props.children && React.cloneElement(this.props.children, {time: this.state.time, stateDefault: this.stateDefault})}
+        </div>
+      }
     </div>);
   }
 }
