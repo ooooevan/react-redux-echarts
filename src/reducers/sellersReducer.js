@@ -58,14 +58,14 @@ export default function sellersReducer(state = initialState, action) {
 
 
     case TYPE.singleSellerCustomerNumFetch: {
-      return state.updateIn(['customerNum', 'xAxis', 0, 'data'], list => list.push(action.payload.countDate.split(' ')[1]))
-                  .updateIn(['customerNum', 'xAxis', 0, 'data'], list => list.shift())
-                  .updateIn(['customerNum', 'series', 0, 'data'], list => list.push(action.payload.customerNumber))
-                  .updateIn(['customerNum', 'series', 0, 'data'], list => list.shift())
-                  .updateIn(['customerNum', 'series', 1, 'data'], list => list.push(action.payload.doorCustomerNumber))
-                  .updateIn(['customerNum', 'series', 1, 'data'], list => list.shift())
-                  .updateIn(['customerNum', 'series', 2, 'data'], list => list.push(action.payload.customerRatio))
-                  .updateIn(['customerNum', 'series', 2, 'data'], list => list.shift());
+      return state.updateIn(['customerNum', 'xAxis', 0, 'data'], list => list.unshift(action.payload.countDate.split(' ')[1]))
+                  .updateIn(['customerNum', 'xAxis', 0, 'data'], list => list.pop())
+                  .updateIn(['customerNum', 'series', 0, 'data'], list => list.unshift(action.payload.customerNumber))
+                  .updateIn(['customerNum', 'series', 0, 'data'], list => list.pop())
+                  .updateIn(['customerNum', 'series', 1, 'data'], list => list.unshift(action.payload.doorCustomerNumber))
+                  .updateIn(['customerNum', 'series', 1, 'data'], list => list.pop())
+                  .updateIn(['customerNum', 'series', 2, 'data'], list => list.unshift(action.payload.customerRatio))
+                  .updateIn(['customerNum', 'series', 2, 'data'], list => list.pop());
     }
 
     case TYPE.singleSellerCustomerFlowInit: {

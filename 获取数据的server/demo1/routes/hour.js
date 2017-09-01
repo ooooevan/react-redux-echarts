@@ -326,7 +326,7 @@ router.get("/singleSellerCustomerNumFetch/:id",function(req,res,next){
 	var num2=500 + parseInt(Math.random()*100);
 	var percent=1 + parseInt(Math.random()*10);
 	var seller=`{
-            "countDate":"2017-04-12 12:21:08",
+            "countDate":"2017-09-1 12:21:12",
             "customerNumber":${num1},
             "doorCustomerNumber":${num2},
             "shopName":"wedf",
