@@ -1696,15 +1696,7 @@ router.get("/singleSellerCustomerNumInit/:id",function(req,res,next){
 		percent:可以是门前客流入店的比例，也可以是总入店比例  （入店比例）
 
 	*/
-	var seller=`{
-        "name":"淘宝${id}",
-        "value":[{
-            "time":"12:21:08",
-            "num1":632,
-            "num2":722,
-            "percent":88
-        }]
-    }`
+
 	var seller1=`[
 				{
 					"customerNumber":123,
@@ -1720,7 +1712,7 @@ router.get("/singleSellerCustomerNumInit/:id",function(req,res,next){
 					"customerRatio":"50.0",
 					"yesterdayMaxNumber":0,
 					"shopName":"taobao",
-					"countDate":"2017-05-10 15:21:33",
+					"countDate":"2017-05-10 15:22:33",
 					"isNewRecord":false
 				},{
 					"customerNumber":123,
@@ -1728,7 +1720,7 @@ router.get("/singleSellerCustomerNumInit/:id",function(req,res,next){
 					"customerRatio":"50.0",
 					"yesterdayMaxNumber":0,
 					"shopName":"taobao",
-					"countDate":"2017-05-10 15:21:33",
+					"countDate":"2017-05-10 15:23:33",
 					"isNewRecord":false
 				},{
 					"customerNumber":123,
@@ -1736,7 +1728,7 @@ router.get("/singleSellerCustomerNumInit/:id",function(req,res,next){
 					"customerRatio":"50.0",
 					"yesterdayMaxNumber":0,
 					"shopName":"taobao",
-					"countDate":"2017-05-10 15:21:33",
+					"countDate":"2017-05-10 15:24:33",
 					"isNewRecord":false
 				},{
 					"customerNumber":123,
@@ -1744,13 +1736,13 @@ router.get("/singleSellerCustomerNumInit/:id",function(req,res,next){
 					"customerRatio":"50.0",
 					"yesterdayMaxNumber":0,
 					"shopName":"taobao",
-					"countDate":"2017-05-10 15:21:33",
+					"countDate":"2017-05-10 15:25:33",
 					"isNewRecord":false
 				},{
 					"customerNumber":0,
 					"doorCustomerNumber":0,
 					"yesterdayMaxNumber":678,
-					"maxNumberTime":"2017-05-10 15:21:33",
+					"maxNumberTime":"2017-05-10 15:26:33",
 					"isNewRecord":false
 				}]`
 	res.write(seller1);

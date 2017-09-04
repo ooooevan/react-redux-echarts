@@ -37,7 +37,7 @@ export default function sellersReducer(state = initialState, action) {
     case TYPE.singleSellerCustomerNumInit: {
       const yesterday = {};
       const customer = {name: action.payload[0].shopName, time: [], num1: [], num2: [], percent: []};
-      action.payload.forEach((item) => {
+      action.payload.reverse().forEach((item) => {
         if (item.yesterdayMaxNumber > 0) {
           yesterday.num = item.yesterdayMaxNumber;
           yesterday.time = item.maxNumberTime.split(' ')[1];
