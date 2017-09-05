@@ -246,7 +246,7 @@ class _Chart extends React.Component {
       </div>
 
       <div className="panel">
-        <div className="panelHead">各商家客流&nbsp;
+        <div className="panelHead">入店量环比&nbsp;
                     <FaQuestion className="questionMark" />
           <div className="messageMark"><p>展示商城各商家一定时间的入店量及环比增幅<br /><strong>入店量</strong>：一定时间内进入商城的人数<br /><strong>环比增幅</strong>：指与历史同时期比较。环比增长速度=（本期数－上期数）/上期数*100% 反映本期比上期增长了多少 环比发展速度=本期数/上期数*100% 反映本期比上期增长多少</p></div></div>
         <div className="panelBody">
@@ -265,7 +265,7 @@ class _Chart extends React.Component {
               <tr><th>排名</th><th>商店名称</th><th>平均客流</th><th>环比增幅</th></tr>
             </thead>
             <tbody>
-              {rows}
+              {rows.reverse()}
             </tbody>
           </table>
         </div>
