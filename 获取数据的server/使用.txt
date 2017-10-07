@@ -1,2 +1,0 @@
-①运行url.js
-②进入demo1  npm start

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>oldPie</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+  <!--[if lt IE 9]>
+  <script src="es5-shim.js"></script>
+  <script src="es5-sham.js"></script>
+  <script src="html5shiv.js"></script>
+  <![endif]-->
+  <style>
+ .in-round {
+            position: absolute;
+            left: 50%;
+            /*top: -50%;*/
+            top: 200px;
+            transform: translate(-50%, -50%) rotate(180deg);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+        /*左边两个半圆*/
+        .lt-round, .lt-mask {
+            position: absolute;
+            width: 35px;
+            height: 70px;
+            border-radius: 35px 0 0 35px;
+            transform-origin: right center;
+        }
+        .lt-round {
+            z-index: 3;
+            background-color: #bbb;
+            animation: ltRound 1.5s linear infinite running;
+        }
+        .lt-mask {
+            z-index: 2;
+            background-color: #eee;
+            animation: ltMask 1.5s linear infinite running;
+        }
+        /*右边两个半圆*/
+        .rt-round, .rt-mask {
+            position: absolute;
+            left: 50%;
+            width: 35px;
+            height: 70px;
+            border-radius: 0 35px 35px 0;
+            transform-origin: left center;
+        }
+        .rt-round {
+            z-index: 1;
+            background-color: #bbb;
+            animation: rtRound 1.5s linear infinite running;
+        }
+        .rt-mask {
+            background-color: #eee;
+        }
+        @keyframes ltRound {
+            0% {
+                transform: rotate(-360deg);
+            }
+            24.9% {
+                z-index: 3;
+            }
+            25% {
+                z-index: 1;
+                transform: rotate(-180deg);
+            }
+            50% {
+                transform: rotate(0deg);
+            }
+            74.9% {
+                z-index: 1;
+            }
+            75%, 100% {
+                z-index: 3;
+            }
+        }
+        @keyframes rtRound {
+            0%, 24.9% {
+                z-index: 1;
+            }
+            25% {
+                z-index: -3;
+            }
+            74.9% {
+                z-index: -3;
+            }
+            75%, 100% {
+                z-index: 1;
+            }
+        }
+        @keyframes ltMask {
+            0%, 25%, 50% {
+                transform: rotate(-360deg);
+            }
+            75% {
+                transform: rotate(-180deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+  </style>
+<link href="style-9440dfe5.css" rel="stylesheet"></head>
+<body>
+<div id="app"></div>
+
+
+<div class="in-round">
+    <div class="lt-round"></div>
+    <div class="lt-mask"></div>
+    <div class="rt-round"></div>
+    <div class="rt-mask"></div>
+</div>
+
+<script type="text/javascript" src="vendors-134fc62b.js"></script><script type="text/javascript" src="app-b5fee4db.js"></script></body>
+</html>
