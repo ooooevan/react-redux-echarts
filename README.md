@@ -42,3 +42,5 @@ npm run deploy
 ![](https://ooooevan.github.io/2017/10/07/react-redux-router-echarts%E5%8F%AF%E8%A7%86%E5%8C%96%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/echarts-modules.png)
 
 详细内容请看我写的[文章](https://ooooevan.github.io/2017/10/07/react-redux-router-echarts%E5%8F%AF%E8%A7%86%E5%8C%96%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/)
+
+如果有错，望指正，如果觉得可以，欢迎star
